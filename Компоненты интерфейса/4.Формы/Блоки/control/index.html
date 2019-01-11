@@ -1,0 +1,79 @@
+<script>
+    /*данные ошибки добаления пользователя*/
+    $('#add-user-msg').html(framework_life_balance_answer_content['msg_add_user']);
+
+    /*последняя ошибка в файле лога*/
+    if(framework_life_balance_answer_content['last_error_in_file_log']==false){
+        var last_error_in_file_log = 'Нет.';
+    }
+    else{
+        var last_error_in_file_log = framework_life_balance_answer_content['last_error_in_file_log'];
+    }
+    $('#last_error_in_file_log').html(last_error_in_file_log);
+</script>
+<!-- HOME -->
+<section id="home" class="padbot0">
+
+    <!-- TOP SLIDER -->
+    <div class="flexslider top_slider">
+        <ul class="slides">
+            <li class="slide5">
+                <div class="flex_caption1" style="background-color: rgba(255, 255, 255, 0.7);padding:10px;">
+
+                    <p class="navmenu title4 captionDelay7 FromBottom color_white">Последняя ошибка: </p>
+                    <p id="last_error_in_file_log" class="navmenu title5 captionDelay7 FromBottom color_white"></p>
+
+                </div>
+                <a class="slide_btn FromRight to_core" href="/control/errors" >Ошибки</a>
+            </li>
+        </ul>
+    </div>
+    <div id="carousel">
+        <ul class="slides">
+            <li><img src="/Компоненты интерфейса/2.Представления/Картинки/slider/slide_control.jpg" alt="" /></a></li>
+        </ul>
+    </div><!-- //TOP SLIDER -->
+</section><!-- //HOME -->
+
+<script>
+    /*-----------------------------------------------------------------------------------*/
+    /*	FLEXSLIDER
+    /*-----------------------------------------------------------------------------------*/
+    $('.flexslider.top_slider').flexslider({
+        animation: "fade",
+        controlNav: false,
+        directionNav: false,
+        animationLoop: false,
+        slideshow: false,
+        prevText: "",
+        nextText: "",
+        sync: "#carousel"
+    });
+    $('#carousel').flexslider({
+        animation: "fade",
+        controlNav: false,
+        animationLoop: false,
+        directionNav: false,
+        slideshow: false,
+        itemWidth: 100,
+        itemMargin: 5,
+        asNavFor: '.top_slider'
+    });
+
+
+    jQuery('.flexslider.top_slider .flex-direction-nav').addClass('container');
+
+
+    //Vision Slider
+    $('.flexslider.portfolio_single_slider').flexslider({
+        animation: "fade",
+        controlNav: true,
+        directionNav: true,
+        animationLoop: false,
+        slideshow: false,
+    });
+
+
+    var wh = jQuery(window).height() - 80;
+    jQuery('.top_slider, .top_slider .slides li').css('height', wh);
+</script>

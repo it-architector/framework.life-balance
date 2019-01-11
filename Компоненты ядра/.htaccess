@@ -1,0 +1,8 @@
+Options -Indexes -ExecCGI
+ 
+php_flag engine 0
+
+# Выдавать как текст файлы с перечисленным расширением #
+<Files ~ ".(php*|phtml|pl|py|jsp|asp|shtml|sh|cgi)">
+    ForceType text/plain
+</Files>

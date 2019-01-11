@@ -1,7 +1,0 @@
-Options -Indexes -ExecCGI
- 
-php_flag engine 0
- 
-<Files ~ ".(php*|phtml|pl|py|jsp|asp|shtml|sh|cgi)">
-    ForceType text/plain
-</Files>

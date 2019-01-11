@@ -1,0 +1,73 @@
+<script>
+
+    /*данные ошибки*/
+    $('.flex_caption1').html('<p class="navmenu title3 captionDelay7 FromBottom color_white">Ваш запрос отвергнут*</p>\n' +
+        '                    <br><br>\n' +
+        '                    <p class="navmenu title6 captionDelay7 FromBottom color_white">* текущая информация отправлена в отдел разрабочиков для изучения. Спасибо!</p>\n');
+</script>
+<!-- HOME -->
+<section id="home" class="padbot0">
+
+    <!-- TOP SLIDER -->
+    <div class="flexslider top_slider">
+        <ul class="slides">
+            <li class="slide6">
+                <div class="flex_caption1" style="background-color: rgba(186, 22, 22, 0.7);padding:10px;">
+
+
+
+
+                </div>
+                <a class="slide_btn FromRight to_core" href="#contacts" >Контакты</a>
+            </li>
+        </ul>
+    </div>
+    <div id="carousel">
+        <ul class="slides">
+            <li><img src="/Компоненты интерфейса/2.Представления/Картинки/slider/slide_stop.jpg" alt="" /></a></li>
+        </ul>
+    </div><!-- //TOP SLIDER -->
+</section><!-- //HOME -->
+
+<script>
+    /*-----------------------------------------------------------------------------------*/
+    /*	FLEXSLIDER
+    /*-----------------------------------------------------------------------------------*/
+    $('.flexslider.top_slider').flexslider({
+        animation: "fade",
+        controlNav: false,
+        directionNav: false,
+        animationLoop: false,
+        slideshow: false,
+        prevText: "",
+        nextText: "",
+        sync: "#carousel"
+    });
+    $('#carousel').flexslider({
+        animation: "fade",
+        controlNav: false,
+        animationLoop: false,
+        directionNav: false,
+        slideshow: false,
+        itemWidth: 100,
+        itemMargin: 5,
+        asNavFor: '.top_slider'
+    });
+
+
+    jQuery('.flexslider.top_slider .flex-direction-nav').addClass('container');
+
+
+    //Vision Slider
+    $('.flexslider.portfolio_single_slider').flexslider({
+        animation: "fade",
+        controlNav: true,
+        directionNav: true,
+        animationLoop: false,
+        slideshow: false,
+    });
+
+
+    var wh = jQuery(window).height() - 80;
+    jQuery('.top_slider, .top_slider .slides li').css('height', wh);
+</script>

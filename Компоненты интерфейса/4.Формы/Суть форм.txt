@@ -1,0 +1,29 @@
+/* Блоки html для ответов от ядра */
+framework_life_balance_htmlOnRequestsToCore = {
+
+    /* основа */
+    '/index/index': 'главная страница',
+    '/index/error': 'страница ошибки',
+    '/index/stop': 'блокировка доступа по причине губительного влияния',
+    '/index/engineering_works': 'блокировка доступа по причине технических работ',
+    '/index/send_error': 'отправка ошибки',
+    '/index/site_map': 'карта сайта',
+
+    /* пользователи */
+    '/users/index': 'главная страница',
+    '/users/registration': 'регистрация',
+    '/users/registration_ok': 'регистрация успешно проведена',
+    '/users/authorize': 'сброс авторизации',
+    '/users/authorized_ok': 'авторизация успешно проведена',
+    '/users/unauthorized_ok': 'сброс авторизации успешно проведен',
+
+    /* панель управления */
+    '/control/index': 'главная страница',
+    '/control/errors': 'ошибки ядра',
+};
+
+/* Внутренние блоки */
+
+/* mail/message.html - почтовое сообщение*/
+
+
