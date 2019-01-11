@@ -1,0 +1,24 @@
+<script>
+    /*выдача сообщения*/
+    $('.row.recent_posts').html(framework_life_balance_answer_content['msg']);
+
+    /*скрываем элементы формы обратной связи*/
+    $('#contact-form-face input[name="nickname_guest"]').hide();
+    $('#contact-form-face input[name="email_guest"]').hide();
+    $('#contact-form-face input[name="message_error"]').val('Сообщение об ошибке');
+</script>
+<!-- NEWS -->
+<section id="news">
+
+    <!-- CONTAINER -->
+    <div class="container">
+        <h2><b>Обратная связь</b></h2>
+
+        <!-- RECENT POSTS -->
+        <div class="row recent_posts" data-appear-top-offset="-200" data-animated="fadeInUp">
+
+        </div><!-- RECENT POSTS -->
+    </div><!-- //CONTAINER -->
+</section><!-- //NEWS -->
+
+

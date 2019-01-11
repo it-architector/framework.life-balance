@@ -1,0 +1,25 @@
+<script>
+    /*сохраняем авторизацию*/
+    $.cookie('user_id', framework_life_balance_answer_content['user_id'], { expires: 120, path: '/', });
+    $.cookie('user_session', framework_life_balance_answer_content['user_session'], { expires: 120, path: '/', });
+
+    /*меняем ссылки авторизации*/
+    framework_life_balance_showAuth();
+</script>
+
+<!-- NEWS -->
+<section id="news">
+
+    <!-- CONTAINER -->
+    <div class="container">
+        <h2><b>Вы авторизованы</b></h2>
+
+
+        <!-- RECENT POSTS -->
+        <div class="row recent_posts" data-appear-top-offset="-200" data-animated="fadeInUp">
+            Спасибо! Вы успешно авторизовались!
+        </div><!-- RECENT POSTS -->
+    </div><!-- //CONTAINER -->
+</section><!-- //NEWS -->
+
+

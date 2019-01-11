@@ -1,0 +1,88 @@
+<script>
+    if(framework_life_balance_answer_content['nickname']!=''){
+        $('#nickname_authorize').val(framework_life_balance_answer_content['nickname']);
+    }
+    if(framework_life_balance_answer_content['password']!=''){
+        $('#password_authorize').val(framework_life_balance_answer_content['password']);
+    }
+
+    /*данные ошибки*/
+    if(framework_life_balance_answer_content['authorize_error']!=''){
+
+        $('#authorize_message_error').html(framework_life_balance_answer_content['authorize_error']);
+        $('#authorize_message_error').show();
+    }
+</script>
+<!-- HOME -->
+<section id="home" class="padbot0">
+
+    <!-- TOP SLIDER -->
+    <div class="flexslider top_slider">
+        <ul class="slides">
+            <li class="slide4">
+                <div class="flex_caption1" style="background-color: rgba(255, 255, 255, 0.7);padding:10px;">
+
+
+
+                    <form action="/users/authorize" method="post">
+                        <input class="required" type="text" id="nickname_authorize" name="nickname_authorize" value="Псевдоним" onFocus="if (this.value == 'Псевдоним') this.value = '';" onBlur="if (this.value == '') this.value = 'Псевдоним';" style="width:300px;" /><br>
+                        <input class="required" type="password" id="password_authorize" name="password_authorize" value="Пароль" onFocus="if (this.value == 'Пароль') this.value = '';" onBlur="if (this.value == '') this.value = 'Пароль';" style="width:300px;" /><br>
+                        <p class="navmenu title5 captionDelay7 FromBottom color_white"><input class="contact_btn" type="submit" value="Войти" />  <label id="authorize_message_error" class="error" style="display: none;"></label></p>
+
+                    </form>
+
+
+                </div>
+                <a class="slide_btn FromRight to_core" href="/users" >Уже с нами</a>
+            </li>
+        </ul>
+    </div>
+    <div id="carousel">
+        <ul class="slides">
+            <li><img src="/компоненты-интерфейса/2_представление/картинки/slider/slide_auth.jpg" alt="" /></a></li>
+        </ul>
+    </div><!-- //TOP SLIDER -->
+</section><!-- //HOME -->
+
+<script>
+    /*-----------------------------------------------------------------------------------*/
+    /*	FLEXSLIDER
+    /*-----------------------------------------------------------------------------------*/
+    $('.flexslider.top_slider').flexslider({
+        animation: "fade",
+        controlNav: false,
+        directionNav: false,
+        animationLoop: false,
+        slideshow: false,
+        prevText: "",
+        nextText: "",
+        sync: "#carousel"
+    });
+    $('#carousel').flexslider({
+        animation: "fade",
+        controlNav: false,
+        animationLoop: false,
+        directionNav: false,
+        slideshow: false,
+        itemWidth: 100,
+        itemMargin: 5,
+        asNavFor: '.top_slider'
+    });
+
+
+    jQuery('.flexslider.top_slider .flex-direction-nav').addClass('container');
+
+
+    //Vision Slider
+    $('.flexslider.portfolio_single_slider').flexslider({
+        animation: "fade",
+        controlNav: true,
+        directionNav: true,
+        animationLoop: false,
+        slideshow: false,
+    });
+
+
+    var wh = jQuery(window).height() - 80;
+    jQuery('.top_slider, .top_slider .slides li').css('height', wh);
+</script>

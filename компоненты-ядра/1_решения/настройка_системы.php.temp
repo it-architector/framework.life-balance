@@ -1,0 +1,28 @@
+<?php
+
+return array(
+
+    /*база данных*/
+    'data_base' => 'mysql',
+
+    /*языковой стандарт*/
+    'locale' => 'ru_RU.UTF-8',
+
+    /*временная зона проекта*/
+    'time_zone' => 'Europe/Moscow',
+
+    /*включённость базы данных*/
+    'inclusiveness_data_base' => true,
+
+    /*включённость памяти*/
+    'inclusiveness_memory' => true,
+
+    /*включённость почты*/
+    'inclusiveness_mail' => true,
+
+    /*включённость SSL (https)*/
+    'inclusiveness_ssl' => false,
+
+);
+
+?>

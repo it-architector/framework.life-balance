@@ -1,0 +1,25 @@
+AddDefaultCharset UTF-8
+
+php_flag magic_quotes_gpc off
+php_flag magic_quotes_runtime off
+php_flag register_globals off
+
+
+# запрет доступа
+RedirectMatch 403 ^/компоненты-ядра/.*$
+
+# выдача ошибки
+ErrorDocument 404 ядро.php?request=/index/error
+
+Options -Indexes
+
+RewriteEngine on
+RewriteBase /
+
+#sitemap.xml
+RewriteCond %{REQUEST_URI} sitemap\.xml$
+RewriteRule ^sitemap\.xml$ ядро.php?request=/index/site_map_xml [L,QSA]
+
+#интерфейс
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ интерфейс.html [L,QSA]

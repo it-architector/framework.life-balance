@@ -1,0 +1,28 @@
+<?php
+
+return array(
+
+    /*название проекта*/
+    'name' => 'project name',
+
+    /*email проекта*/
+    'email' => 'login@site.ru',
+
+    /*ссылка проекта без http*/
+    'url' => 'site.ru',
+
+    /*доступ к базе данных*/
+    'access_data_base' => [
+        'user'     => 'login',
+        'password' => 'password',
+    ],
+
+    /*доступ к почте*/
+    'access_mail' => [
+        'login'    => 'login',
+        'password' => 'password',
+    ],
+
+);
+
+?>

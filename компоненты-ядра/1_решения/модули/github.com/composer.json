@@ -1,0 +1,12 @@
+{
+  "require": {
+    "phpmailer/phpmailer": "~6.0",
+    "php": ">=5.5"
+  },
+  "config": {
+    "vendor-dir": ".",
+    "preferred-install": "dist"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}

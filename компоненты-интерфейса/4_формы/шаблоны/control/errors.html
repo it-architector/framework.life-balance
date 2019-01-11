@@ -1,0 +1,34 @@
+<script>
+
+    /*ошибки из файла лога*/
+    if(framework_life_balance_answer_content['errors_in_file_log'] === null){
+        out_errors_in_file_log = 'Нет.';
+    }
+    else{
+        out_errors_in_file_log = '';
+        $.each(framework_life_balance_answer_content['errors_in_file_log'], function(error_id, error) {
+
+            out_errors_in_file_log = out_errors_in_file_log + '<p>' + error + '</p>';
+
+        });
+
+        out_errors_in_file_log = out_errors_in_file_log + '<p><u><a class="to_core" href="/control/errors?delete_file_log=true">Очистить файл лога</a></u></p>';
+    }
+
+    $('#out_errors_in_file_log').html(out_errors_in_file_log);
+</script>
+<!-- NEWS -->
+<section id="news">
+    <!-- CONTAINER -->
+    <div class="container">
+        <!-- RECENT POSTS -->
+        <p class="row recent_posts" data-appear-top-offset="-200" data-animated="fadeInUp">
+
+        <h2><b>Ошибки</b></h2>
+        <div id="out_errors_in_file_log"></div>
+
+        </div><!-- RECENT POSTS -->
+    </div><!-- //CONTAINER -->
+</section><!-- //NEWS -->
+
+

@@ -1,0 +1,13 @@
+<?php
+
+return array(
+
+    /*протокол ошибок запроса в ядро*/
+    'errors_request_core' => true,
+
+    /*протокол запросов в базу данных*/
+    'queryes_data_base' => false,
+
+);
+
+?>

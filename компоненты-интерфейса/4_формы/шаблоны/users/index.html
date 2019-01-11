@@ -1,0 +1,50 @@
+<script>
+    /*данные пользователей*/
+    out_users = '';
+
+    if(framework_life_balance_answer_content['users']==false){
+        out_users = 'Пока никого! Кто первый зарегистрируется тот будет администратором!';
+    }
+    else{
+        $.each(framework_life_balance_answer_content['users'], function(user_id, user) {
+
+            if(user['is_admin'] == 'true'){
+                var status = 'администратор';
+            }
+            else{
+                var status = 'пользователь';
+            }
+
+            out_users = out_users + '<div class="col-lg-4 col-md-4 col-sm-4 padbot30 post_item_block">\n' +
+                '            <div class="post_item"></div>\n' +
+                '            <div class="post_item_content">\n' +
+                '            <a class="title" href="#" >' + user['nickname'] + '</a>\n' +
+                '        <ul class="post_item_inf">\n' +
+                '            <li>id: ' + user['id'] + ' |</li>\n' +
+                '        <li>' + status + '</li>\n' +
+                '        </ul>\n' +
+                '        </div>\n' +
+                '        </div>';
+
+
+        });
+    }
+
+    $('.row.recent_posts').html(out_users);
+</script>
+<!-- NEWS -->
+<section id="news">
+
+    <!-- CONTAINER -->
+    <div class="container">
+        <h2><b>Уже с нами</b></h2>
+
+
+        <!-- RECENT POSTS -->
+        <div class="row recent_posts" data-appear-top-offset="-200" data-animated="fadeInUp">
+
+        </div><!-- RECENT POSTS -->
+    </div><!-- //CONTAINER -->
+</section><!-- //NEWS -->
+
+

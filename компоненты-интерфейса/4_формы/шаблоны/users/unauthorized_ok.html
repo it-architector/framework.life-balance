@@ -1,0 +1,25 @@
+<script>
+    /*стираем авторизацию*/
+    $.cookie('user_id', null, { expires: -1, path: '/', });
+    $.cookie('user_session', null, { expires: -1, path: '/', });
+
+    /*меняем ссылки авторизации*/
+    framework_life_balance_showAuth();
+</script>
+
+<!-- NEWS -->
+<section id="news">
+
+    <!-- CONTAINER -->
+    <div class="container">
+        <h2><b>Вы не авторизованы</b></h2>
+
+
+        <!-- RECENT POSTS -->
+        <div class="row recent_posts" data-appear-top-offset="-200" data-animated="fadeInUp">
+            Теперь вы не авторизованы!
+        </div><!-- RECENT POSTS -->
+    </div><!-- //CONTAINER -->
+</section><!-- //NEWS -->
+
+
