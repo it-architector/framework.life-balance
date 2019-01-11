@@ -2,6 +2,11 @@
 
 namespace Framework_life_balance\core_components\their_modules;
 
+/**
+ * Модуль базы данных mysql (pdo)
+ *
+ * @package Framework_life_balance\core_components\their_modules
+ */
 interface Structure_Data_Base
 {
 

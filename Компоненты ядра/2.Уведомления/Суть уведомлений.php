@@ -3,13 +3,7 @@
 namespace Framework_life_balance\core_components;
 
 /**
- * Class Notices
- *
- * Отвечает за смысл.
- *
- * Особенности:
- * - предназначение
- * - отношения
+ * Суть уведомлений
  *
  * @package Framework_life_balance\core_components
  */

@@ -2,6 +2,11 @@
 
 namespace Framework_life_balance\core_components;
 
+/**
+ * Суть уведомлений
+ *
+ * @package Framework_life_balance\core_components
+ */
 interface Structure_Notices
 {
 

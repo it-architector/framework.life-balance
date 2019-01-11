@@ -7,14 +7,7 @@ use \Framework_life_balance\core_components\Solutions;
 use \Framework_life_balance\core_components\Resources;
 
 /**
- * Class Business
- *
- * Отвечает за выполнение.
- *
- * Особенности:
- * - действие
- * - делегирование
- * - память
+ * Суть дел
  *
  * @package Framework_life_balance\core_components
  *

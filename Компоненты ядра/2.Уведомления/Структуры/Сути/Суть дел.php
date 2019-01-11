@@ -2,6 +2,11 @@
 
 namespace Framework_life_balance\core_components;
 
+/**
+ * Суть дел
+ *
+ * @package Framework_life_balance\core_components
+ */
 interface Structure_Business
 {
 

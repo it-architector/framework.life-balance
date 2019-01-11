@@ -2,6 +2,11 @@
 
 namespace Framework_life_balance\core_components\experiences;
 
+/**
+ * Наработка users
+ *
+ * @package Framework_life_balance\core_components\experiences
+ */
 interface Structure_users
 {
     /*Главная страницы с пользователями*/

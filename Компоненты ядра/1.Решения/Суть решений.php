@@ -6,13 +6,7 @@ use \Framework_life_balance\core_components\Resources;
 use PHPMailer\PHPMailer\Exception;
 
 /**
- * Class Solutions
- *
- * Отвечает за оптимизацию.
- *
- * Особенности:
- * - контроль
- * - структурирование
+ * Суть решений
  *
  * @package Framework_life_balance\core_components
  *

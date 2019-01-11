@@ -10,14 +10,7 @@ use \Framework_life_balance\core_components\their_modules\Data_Base;
 use \PHPMailer\PHPMailer\PHPMailer;
 
 /**
- * Class Resources
- *
- * Отвечает за обеспечение.
- *
- * Особенности:
- * - Схемы
- * - коммуникации
- * - взаимодействие
+ * Суть ресурсов
  *
  * @package Framework_life_balance\core_components
  *
