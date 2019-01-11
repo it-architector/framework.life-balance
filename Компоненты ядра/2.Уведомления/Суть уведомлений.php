@@ -24,7 +24,7 @@ class Notices implements Structure_Notices
     static function initiation(){
 
         /*берём настройки проекта из файла*/
-        $config_project = Resources::include_information_from_file(DIR_NOTICES,'настройка проекта','php');
+        $config_project = Resources::include_information_from_file(DIR_NOTICES,'Настройка проекта','php');
 
         if($config_project == null){
             Business::fix_error('нет файла настройки проекта',__FILE__, __LINE__);

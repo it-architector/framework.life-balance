@@ -44,7 +44,7 @@ class Resources implements Structure_Resources
         Notices::set_mission('config_communications',$config_communications);
 
         /*получаем схему наработок из файла*/
-        $schema_experiences = Resources::include_information_from_file(DIR_SCHEMES,'схема наработок','php');
+        $schema_experiences = Resources::include_information_from_file(DIR_SCHEMES,'Схема наработок','php');
 
         if($schema_experiences === null){
             Business::fix_error('нет файла схема наработок',__FILE__,__LINE__);
@@ -175,7 +175,7 @@ class Resources implements Structure_Resources
      */
     static function get_information_realized_schema_data_base(){
 
-        $realized_schema = self::include_information_from_file(DIR_SCHEMES,'реализованная схема базы данных','php');
+        $realized_schema = self::include_information_from_file(DIR_SCHEMES,'Реализованная схема базы данных','php');
 
         return is_array($realized_schema) ? $realized_schema : [];
 

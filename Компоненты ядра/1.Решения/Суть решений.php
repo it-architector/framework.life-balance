@@ -27,7 +27,7 @@ class Solutions implements Structure_Solutions
     static function initiation(){
 
         /*берём настройки системы из файла*/
-        $config_system = Resources::include_information_from_file(DIR_SOLUTIONS,'настройка системы','php');
+        $config_system = Resources::include_information_from_file(DIR_SOLUTIONS,'Настройка системы','php');
 
         if($config_system === null){
             Business::fix_error('нет файла настройки системы',__FILE__, __LINE__);
