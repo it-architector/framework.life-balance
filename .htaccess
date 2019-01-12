@@ -9,9 +9,6 @@ Options -Indexes
 RewriteEngine on
 RewriteBase /
 
-# Запрет доступа #
-RedirectMatch 403 "^/Компоненты ядра/.*$"
-
 # Ошибка #
 ErrorDocument 404 Ядро.php?request=/index/error
 
