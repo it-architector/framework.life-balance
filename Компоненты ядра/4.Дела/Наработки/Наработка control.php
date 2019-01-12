@@ -99,11 +99,8 @@ class Control implements Structure_control
      */
     function reassembly_data_base(array $parameters){
 
-        /* Исключаем повторный запуск со страницы */
-        Resources::write_information_in_file(
-            DIR_PROTOCOLS, 'Реконструкция базы данных','log',
-            'Запуск'
-        );
+        /* Фиксируем реконструкцию базы данных */
+        Business::fix_reassembly_data_base('Запуск');
 
         /*получаем настройки проекта*/
         $config_project = Notices::get_mission('config_project');
@@ -129,12 +126,6 @@ class Control implements Structure_control
 
         if($changes){
 
-            /* Исключаем повторный запуск со страницы */
-            Resources::write_information_in_file(
-                DIR_PROTOCOLS, 'Реконструкция базы данных','log',
-                'Рекострукция'
-            );
-
             /*Реконструируем базу данных*/
             $reconstruction_result = Resources::reconstruction_data_base($changes);
 
@@ -148,22 +139,8 @@ class Control implements Structure_control
             'template' => 'mail'.DIRECTORY_SEPARATOR.'message',
         ]);
 
-        /* Исключаем повторный запуск со страницы */
-        Resources::write_information_in_file(
-            DIR_PROTOCOLS, 'Реконструкция базы данных','log',
-            'Завершение'
-        );
-
-        /* Весь протокол */
-        $protocols = Resources::include_information_from_file(DIR_PROTOCOLS, 'Реконструкция базы данных','log');
-
-        /* Сохраняем протокол */
-        Resources::write_information_in_file(DIR_CHANGES, '1.Изменения базы данных','md',
-            '<hr>'."\r\n\r\n".'- '.implode('- ', $protocols)."\r\n"
-            );
-
-        /* Удаляем заглушку */
-        Resources::delete_file(DIR_PROTOCOLS, 'Реконструкция базы данных','log');
+        /* Фиксируем реконструкцию базы данных */
+        Business::fix_reassembly_data_base('Завершено', true);
 
         return $reconstruction_result ? 'true' : 'false';
 

@@ -150,13 +150,10 @@ class Solutions implements Structure_Solutions
 
 
             /* Проверяем запущен ли процес реструктуризации */
-            if(Resources::include_information_from_file(DIR_PROTOCOLS, 'Реконструкция базы данных','log') === null){
+            if(Resources::include_information_from_file(DIR_PROTOCOLS, 'Текущая реконструкция базы данных','log') === null){
 
-                /* Исключаем повторный запуск со страницы */
-                Resources::write_information_in_file(
-                    DIR_PROTOCOLS, 'Реконструкция базы данных','log',
-                    'Вызов'
-                );
+                /* Фиксируем реконструкцию базы данных */
+                Business::fix_reassembly_data_base('Вызов');
 
                 /*вызываем консоль наработку реструктуризации базы данных*/
                 Business::call_console_experience('control', 'reassembly_data_base', []);
@@ -372,7 +369,7 @@ class Solutions implements Structure_Solutions
 
         /*обнаружено превышение времени выполнения*/
         if($lead_time_executed>$lead_time_seconds){
-            Business::fix_error('lead_time_executed = '.$lead_time_executed,__FILE__,__LINE__,false);
+            Business::fix_error('Превышения выполнения цели '.$call_experience_goal.' наработки '.$call_experience.' на ' . ($lead_time_executed-$lead_time_seconds) . ' сек.',__FILE__,__LINE__,false);
         }
 
     }

@@ -2,22 +2,22 @@
 
 return array(
 
-    /*название проекта*/
+    /* Название проекта */
     'name' => 'project name',
 
-    /*email проекта*/
+    /* Электронный адрес проекта */
     'email' => 'login@site.ru',
 
-    /*ссылка проекта без http*/
+    /* Ссылка проекта без http(s):// */
     'url' => 'site.ru',
 
-    /*доступ к базе данных*/
+    /* Авторизация для базы данных */
     'access_data_base' => [
         'user'     => 'login',
         'password' => 'password',
     ],
 
-    /*доступ к почте*/
+    /* Авторизация для почты */
     'access_mail' => [
         'login'    => 'login',
         'password' => 'password',

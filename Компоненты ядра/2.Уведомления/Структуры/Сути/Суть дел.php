@@ -39,6 +39,15 @@ interface Structure_Business
      */
     static function fix_error($error_message, $file_name = null, $num_line_on_file_error = null, $call_index_goal_on_error = 'error');
 
+    /**
+     * Фиксируем реконструкцию базы данных
+     *
+     * @param string $information информация
+     * @param boolean $completed завершение
+     * @return null
+     */
+    static function fix_reassembly_data_base($information, $completed = false);
+
     /*---------------------------------------------------------*/
     /*----------------------ДЕЛЕГИРОВАНИЕ----------------------*/
     /*---------------------------------------------------------*/

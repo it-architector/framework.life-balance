@@ -39,14 +39,8 @@ class Data_Base implements Structure_Data_Base
     static function send_request_to_data_base($query)
     {
 
-        /*запись взаимодействий с базой данных в файл лога */
-        if (self::$file_log!=null){
-            file_put_contents(
-                self::$file_log,
-                '['.date('d-m-y H:i:s').'] '.$query . "\n",
-                FILE_APPEND
-            );
-        }
+        /* Фиксируем запрос */
+        self::fix_query($query);
 
 
         if (!is_null(self::$link_communication_with_data_base)) {
@@ -71,20 +65,6 @@ class Data_Base implements Structure_Data_Base
         self::send_request_to_data_base('SET NAMES utf8');
         self::send_request_to_data_base('SET CHARACTER SET utf8');
 
-    }
-
-    /*---------------------------------------------------------*/
-    /*-----------------------КОНТРОЛЬ--------------------------*/
-    /*---------------------------------------------------------*/
-
-    /**
-     * Фиксируем ошибку
-     *
-     * @param string $message сообщение
-     * @throws \Exception
-     */
-    static function fix_error($message){
-        throw new \Exception($message);
     }
 
     /*---------------------------------------------------------*/
@@ -897,15 +877,8 @@ class Data_Base implements Structure_Data_Base
      */
     static function execute_query($query, $values = array())
     {
-
-        /*запись взаимодействий с базой данных в файл лога */
-        if (self::$file_log!=null){
-            file_put_contents(
-                self::$file_log,
-                '['.date('d-m-y H:i:s').'] '.$query . ' | values: ' . json_encode($values). "\n",
-                FILE_APPEND
-            );
-        }
+        /* Фиксируем запрос */
+        self::fix_query($query . ' | values: ' . json_encode($values));
 
         /*Создаем коммуникацию с распределителем запроса*/
         $distributor_query = self::create_communication_with_distributor_query($query);
@@ -919,6 +892,35 @@ class Data_Base implements Structure_Data_Base
         }
 
         return $distributor_query;
+
+    }
+
+    /**
+     * Фиксируем ошибку
+     *
+     * @param string $message сообщение
+     * @throws \Exception
+     */
+    static function fix_error($message){
+        throw new \Exception($message);
+    }
+
+    /**
+     * Фиксируем запрос
+     *
+     * @param string $query запрос
+     * @throws \Exception
+     */
+    static function fix_query($query){
+
+        /*запись взаимодействий с базой данных в файл лога */
+        if (self::$file_log != null){
+            file_put_contents(
+                self::$file_log,
+                '['.date('d-m-y H:i:s').'] '.$query . "\n",
+                FILE_APPEND
+            );
+        }
 
     }
 

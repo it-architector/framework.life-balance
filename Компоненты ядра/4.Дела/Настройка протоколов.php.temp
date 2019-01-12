@@ -2,11 +2,14 @@
 
 return array(
 
-    /*протокол ошибок запроса в ядро*/
-    'errors_request_core' => true,
+    /* Протокол: true, false */
+    'Ошибки в ядро' => true,
 
-    /*протокол запросов в базу данных*/
-    'queryes_data_base' => false,
+    /* Протокол: true, false */
+    'Реконструкции базы данных' => true,
+
+    /* Протокол: true, false */
+    'Запросы в базу данных' => false,
 
 );
 

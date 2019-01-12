@@ -14,31 +14,31 @@
  * Подключение.
  */
 
-/*Подключаем схему внутренних путей*/
+/* Подключаем схему внутренних путей */
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Компоненты ядра'. DIRECTORY_SEPARATOR . '3.Ресурсы'. DIRECTORY_SEPARATOR . 'Схемы'. DIRECTORY_SEPARATOR . 'Схема внутренних путей.php';
 
-/*Подключаем структуру класса решений*/
+/* Подключаем структуру сути решений */
 require_once DIR_STRUCTURE_ESSENCES . 'Суть решений.php';
 
-/*Подключаем структуру класса уведомлений*/
+/* Подключаем структуру сути уведомлений */
 require_once DIR_STRUCTURE_ESSENCES . 'Суть уведомлений.php';
 
-/*Подключаем структуру класса ресурсов*/
+/* Подключаем структуру сути ресурсов */
 require_once DIR_STRUCTURE_ESSENCES . 'Суть ресурсов.php';
 
-/*Подключаем структуру класса дел*/
+/* Подключаем структуру сути дел */
 require_once DIR_STRUCTURE_ESSENCES . 'Суть дел.php';
 
-/*Подключаем класс решений*/
+/* Подключаем суть решений */
 require_once DIR_SOLUTIONS . 'Суть решений.php';
 
-/*Подключаем класс уведомлений*/
+/* Подключаем суть уведомлений */
 require_once DIR_NOTICES . 'Суть уведомлений.php';
 
-/*Подключаем класс ресурсов*/
+/* Подключаем суть ресурсов */
 require_once DIR_RESOURCES . 'Суть ресурсов.php';
 
-/*Подключаем класс дел*/
+/* Подключаем суть дел */
 require_once DIR_BUSINESS . 'Суть дел.php';
 
 /*
@@ -51,16 +51,16 @@ use \Framework_life_balance\core_components\Solutions;
 use \Framework_life_balance\core_components\Resources;
 use \Framework_life_balance\core_components\Business;
 
-/*Включаем контроль ядра*/
+/* Включаем контроль ядра */
 Solutions::initiation();
 
-/*Определяем вывод информации*/
+/* Определяем вывод информации */
 Notices::initiation();
 
-/*Подготавливаем работу с ресурсами*/
+/* Подготавливаем работу с ресурсами */
 Resources::initiation();
 
-/*Подготавливаем работу с наработками*/
+/* Подготавливаем работу с наработками */
 Business::initiation();
 
 /*
@@ -68,43 +68,43 @@ Business::initiation();
  * Процесс.
  */
 
-/*Разбираем запрос*/
+/* Разбираем запрос */
 Solutions::parse_request();
 
-/*Разбираем авторизованность*/
+/* Разбираем авторизованность */
 Solutions::parse_authorized();
 
-/*Проверяем запрос на правомерность*/
+/* Проверяем запрос на правомерность */
 Solutions::check_request_legality();
 
-/*Создаем комуникацию с памятью*/
+/* Создаем комуникацию с памятью */
 Resources::create_communication_with_memory();
 
-/*Проверяем изменения в схеме базы данных*/
+/* Проверяем изменения в схеме базы данных */
 Solutions::check_changes_schema_data_base();
 
-/*Создаем комуникацию с базой данных*/
+/* Создаем комуникацию с базой данных */
 Resources::create_communication_with_data_base();
 
-/*Проверяем запрос на доступность*/
+/* Проверяем запрос на доступность */
 Solutions::check_request_access();
 
-/*Разбираем параметры запроса*/
+/* Разбираем параметры запроса */
 Solutions::parse_parameters_request();
 
-/*Проверяем запрос на деструктив*/
+/* Проверяем запрос на деструктив */
 Solutions::check_request_destructive();
 
-/*Выполняем запрошенную наработанную цель*/
+/* Выполняем запрошенную наработанную цель */
 Business::execute_request_experience_goal();
 
-/*Проверяем ответ на правильность*/
+/* Проверяем ответ на правильность */
 Solutions::check_answer_correct();
 
-/*Результат выполнения в интерфейс*/
+/* Результат выполнения в интерфейс */
 Notices::result_executed_to_interface();
 
-/*Прекращаем работу ядра*/
+/* Прекращаем работу ядра */
 Solutions::stop_core();
 
 ?>

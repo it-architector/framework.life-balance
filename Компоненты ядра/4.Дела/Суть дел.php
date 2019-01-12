@@ -98,11 +98,11 @@ class Business implements Structure_Business
 
         /*на случай сбоя инициации*/
         if($config_protocols === null){
-            $config_protocols['errors_request_core'] = true;
+            $config_protocols['Ошибки в ядро'] = true;
         }
 
         /*запись в протокол нужна*/
-        if($config_protocols['errors_request_core'] == true){
+        if($config_protocols['Ошибки в ядро'] == true){
 
             /*записываем ошибку в файл*/
             Resources::write_information_in_file(DIR_PROTOCOLS,'Ошибки в ядре','log',
@@ -150,6 +150,44 @@ class Business implements Structure_Business
             Solutions::stop_core();
 
         }
+
+    }
+
+    /**
+     * Фиксируем реконструкцию базы данных
+     *
+     * @param string $information информация
+     * @param boolean $completed завершение
+     * @return null
+     */
+    static function fix_reassembly_data_base($information, $completed = false){
+
+        /* Получаем настройки протоколов */
+        $config_protocols = Notices::get_mission('config_protocols');
+
+        if($config_protocols['Реконструкции базы данных']){
+
+            /* Протокол */
+            Resources::write_information_in_file(
+                DIR_PROTOCOLS, 'Реконструкции базы данных','log', $information);
+
+        }
+
+        if($completed){
+
+            /* Удаляем заглушку */
+            Resources::delete_file(DIR_PROTOCOLS, 'Текущая реконструкция базы данных','log');
+
+        }
+        else{
+
+            /* Протокол */
+            Resources::write_information_in_file(
+                DIR_PROTOCOLS, 'Текущая реконструкция базы данных','log',
+                'Запуск'
+            );
+        }
+
 
     }
 

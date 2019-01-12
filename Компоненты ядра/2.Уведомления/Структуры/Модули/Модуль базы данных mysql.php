@@ -32,18 +32,6 @@ interface Structure_Data_Base
     static function send_greeting_to_data_base();
 
     /*---------------------------------------------------------*/
-    /*-----------------------КОНТРОЛЬ--------------------------*/
-    /*---------------------------------------------------------*/
-
-    /**
-     * Фиксируем ошибку
-     *
-     * @param string $message сообщение
-     * @throws \Exception
-     */
-    static function fix_error($message);
-
-    /*---------------------------------------------------------*/
     /*-------------------СТРУКТУРИРОВАНИЕ----------------------*/
     /*---------------------------------------------------------*/
 
@@ -315,6 +303,22 @@ interface Structure_Data_Base
      * @throws \Exception
      */
     static function execute_query($query, $values = array());
+
+    /**
+     * Фиксируем ошибку
+     *
+     * @param string $message сообщение
+     * @throws \Exception
+     */
+    static function fix_error($message);
+
+    /**
+     * Фиксируем запрос
+     *
+     * @param string $query запрос
+     * @throws \Exception
+     */
+    static function fix_query($query);
 
     /*---------------------------------------------------------*/
     /*----------------------ДЕЛЕГИРОВАНИЕ----------------------*/

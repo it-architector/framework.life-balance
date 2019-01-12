@@ -211,7 +211,7 @@ class Resources implements Structure_Resources
             $config_protocols = Notices::get_mission('config_protocols');
 
             /*запись взаимодействий с базой данных в файл лога */
-            if($config_protocols['queryes_data_base']){
+            if($config_protocols['Запросы в базу данных']){
                 $file_log = DIR_PROTOCOLS . 'Запросы в базу данных.log';
             }
             else{
@@ -1243,6 +1243,9 @@ class Resources implements Structure_Resources
                             /*сохраняем схему реализованного*/
                             self::save_realized_schema_data_base($realized_schema);
 
+                            /* Фиксируем реконструкцию базы данных */
+                            Business::fix_reassembly_data_base('Создана таблица '.$table);
+
                         }
 
                     }
@@ -1270,6 +1273,9 @@ class Resources implements Structure_Resources
                                 /*сохраняем схему реализованного*/
                                 self::save_realized_schema_data_base($realized_schema);
 
+                                /* Фиксируем реконструкцию базы данных */
+                                Business::fix_reassembly_data_base('Создана колонка '.$column.' в таблице '.$table);
+
                             }
                         }
                     }
@@ -1295,6 +1301,9 @@ class Resources implements Structure_Resources
 
                                 /*сохраняем схему реализованного*/
                                 self::save_realized_schema_data_base($realized_schema);
+
+                                /* Фиксируем реконструкцию базы данных */
+                                Business::fix_reassembly_data_base('Создана сортировка '.$sorting.' в таблице '.$table);
 
                             }
                         }
@@ -1331,6 +1340,9 @@ class Resources implements Structure_Resources
                                 /*сохраняем схему реализованного*/
                                 self::save_realized_schema_data_base($realized_schema);
 
+                                /* Фиксируем реконструкцию базы данных */
+                                Business::fix_reassembly_data_base('Создана связь колонке '.$column.' в таблице '.$table);
+
                             }
                         }
 
@@ -1354,6 +1366,9 @@ class Resources implements Structure_Resources
                                 /*сохраняем схему реализованного*/
                                 self::save_realized_schema_data_base($realized_schema);
 
+                                /* Фиксируем реконструкцию базы данных */
+                                Business::fix_reassembly_data_base('Удалена связь колонке '.$column.' в таблице '.$table);
+
                             }
                         }
 
@@ -1376,6 +1391,9 @@ class Resources implements Structure_Resources
                                 /*сохраняем схему реализованного*/
                                 self::save_realized_schema_data_base($realized_schema);
 
+                                /* Фиксируем реконструкцию базы данных */
+                                Business::fix_reassembly_data_base('Удалена сортировка '.$sorting.' в таблице '.$table);
+
                             }
                         }
 
@@ -1397,6 +1415,9 @@ class Resources implements Structure_Resources
                                 /*сохраняем схему реализованного*/
                                 self::save_realized_schema_data_base($realized_schema);
 
+                                /* Фиксируем реконструкцию базы данных */
+                                Business::fix_reassembly_data_base('Удалена колонка '.$column.' в таблице '.$table);
+
                             }
                         }
 
@@ -1415,6 +1436,9 @@ class Resources implements Structure_Resources
 
                             /*сохраняем схему реализованного*/
                             self::save_realized_schema_data_base($realized_schema);
+
+                            /* Фиксируем реконструкцию базы данных */
+                            Business::fix_reassembly_data_base('Удалена таблица '.$table);
 
                         }
 
@@ -1448,6 +1472,9 @@ class Resources implements Structure_Resources
 
                                 /*сохраняем схему реализованного*/
                                 self::save_realized_schema_data_base($realized_schema);
+
+                                /* Фиксируем реконструкцию базы данных */
+                                Business::fix_reassembly_data_base('Изменена колонка '.$column.' в таблице '.$table);
 
                             }
                         }
