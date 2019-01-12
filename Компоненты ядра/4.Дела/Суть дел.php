@@ -98,11 +98,11 @@ class Business implements Structure_Business
 
         /*на случай сбоя инициации*/
         if($config_protocols === null){
-            $config_protocols['Ошибки в ядро'] = true;
+            $config_protocols['Ошибки ядра'] = true;
         }
 
         /*запись в протокол нужна*/
-        if($config_protocols['Ошибки в ядро'] == true){
+        if($config_protocols['Ошибки ядра'] == true){
 
             /*записываем ошибку в файл*/
             Resources::write_information_in_file(DIR_PROTOCOLS,'Ошибки в ядре','log',
