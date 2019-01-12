@@ -157,7 +157,7 @@ class Resources implements Structure_Resources
      */
     static function save_realized_schema_data_base($realized_schema){
 
-        self::write_information_in_file(DIR_SCHEMES,'реализованная схема базы данных','php', '<?php'."\n".' return '.var_export($realized_schema, true).'; ?>');
+        self::write_information_in_file(DIR_SCHEMES,'Реализованная схема базы данных','php', '<?php'."\n".' return '.var_export($realized_schema, true).'; ?>');
 
     }
 

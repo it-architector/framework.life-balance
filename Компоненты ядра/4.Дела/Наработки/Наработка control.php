@@ -99,7 +99,11 @@ class Control implements Structure_control
      */
     function reassembly_data_base(array $parameters){
 
-        $reconstruction = false;
+        /* Исключаем повторный запуск со страницы */
+        Resources::write_information_in_file(
+            DIR_PROTOCOLS, 'Реконструкция базы данных','log',
+            'Запуск'
+        );
 
         /*получаем настройки проекта*/
         $config_project = Notices::get_mission('config_project');
@@ -121,10 +125,18 @@ class Control implements Structure_control
         /*Сопоставляем Схемы базы данных*/
         $changes = Solutions::matching_schema_data_base($realized_schema_data_base, $schema_data_base);
 
+        $reconstruction_result = false;
+
         if($changes){
 
+            /* Исключаем повторный запуск со страницы */
+            Resources::write_information_in_file(
+                DIR_PROTOCOLS, 'Реконструкция базы данных','log',
+                'Рекострукция'
+            );
+
             /*Реконструируем базу данных*/
-            $reconstruction = Resources::reconstruction_data_base($changes);
+            $reconstruction_result = Resources::reconstruction_data_base($changes);
 
         }
 
@@ -132,14 +144,14 @@ class Control implements Structure_control
         Business::call_experience('control', 'send_email', [
             'email'    => $config_project['email'],
             'title'    => 'Завершена реконструкция базы данных',
-            'text'     => '',
+            'text'     => $reconstruction_result ? 'Изменения успешно введены.' : 'Изменений не обнаружено.',
             'template' => 'mail'.DIRECTORY_SEPARATOR.'message',
         ]);
 
-        /*реконструкция базы данных завершена*/
-        Business::work_with_memory_data('reassembly_data_base', null, null, true);
+        /* Удаляем заглушку */
+        Resources::delete_file(DIR_PROTOCOLS, 'Реконструкция базы данных','log');
 
-        return $reconstruction ? 'true' : 'false';
+        return $reconstruction_result ? 'true' : 'false';
 
     }
 

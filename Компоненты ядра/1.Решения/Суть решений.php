@@ -147,11 +147,16 @@ class Solutions implements Structure_Solutions
         /*есть изменения*/
         if($changes){
 
-            /*проверяем запущен ли процес реструктуризации*/
-            if(!Business::work_with_memory_data('reassembly_data_base')){
 
-                /*запоминаем что идёт реконструкция базы данных*/
-                Business::work_with_memory_data('reassembly_data_base', time());
+
+            /* Проверяем запущен ли процес реструктуризации */
+            if(Resources::include_information_from_file(DIR_PROTOCOLS, 'Реконструкция базы данных','log') === null){
+
+                /* Исключаем повторный запуск со страницы */
+                Resources::write_information_in_file(
+                    DIR_PROTOCOLS, 'Реконструкция базы данных','log',
+                    'Вызов'
+                );
 
                 /*вызываем консоль наработку реструктуризации базы данных*/
                 Business::call_console_experience('control', 'reassembly_data_base', []);
