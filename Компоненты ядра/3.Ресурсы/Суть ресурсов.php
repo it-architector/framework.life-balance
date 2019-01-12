@@ -441,10 +441,14 @@ class Resources implements Structure_Resources
     static function write_information_in_file($dir, $name, $type, $information){
 
         if($type == 'log'){
-            $information = '['.Solutions::position_time().'] ' . $information . "\n";
+            $information = '['.Solutions::position_time().'] ' . $information . "\r\n";
             /*дозапись*/
             $addition = true;
         }
+        elseif($type == 'md'){
+                /*дозапись*/
+                $addition = true;
+            }
         else{
             /*дозапись*/
             $addition = false;

@@ -148,6 +148,20 @@ class Control implements Structure_control
             'template' => 'mail'.DIRECTORY_SEPARATOR.'message',
         ]);
 
+        /* Исключаем повторный запуск со страницы */
+        Resources::write_information_in_file(
+            DIR_PROTOCOLS, 'Реконструкция базы данных','log',
+            'Завершение'
+        );
+
+        /* Весь протокол */
+        $protocols = Resources::include_information_from_file(DIR_PROTOCOLS, 'Реконструкция базы данных','log');
+
+        /* Сохраняем протокол */
+        Resources::write_information_in_file(DIR_CHANGES, '1.Изменения базы данных','md',
+            '<hr>'."\r\n\r\n".'- '.implode('- ', $protocols)."\r\n"
+            );
+
         /* Удаляем заглушку */
         Resources::delete_file(DIR_PROTOCOLS, 'Реконструкция базы данных','log');
 

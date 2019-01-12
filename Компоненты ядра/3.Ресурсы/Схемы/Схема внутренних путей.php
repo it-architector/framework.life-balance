@@ -59,6 +59,9 @@ define('DIR_EXPERIENCES', DIR_BUSINESS . 'Наработки' . DIRECTORY_SEPARA
 /*Протоколы*/
 define('DIR_PROTOCOLS', DIR_BUSINESS . 'Протоколы' . DIRECTORY_SEPARATOR);
 
+/* Изменения */
+define('DIR_CHANGES', DIR_PROTOCOLS . 'Изменения' . DIRECTORY_SEPARATOR);
+
 
 /*Картинки пользователей*/
 define('DIR_USERS_IMAGES', DIR_USERS_DATA . 'images' . DIRECTORY_SEPARATOR);
