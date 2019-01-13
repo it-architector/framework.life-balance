@@ -90,9 +90,9 @@ class Resources implements Structure_Resources
         $schema_experiences = Notices::get_mission('schema_experiences');
 
         /*получаем данные на цель*/
-        if($experience!=null and $goal!=null){
+        if($experience!== null and $goal !== null){
 
-            if($detail != null){
+            if($detail !== null){
                 return $schema_experiences[$experience]['goals'][$goal][$detail];
             }
             else{
@@ -100,9 +100,9 @@ class Resources implements Structure_Resources
             }
         }
         /*получаем данные на наработку*/
-        elseif($experience!=null){
+        elseif($experience !== null){
 
-            if($detail != null){
+            if($detail !== null){
                 return $schema_experiences[$experience][$detail];
             }
             else{

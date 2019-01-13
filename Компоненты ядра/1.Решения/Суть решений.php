@@ -176,16 +176,16 @@ class Solutions implements Structure_Solutions
     static function check_request_access()
     {
 
-        /*вызванная наработка*/
-        $call_experience = Notices::get_mission('call_experience');
+        /* Запрощенная наработка */
+        $request_experience = Notices::get_mission('request_experience');
 
-        /*вызванная наработанная цель*/
-        $call_experience_goal = Notices::get_mission('call_experience_goal');
+        /* Запрощенная наработанная цель */
+        $request_experience_goal = Notices::get_mission('request_experience_goal');
 
-        /*кому предназначена наработанная цель*/
-        $call_experience_goal_intended = Resources::schema_experience($call_experience, $call_experience_goal, 'intended');
+        /* Кому предназначена наработанная цель */
+        $experience_goal_intended = Resources::schema_experience($request_experience, $request_experience_goal, 'intended');
 
-        switch ($call_experience_goal_intended) {
+        switch ($experience_goal_intended) {
             /*всем*/
             case 'any':
                 return true;
