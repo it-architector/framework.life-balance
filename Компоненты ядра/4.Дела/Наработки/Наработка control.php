@@ -113,10 +113,10 @@ class Control implements Structure_control
             'template' => 'mail'.DIRECTORY_SEPARATOR.'message',
         ]);
 
-        /*реализованная схема базы данных*/
+        /*реализованная схема таблиц базы данных*/
         $realized_schema_data_base = Resources::get_information_realized_schema_data_base();
 
-        /*текущая схема базы данных*/
+        /*текущая схема таблиц базы данных*/
         $schema_data_base = Notices::get_mission('schema_data_base');
 
         /*Сопоставляем Схемы базы данных*/

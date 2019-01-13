@@ -2,71 +2,71 @@
 
 /* Схема внутренних путей */
 
-/*корень*/
+/* Корень */
 define('DIR_ROOT', dirname(dirname(dirname(dirname(__FILE__)))) . DIRECTORY_SEPARATOR);
 
 
-/*компоненты ядра*/
+/* Компонент ядра */
 define('DIR_CORE_COMPONENTS', DIR_ROOT . 'Компоненты ядра' . DIRECTORY_SEPARATOR);
 
-/*пользовательские данные*/
-define('DIR_USERS_DATA', DIR_ROOT . 'Пользовательские данные' . DIRECTORY_SEPARATOR);
-
-/*компоненты интерфейса*/
+/* Компоненты интерфейса */
 define('DIR_INTERFACE_COMPONENTS', DIR_ROOT . 'Компоненты интерфейса' . DIRECTORY_SEPARATOR);
 
+/* Пользовательские данные */
+define('DIR_USERS_DATA', DIR_ROOT . 'Пользовательские данные' . DIRECTORY_SEPARATOR);
 
-/*решения*/
+
+/* Компонент решения */
 define('DIR_SOLUTIONS', DIR_CORE_COMPONENTS . '1.Решения' . DIRECTORY_SEPARATOR);
 
-/*уведомления*/
+/* Компонент уведомления */
 define('DIR_NOTICES', DIR_CORE_COMPONENTS . '2.Уведомления' . DIRECTORY_SEPARATOR);
 
-/*ресурсы*/
+/* Компонент ресурсов */
 define('DIR_RESOURCES', DIR_CORE_COMPONENTS . '3.Ресурсы' . DIRECTORY_SEPARATOR);
 
-/*дела*/
+/* Компонент дела */
 define('DIR_BUSINESS', DIR_CORE_COMPONENTS . '4.Дела' . DIRECTORY_SEPARATOR);
 
 
-/*Модули*/
+/* Модули */
 define('DIR_MODULES', DIR_SOLUTIONS . 'Модули' . DIRECTORY_SEPARATOR);
 
-/*Github.com Модули*/
+/* Github.com Модули */
 define('DIR_GITHUB_MODULES', DIR_MODULES . 'Github.com' . DIRECTORY_SEPARATOR);
 
-/*Свои модули*/
+/* Свои модули */
 define('DIR_THEIR_MODULES', DIR_MODULES . 'Свои' . DIRECTORY_SEPARATOR);
 
-/*Структуры*/
+/* Структуры */
 define('DIR_STRUCTURES', DIR_NOTICES . 'Структуры' . DIRECTORY_SEPARATOR);
 
-/*Структуры модулей*/
-define('DIR_STRUCTURE_THEIR_MODULES', DIR_STRUCTURES . 'Модули' . DIRECTORY_SEPARATOR);
+/* Структуры модулей */
+define('DIR_STRUCTURE_THEIR_MODULES', DIR_STRUCTURES . '1.Модули' . DIRECTORY_SEPARATOR);
 
-/*Структуры сутей*/
-define('DIR_STRUCTURE_ESSENCES', DIR_STRUCTURES . 'Сути' . DIRECTORY_SEPARATOR);
+/* Структуры сутей */
+define('DIR_STRUCTURE_ESSENCES', DIR_STRUCTURES . '2.Сути' . DIRECTORY_SEPARATOR);
 
-/*Структуры наработок*/
-define('DIR_STRUCTURE_EXPERIENCES', DIR_STRUCTURES . 'Наработки' . DIRECTORY_SEPARATOR);
+/* Структуры наработок */
+define('DIR_STRUCTURE_EXPERIENCES', DIR_STRUCTURES . '4.Наработки' . DIRECTORY_SEPARATOR);
 
-/*конфигурация схем*/
+/* Схемы */
 define('DIR_SCHEMES', DIR_RESOURCES . 'Схемы' . DIRECTORY_SEPARATOR);
 
-/*Наработки*/
+/* Наработки */
 define('DIR_EXPERIENCES', DIR_BUSINESS . 'Наработки' . DIRECTORY_SEPARATOR);
 
-/*Протоколы*/
+/* Протоколы */
 define('DIR_PROTOCOLS', DIR_BUSINESS . 'Протоколы' . DIRECTORY_SEPARATOR);
 
 /* Изменения */
 define('DIR_CHANGES', DIR_PROTOCOLS . 'Изменения' . DIRECTORY_SEPARATOR);
 
 
-/*Картинки пользователей*/
+/* Картинки пользователей */
 define('DIR_USERS_IMAGES', DIR_USERS_DATA . 'images' . DIRECTORY_SEPARATOR);
 
-/*html блоки*/
+/* Html блоки */
 define('DIR_HTML', DIR_INTERFACE_COMPONENTS . '4.Формы' . DIRECTORY_SEPARATOR . 'Блоки' . DIRECTORY_SEPARATOR);
 
 

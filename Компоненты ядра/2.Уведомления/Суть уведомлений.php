@@ -17,14 +17,14 @@ class Notices implements Structure_Notices
      */
     static function initiation(){
 
-        /*берём настройки проекта из файла*/
+        /* Берём настройки проекта из файла */
         $config_project = Resources::include_information_from_file(DIR_NOTICES,'Настройка проекта','php');
 
         if($config_project == null){
             Business::fix_error('нет файла настройки проекта',__FILE__, __LINE__);
         }
 
-        /*устанавливаем настройки проекта*/
+        /* Устанавливаем настройки проекта */
         Notices::set_mission('config_project',$config_project);
 
     }
@@ -33,76 +33,79 @@ class Notices implements Structure_Notices
     /*---------------------ПРЕДНАЗНАЧЕНИЕ----------------------*/
     /*---------------------------------------------------------*/
 
-    /*операционная система*/
+    /* Операционная система */
     static $operating_system = null;
 
-    /*настройки системы*/
+    /* Настройки системы */
     static $config_system = null;
 
-    /*настройки проекта*/
+    /* Настройки проекта */
     static $config_project = null;
 
-    /*настройки коммуникаций*/
+    /* Настройки коммуникаций */
     static $config_communications = null;
 
     /*настройки протоколов*/
     static $config_protocols = null;
 
-    /*запрошенная наработка*/
+    /* Запрошенная наработка */
     static $request_experience = null;
 
-    /*запрошенная наработанная цель*/
+    /* Запрошенная наработанная цель */
     static $request_experience_goal = null;
 
-    /*параметры запроса*/
+    /* Параметры запроса */
     static $parameters_request = null;
 
-    /*Устройство пользователя*/
+    /* Устройство пользователя */
     static $user_device = null;
 
-    /*удалённый адрес пользователя*/
+    /* Удалённый адрес пользователя */
     static $user_ip = null;
 
-    /*индификационный номер пользователя*/
+    /* Индификационный номер пользователя */
     static $user_id = null;
 
-    /*сессия пользователя*/
+    /* Сессия пользователя */
     static $user_session = null;
 
-    /*данные пользователя*/
+    /* Данные пользователя */
     static $user_data = null;
 
-    /*схема наработок*/
+    /* Схема наработок */
     static $schema_experiences = null;
 
-    /*схема базы данных*/
+    /* Схема таблиц базы данных */
     static $schema_data_base = null;
 
-    /*ссылка на коммуникацию с памятью*/
+    /* Схема взаимодействия с базой данных */
+    static $schema_interaction_with_data_base = null;
+
+    /* Ссылка на коммуникацию с памятью */
     static $link_communication_with_memory = null;
 
-    /*ссылка на коммуникацию с почтой*/
+    /* Ссылка на коммуникацию с почтой */
     static $link_communication_with_mail = null;
 
-    /*вызванная наработка*/
+    /* Вызванная наработка */
     static $call_experience = null;
 
-    /*вызванная наработанная цель*/
+    /* Вызванная наработанная цель */
     static $call_experience_goal = null;
 
-    /*время вызова Наработки*/
+    /* Время вызова Наработки */
     static $mark_time_call_experience= null;
 
-    /*результат выполнения*/
+    /* Результат выполнения */
     static $result_executed = null;
 
-    /*время выполнения*/
+    /* Время выполнения */
     static $lead_time_executed = null;
 
-    /*номер сбоя*/
+    /* Номер сбоя */
     static $number_crash = null;
 
-    /*текст сбоя*/
+    /* Текст сбоя */
     static $message_crash = null;
 
     /**
@@ -182,10 +185,10 @@ class Notices implements Structure_Notices
      */
     static function result_executed_to_interface(){
 
-        /*Формируем ответ*/
+        /* Формируем ответ */
         $answer = Solutions::formation_result_executed_to_interface();
 
-        /*выводим ответ*/
+        /* Выводим ответ */
         echo $answer;
 
     }
@@ -201,26 +204,26 @@ class Notices implements Structure_Notices
      */
     static function message_to_mail($email, $title, $text, $template){
 
-        /*получаем ссылку на коммуникацию с почтой*/
+        /* Получаем ссылку на коммуникацию с почтой */
         $link_communication_with_mail = Notices::get_mission('link_communication_with_mail');
 
-        /*проверяем ссылку на коммуникацию с почтой*/
+        /* Проверяем ссылку на коммуникацию с почтой */
         if($link_communication_with_mail == null){
             return false;
         }
 
         try {
 
-            /*получаем настройки проекта*/
+            /* Получаем настройки проекта */
             $config_project = Notices::get_mission('config_project');
 
-            /*от кого письмо*/
+            /* От кого письмо */
             $link_communication_with_mail->setFrom($config_project['email'], $config_project['name']);
 
-            /*кому письмо*/
+            /* Кому письмо */
             $link_communication_with_mail->addAddress($email);
 
-            /*формируем содержимое*/
+            /* Формируем содержимое */
             $link_communication_with_mail->isHTML(true);
             $link_communication_with_mail->Subject = $title;
             $link_communication_with_mail->Body    = Solutions::formation_template($template,[
@@ -231,7 +234,7 @@ class Notices implements Structure_Notices
             ]);
             $link_communication_with_mail->AltBody = strip_tags($text);
 
-            /*отправляем почту*/
+            /* Отправляем почту */
             $link_communication_with_mail->send();
 
             return true;
@@ -239,10 +242,10 @@ class Notices implements Structure_Notices
         }
         catch (\PHPMailer\PHPMailer\Exception $e) {
 
-            /*удаляем коммуникацию с почтой*/
+            /* Удаляем коммуникацию с почтой */
             Notices::delete_mission('link_communication_with_mail');
 
-            /*фиксируем ошибку*/
+            /* Фиксируем ошибку */
             Business::fix_error($e->getMessage(),__FILE__,__LINE__);
         }
 

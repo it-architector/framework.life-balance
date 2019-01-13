@@ -25,8 +25,8 @@ class Users implements Structure_users
     function index(array $parameters)
     {
 
-        /*получение всех пользователей*/
-        $users = Resources::data_base_get_users();
+        /* Получаем всех пользователей */
+        $users = Resources::interchange_information_with_data_base('Получение', 'Всех пользователей', []);
 
         /*убираем приватные данные*/
         if($users){
@@ -109,16 +109,27 @@ class Users implements Structure_users
                 /*форминование пароля пользователя*/
                 $password_formation = Solutions::formation_user_password($password);
 
-                /*добавляет пользователя*/
-                $user_id = Resources::data_base_add_user($nickname, $password_formation, $name, $family_name, $email);
+                /* Добавляем пользователя */
+                $user_id = Resources::interchange_information_with_data_base('Добавление', 'Нового пользователя', [
+                    'nickname'    => $nickname,
+                    'password'    => $password_formation,
+                    'name'        => $name,
+                    'family_name' => $family_name,
+                    'email'       => $email
+                ]);
 
-                /*получение кол-ва всех пользователей*/
-                $users_count = Resources::data_base_get_count_users();
+                /* Получаем количество всех пользователей */
+                $users_count = Resources::interchange_information_with_data_base('Количество', 'Всех пользователей', []);
 
                 /*присваиваем административные права первому пользователю*/
                 if($users_count == 1){
-                    /*ставит/отменяет назначение администратором*/
-                    Resources::data_base_set_user_is_admin($user_id, 'true');
+
+                    /* Ставит/отменяет назначение администратором */
+                    Resources::interchange_information_with_data_base('Изменение', 'Роли администрирования у пользователя', [
+                        'id'       => $user_id,
+                        'is_admin' => 'true',
+                    ]);
+
                 }
 
                 /*вызываем консоль наработку отправления на почту*/
@@ -216,14 +227,20 @@ class Users implements Structure_users
                 /*форминование пароля пользователя*/
                 $password_formation = Solutions::formation_user_password($password);
 
-                /*получение id пользователя по псевдониму и паролю*/
-                $user_id = Resources::data_base_get_user_id_by_auth_data($nickname, $password_formation);
+                /* Получаем id пользователя по псевдониму и паролю */
+                $user_id = Resources::interchange_information_with_data_base('Получение', 'Id пользователя по авторизационым данным', [
+                    'nickname' => $nickname,
+                    'password' => $password_formation,
+                ]);
 
                 /*обновление у пользователя сессии авторизации*/
                 $user_session = Solutions::formation_user_session($user_id);
 
-                /*обновление пользователю сессии авторизации*/
-                Resources::data_base_upd_user_session($user_id, $user_session);
+                /* Обновление пользователю сессии авторизации */
+                Resources::interchange_information_with_data_base('Изменение', 'Сессии у пользователя', [
+                    'id'      => $user_id,
+                    'session' => $user_session,
+                ]);
 
                 /*Вызываем выполнение удачной авторизации*/
                 return Business::call_experience('users','authorized_ok',[
@@ -344,7 +361,7 @@ class Users implements Structure_users
 
             $nickname = htmlspecialchars($nickname);
 
-            if(Resources::data_base_get_user_id_by_nickname($nickname)){
+            if(Resources::interchange_information_with_data_base('Получение', 'Id пользователя по псевдониму', ['nickname' => $nickname])){
                 $is_nickname_registration='true';
             }
         }
@@ -403,7 +420,7 @@ class Users implements Structure_users
 
             $email = htmlspecialchars($email);
 
-            if(!Resources::data_base_get_user_id_by_email($email)){
+            if(!Resources::interchange_information_with_data_base('Получение', 'Id пользователя по электронному адресу', ['email' => $email])){
                 $is_email_no_registration='true';
             }
         }
@@ -438,8 +455,11 @@ class Users implements Structure_users
         /*форминование пароля пользователя*/
         $password_formation = Solutions::formation_user_password($password);
 
-        /*получение id пользователя по псевдониму и паролю*/
-        $user_id = Resources::data_base_get_user_id_by_auth_data($nickname, $password_formation);
+        /* Получаем id пользователя по псевдониму и паролю */
+        $user_id = Resources::interchange_information_with_data_base('Получение', 'Id пользователя по авторизационым данным', [
+            'nickname' => $nickname,
+            'password' => $password_formation,
+        ]);
 
         if($user_id){
             $is_password_valid = 'true';

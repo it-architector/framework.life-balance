@@ -36,7 +36,53 @@ interface Structure_Data_Base
     /*---------------------------------------------------------*/
 
     /**
-     * формируем запрос на добавление информации
+     * Формируем установки
+     *
+     * @param string $set установки
+     * @return string
+     * @throws
+     */
+    static function formation_set($set);
+
+    /**
+     * Формируем уточнение
+     *
+     * @param string $where уточнение
+     * @return string
+     * @throws
+     */
+    static function formation_where($where);
+
+    /**
+     * Формируем сортировку
+     *
+     * @param string $sort сортировка
+     * @return string
+     * @throws
+     */
+    static function formation_sort($sort);
+
+    /**
+     * Формируем ограничение
+     *
+     * @param array $limit ограничение
+     * @return string
+     * @throws
+     */
+    static function formation_limit($limit);
+
+    /**
+     * Корректируем ограничение
+     *
+     * @param string $limit ограничение
+     * @param array $value значения
+     * @return array
+     * @throws
+     */
+    static function correct_limit($limit, $value);
+
+    /**
+     * Формируем запрос на добавление информации
      *
      * @param string $table таблица
      * @param array $set установка
@@ -205,20 +251,10 @@ interface Structure_Data_Base
      *
      * @param string $string значение
      * @param string|false $limiter ограничения
+     * @param string|false $additional дополнительно
      * @return string $string экранизированное значение
      */
-    static function adaptation_value($string, $limiter = false);
-
-    /**
-     * Формируем поля и проявляем значения запроса
-     *
-     * @param array $values_query все значения ключей
-     * @param string $format формат
-     * @param array $values значения
-     * @param integer|false $num_group_add номер группы добавления
-     * @return string
-     */
-    static function formation_fields_and_manifestation_values_query(&$values_query, $format, $values,  $num_group_add = false);
+    static function adaptation_value($string, $limiter = false, $additional);
 
     /*---------------------------------------------------------*/
     /*---------------------КОММУНИКАЦИИ------------------------*/
@@ -328,67 +364,62 @@ interface Structure_Data_Base
      * Вызываем добавление информации
      *
      * @param string $table таблица
-     * @param array|false $set установка
+     * @param array $set установка
+     * @param array $values значения
      * @return integer|false
      * @throws
      */
-    static function call_add_information($table, $set = false);
-
-    /**
-     * Вызываем групповое добавление информации
-     *
-     * @param string $table таблица
-     * @param array|false $set установка
-     * @return integer|false
-     * @throws
-     */
-    static function call_group_add_information($table, $set = false);
+    static function call_add_information($table, $set, $values);
 
     /**
      * Вызываем получение информации
      *
      * @param string $table таблица
-     * @param array|false $select колонки
-     * @param array|false $where уточнение
-     * @param array|false $limit ограничение
-     * @param array|false $sort сортировка
+     * @param array $select колонки
+     * @param array $where уточнение
+     * @param array $limit ограничение
+     * @param array $sort сортировка
+     * @param array $values значения
      * @return array|false
      * @throws
      */
-    static function call_get_information($table, $select, $where = false, $sort = false, $limit = false);
+    static function call_get_information($table, $select, $where, $sort, $limit, $values);
 
     /**
      * Вызываем количество информации
      *
      * @param string $table таблица
-     * @param array|false $where уточнение
+     * @param array $where уточнение
+     * @param array $values значения
      * @return integer|false
      * @throws
      */
-    static function call_count_information($table, $where = false);
+    static function call_count_information($table, $where, $values);
 
     /**
      * Вызываем обновление информации
      *
      * @param string $table таблица
-     * @param array|false $set установка
-     * @param array|false $where уточнение
-     * @param array|false $limit ограничение
+     * @param array $set установка
+     * @param array $where уточнение
+     * @param array $limit ограничение
+     * @param array $values значения
      * @return integer|false
      * @throws
      */
-    static function call_update_information($table, $set = false, $where = false, $limit = false);
+    static function call_update_information($table, $set, $where, $limit, $values);
 
     /**
      * Вызываем удаление информации
      *
      * @param string $table таблица
-     * @param array|false $where уточнение
-     * @param array|false $limit ограничение
+     * @param array $where уточнение
+     * @param array $limit ограничение
+     * @param array $values значения
      * @return integer|false
      * @throws
      */
-    static function call_delete_information($table, $where = false, $limit = false);
+    static function call_delete_information($table, $where, $limit, $values);
 
     /**
      * Вызов создания Структуры таблицы

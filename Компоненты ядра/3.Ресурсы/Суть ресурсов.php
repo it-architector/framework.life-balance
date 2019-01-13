@@ -26,35 +26,45 @@ class Resources implements Structure_Resources
     static function initiation()
     {
 
-        /*получаем настройки коммуникаций из файла*/
+        /* Получаем настройки коммуникаций из файла */
         $config_communications = Resources::include_information_from_file(DIR_RESOURCES,'Настройка коммуникаций','php');
 
         if($config_communications === null){
             Business::fix_error('нет файла настройки коммуникаций',__FILE__,__LINE__);
         }
 
-        /*устанавливаем настройки коммуникаций*/
+        /* Устанавливаем настройки коммуникаций */
         Notices::set_mission('config_communications',$config_communications);
 
-        /*получаем схему наработок из файла*/
+        /* Получаем схему наработок из файла */
         $schema_experiences = Resources::include_information_from_file(DIR_SCHEMES,'Схема наработок','php');
 
         if($schema_experiences === null){
             Business::fix_error('нет файла схема наработок',__FILE__,__LINE__);
         }
 
-        /*устанавливаем схему наработок*/
+        /* Устанавливаем схему наработок */
         Notices::set_mission('schema_experiences',$schema_experiences);
 
-        /*получаем схему базы данных из файла*/
-        $schema_data_base = Resources::include_information_from_file(DIR_SCHEMES,'Схема базы данных','php');
+        /* Получаем схему базы данных из файла */
+        $schema_data_base = Resources::include_information_from_file(DIR_SCHEMES,'Схема таблиц базы данных','php');
 
         if($schema_data_base === null){
-            Business::fix_error('нет файла схема базы данных',__FILE__,__LINE__);
+            Business::fix_error('нет файла схемы таблиц базы данных',__FILE__,__LINE__);
         }
 
-        /*устанавливаем схему базы данных*/
+        /* Устанавливаем схему базы данных */
         Notices::set_mission('schema_data_base',$schema_data_base);
+
+        /* Получаем схему взаимодействия с базой данных */
+        $schema_interaction_with_data_base = Resources::include_information_from_file(DIR_SCHEMES,'Схема взаимодействия с базой данных','php');
+
+        if($schema_interaction_with_data_base === null){
+            Business::fix_error('нет файла схемы взаимодействия с базой данных',__FILE__,__LINE__);
+        }
+
+        /* Устанавливаем схему взаимодействия с базой данных */
+        Notices::set_mission('schema_interaction_with_data_base', $schema_interaction_with_data_base);
 
     }
 
@@ -107,7 +117,7 @@ class Resources implements Structure_Resources
     }
 
     /**
-     * Схема базы данных
+     * Схема таблиц базы данных
      *
      * @param string $table показать данные определенной таблицы
      * @param string $column показать данные определенной колонки
@@ -157,7 +167,7 @@ class Resources implements Structure_Resources
      */
     static function save_realized_schema_data_base($realized_schema){
 
-        self::write_information_in_file(DIR_SCHEMES,'Реализованная схема базы данных','php', '<?php'."\n".' return '.var_export($realized_schema, true).'; ?>');
+        self::write_information_in_file(DIR_SCHEMES,'Реализованная схема таблиц базы данных','php', '<?php'."\n".' return '.var_export($realized_schema, true).'; ?>');
 
     }
 
@@ -168,7 +178,7 @@ class Resources implements Structure_Resources
      */
     static function get_information_realized_schema_data_base(){
 
-        $realized_schema = self::include_information_from_file(DIR_SCHEMES,'Реализованная схема базы данных','php');
+        $realized_schema = self::include_information_from_file(DIR_SCHEMES,'Реализованная схема таблиц базы данных','php');
 
         return is_array($realized_schema) ? $realized_schema : [];
 
@@ -526,587 +536,104 @@ class Resources implements Structure_Resources
 
     }
 
-    /*------ДОБАВЛЕНИЕ ИНФОРМАЦИИ В БАЗУ ДАННЫХ------*/
+    /*------БАЗА ДАННЫХ------*/
 
     /**
-     * Добавляем в базу данных пользователя
+     * Взаимообмен информацией с базой данных
      *
-     * @param string $nickname псевдоним
-     * @param string $password_formation сформированный пароль
-     * @param string $name имя
-     * @param string $family_name фамилия
-     * @param string $email электронный адрес
-     * @return integer|boolean
+     * @param string $direction направление
+     * @param string $what чего
+     * @param array $values значения
+     * @return mixed
      */
-    static function data_base_add_user($nickname, $password_formation, $name, $family_name, $email){
+    static function interchange_information_with_data_base($direction, $what, $values){
 
-        /*подключен ли класс для работы*/
-        if(!class_exists('\Framework_life_balance\core_components\their_modules\Data_Base')){
+        /* Получаем схему взаимодействия с базой данных */
+        $schema_interaction_with_data_base = Notices::get_mission('schema_interaction_with_data_base');
+
+        if($schema_interaction_with_data_base == null){
             return false;
         }
 
-        /*таблица*/
-        $table = 'users';
-
-        /*установка*/
-        $set   = [
-            'nickname'    => $nickname,
-            'password'    => $password_formation,
-            'name'        => $name,
-            'family_name' => $family_name,
-            'email'       => $email
-        ];
-
-        /*Проверяем таблицу*/
-        Solutions::check_correct_taking_schema_data_base($table);
-
-        /*Проверяем колонки*/
-        foreach($set as $column => $value){
-                Solutions::check_correct_taking_schema_data_base($table, $column);
+        if(!isset($schema_interaction_with_data_base[$direction])){
+            /* Фиксируем ошибку */
+            Business::fix_error('Не известно направление "'.$direction.'" во взаимодействии с базой данных', __FILE__, __LINE__);
         }
+        elseif(!isset($schema_interaction_with_data_base[$direction][$what])){
+            /* Фиксируем ошибку */
+            Business::fix_error('Не известно чего "'.$what.'" направления "'.$direction.'" во взаимодействии с базой данных', __FILE__, __LINE__);
+        }
+
+        /* Информация запроса */
+        $information_query = $schema_interaction_with_data_base[$direction][$what];
 
         try{
 
-            $key = Data_Base::call_add_information($table, $set);
+            if($direction == 'Добавление'){
 
-            return $key;
+                $key = Data_Base::call_add_information(
+                    $information_query['Таблица'],
+                    $information_query['Установки'],
+                    $values
+                );
 
-        }catch (\Exception $e) {
-            /*фиксируем ошибку*/
-            Business::fix_error($e->getMessage(),__FILE__,__LINE__);
-        }
+                return $key;
 
-    }
-
-    /**
-     * Добавляем запрос консоли в базу данных
-     *
-     * @param string $experience наработка
-     * @param string $experience_goal цель
-     * @param array $parameters параметры
-     * @return integer|false
-     */
-    static function add_request_console_in_data_base($experience, $experience_goal, array $parameters){
-
-        /*подключен ли класс для работы*/
-        if(!class_exists('\Framework_life_balance\core_components\their_modules\Data_Base')){
-            return false;
-        }
-
-        /*таблица*/
-        $table = 'requests_console';
-
-        /*установка*/
-        $set   = [
-            'date'        => Solutions::position_time(),
-            'request'     => $experience.'/'.$experience_goal,
-            'parameters'  => json_encode($parameters)
-        ];
-
-        /*Проверяем таблицу*/
-        Solutions::check_correct_taking_schema_data_base($table);
-
-        /*Проверяем колонки*/
-        foreach($set as $column=>$value){
-            Solutions::check_correct_taking_schema_data_base($table, $column);
-        }
-
-        try{
-
-            $key = Data_Base::call_add_information($table, $set);
-
-            return $key;
-
-        }catch (\Exception $e) {
-            /*фиксируем ошибку*/
-            Business::fix_error($e->getMessage(),__FILE__,__LINE__);
-        }
-    }
-
-    /*------ПОЛУЧЕНИЕ КОЛИЧЕСТВА ИНФОРМАЦИИ ИЗ БАЗЫ ДАННЫХ------*/
-
-    /**
-     * Получаем из базы данных кол-во всех пользователей
-     *
-     * @return integer|boolean
-     */
-    static function data_base_get_count_users(){
-
-        /*подключен ли класс для работы*/
-        if(!class_exists('\Framework_life_balance\core_components\their_modules\Data_Base')){
-            return false;
-        }
-
-        /*таблица*/
-        $table = 'users';
-
-        /*уточнения*/
-        $where = false;
-
-        /*Проверяем таблицу*/
-        Solutions::check_correct_taking_schema_data_base($table);
-
-        try{
-
-            $count = Data_Base::call_count_information($table, $where);
-
-            return $count;
-
-        }catch (\Exception $e) {
-            /*фиксируем ошибку*/
-            Business::fix_error($e->getMessage(),__FILE__,__LINE__);
-        }
-    }
-
-    /*------ПОЛУЧЕНИЕ ИНФОРМАЦИИ ИЗ БАЗЫ ДАННЫХ------*/
-
-    /**
-     * Получаем из базы данных всех пользователей
-     *
-     * @return array|boolean
-     */
-    static function data_base_get_users(){
-
-        /*подключен ли класс для работы*/
-        if(!class_exists('\Framework_life_balance\core_components\their_modules\Data_Base')){
-            return false;
-        }
-
-        /*таблица*/
-        $table = 'users';
-
-        /*взятие*/
-        $select = ['*'];
-
-        /*условие*/
-        $where = false;
-
-        /*сортировка*/
-        $sort = ['nickname' => 'ASC'];
-
-        /*ограничение*/
-        $limit = false;
-
-        /*Проверяем таблицу*/
-        Solutions::check_correct_taking_schema_data_base($table);
-
-        /*Проверяем колонки*/
-        foreach($sort as $column=>$value){
-            Solutions::check_correct_taking_schema_data_base($table, $column);
-        }
-
-        try{
-
-            $usersData = Data_Base::call_get_information($table, $select, $where, $sort, $limit);
-
-            return $usersData;
-
-        }catch (\Exception $e) {
-            /*фиксируем ошибку*/
-            Business::fix_error($e->getMessage(),__FILE__,__LINE__);
-        }
-
-    }
-
-    /**
-     * Получаем из базы данных id пользователя по авторизационым данным
-     *
-     * @param string $nickname псевдоним
-     * @param string $password_formation сформированный пароль
-     * @return string|boolean
-     */
-    static function data_base_get_user_id_by_auth_data($nickname, $password_formation){
-
-        /*подключен ли класс для работы*/
-        if(!class_exists('\Framework_life_balance\core_components\their_modules\Data_Base')){
-            return false;
-        }
-
-        /*таблица*/
-        $table = 'users';
-
-        /*взятие*/
-        $select = ['id'];
-
-        /*условие*/
-        $where = [
-            ['nickname' => $nickname],
-            'and',
-            ['password' => $password_formation],
-        ];
-
-        /*сортировка*/
-        $sort = false;
-
-        /*ограничение*/
-        $limit = 1;
-
-        /*Проверяем таблицу*/
-        Solutions::check_correct_taking_schema_data_base($table);
-
-        /*Проверяем колонки*/
-        foreach($select as $column){
-            Solutions::check_correct_taking_schema_data_base($table, $column);
-        }
-
-        foreach($where as $value){
-            if(is_array($value)){
-                Solutions::check_correct_taking_schema_data_base($table, key($value));
             }
-        }
+            elseif($direction == 'Количество'){
 
-        try{
+                $count = Data_Base::call_count_information(
+                    $information_query['Таблица'],
+                    $information_query['Уточнение'],
+                    $values
+                );
 
-            $authorized_data = Data_Base::call_get_information($table, $select, $where, $sort, $limit);
+                return $count;
 
-            return $authorized_data ? $authorized_data['id'] : false;
-
-        }catch (\Exception $e) {
-            /*фиксируем ошибку*/
-            Business::fix_error($e->getMessage(),__FILE__,__LINE__);
-        }
-
-    }
-
-    /**
-     * Получаем из базы данных id пользователя по псевдониму
-     *
-     * @param string $nickname псевдоним
-     * @return string|boolean
-     */
-    static function data_base_get_user_id_by_nickname($nickname){
-
-        /*подключен ли класс для работы*/
-        if(!class_exists('\Framework_life_balance\core_components\their_modules\Data_Base')){
-            return false;
-        }
-
-        /*таблица*/
-        $table = 'users';
-
-        /*взятие*/
-        $select = ['id'];
-
-        /*условие*/
-        $where = [
-            ['nickname' => $nickname],
-        ];
-
-        /*сортировка*/
-        $sort = false;
-
-        /*ограничение*/
-        $limit = 1;
-
-        /*Проверяем таблицу*/
-        Solutions::check_correct_taking_schema_data_base($table);
-
-        /*Проверяем колонки*/
-        foreach($select as $column){
-            Solutions::check_correct_taking_schema_data_base($table, $column);
-        }
-
-        foreach($where as $value){
-            if(is_array($value)){
-                Solutions::check_correct_taking_schema_data_base($table, key($value));
             }
-        }
+            elseif($direction == 'Получение'){
 
-        /*берём данные из базы данных*/
-        try{
+                $data = Data_Base::call_get_information(
+                    $information_query['Таблица'],
+                    $information_query['Получение'],
+                    $information_query['Уточнение'],
+                    $information_query['Сортировка'],
+                    $information_query['Ограничение'],
+                    $values
+                );
 
-            $authorized_data = Data_Base::call_get_information($table, $select, $where, $sort, $limit);
+                return $data;
 
-            return $authorized_data ? $authorized_data['id'] : false;
-
-        }catch (\Exception $e) {
-            /*фиксируем ошибку*/
-            Business::fix_error($e->getMessage(),__FILE__,__LINE__);
-        }
-
-    }
-
-    /**
-     * Получаем из базы данных информацию о пользователе по сессии
-     *
-     * @param integer $user_id индификационный номер пользователя
-     * @param integer $session сессия пользователя
-     * @return array|boolean $user_data
-     */
-    static function data_base_get_user_data_by_session($user_id, $session){
-
-        /*подключен ли класс для работы*/
-        if(!class_exists('\Framework_life_balance\core_components\their_modules\Data_Base')){
-            return false;
-        }
-
-        /*таблица*/
-        $table = 'users';
-
-        /*взятие*/
-        $select = ['*'];
-
-        /*условие*/
-        $where = [
-            ['id' => $user_id],
-            'and',
-            ['session' => $session],
-        ];
-
-        /*сортировка*/
-        $sort = false;
-
-        /*ограничение*/
-        $limit = 1;
-
-        /*Проверяем таблицу*/
-        Solutions::check_correct_taking_schema_data_base($table);
-
-        /*Проверяем колонки*/
-        foreach($where as $value){
-            if(is_array($value)){
-                Solutions::check_correct_taking_schema_data_base($table, key($value));
             }
-        }
+            elseif($direction == 'Изменение'){
 
-        /*берём данные из базы данных*/
-        try{
+                $updated = Data_Base::call_update_information(
+                    $information_query['Таблица'],
+                    $information_query['Установки'],
+                    $information_query['Уточнение'],
+                    $information_query['Ограничение'],
+                    $values
+                );
 
-            $user_data = Data_Base::call_get_information($table, $select, $where, $sort, $limit);
+                return $updated;
 
-            /*сохраняем в оперативную памятью*/
-            Business::work_with_memory_data('session_'.$user_id, $user_data,false);
-
-            return $user_data;
-
-        }catch (\Exception $e) {
-            /*фиксируем ошибку*/
-            Business::fix_error($e->getMessage(),__FILE__,__LINE__);
-        }
-
-    }
-
-    /**
-     * Получаем из базы данных id пользователя по электронному адресу
-     *
-     * @param string $email электронный адрес
-     * @return string|boolean
-     */
-    static function data_base_get_user_id_by_email($email){
-
-        /*подключен ли класс для работы*/
-        if(!class_exists('\Framework_life_balance\core_components\their_modules\Data_Base')){
-            return false;
-        }
-
-        /*таблица*/
-        $table = 'users';
-
-        /*взятие*/
-        $select = ['id'];
-
-        /*условие*/
-        $where = [
-            ['email' => $email],
-        ];
-
-        /*сортировка*/
-        $sort = false;
-
-        /*ограничение*/
-        $limit = false;
-
-        /*Проверяем таблицу*/
-        Solutions::check_correct_taking_schema_data_base($table);
-
-        /*Проверяем колонки*/
-        foreach($where as $value){
-            if(is_array($value)){
-                Solutions::check_correct_taking_schema_data_base($table, key($value));
             }
-        }
+            elseif($direction == 'Удаление'){
 
-        /*берём данные из базы данных*/
-        try{
+                $deleted = Data_Base::call_delete_information(
+                    $information_query['Таблица'],
+                    $information_query['Уточнение'],
+                    $information_query['Ограничение'],
+                    $values
+                );
 
-            $authorized_data = Data_Base::call_get_information($table, $select, $where, $sort, $limit);
+                return $deleted;
 
-            return $authorized_data ? $authorized_data['id'] : false;
-
-        }catch (\Exception $e) {
-            /*фиксируем ошибку*/
-            Business::fix_error($e->getMessage(),__FILE__,__LINE__);
-        }
-
-    }
-
-    /**
-     * Берём запрос консоли по id из базы данных
-     *
-     * @param integer $id идентификатор
-     * @return array|false
-     */
-    static function get_request_console_by_id_from_data_base($id){
-
-        /*подключен ли класс для работы*/
-        if(!class_exists('\Framework_life_balance\core_components\their_modules\Data_Base')){
-            return false;
-        }
-
-        /*таблица*/
-        $table = 'requests_console';
-
-        /*взятие*/
-        $select = ['*'];
-
-        /*условие*/
-        $where = [
-            ['id' => $id],
-        ];
-
-        /*сортировка*/
-        $sort = false;
-
-        /*ограничение*/
-        $limit = 1;
-
-        /*Проверяем таблицу*/
-        Solutions::check_correct_taking_schema_data_base($table);
-
-        /*Проверяем колонки*/
-        if($where){
-            foreach($where as $value){
-                if(is_array($value)){
-                    Solutions::check_correct_taking_schema_data_base($table, key($value));
-                }
             }
-        }
-
-        /*берём данные из базы данных*/
-        try{
-
-            $request_console = Data_Base::call_get_information($table, $select, $where, $sort, $limit);
-
-            return $request_console;
-
-        }catch (\Exception $e) {
-            /*фиксируем ошибку*/
-            Business::fix_error($e->getMessage(),__FILE__,__LINE__);
-        }
-    }
-
-    /*------ОБНОВЛЕНИЕ ИНФОРМАЦИИ В БАЗЕ ДАННЫХ------*/
-
-    /**
-     * Обновляем в базе данных роль администрирования у пользователя
-     *
-     * @param integer $user_id индификационный номер пользователя
-     * @param string $is_admin да-нет
-     * @return boolean
-     */
-    static function data_base_set_user_is_admin($user_id, $is_admin){
-
-        /*подключен ли класс для работы*/
-        if(!class_exists('\Framework_life_balance\core_components\their_modules\Data_Base')){
-            return false;
-        }
-
-        /*таблица*/
-        $table = 'users';
-
-        /*установка*/
-        $set = [
-            'is_admin' => $is_admin
-        ];
-
-        /*условие*/
-        $where = [
-            ['id' => $user_id],
-        ];
-
-        /*ограничение*/
-        $limit = 1;
-
-        /*Проверяем таблицу*/
-        Solutions::check_correct_taking_schema_data_base($table);
-
-        /*Проверяем колонки*/
-        foreach($set as $column=>$value){
-            Solutions::check_correct_taking_schema_data_base($table, $column);
-        }
-
-        foreach($where as $value){
-            if(is_array($value)){
-                Solutions::check_correct_taking_schema_data_base($table, key($value));
+            else{
+                /* Фиксируем ошибку */
+                Business::fix_error('Не известно направление "'.$direction.'" во взаимодействии с базой данных', __FILE__, __LINE__);
             }
-        }
-
-        /*обновляем данные в базе данных*/
-        try{
-
-            $updated = Data_Base::call_update_information($table, $set, $where, $limit);
-
-            return $updated;
-
-        }catch (\Exception $e) {
-            /*фиксируем ошибку*/
-            Business::fix_error($e->getMessage(),__FILE__,__LINE__);
-        }
-    }
-
-    /**
-     * Обновляем в базе данных сессию у пользователя
-     *
-     * @param integer $user_id индификационный номер пользователя
-     * @param integer $session сессия пользователя
-     * @return boolean
-     */
-    static function data_base_upd_user_session($user_id, $session){
-
-        /*работа с оперативной памятью*/
-        Business::work_with_memory_data('session_'.$user_id, false,false,true);
-
-        /*подключен ли класс для работы*/
-        if(!class_exists('\Framework_life_balance\core_components\their_modules\Data_Base')){
-            return false;
-        }
-
-        /*таблица*/
-        $table = 'users';
-
-        /*установка*/
-        $set = [
-            'session' => $session
-        ];
-
-        /*условие*/
-        $where = [
-            ['id' => $user_id],
-        ];
-
-        /*ограничение*/
-        $limit = 1;
-
-        /*Проверяем таблицу*/
-        Solutions::check_correct_taking_schema_data_base($table);
-
-        /*Проверяем колонки*/
-        foreach($set as $column=>$value){
-            Solutions::check_correct_taking_schema_data_base($table, $column);
-        }
-
-        foreach($where as $value){
-            if(is_array($value)){
-                Solutions::check_correct_taking_schema_data_base($table, key($value));
-            }
-        }
-
-        /*обновляем данные в базе данных*/
-        try{
-
-            $updated = Data_Base::call_update_information($table, $set, $where, $limit);
-
-            return $updated;
 
         }catch (\Exception $e) {
             /*фиксируем ошибку*/
@@ -1114,67 +641,6 @@ class Resources implements Structure_Resources
         }
 
     }
-
-    /**
-     * Обновляем статус запроса консоли в базе данных
-     *
-     * @param integer $id идентификатор
-     * @param string $status статус
-     * @return boolean
-     */
-    static function update_status_request_console_in_data_base($id, $status){
-
-        /*подключен ли класс для работы*/
-        if(!class_exists('\Framework_life_balance\core_components\their_modules\Data_Base')){
-            return false;
-        }
-
-        /*таблица*/
-        $table = 'requests_console';
-
-        /*установка*/
-        $set = [
-            'status' => $status
-        ];
-
-        /*условие*/
-        $where = [
-            ['id' => $id],
-        ];
-
-        /*ограничение*/
-        $limit = 1;
-
-        /*Проверяем таблицу*/
-        Solutions::check_correct_taking_schema_data_base($table);
-
-        /*Проверяем колонки*/
-        foreach($set as $column=>$value){
-            Solutions::check_correct_taking_schema_data_base($table, $column);
-        }
-
-        foreach($where as $value){
-            if(is_array($value)){
-                Solutions::check_correct_taking_schema_data_base($table, key($value));
-            }
-        }
-
-        /*обновляем данные в базе данных*/
-        try{
-
-            $updated = Data_Base::call_update_information($table, $set, $where, $limit);
-
-            return $updated;
-
-        }catch (\Exception $e) {
-            /*фиксируем ошибку*/
-            Business::fix_error($e->getMessage(),__FILE__,__LINE__);
-        }
-    }
-
-    /*------УДАЛЕНИЕ ИНФОРМАЦИИ ИЗ БАЗЫ ДАННЫХ------*/
-
-    /*------СТРУКТУРА БАЗЫ ДАННЫХ------*/
 
     /**
      * Реконструируем базу данных
@@ -1209,7 +675,7 @@ class Resources implements Structure_Resources
             'create_reference',
         ];
 
-        /*реализованная схема базы данных*/
+        /*реализованная схема таблиц базы данных*/
         $realized_schema = Resources::get_information_realized_schema_data_base();
 
         try{

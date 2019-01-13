@@ -232,8 +232,12 @@ class Business implements Structure_Business
         $user_device = Notices::get_mission('user_device');
 
         if($user_device == 'console' and isset($_SERVER['argv'][3]) and $_SERVER['argv'][3]>0){
-            /*Обновляем статус запроса консоли в базе данных*/
-            Resources::update_status_request_console_in_data_base($_SERVER['argv'][3], (($result_executed == 'true')?'true':'false'));
+
+            /* Обновляем статус запроса консоли в базе данных */
+            Resources::interchange_information_with_data_base('Изменение', 'Статуса запуска консоли', [
+                'id'     => $_SERVER['argv'][3],
+                'status' => (($result_executed == 'true')?'true':'false'),
+            ]);
         }
 
         return $result_executed;
@@ -252,8 +256,12 @@ class Business implements Structure_Business
 
         if(count($parameters)>0){
 
-            /*Добавляем запрос консоли в базу данных*/
-            $id_save_parameters = Resources::add_request_console_in_data_base($experience, $experience_goal, $parameters);
+            /* Добавляем запрос консоли в базу данных */
+            $id_save_parameters = Resources::interchange_information_with_data_base('Добавление', 'Нового запуска из консоли', [
+                'date'       => Solutions::position_time(),
+                'request'    => $experience.'/'.$experience_goal,
+                'parameters' => json_encode($parameters),
+            ]);
 
             if($id_save_parameters == false){
                 $id_save_parameters = 0;
@@ -376,7 +384,10 @@ class Business implements Structure_Business
             /*на случай если в памяти уже нет, берём из базы данных*/
             else{
 
-                $user_data = Resources::data_base_get_user_data_by_session($user_id, Notices::get_mission('user_session'));
+                $user_data = Resources::interchange_information_with_data_base('Получение', 'Информации о пользователе по сессии', [
+                    'id'      => $user_id,
+                    'session' => Notices::get_mission('user_session'),
+                ]);
 
                 /*всё верно*/
                 if($user_data){

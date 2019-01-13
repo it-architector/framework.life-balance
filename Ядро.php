@@ -18,16 +18,16 @@
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Компоненты ядра'. DIRECTORY_SEPARATOR . '3.Ресурсы'. DIRECTORY_SEPARATOR . 'Схемы'. DIRECTORY_SEPARATOR . 'Схема внутренних путей.php';
 
 /* Подключаем структуру сути решений */
-require_once DIR_STRUCTURE_ESSENCES . 'Суть решений.php';
+require_once DIR_STRUCTURE_ESSENCES . '1.Суть решений.php';
 
 /* Подключаем структуру сути уведомлений */
-require_once DIR_STRUCTURE_ESSENCES . 'Суть уведомлений.php';
+require_once DIR_STRUCTURE_ESSENCES . '2.Суть уведомлений.php';
 
 /* Подключаем структуру сути ресурсов */
-require_once DIR_STRUCTURE_ESSENCES . 'Суть ресурсов.php';
+require_once DIR_STRUCTURE_ESSENCES . '3.Суть ресурсов.php';
 
 /* Подключаем структуру сути дел */
-require_once DIR_STRUCTURE_ESSENCES . 'Суть дел.php';
+require_once DIR_STRUCTURE_ESSENCES . '4.Суть дел.php';
 
 /* Подключаем суть решений */
 require_once DIR_SOLUTIONS . 'Суть решений.php';

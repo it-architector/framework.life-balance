@@ -135,10 +135,10 @@ class Solutions implements Structure_Solutions
             return;
         }
 
-        /*реализованная схема базы данных*/
+        /*реализованная схема таблиц базы данных*/
         $realized_schema_data_base = Resources::get_information_realized_schema_data_base();
 
-        /*текущая схема базы данных*/
+        /*текущая схема таблиц базы данных*/
         $schema_data_base = Notices::get_mission('schema_data_base');
 
         /*Сопоставляем Схемы базы данных*/
@@ -560,13 +560,18 @@ class Solutions implements Structure_Solutions
             /*паметры запроса*/
             if(isset($_SERVER['argv'][3]) and $_SERVER['argv'][3]>0){
 
-                /*получаем параметры из базы данных*/
-                $request_console = Resources::get_request_console_by_id_from_data_base($_SERVER['argv'][3]);
+                /* Получаем параметры из базы данных */
+                $request_console = Resources::interchange_information_with_data_base('Получение', 'Информации о запуске из консоли по id', [
+                    'id' => $_SERVER['argv'][3]
+                ]);
 
                 if($request_console and isset($request_console['parameters'])){
 
-                    /*Обновляем статус запроса консоли в базе данных*/
-                    Resources::update_status_request_console_in_data_base($_SERVER['argv'][3], 'do');
+                    /* Обновляем статус запроса консоли в базе данных */
+                    Resources::interchange_information_with_data_base('Изменение', 'Статуса запуска консоли', [
+                        'id'     => $_SERVER['argv'][3],
+                        'status' => 'do',
+                    ]);
 
                     /*параметры запроса*/
                     $parameters_request = json_decode($request_console['parameters'],1);

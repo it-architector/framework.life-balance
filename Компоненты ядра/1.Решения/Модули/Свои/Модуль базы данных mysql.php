@@ -72,40 +72,190 @@ class Data_Base implements Structure_Data_Base
     /*---------------------------------------------------------*/
 
     /**
-     * формируем запрос на добавление информации
+     * Формируем установки
+     *
+     * @param array $set установки
+     * @return string
+     * @throws
+     */
+    static function formation_set($set){
+
+        $query = '';
+
+        if(count($set) > 0){
+
+            /* Установливаем колонки */
+            $set_columns = [];
+
+            foreach($set as $set_column=>$set_value){
+
+                $set_columns[] = self::adaptation_value($set_column, 'column') . ' = ' . self::adaptation_value($set_value, 'external_value_or_formula', $set_column);
+
+            }
+
+            /* Совмещаем установку */
+            $query = 'SET ' . implode( ', ',  $set_columns );
+
+            /*
+            foreach($set as $set_column=>$set_value){
+                $set_columns[] = self::adaptation_value($set_column, 'column');
+                $set_values[]  = self::adaptation_value($set_value, 'external_value_or_formula', $set_column);
+            }
+            $query = '(' . implode( ', ',  $set_columns ) . ') VALUES ' . '(' .implode( ', ',  $set_values ) . ')';
+            */
+
+        }
+
+        return $query;
+
+    }
+
+    /**
+     * Формируем уточнение
+     *
+     * @param array $where уточнение
+     * @return string
+     * @throws
+     */
+    static function formation_where($where){
+
+        $query = '';
+
+        /* Уточнение */
+        if(count($where) > 0){
+
+            /* Уточняем колонки */
+            $where_columns = [];
+
+
+            foreach($where as $where_row){
+
+                if(is_array($where_row)){
+
+                    $where_columns[] = self::adaptation_value($where_row[0], 'column') . ' ' . $where_row[1] . ' ' . self::adaptation_value($where_row[2], 'external_value_or_formula', $where_row[0]);
+
+                }
+                else{
+
+                    $where_columns[] = $where_row;
+
+                }
+
+            }
+
+            $query = 'WHERE ' . implode(' ', $where_columns);
+        }
+
+        return $query;
+
+    }
+
+    /**
+     * Формируем сортировку
+     *
+     * @param array $sort сортировка
+     * @return string
+     * @throws
+     */
+    static function formation_sort($sort){
+
+        $query = '';
+
+        /* Сортируем */
+        if(count($sort) > 0){
+
+            /* Сортируем колонки */
+            $sort_columns = [];
+
+            foreach($sort as $sort_column => $sort_direction){
+
+                $sort_columns[] = self::adaptation_value($sort_column, 'column') . ' ' . $sort_direction;
+
+            }
+
+            $query = 'ORDER BY ' . implode( ', ' , $sort_columns );
+
+        }
+
+        return $query;
+
+    }
+
+    /**
+     * Формируем ограничение
+     *
+     * @param array $limit ограничение
+     * @return string
+     * @throws
+     */
+    static function formation_limit($limit){
+
+        $query = '';
+
+        /* Ограничиваем */
+        if(count($limit) > 0){
+
+            if(count($limit) != 2){
+                self::fix_error('В ограничении нет двух параметров');
+            }
+
+            if($limit[0] == 0){
+                $query = 'LIMIT ' . $limit[1];
+            }
+            else{
+                $query = 'LIMIT ' . $limit[0] . ',' . $limit[1];
+            }
+
+        }
+
+        return $query;
+
+    }
+
+    /**
+     * Корректируем ограничение
+     *
+     * @param array $limit ограничение
+     * @param array $values значения
+     * @return array
+     * @throws
+     */
+    static function correct_limit($limit, $values){
+
+        if(isset($limit[0]) and $limit[0] === '{Из массива}'){
+
+            if(!isset($values['Позиция взятия записей'])){
+                self::fix_error('Нет в массиве ('.$limit[0].') позиции взятия записи: ' . json_encode($values));
+            }
+
+            $limit[0] = $values['Позиция взятия записей'];
+        }
+
+        return $limit;
+
+    }
+
+    /**
+     * Формируем запрос на добавление информации
      *
      * @param string $table таблица
      * @param array $set установка
-     * @return array
+     * @return string
      * @throws
      */
     static function formation_query_add_information($table, $set){
 
-        /*запрос*/
+        /* Запрос */
         $query = [];
 
-        /*значения запроса*/
-        $values_query = [];
+        /* Обращаемся к таблице */
+        $query[] = 'INSERT INTO ' . self::adaptation_value($table, 'table');
 
-        /*таблица*/
-        $query[] = 'INSERT INTO '.self::adaptation_value(self::$schema,'`') . '.'. self::adaptation_value($table,'`');
+        /* Установливаем */
+        $query[] = self::formation_set($set);
 
-        /*установка*/
-        $set_explode=[];
-
-        foreach($set as $num_group_add=>$set_data){
-
-            $set_explode[] = '(' . self::formation_fields_and_manifestation_values_query($values_query, 'code', $set_data, $num_group_add) . ')';
-
-        }
-
-        $query[] = '(' . self::formation_fields_and_manifestation_values_query($values_query, 'key', $set[0]) . ') VALUES '.implode(', ',$set_explode);
-
-        /*результат*/
-        return [
-            implode(' ',$query),
-            $values_query
-        ];
+        /* Готовый запрос */
+        return implode(' ', $query);
 
     }
 
@@ -117,56 +267,44 @@ class Data_Base implements Structure_Data_Base
      * @param array|false $where уточнение
      * @param array|false $sort сортировка
      * @param array|string|false $limit ограничение
-     * @return array
+     * @return string
      * @throws
      */
     static function formation_query_get_information($table,  $select,  $where, $sort, $limit){
 
-        /*запрос*/
+        /* Запрос */
         $query = [];
 
-        /*значения запроса*/
-        $values_query = [];
+        /* Берём значения колонок */
+        if(is_array($select)){
 
-        /*взятие*/
-        $query[] = 'SELECT ' . (($select) ? implode(', ', $select) : '*');
+            /* Берём значения колонок */
+            $select_columns = [];
 
-        /*таблица*/
-        $query[] = 'FROM '.self::adaptation_value(self::$schema,'`'). '.'. self::adaptation_value($table,'`');
-
-        /*условие*/
-        if($where){
-            $query[] = 'WHERE ' . self::formation_fields_and_manifestation_values_query($values_query, 'where', $where);
-        }
-
-        /*сортировка*/
-        if($sort){
-
-            $sort_explode = [];
-
-            foreach($sort as $sort_key => $sort_value){
-                $sort_explode[] = self::adaptation_value($table,'`') . '.' . $sort_key . ' ' . $sort_value;
+            foreach($select as $select_column){
+                $select_columns[] = self::adaptation_value($select_column, 'column');
             }
 
-            $query[] = 'ORDER BY ' . implode(',',$sort_explode);
-
+            $query[] = 'SELECT ' . implode(', ', $select_columns);
+        }
+        else{
+            $query[] = 'SELECT *';
         }
 
-        /*ограничение*/
-        if($limit) {
-            if(is_integer($limit)){
-                $query[] = 'LIMIT ' . $limit;
-            }
-            elseif(is_array($limit) and count($limit)==2){
-                $query[] = 'LIMIT ' . $limit[0].','.$limit[1];
-            }
-        }
+        /* Обращаемся к таблице */
+        $query[] = 'FROM ' . self::adaptation_value($table,'table');
 
-        /*результат*/
-        return [
-            implode(' ',$query),
-            $values_query
-        ];
+        /* Уточнение */
+        $query[] = self::formation_where($where);
+
+        /* Сортируем */
+        $query[] = self::formation_sort($sort);
+
+        /* Ограничиваем */
+        $query[] = self::formation_limit($limit);
+
+        /* Готовый запрос */
+        return implode( ' ', $query );
 
     }
 
@@ -175,36 +313,28 @@ class Data_Base implements Structure_Data_Base
      *
      * @param string $table таблица
      * @param array|false $where уточнение
-     * @return array
+     * @return string
      * @throws
      */
     static function formation_query_count_information($table, $where){
 
-        /*запрос*/
+        /* Запрос */
         $query = [];
 
-        /*значения запроса*/
-        $values_query = [];
-
-        /*взятие*/
+        /* Берём значения колонок */
         $query[] = 'SELECT count(*) as count';
 
-        /*таблица*/
-        $query[] = 'FROM '. self::adaptation_value(self::$schema,'`') . '.' . self::adaptation_value($table,'`');
+        /* Обращаемся к таблице */
+        $query[] = 'FROM ' . self::adaptation_value($table,'table');
 
-        /*условие*/
-        if($where){
-            $query[] = 'WHERE ' . self::formation_fields_and_manifestation_values_query($values_query, 'where', $where);
-        }
+        /* Уточнение */
+        $query[] = self::formation_where($where);
 
-        /*ограничение*/
+        /* Ограничиваем */
         $query[] = 'LIMIT 1';
 
-        /*результат*/
-        return [
-            implode(' ', $query),
-            $values_query
-        ];
+        /* Готовый запрос */
+        return implode( ' ', $query );
 
     }
 
@@ -215,45 +345,28 @@ class Data_Base implements Structure_Data_Base
      * @param array|false $set установка
      * @param array|false $where уточнение
      * @param array|string|false $limit ограничение
-     * @return array
+     * @return string
      * @throws
      */
     static function formation_query_update_information($table, $set, $where, $limit){
 
-        /*запрос*/
+        /* Запрос */
         $query = [];
 
-        /*значения запроса*/
-        $values_query = [];
+        /* Обращаемся к таблице */
+        $query[] = 'UPDATE ' . self::adaptation_value($table,'table');
 
-        /*таблица*/
-        $query[] = 'UPDATE '. self::adaptation_value(self::$schema,'`') . '.' . self::adaptation_value($table,'`');
+        /* Установливаем */
+        $query[] = self::formation_set($set);
 
-        /*установка*/
-        if($set){
-            $query[] = 'SET ' . self::formation_fields_and_manifestation_values_query($values_query, 'set', $set);
-        }
+        /* Уточнение */
+        $query[] = self::formation_where($where);
 
-        /*условие*/
-        if($where){
-            $query[] = 'WHERE ' . self::formation_fields_and_manifestation_values_query($values_query, 'where', $where);
-        }
+        /* Ограничиваем */
+        $query[] = self::formation_limit($limit);
 
-        /*ограничение*/
-        if($limit) {
-            if(is_integer($limit)){
-                $query[] = 'LIMIT ' . $limit;
-            }
-            elseif(is_array($limit) and count($limit)==2){
-                $query[] = 'LIMIT ' . $limit[0].','.$limit[1];
-            }
-        }
-
-        /*результат*/
-        return [
-            implode(' ', $query),
-            $values_query
-        ];
+        /* Готовый запрос */
+        return implode( ' ', $query );
 
     }
 
@@ -263,40 +376,25 @@ class Data_Base implements Structure_Data_Base
      * @param string $table таблица
      * @param array|false $where уточнение
      * @param array|string|false $limit ограничение
-     * @return array
+     * @return string
      * @throws
      */
     static function formation_query_delete_information($table, $where, $limit){
 
-        /*запрос*/
+        /* Запрос */
         $query = [];
 
-        /*значения запроса*/
-        $values_query = [];
+        /* Обращаемся к таблице */
+        $query[] = 'DELETE FROM ' . self::adaptation_value($table,'table');
 
-        /*таблица*/
-        $query[] = 'DELETE FROM ' . self::adaptation_value(self::$schema,'`') . '.' . self::adaptation_value($table,'`');
+        /* Уточнение */
+        $query[] = self::formation_where($where);
 
-        /*условие*/
-        if($where){
-            $query[] = 'WHERE ' . self::formation_fields_and_manifestation_values_query($values_query, 'where', $where);
-        }
+        /* Ограничиваем */
+        $query[] = self::formation_limit($limit);
 
-        /*ограничение*/
-        if($limit) {
-            if(is_integer($limit)){
-                $query[] = 'LIMIT ' . $limit;
-            }
-            elseif(is_array($limit) and count($limit)==2){
-                $query[] = 'LIMIT ' . $limit[0].','.$limit[1];
-            }
-        }
-
-        /*результат*/
-        return [
-            implode(' ', $query),
-            $values_query
-        ];
+        /* Готовый запрос */
+        return implode( ' ', $query );
 
     }
 
@@ -562,130 +660,64 @@ class Data_Base implements Structure_Data_Base
     /**
      * Экранизируем значение
      *
-     * @param string $string значение
-     * @param string|false $limiter ограничения
-     * @return string $string экранизированное значение
+     * @param string|array $string значение
+     * @param string|false $type тип
+     * @param string|false $additional дополнительно
+     * @return string|array $string экранизированное значение
      */
-    static function adaptation_value($string, $limiter = false)
+    static function adaptation_value($string, $type = 'value', $additional = false)
     {
 
-        if($limiter){
-            $string = $limiter.$string.$limiter;
-        }
-        else{
+        if($type == 'table'){
 
-            if (!is_null(self::$link_communication_with_data_base)) {
-                if (is_array($string)) {
-                    foreach ($string as $k => $v) {
-                        $string[$k] = self::adaptation_value($v);
-                    }
-                } else {
-                    $string = self::$link_communication_with_data_base->quote($string);
-                }
+            $string = self::adaptation_value(self::$schema,'`') . '.' . self::adaptation_value($string,'`');
+
+        }
+        elseif($type == 'column'){
+
+            $string = self::adaptation_value($string,'`');
+
+        }
+        elseif($type == 'external_value_or_formula'){
+
+            if($string == '{Из массива}'){
+                $string = ':'.$additional;
             }
 
         }
-        return $string;
-    }
+        elseif($type == 'values'){
 
-    /**
-     * Формируем поля и проявляем значения запроса
-     *
-     * @param array $values_query все значения ключей
-     * @param string $format формат
-     * @param array $values значения
-     * @param integer|false $num_group_add номер группы добавления
-     * @return string
-     */
-    static function formation_fields_and_manifestation_values_query(&$values_query, $format, $values,  $num_group_add = false)
-    {
+            $values = $string;
 
-        /*объединители*/
-        $combiners = [
-            'key'   => ', ',
-            'code'  => ', ',
-            'set'   => ', ',
-            'where' => ' ',
-        ];
+            $string = [];
 
-        /*поля*/
-        $fields = [];
+            if(is_array($values)){
 
-        if($values){
-            foreach ($values as $key => $value) {
+                foreach($values as $column => $value){
 
-                /*для условия ключ находится в $value*/
-                if($format == 'where'){
-                    if(is_array($value)){
-                        $key_value = $value;
-                        $key = key($key_value);
-                        $value = $key_value[$key];
-                    }
-                    /*если просто текст, то это внутренние объединители*/
-                    else{
-                        $fields[] = $value;
+                    if($column == 'Позиция взятия записей'){
                         continue;
                     }
-                }
 
-                /*код*/
-                $code= ':' . $key.(($num_group_add!==false)?'_'.$num_group_add:'');
+                    $string[':'.$column] = $value;
 
-                /*ключ*/
-                $key = self::adaptation_value($key,'`');
-
-                /*формируем поля*/
-                switch ($format) {
-                    case 'key'  :
-                        $fields[] = $key;
-                        break;
-                    case 'code' :
-                        $fields[] = $code;
-                        break;
-                    case 'set'  :
-                        $fields[] = $key . ' = ' . $code;
-                        break;
-                    case 'where':
-                        if(is_array($value)){
-                            if(count($value) == 2){
-                                $fields[] = $key . ' ' . $value[0] . $code;
-                            }
-                            elseif(count($value) == 4){
-                                $fields[] = $key . ' ' . $value[0] . ' ' . $value[1] . $code . $value[3];
-                            }
-                        }
-                        else{
-                            $fields[] = $key . ' = ' . $code;
-                        }
-                        break;
-                }
-
-                /*выявляем значения запроса*/
-                switch ($format) {
-                    case 'code' :
-                    case 'set'  :
-                    $values_query[$code] = $value;
-                    break;
-                    case 'where':
-                        if (is_array($value)){
-                            if(count($value) == 2){
-                                $values_query[$code] = $value[1];
-                            }
-                            elseif(count($value) == 4){
-                                $values_query[$code] = $value[2];
-                            }
-                        }
-                        else{
-                            $values_query[$code] = $value;
-                        }
-                        break;
                 }
 
             }
+
+        }
+        elseif($type == 'value'){
+
+            if (!is_null(self::$link_communication_with_data_base)) {
+                $string = self::$link_communication_with_data_base->quote($string);
+            }
+
+        }
+        elseif($type){
+            $string = $type . $string . $type;
         }
 
-        /*отдаём поля*/
-        return count($fields) > 0 ? implode($combiners[$format], $fields) : '';
+        return $string;
     }
 
     /*---------------------------------------------------------*/
@@ -827,18 +859,26 @@ class Data_Base implements Structure_Data_Base
     static function get_result_executed_query($type_query, $distributor_query, $limit = false)
     {
 
-        /*выдаём результат*/
+        /* Выдаём результат */
         switch ($type_query) {
-            case 'group_add_information' :
-            case 'add_information'       :
+            case 'Добавление информации' :
                 return self::get_last_auto_increment_id();
                 break;
-            case 'get_information'       :
+            case 'Получение информации'  :
                 if (self::get_count_rows($distributor_query) == 0){
                     return false;
                 }
-                elseif ($limit and $limit == 1){
-                    return self::get_rows($distributor_query);
+                elseif ($limit and isset($limit[1]) and $limit[1] == 1){
+
+                    $row = self::get_rows($distributor_query);
+
+                    if(count($row) == 1){
+                        return $row[key($row)];
+                    }
+                    else{
+                        return $row;
+                    }
+
                 }
                 else{
                     $rows = [];
@@ -848,15 +888,15 @@ class Data_Base implements Structure_Data_Base
                     return $rows;
                 }
                 break;
-            case 'count_information'     :
+            case 'Количество информации'  :
                 if (self::get_count_rows($distributor_query) == 0){
                     return false;
                 }
                 $row = self::get_rows($distributor_query);
                 return $row['count'];
                 break;
-            case 'update_information'    :
-            case 'delete_information'    :
+            case 'Изменение информации'  :
+            case 'Удаление информации'    :
                 return true;
                 break;
         }
@@ -932,103 +972,83 @@ class Data_Base implements Structure_Data_Base
      * Вызываем добавление информации
      *
      * @param string $table таблица
-     * @param array|false $set установка
+     * @param array $set установка
+     * @param array $values значения
      * @return integer|false
      * @throws
      */
-    static function call_add_information($table, $set = false)
+    static function call_add_information($table, $set, $values)
     {
         if(self::$link_communication_with_data_base==null){
             return false;
         }
 
-        if (!$set){
+        if (!$set or count($set) == 0){
             return false;
         }
 
         try {
 
-            /*Формируем запрос*/
-            list($query,$values_query) = self::formation_query_add_information($table,  [0=>$set]);
+            /* Формируем запрос */
+            $query = self::formation_query_add_information($table, $set);
 
-            /*Выполняем запрос*/
-            $distributor_query = self::execute_query($query, $values_query);
+            /* Значения */
+            $values = self::adaptation_value($values, 'values');
 
-            /*Получаем результат выполнения запроса*/
-            $result_executed_query = self::get_result_executed_query('add_information', $distributor_query);
+            /* Выполняем запрос */
+            $distributor_query = self::execute_query($query, $values);
 
+            /* Получаем результат выполнения запроса */
+            $result_executed_query = self::get_result_executed_query('Добавление информации', $distributor_query);
+
+            /* Выдаём результат выполнения запроса */
             return $result_executed_query;
 
         } catch (\PDOException $e) {
             self::fix_error($e->getMessage());
         }
-    }
-
-    /**
-     * Вызываем групповое добавление информации
-     *
-     * @param string $table таблица
-     * @param array|false $set установка
-     * @return integer|false
-     * @throws
-     */
-    static function call_group_add_information($table, $set = false)
-    {
-        if(self::$link_communication_with_data_base==null){
-            return false;
-        }
-
-        if (!$set and count($set)==0){
-            return false;
-        }
-
-        try {
-
-            /*Формируем запрос*/
-            list($query,$values_query) = self::formation_query_add_information($table, $set);
-
-            /*Выполняем запрос*/
-            $distributor_query = self::execute_query($query, $values_query);
-
-            /*Получаем результат выполнения запроса*/
-            $result_executed_query = self::get_result_executed_query('group_add_information', $distributor_query);
-
-            return $result_executed_query;
-
-        } catch (\PDOException $e) {
-            self::fix_error($e->getMessage());
-        }
-
     }
 
     /**
      * Вызываем получение информации
      *
      * @param string $table таблица
-     * @param array|false $select взятие
-     * @param array|false $where уточнение
-     * @param array|false $limit ограничение
-     * @param array|false $sort сортировка
+     * @param array $select взятие
+     * @param array $where уточнение
+     * @param array $limit ограничение
+     * @param array $sort сортировка
+     * @param array $values значения
      * @return array|false
      * @throws
      */
-    static function call_get_information($table, $select, $where = false, $sort = false, $limit = false)
+    static function call_get_information($table, $select, $where, $sort, $limit, $values)
     {
         if(self::$link_communication_with_data_base==null){
             return false;
         }
 
+        if (!$select or count($select) == 0){
+            return false;
+        }
+
         try {
 
-            /*Формируем запрос*/
-            list($query,$values_query) = self::formation_query_get_information($table,  $select,  $where, $sort, $limit);
+            /* Формируем ограничение */
+            $limit = self::correct_limit($limit, $values);
 
-            /*Выполняем запрос*/
-            $distributor_query = self::execute_query($query, $values_query);
+            /* Формируем запрос */
+            $query = self::formation_query_get_information($table,  $select,  $where, $sort, $limit);
 
-            /*Получаем результат выполнения запроса*/
-            $result_executed_query = self::get_result_executed_query('get_information', $distributor_query, $limit);
+            /* Значения */
+            $values = self::adaptation_value($values, 'values');
 
+            /* Выполняем запрос */
+            $distributor_query = self::execute_query($query, $values);
+
+            /* Получаем результат выполнения запроса */
+            $result_executed_query = self::get_result_executed_query('Получение информации', $distributor_query, $limit);
+
+            /* Выдаём результат выполнения запроса */
             return $result_executed_query;
 
         } catch (\PDOException $e) {
@@ -1040,11 +1060,12 @@ class Data_Base implements Structure_Data_Base
      * Вызываем количество информации
      *
      * @param string $table таблица
-     * @param array|false $where уточнение
+     * @param array $where уточнение
+     * @param array $values значения
      * @return integer|false
      * @throws
      */
-    static function call_count_information($table, $where = false)
+    static function call_count_information($table, $where, $values)
     {
         if(self::$link_communication_with_data_base==null){
             return false;
@@ -1052,15 +1073,19 @@ class Data_Base implements Structure_Data_Base
 
         try {
 
-            /*Формируем запрос*/
-            list($query, $values_query) = self::formation_query_count_information($table, $where);
+            /* Формируем запрос */
+            $query = self::formation_query_count_information($table, $where);
 
-            /*Выполняем запрос*/
-            $distributor_query = self::execute_query($query, $values_query);
+            /* Значения */
+            $values = self::adaptation_value($values, 'values');
 
-            /*Получаем результат выполнения запроса*/
-            $result_executed_query = self::get_result_executed_query('count_information', $distributor_query);
+            /* Выполняем запрос */
+            $distributor_query = self::execute_query($query, $values);
 
+            /* Получаем результат выполнения запроса */
+            $result_executed_query = self::get_result_executed_query('Количество информации', $distributor_query);
+
+            /* Выдаём результат выполнения запроса */
             return $result_executed_query;
 
         } catch (\PDOException $e) {
@@ -1072,33 +1097,41 @@ class Data_Base implements Structure_Data_Base
      * Вызываем обновление информации
      *
      * @param string $table таблица
-     * @param array|false $set установка
-     * @param array|false $where уточнение
-     * @param array|false $limit ограничение
+     * @param array $set установка
+     * @param array $where уточнение
+     * @param array $limit ограничение
+     * @param array $values значения
      * @return integer|false
      * @throws
      */
-    static function call_update_information($table, $set = false, $where = false, $limit = false)
+    static function call_update_information($table, $set, $where, $limit, $values)
     {
         if(self::$link_communication_with_data_base==null){
             return false;
         }
 
-        if (!$set){
+        if (!$set or count($set) == 0){
             return false;
         }
 
         try {
 
-            /*Формируем запрос*/
-            list($query,$values_query) = self::formation_query_update_information($table, $set, $where, $limit);
+            /* Формируем ограничение */
+            $limit = self::correct_limit($limit, $values);
 
-            /*Выполняем запрос*/
-            $distributor_query = self::execute_query($query, $values_query);
+            /* Формируем запрос */
+            $query = self::formation_query_update_information($table, $set, $where, $limit);
 
-            /*Получаем результат выполнения запроса*/
-            $result_executed_query = self::get_result_executed_query('update_information', $distributor_query);
+            /* Значения */
+            $values = self::adaptation_value($values, 'values');
 
+            /* Выполняем запрос */
+            $distributor_query = self::execute_query($query, $values);
+
+            /* Получаем результат выполнения запроса */
+            $result_executed_query = self::get_result_executed_query('Изменение информации', $distributor_query);
+
+            /* Выдаём результат выполнения запроса */
             return $result_executed_query;
 
         } catch (\PDOException $e) {
@@ -1111,12 +1144,13 @@ class Data_Base implements Structure_Data_Base
      * Вызываем удаление информации
      *
      * @param string $table таблица
-     * @param array|false $where уточнение
-     * @param array|false $limit ограничение
+     * @param array $where уточнение
+     * @param array $limit ограничение
+     * @param array $values значения
      * @return integer|false
      * @throws
      */
-    static function call_delete_information($table, $where = false, $limit = false)
+    static function call_delete_information($table, $where, $limit, $values)
     {
 
         if(self::$link_communication_with_data_base==null){
@@ -1125,15 +1159,22 @@ class Data_Base implements Structure_Data_Base
 
         try {
 
-            /*Формируем запрос*/
-            list($query,$values_query) = self::formation_query_delete_information($table, $where, $limit);
+            /* Формируем ограничение */
+            $limit = self::correct_limit($limit, $values);
 
-            /*Выполняем запрос*/
-            $distributor_query = self::execute_query($query, $values_query);
+            /* Формируем запрос */
+            $query = self::formation_query_delete_information($table, $where, $limit);
 
-            /*Получаем результат выполнения запроса*/
-            $result_executed_query = self::get_result_executed_query('delete_information', $distributor_query);
+            /* Значения */
+            $values = self::adaptation_value($values, 'values');
 
+            /* Выполняем запрос */
+            $distributor_query = self::execute_query($query, $values);
+
+            /* Получаем результат выполнения запроса */
+            $result_executed_query = self::get_result_executed_query('Удаление информации', $distributor_query);
+
+            /* Выдаём результат выполнения запроса */
             return $result_executed_query;
 
         } catch (\PDOException $e) {
