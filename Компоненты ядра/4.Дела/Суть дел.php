@@ -162,17 +162,6 @@ class Business implements Structure_Business
      */
     static function fix_reassembly_data_base($information, $completed = false){
 
-        /* Получаем настройки протоколов */
-        $config_protocols = Notices::get_mission('config_protocols');
-
-        if($config_protocols['Реконструкции базы данных']){
-
-            /* Протокол */
-            Resources::write_information_in_file(
-                DIR_PROTOCOLS, 'Реконструкции базы данных','log', $information);
-
-        }
-
         if($completed){
 
             /* Удаляем заглушку */
@@ -184,8 +173,19 @@ class Business implements Structure_Business
             /* Протокол */
             Resources::write_information_in_file(
                 DIR_PROTOCOLS, 'Текущая реконструкция базы данных','log',
-                'Запуск'
+                $information
             );
+        }
+
+        /* Получаем настройки протоколов */
+        $config_protocols = Notices::get_mission('config_protocols');
+
+        if($config_protocols['Реконструкции базы данных']){
+
+            /* Протокол */
+            Resources::write_information_in_file(
+                DIR_PROTOCOLS, 'Реконструкции базы данных','log', $information);
+
         }
 
 
