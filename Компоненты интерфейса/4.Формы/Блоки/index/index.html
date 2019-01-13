@@ -737,7 +737,8 @@ framework_life_balance_showError(error);
 												  <li class="directory expanded">Цели</li>
 												  <li>
 													  <ul class="jqueryFileTree">
-														  <li class="file ext_txt">1.Цель релиза Framework life balance v1.md</li>
+														  <li class="file ext_txt">v0.Цель релиз Framework life balance.md</li>
+														  <li class="file ext_txt">v1.Цель взаимодействие с базой данных по схеме.md</li>
 													  </ul>
 												  </li>
 
@@ -753,6 +754,7 @@ framework_life_balance_showError(error);
 														  <li class="file ext_txt">7.Стандарт схемы наработок.md</li>
 														  <li class="file ext_txt">8.Стандарт схемы базы данных.md</li>
 														  <li class="file ext_txt">9.Стандарт модуля базы данных mysql.md</li>
+														  <li class="file ext_txt">10.Стандарт схемы взаимодействия с базой данных.md</li>
 													  </ul>
 												  </li>
 
@@ -850,31 +852,32 @@ framework_life_balance_showError(error);
 												  <li>
 													  <ul class="jqueryFileTree">
 
-
-														  <li class="directory expanded">Схемы</li>
-
-														  <li><ul class="jqueryFileTree">
-														  <li class="file ext_txt">Схема внутренних путей.md</li>
-														  <li class="file ext_txt">Схема таблиц базы данных.md</li>
-														  <li class="file ext_txt">Схема наработок.md</li>
-														  </ul></li>
-
-														  <li class="directory expanded">Модули</li>
+														  <li class="directory expanded">1.Модули</li>
 
 														  <li><ul class="jqueryFileTree">
 														  <li class="file ext_php">Модуль базы данных mysql.php</li>
 														  </ul></li>
 
-														  <li class="directory expanded">Сути</li>
+														  <li class="directory expanded">2.Сути</li>
 
 														  <li><ul class="jqueryFileTree">
-														  <li class="file ext_php">Суть уведомлений.php</li>
-														  <li class="file ext_php">Суть решений.php</li>
-														  <li class="file ext_php">Суть ресурсов.php</li>
-														  <li class="file ext_php">Суть дел.php</li>
+														  <li class="file ext_php">1.Суть решений.php</li>
+														  <li class="file ext_php">2.Суть уведомлений.php</li>
+														  <li class="file ext_php">3.Суть ресурсов.php</li>
+														  <li class="file ext_php">4.Суть дел.php</li>
 														  </ul></li>
 
-														  <li class="directory expanded">Наработки</li>
+
+														  <li class="directory expanded">3.Схемы</li>
+
+														  <li><ul class="jqueryFileTree">
+														  <li class="file ext_txt">Схема внутренних путей.md</li>
+														  <li class="file ext_txt">Схема таблиц базы данных.md</li>
+														  <li class="file ext_txt">Схема взаимодействия с базой данных.md</li>
+														  <li class="file ext_txt">Схема наработок.md</li>
+														  </ul></li>
+
+														  <li class="directory expanded">4.Наработки</li>
 
 														  <li><ul class="jqueryFileTree">
 														  <li class="file ext_php">Наработка index.php</li>
@@ -906,6 +909,7 @@ framework_life_balance_showError(error);
 <u>Notices::$user_data</u> - данные пользователя<br>
 <u>Notices::$schema_experiences</u> - схема наработок<br>
 <u>Notices::$schema_data_base</u> - схема таблиц базы данных<br>
+<u>Notices::$schema_interaction_with_data_base</u> - схема взаимодействия с базой данных<br>
 <u>Notices::$link_communication_with_memory</u> - ссылка на коммуникацию с памятью<br>
 <u>Notices::$link_communication_with_mail</u> - ссылка на коммуникацию с почтой<br>
 <u>Notices::$call_experience</u> - вызванная наработка<br>
@@ -943,6 +947,7 @@ framework_life_balance_showError(error);
 													  <ul class="jqueryFileTree">
 														  <li class="file ext_php">Схема внутренних путей.php</li>
 														  <li class="file ext_php">Схема таблиц базы данных.php</li>
+														  <li class="file ext_php">Схема взаимодействия с базой данных.php</li>
 														  <li class="file ext_php">Схема наработок.php</li>
 													  </ul>
 												  </li>
@@ -960,9 +965,9 @@ framework_life_balance_showError(error);
 											  <b>Коммуникации:</b><br>
 											  <pre>
 <code><u>Resources::create_communication_with_data_base()</u> - Создаем коммуникацию с базой данных<br>
+<a onclick="$('#interface-resources-1').toggle();return false;" href="">Показать ещё / Скрыть</a><div id="interface-resources-1" style="display: none">
 <u>Resources::complete_communication_with_data_base()</u> - Завершаем коммуникацию с базой данных<br>
 <u>Resources::create_communication_with_memory()</u> - Создаем коммуникацию с памятью<br>
-<a onclick="$('#interface-resources-1').toggle();return false;" href="">Показать ещё / Скрыть</a><div id="interface-resources-1" style="display: none">
 <u>Resources::complete_communication_with_memory()</u> - Завершаем коммуникацию с памятью<br>
 <u>Resources::create_communication_with_mail()</u> - Создаем коммуникацию с почтой<br>
 <u>Resources::complete_communication_with_mail()</u> - Завершаем коммуникацию с почтой</div></code>
@@ -972,26 +977,10 @@ framework_life_balance_showError(error);
 <code>/*--------ФАЙЛОВОЕ ХРАНИЛИЩЕ------*/<br>
 <u>Resources::write_information_in_file()</u> - Записываем информацию в файл<br>
 <u>Resources::include_information_from_file()</u> - Подключаем информацию из файла<br>
-<u>Resources::delete_file()</u> - Удаляем файл<br>
 <a onclick="$('#interface-resources-2').toggle();return false;" href="">Показать ещё / Скрыть</a><div id="interface-resources-2" style="display: none">
-<br>/*------ДОБАВЛЕНИЕ ИНФОРМАЦИИ В БАЗУ ДАННЫХ------*/<br>
-<u>Resources::data_base_add_user()</u> - Добавляем в базу данных пользователя<br>
-<u>Resources::add_request_console_in_data_base()</u> - Добавляем запрос консоли в базу данных<br><br>
-/*------ПОЛУЧЕНИЕ КОЛИЧЕСТВА ИНФОРМАЦИИ ИЗ БАЗЫ ДАННЫХ------*/<br>
-<u>Resources::data_base_get_count_users()</u> - Получаем из базы данных кол-во всех пользователей<br><br>
-/*------ПОЛУЧЕНИЕ ИНФОРМАЦИИ ИЗ БАЗЫ ДАННЫХ------*/<br>
-<u>Resources::data_base_get_users()</u> - Получаем из базы данных всех пользователей<br>
-<u>Resources::data_base_get_user_id_by_auth_data()</u> - Получаем из базы данных id пользователя по авторизационым данным<br>
-<u>Resources::data_base_get_user_id_by_nickname()</u> - Получаем из базы данных id пользователя по псевдониму<br>
-<u>Resources::data_base_get_user_data_by_session()</u> - Получаем из базы данных информацию о пользователе по сессии<br>
-<u>Resources::data_base_get_user_id_by_email()</u> - Получаем из базы данных id пользователя по электронному адресу<br>
-<u>Resources::get_request_console_by_id_from_data_base()</u> - Берём запрос консоли по id из базы данных<br><br>
-/*------ОБНОВЛЕНИЕ ИНФОРМАЦИИ В БАЗЕ ДАННЫХ------*/<br>
-<u>Resources::data_base_set_user_is_admin()</u> - Обновляем в базе данных роль администрирования у пользователя<br>
-<u>Resources::data_base_upd_user_session()</u> - Обновляем в базе данных сессию у пользователя<br>
-<u>Resources::update_status_request_console_in_data_base()</u> - Обновляем статус запроса консоли в базе данных<br><br>
-/*------УДАЛЕНИЕ ИНФОРМАЦИИ ИЗ БАЗЫ ДАННЫХ------*/<br>
-/*------СТРУКТУРА БАЗЫ ДАННЫХ------*/<br>
+<br><u>Resources::delete_file()</u> - Удаляем файл<br>
+/*------БАЗА ДАННЫХ------*/<br>
+<u>Resources::interchange_information_with_data_base()</u> - Взаимообмен информацией с базой данных<br>
 <u>Resources::reconstruction_data_base()</u> - Реконструкция в базе данных</div></code>
 												  </pre>
 
@@ -1030,6 +1019,7 @@ framework_life_balance_showError(error);
 												  <li>
 													  <ul class="jqueryFileTree">
 														  <li class="file ext_txt">1.Изменения под релиз Framework life balance v1.md</li>
+														  <li class="file ext_txt">2.Изменения под взаимодействие с базой данных по схеме.md</li>
 													  </ul>
 												  </li>
 													  </ul>
@@ -1043,7 +1033,8 @@ framework_life_balance_showError(error);
 											  <b>Действие:</b><br>
 											  <pre>
 <code><u>Business::execute_request_experience_goal()</u> - Выполняем запрошенную наработанную цель<br>
-<u>Business::fix_error()</u> - Фиксируем ошибку</code>
+<u>Business::fix_error()</u> - Фиксируем ошибку<br>
+<u>Business::fix_reassembly_data_base()</u> - Фиксируем реконструкцию базы данных</code>
 												  </pre>
 
 											  <b>Делегирование:</b><br>
