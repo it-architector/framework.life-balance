@@ -147,8 +147,6 @@ class Solutions implements Structure_Solutions
         /*есть изменения*/
         if($changes){
 
-
-
             /* Проверяем запущен ли процес реструктуризации */
             if(Resources::include_information_from_file(DIR_PROTOCOLS, 'Текущая реконструкция базы данных','log') === null){
 
