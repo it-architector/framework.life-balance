@@ -33,13 +33,6 @@ class Solutions
         /* Подключаем Github.com Модули */
         Resources::include_information_from_file(DIR_GITHUB_MODULES,'autoload','php');
 
-        /* Подключаем структуру модуля работы с базой данных */
-        $include_module_structure_data_base = Resources::include_information_from_file(DIR_STRUCTURES,'Структура модуля базы данных mysql','php');
-
-        if($include_module_structure_data_base === null){
-            Business::fix_error('нет структуры модуля работы с базой данных mysql',__FILE__, __LINE__);
-        }
-
         /* Подключаем модуль работы с базой данных */
         $include_module_data_base = Resources::include_information_from_file(DIR_THEIR_MODULES,'Модуль базы данных mysql','php');
 

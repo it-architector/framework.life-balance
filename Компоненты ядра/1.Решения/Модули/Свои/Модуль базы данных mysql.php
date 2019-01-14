@@ -9,7 +9,7 @@ namespace Framework_life_balance\core_components\their_modules;
  * @package Framework_life_balance\core_components\their_modules
  *
  */
-class Data_Base implements Structure_Data_Base
+class Data_Base
 {
 
     /*---------------------------------------------------------*/
