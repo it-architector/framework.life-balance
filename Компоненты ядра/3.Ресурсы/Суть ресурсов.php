@@ -15,7 +15,7 @@ use \PHPMailer\PHPMailer\PHPMailer;
  * @package Framework_life_balance\core_components
  *
  */
-class Resources implements Structure_Resources
+class Resources
 {
 
     /**
@@ -645,7 +645,7 @@ class Resources implements Structure_Resources
     /**
      * Реконструируем базу данных
      *
-     * @param string $changes изменения
+     * @param array $changes изменения
      * @return boolean
      */
     static function reconstruction_data_base($changes){

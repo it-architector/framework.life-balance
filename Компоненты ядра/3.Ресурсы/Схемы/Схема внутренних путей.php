@@ -41,15 +41,6 @@ define('DIR_THEIR_MODULES', DIR_MODULES . 'Свои' . DIRECTORY_SEPARATOR);
 /* Структуры */
 define('DIR_STRUCTURES', DIR_NOTICES . 'Структуры' . DIRECTORY_SEPARATOR);
 
-/* Структуры модулей */
-define('DIR_STRUCTURE_THEIR_MODULES', DIR_STRUCTURES . '1.Модули' . DIRECTORY_SEPARATOR);
-
-/* Структуры сутей */
-define('DIR_STRUCTURE_ESSENCES', DIR_STRUCTURES . '2.Сути' . DIRECTORY_SEPARATOR);
-
-/* Структуры наработок */
-define('DIR_STRUCTURE_EXPERIENCES', DIR_STRUCTURES . '4.Наработки' . DIRECTORY_SEPARATOR);
-
 /* Схемы */
 define('DIR_SCHEMES', DIR_RESOURCES . 'Схемы' . DIRECTORY_SEPARATOR);
 

@@ -12,7 +12,7 @@ use \Framework_life_balance\core_components\Resources;
  * @package Framework_life_balance\core_components
  *
  */
-class Business implements Structure_Business
+class Business
 {
 
     /**

@@ -7,7 +7,7 @@ namespace Framework_life_balance\core_components;
  *
  * @package Framework_life_balance\core_components
  */
-class Notices implements Structure_Notices
+class Notices
 {
 
     /**

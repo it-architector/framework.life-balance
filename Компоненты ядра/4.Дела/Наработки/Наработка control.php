@@ -12,7 +12,7 @@ use \Framework_life_balance\core_components\Business;
  *
  * @package Framework_life_balance\core_components\experiences
  */
-class Control implements Structure_control
+class Control
 {
     /**
      * Главная контрольной панели

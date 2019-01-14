@@ -12,7 +12,7 @@ use \Framework_life_balance\core_components\Business;
  *
  * @package Framework_life_balance\core_components\experiences
  */
-class Index implements Structure_index
+class Index
 {
     /**
      * Главная страница

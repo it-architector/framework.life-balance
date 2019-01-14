@@ -14,7 +14,7 @@ use \Framework_life_balance\core_components\Business;
  *
  * @package Framework_life_balance\core_components\experiences
  */
-class Users implements Structure_users
+class Users
 {
     /**
      * Главная страницы с пользователями

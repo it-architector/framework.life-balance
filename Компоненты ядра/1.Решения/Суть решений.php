@@ -11,7 +11,7 @@ use PHPMailer\PHPMailer\Exception;
  * @package Framework_life_balance\core_components
  *
  */
-class Solutions implements Structure_Solutions
+class Solutions
 {
     /**
      * Включаем контроль ядра
@@ -20,45 +20,46 @@ class Solutions implements Structure_Solutions
      */
     static function initiation(){
 
-        /*берём настройки системы из файла*/
+        /* Берём настройки системы из файла */
         $config_system = Resources::include_information_from_file(DIR_SOLUTIONS,'Настройка системы','php');
 
         if($config_system === null){
             Business::fix_error('нет файла настройки системы',__FILE__, __LINE__);
         }
 
-        /*устанавливаем настройки системы*/
+        /* Устанавливаем настройки системы */
         Notices::set_mission('config_system',$config_system);
 
-        /*подключаем Github.com Модули*/
+        /* Подключаем Github.com Модули */
         Resources::include_information_from_file(DIR_GITHUB_MODULES,'autoload','php');
 
-        /*подключаем модуль работы с базой данных*/
-        $include_module_structure_data_base = Resources::include_information_from_file(DIR_STRUCTURE_THEIR_MODULES,'Модуль базы данных mysql','php');
+        /* Подключаем структуру модуля работы с базой данных */
+        $include_module_structure_data_base = Resources::include_information_from_file(DIR_STRUCTURES,'Структура модуля базы данных mysql','php');
 
         if($include_module_structure_data_base === null){
             Business::fix_error('нет структуры модуля работы с базой данных mysql',__FILE__, __LINE__);
         }
 
+        /* Подключаем модуль работы с базой данных */
         $include_module_data_base = Resources::include_information_from_file(DIR_THEIR_MODULES,'Модуль базы данных mysql','php');
 
         if($include_module_data_base === null){
             Business::fix_error('нет модуля работы с базой данных mysql',__FILE__, __LINE__);
         }
 
-        /*Определяем операционную систему*/
+        /* Определяем операционную систему */
         self::detect_operating_system();
 
-        /*устанавливаем языковой стандарт*/
+        /* Устанавливаем языковой стандарт */
         setlocale(LC_ALL, $config_system['locale']);
 
-        /*отключаем вывод ошибок в интерфейс*/
+        /* Отключаем вывод ошибок в интерфейс */
         error_reporting(0);
 
-        /*устанавливаем временнную зону*/
+        /* Устанавливаем временнную зону */
         date_default_timezone_set($config_system['time_zone']);
 
-        /*включаем выявление ошибки*/
+        /* Включаем выявление ошибки */
         register_shutdown_function(function(){
             self::detect_error();
         });
@@ -634,35 +635,23 @@ class Solutions implements Structure_Solutions
      */
     static function construct_class_experience($experience){
 
-        /*название Структуры Наработки*/
-        $experience_structure_name = '\Framework_life_balance\core_components\experiences\Structure_'.$experience;
-
-        /*проверяем подключение Структуры*/
-        if (!interface_exists($experience_structure_name)) {
-            /*подключаем файл с классом Наработки*/
-            Resources::include_information_from_file(DIR_STRUCTURE_EXPERIENCES, 'Наработка '.$experience,'php');
-        }
-
-        /*проверяем наличие Структуры*/
-        if (!interface_exists($experience_structure_name)) {
-            Business::fix_error('нет структуры ' . $experience_structure_name,__FILE__, __LINE__);
-        }
-
-        /*название класса Наработки*/
+        /* Название класса наработки */
         $experience_class_name = '\Framework_life_balance\core_components\experiences\\'.$experience;
 
-        /*проверяем подключенного класса*/
+        /* Проверяем подключенного класса */
         if (!class_exists($experience_class_name)) {
-            /*подключаем файл с классом Наработки*/
+
+            /* Подключаем файл с классом наработки */
             Resources::include_information_from_file(DIR_EXPERIENCES, 'Наработка '.$experience,'php');
+
         }
 
-        /*проверяем наличие класса*/
+        /* Нроверяем наличие класса */
         if (!class_exists($experience_class_name)) {
-            Business::fix_error('no_experience_class',__FILE__, __LINE__);
+            Business::fix_error('Ошибка в подключении класса: '.$experience_class_name,__FILE__, __LINE__);
         }
 
-        /*образуем класс*/
+        /* Образуем класс */
         $experience_class = new $experience_class_name();
 
         return $experience_class;
