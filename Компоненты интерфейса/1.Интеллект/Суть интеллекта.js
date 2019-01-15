@@ -1,29 +1,3 @@
-/* Инициируем взаимодействие с ядром */
-document.addEventListener('DOMContentLoaded', function(){
-
-    /*метод проверки русских букв*/
-    $.validator.addMethod('russian_letters', function (value) {
-        return /[\Wа-яА-ЯёЁ]/.test(value);
-    }, '');
-
-    /* переводим навигационные ссылки на core режим */
-    framework_life_balance_transferLinkToCore('.menu_block a');
-
-    /* переводим формы на core режим */
-    framework_life_balance_transferFormToCore('container_navigation');
-    framework_life_balance_transferFormToCore('container_contacts');
-
-    /*отмечаем что вначале запрос был пустым*/
-    framework_life_balance_saveCoreUrl('-');
-
-    /* загружаем текущую страницу посредством core */
-    framework_life_balance_loadDataFromCore(window.location.pathname + window.location.search + window.location.hash,'');
-
-    /* показываем авторизацию */
-    framework_life_balance_showAuth();
-
-});
-
 /*запоминаем запрос*/
 function framework_life_balance_saveCoreUrl(url) {
     if(url!==''){

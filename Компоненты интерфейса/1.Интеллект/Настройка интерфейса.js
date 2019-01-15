@@ -1,9 +1,30 @@
 document.addEventListener('DOMContentLoaded', function(){
 
+    /* Инициируем взаимодействие с ядром */
 
+    /*метод проверки русских букв*/
+    $.validator.addMethod('russian_letters', function (value) {
+        return /[\Wа-яА-ЯёЁ]/.test(value);
+    }, '');
 
-    var fixed_menu = true;
-    window.jQuery = window.$ = jQuery;
+    /* переводим навигационные ссылки на core режим */
+    framework_life_balance_transferLinkToCore('.menu_block a');
+
+    /* переводим формы на core режим */
+    framework_life_balance_transferFormToCore('container_navigation');
+    framework_life_balance_transferFormToCore('container_contacts');
+
+    /*отмечаем что вначале запрос был пустым*/
+    framework_life_balance_saveCoreUrl('-');
+
+    /* загружаем текущую страницу посредством core */
+    framework_life_balance_loadDataFromCore(window.location.pathname + window.location.search + window.location.hash,'');
+
+    /* показываем авторизацию */
+    framework_life_balance_showAuth();
+
+    //var fixed_menu = true;
+    //window.jQuery = window.$ = jQuery;
 
 //BlackAndWhite
     $(window).load(function(){
