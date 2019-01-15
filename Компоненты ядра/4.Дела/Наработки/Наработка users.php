@@ -111,11 +111,11 @@ class Users
 
                 /* Добавляем пользователя */
                 $user_id = Resources::interchange_information_with_data_base('Добавление', 'Нового пользователя', [
-                    'nickname'    => $nickname,
-                    'password'    => $password_formation,
-                    'name'        => $name,
-                    'family_name' => $family_name,
-                    'email'       => $email
+                    ':nickname'    => $nickname,
+                    ':password'    => $password_formation,
+                    ':name'        => $name,
+                    ':family_name' => $family_name,
+                    ':email'       => $email
                 ]);
 
                 /* Получаем количество всех пользователей */
@@ -126,8 +126,8 @@ class Users
 
                     /* Ставит/отменяет назначение администратором */
                     Resources::interchange_information_with_data_base('Изменение', 'Роли администрирования у пользователя', [
-                        'id'       => $user_id,
-                        'is_admin' => 'true',
+                        ':id'       => $user_id,
+                        ':is_admin' => 'true',
                     ]);
 
                 }
@@ -229,8 +229,8 @@ class Users
 
                 /* Получаем id пользователя по псевдониму и паролю */
                 $user_id = Resources::interchange_information_with_data_base('Получение', 'Id пользователя по авторизационым данным', [
-                    'nickname' => $nickname,
-                    'password' => $password_formation,
+                    ':nickname' => $nickname,
+                    ':password' => $password_formation,
                 ]);
 
                 /*обновление у пользователя сессии авторизации*/
@@ -238,8 +238,8 @@ class Users
 
                 /* Обновление пользователю сессии авторизации */
                 Resources::interchange_information_with_data_base('Изменение', 'Сессии у пользователя', [
-                    'id'      => $user_id,
-                    'session' => $user_session,
+                    ':id'      => $user_id,
+                    ':session' => $user_session,
                 ]);
 
                 /*Вызываем выполнение удачной авторизации*/
@@ -361,7 +361,7 @@ class Users
 
             $nickname = htmlspecialchars($nickname);
 
-            if(Resources::interchange_information_with_data_base('Получение', 'Id пользователя по псевдониму', ['nickname' => $nickname])){
+            if(Resources::interchange_information_with_data_base('Получение', 'Id пользователя по псевдониму', [':nickname' => $nickname])){
                 $is_nickname_registration='true';
             }
         }
@@ -420,7 +420,7 @@ class Users
 
             $email = htmlspecialchars($email);
 
-            if(!Resources::interchange_information_with_data_base('Получение', 'Id пользователя по электронному адресу', ['email' => $email])){
+            if(!Resources::interchange_information_with_data_base('Получение', 'Id пользователя по электронному адресу', [':email' => $email])){
                 $is_email_no_registration='true';
             }
         }
@@ -457,8 +457,8 @@ class Users
 
         /* Получаем id пользователя по псевдониму и паролю */
         $user_id = Resources::interchange_information_with_data_base('Получение', 'Id пользователя по авторизационым данным', [
-            'nickname' => $nickname,
-            'password' => $password_formation,
+            ':nickname' => $nickname,
+            ':password' => $password_formation,
         ]);
 
         if($user_id){

@@ -235,8 +235,8 @@ class Business
 
             /* Обновляем статус запроса консоли в базе данных */
             Resources::interchange_information_with_data_base('Изменение', 'Статуса запуска консоли', [
-                'id'     => $_SERVER['argv'][3],
-                'status' => (($result_executed == 'true')?'true':'false'),
+                ':id'     => $_SERVER['argv'][3],
+                ':status' => (($result_executed == 'true')?'true':'false'),
             ]);
         }
 
@@ -258,9 +258,9 @@ class Business
 
             /* Добавляем запрос консоли в базу данных */
             $id_save_parameters = Resources::interchange_information_with_data_base('Добавление', 'Нового запуска из консоли', [
-                'date'       => Solutions::position_time(),
-                'request'    => $experience.'/'.$experience_goal,
-                'parameters' => json_encode($parameters),
+                ':date'       => Solutions::position_time(),
+                ':request'    => $experience.'/'.$experience_goal,
+                ':parameters' => json_encode($parameters),
             ]);
 
             if($id_save_parameters == false){
@@ -385,8 +385,8 @@ class Business
             else{
 
                 $user_data = Resources::interchange_information_with_data_base('Получение', 'Информации о пользователе по сессии', [
-                    'id'      => $user_id,
-                    'session' => Notices::get_mission('user_session'),
+                    ':id'      => $user_id,
+                    ':session' => Notices::get_mission('user_session'),
                 ]);
 
                 /*всё верно*/

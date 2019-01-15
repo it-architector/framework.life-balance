@@ -573,7 +573,7 @@ class Resources
 
                 $key = Data_Base::call_add_information(
                     $information_query['Таблица'],
-                    $information_query['Установки'],
+                    $information_query['Передачи'],
                     $values
                 );
 
@@ -598,7 +598,8 @@ class Resources
                     $information_query['Получение'],
                     $information_query['Уточнение'],
                     $information_query['Сортировка'],
-                    $information_query['Ограничение'],
+                    $information_query['Позиция'],
+                    $information_query['Количество'],
                     $values
                 );
 
@@ -609,9 +610,9 @@ class Resources
 
                 $updated = Data_Base::call_update_information(
                     $information_query['Таблица'],
-                    $information_query['Установки'],
+                    $information_query['Передачи'],
                     $information_query['Уточнение'],
-                    $information_query['Ограничение'],
+                    $information_query['Количество'],
                     $values
                 );
 
@@ -623,7 +624,7 @@ class Resources
                 $deleted = Data_Base::call_delete_information(
                     $information_query['Таблица'],
                     $information_query['Уточнение'],
-                    $information_query['Ограничение'],
+                    $information_query['Количество'],
                     $values
                 );
 

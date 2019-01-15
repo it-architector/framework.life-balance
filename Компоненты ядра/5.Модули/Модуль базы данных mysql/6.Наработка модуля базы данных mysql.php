@@ -89,7 +89,7 @@ class Data_Base
 
             foreach($set as $set_column=>$set_value){
 
-                $set_columns[] = self::adaptation_value($set_column, 'column') . ' = ' . self::adaptation_value($set_value, 'external_value_or_formula', $set_column);
+                $set_columns[] = self::adaptation_value($set_column, 'column') . ' = ' . self::adaptation_value($set_value, 'external_value_or_formula');
 
             }
 
@@ -132,7 +132,7 @@ class Data_Base
 
                 if(is_array($where_row)){
 
-                    $where_columns[] = self::adaptation_value($where_row[0], 'column') . ' ' . $where_row[1] . ' ' . self::adaptation_value($where_row[2], 'external_value_or_formula', $where_row[0]);
+                    $where_columns[] = self::adaptation_value($where_row[0], 'column') . ' ' . $where_row[1] . ' ' . self::adaptation_value($where_row[2], 'external_value_or_formula');
 
                 }
                 else{
@@ -162,7 +162,7 @@ class Data_Base
         $query = '';
 
         /* Сортируем */
-        if(count($sort) > 0){
+        if($sort and count($sort) > 0){
 
             /* Сортируем колонки */
             $sort_columns = [];
@@ -184,28 +184,22 @@ class Data_Base
     /**
      * Формируем ограничение
      *
-     * @param array $limit ограничение
+     * @param integer|false $position_first_row Позиция первой записи
+     * @param integer|false $limit Количество записей
      * @return string
      * @throws
      */
-    static function formation_limit($limit){
+    static function formation_limit($position_first_row, $limit){
 
         $query = '';
 
-        /* Ограничиваем */
-        if(count($limit) > 0){
-
-            if(count($limit) != 2){
-                self::fix_error('В ограничении нет двух параметров');
-            }
-
-            if($limit[0] == 0){
-                $query = 'LIMIT ' . $limit[1];
+        if($limit){
+            if($position_first_row){
+                $query = 'LIMIT ' . $position_first_row . ',' . $limit;
             }
             else{
-                $query = 'LIMIT ' . $limit[0] . ',' . $limit[1];
+                $query = 'LIMIT ' . $limit;
             }
-
         }
 
         return $query;
@@ -215,31 +209,31 @@ class Data_Base
     /**
      * Корректируем ограничение
      *
-     * @param array $limit ограничение
+     * @param integer|false $position_first_row Позиция первой записи
      * @param array $values значения
-     * @return array
+     * @return integer|false
      * @throws
      */
-    static function correct_limit($limit, $values){
+    static function correct_limit($position_first_row, $values){
 
-        if(isset($limit[0]) and $limit[0] === '{Из массива}'){
+        if($position_first_row and isset($values[$position_first_row])){
 
-            if(!isset($values['Позиция взятия записей'])){
-                self::fix_error('Нет в массиве ('.$limit[0].') позиции взятия записи: ' . json_encode($values));
-            }
-
-            $limit[0] = $values['Позиция взятия записей'];
+            /* Подменяем обозначение значением */
+            $position_first_row = $values[$position_first_row];
+        }
+        else{
+            $position_first_row = false;
         }
 
-        return $limit;
+        return $position_first_row;
 
     }
 
     /**
      * Формируем запрос на добавление информации
      *
-     * @param string $table таблица
-     * @param array $set установка
+     * @param string $table Таблица
+     * @param array $set Передачи
      * @return string
      * @throws
      */
@@ -266,11 +260,12 @@ class Data_Base
      * @param array|false $select взятие
      * @param array|false $where уточнение
      * @param array|false $sort сортировка
-     * @param array|string|false $limit ограничение
+     * @param integer|false $positions_first_row Позиция первой записи
+     * @param integer|false $limit Количество записей
      * @return string
      * @throws
      */
-    static function formation_query_get_information($table,  $select,  $where, $sort, $limit){
+    static function formation_query_get_information($table,  $select,  $where, $sort, $positions_first_row, $limit){
 
         /* Запрос */
         $query = [];
@@ -301,7 +296,7 @@ class Data_Base
         $query[] = self::formation_sort($sort);
 
         /* Ограничиваем */
-        $query[] = self::formation_limit($limit);
+        $query[] = self::formation_limit($positions_first_row, $limit);
 
         /* Готовый запрос */
         return implode( ' ', $query );
@@ -342,9 +337,9 @@ class Data_Base
      * формируем запрос на обновление информации
      *
      * @param string $table таблица
-     * @param array|false $set установка
+     * @param array|false $set Передача
      * @param array|false $where уточнение
-     * @param array|string|false $limit ограничение
+     * @param integer|false $limit Количество записей
      * @return string
      * @throws
      */
@@ -363,7 +358,7 @@ class Data_Base
         $query[] = self::formation_where($where);
 
         /* Ограничиваем */
-        $query[] = self::formation_limit($limit);
+        $query[] = self::formation_limit(false, $limit);
 
         /* Готовый запрос */
         return implode( ' ', $query );
@@ -375,7 +370,7 @@ class Data_Base
      *
      * @param string $table таблица
      * @param array|false $where уточнение
-     * @param array|string|false $limit ограничение
+     * @param integer|false $limit Количество записей
      * @return string
      * @throws
      */
@@ -391,7 +386,7 @@ class Data_Base
         $query[] = self::formation_where($where);
 
         /* Ограничиваем */
-        $query[] = self::formation_limit($limit);
+        $query[] = self::formation_limit(false, $limit);
 
         /* Готовый запрос */
         return implode( ' ', $query );
@@ -680,30 +675,8 @@ class Data_Base
         }
         elseif($type == 'external_value_or_formula'){
 
-            if($string == '{Из массива}'){
-                $string = ':'.$additional;
-            }
-
         }
         elseif($type == 'values'){
-
-            $values = $string;
-
-            $string = [];
-
-            if(is_array($values)){
-
-                foreach($values as $column => $value){
-
-                    if($column == 'Позиция взятия записей'){
-                        continue;
-                    }
-
-                    $string[':'.$column] = $value;
-
-                }
-
-            }
 
         }
         elseif($type == 'value'){
@@ -853,7 +826,7 @@ class Data_Base
      *
      * @param string $type_query тип запроса
      * @param object $distributor_query распределитель запросов
-     * @param array|string|false $limit ограничение
+     * @param integer|false $limit Количество записей
      * @return array|false
      */
     static function get_result_executed_query($type_query, $distributor_query, $limit = false)
@@ -868,7 +841,7 @@ class Data_Base
                 if (self::get_count_rows($distributor_query) == 0){
                     return false;
                 }
-                elseif ($limit and isset($limit[1]) and $limit[1] == 1){
+                elseif ($limit and $limit == 1){
 
                     $row = self::get_rows($distributor_query);
 
@@ -972,7 +945,7 @@ class Data_Base
      * Вызываем добавление информации
      *
      * @param string $table таблица
-     * @param array $set установка
+     * @param array $set Передачи
      * @param array $values значения
      * @return integer|false
      * @throws
@@ -1015,13 +988,14 @@ class Data_Base
      * @param string $table таблица
      * @param array $select взятие
      * @param array $where уточнение
-     * @param array $limit ограничение
-     * @param array $sort сортировка
+     * @param integer|false $positions_first_row Позиция первой записи
+     * @param integer|false $limit Количество записей
+     * @param array|false $sort сортировка
      * @param array $values значения
      * @return array|false
      * @throws
      */
-    static function call_get_information($table, $select, $where, $sort, $limit, $values)
+    static function call_get_information($table, $select, $where, $sort, $positions_first_row, $limit, $values)
     {
         if(self::$link_communication_with_data_base==null){
             return false;
@@ -1033,11 +1007,11 @@ class Data_Base
 
         try {
 
-            /* Формируем ограничение */
-            $limit = self::correct_limit($limit, $values);
+            /* Корректируем позицию первой записи */
+            $positions_first_row = self::correct_limit($positions_first_row, $values);
 
             /* Формируем запрос */
-            $query = self::formation_query_get_information($table,  $select,  $where, $sort, $limit);
+            $query = self::formation_query_get_information($table,  $select,  $where, $sort, $positions_first_row, $limit);
 
             /* Значения */
             $values = self::adaptation_value($values, 'values');
@@ -1097,9 +1071,9 @@ class Data_Base
      * Вызываем обновление информации
      *
      * @param string $table таблица
-     * @param array $set установка
+     * @param array $set Передачи
      * @param array $where уточнение
-     * @param array $limit ограничение
+     * @param integer|false $limit Количество записей
      * @param array $values значения
      * @return integer|false
      * @throws
@@ -1115,9 +1089,6 @@ class Data_Base
         }
 
         try {
-
-            /* Формируем ограничение */
-            $limit = self::correct_limit($limit, $values);
 
             /* Формируем запрос */
             $query = self::formation_query_update_information($table, $set, $where, $limit);
@@ -1145,7 +1116,7 @@ class Data_Base
      *
      * @param string $table таблица
      * @param array $where уточнение
-     * @param array $limit ограничение
+     * @param integer|false $limit Количество записей
      * @param array $values значения
      * @return integer|false
      * @throws
@@ -1158,9 +1129,6 @@ class Data_Base
         }
 
         try {
-
-            /* Формируем ограничение */
-            $limit = self::correct_limit($limit, $values);
 
             /* Формируем запрос */
             $query = self::formation_query_delete_information($table, $where, $limit);

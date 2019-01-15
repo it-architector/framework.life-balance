@@ -544,15 +544,15 @@ class Solutions
 
                 /* Получаем параметры из базы данных */
                 $request_console = Resources::interchange_information_with_data_base('Получение', 'Информации о запуске из консоли по id', [
-                    'id' => $_SERVER['argv'][3]
+                    ':id' => $_SERVER['argv'][3]
                 ]);
 
                 if($request_console and isset($request_console['parameters'])){
 
                     /* Обновляем статус запроса консоли в базе данных */
                     Resources::interchange_information_with_data_base('Изменение', 'Статуса запуска консоли', [
-                        'id'     => $_SERVER['argv'][3],
-                        'status' => 'do',
+                        ':id'     => $_SERVER['argv'][3],
+                        ':status' => 'do',
                     ]);
 
                     /*параметры запроса*/
