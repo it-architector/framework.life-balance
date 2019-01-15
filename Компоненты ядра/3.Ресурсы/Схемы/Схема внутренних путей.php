@@ -28,15 +28,14 @@ define('DIR_RESOURCES', DIR_CORE_COMPONENTS . '3.Ресурсы' . DIRECTORY_SEP
 /* Компонент дела */
 define('DIR_BUSINESS', DIR_CORE_COMPONENTS . '4.Дела' . DIRECTORY_SEPARATOR);
 
-
-/* Модули */
-define('DIR_MODULES', DIR_SOLUTIONS . 'Модули' . DIRECTORY_SEPARATOR);
+/* Компонент модулей */
+define('DIR_MODULES', DIR_CORE_COMPONENTS . '5.Модули' . DIRECTORY_SEPARATOR);
 
 /* Github.com Модули */
 define('DIR_GITHUB_MODULES', DIR_MODULES . 'Github.com' . DIRECTORY_SEPARATOR);
 
-/* Свои модули */
-define('DIR_THEIR_MODULES', DIR_MODULES . 'Свои' . DIRECTORY_SEPARATOR);
+/* Модуль базы данных mysql */
+define('DIR_MODULE_DATA_BASE', DIR_MODULES . 'Модуль базы данных mysql' . DIRECTORY_SEPARATOR);
 
 /* Структуры */
 define('DIR_STRUCTURES', DIR_NOTICES . 'Структуры' . DIRECTORY_SEPARATOR);

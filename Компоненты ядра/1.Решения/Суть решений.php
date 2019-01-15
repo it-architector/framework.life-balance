@@ -30,16 +30,6 @@ class Solutions
         /* Устанавливаем настройки системы */
         Notices::set_mission('config_system',$config_system);
 
-        /* Подключаем Github.com Модули */
-        Resources::include_information_from_file(DIR_GITHUB_MODULES,'autoload','php');
-
-        /* Подключаем модуль работы с базой данных */
-        $include_module_data_base = Resources::include_information_from_file(DIR_THEIR_MODULES,'Модуль базы данных mysql','php');
-
-        if($include_module_data_base === null){
-            Business::fix_error('нет модуля работы с базой данных mysql',__FILE__, __LINE__);
-        }
-
         /* Определяем операционную систему */
         self::detect_operating_system();
 

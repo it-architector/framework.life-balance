@@ -1,17 +1,3 @@
-/* Подключаем js */
-include_js('/Библиотеки/jquery.min.js');
-include_js('/Библиотеки/bootstrap.min.js');
-include_js('/Библиотеки/jquery.prettyPhoto.js');
-include_js('/Библиотеки/jquery.nicescroll.min.js');
-include_js('/Библиотеки/superfish.min.js');
-include_js('/Библиотеки/jquery.flexslider-min.js');
-include_js('/Библиотеки/owl.carousel.js');
-include_js('/Библиотеки/animate.js');
-include_js('/Библиотеки/jquery.BlackAndWhite.js');
-include_js('/Библиотеки/jquery.validate.js');
-include_js('/Библиотеки/jquery.cookie.js');
-include_js('/Настройка интерфейса.js?v=2.1');
-
 /* Инициируем взаимодействие с ядром */
 document.addEventListener('DOMContentLoaded', function(){
 
@@ -37,12 +23,6 @@ document.addEventListener('DOMContentLoaded', function(){
     framework_life_balance_showAuth();
 
 });
-
-/* Подключаем java script файл */
-function include_js(file){
-    document.write('<script src="/Компоненты интерфейса/1.Интеллект' + file + '" type="text/javascript"></script>');
-
-}
 
 /*запоминаем запрос*/
 function framework_life_balance_saveCoreUrl(url) {

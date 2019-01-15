@@ -1,15 +1,4 @@
 /*-----------------------------------------------------------------------------------*/
-/*	СТИЛИ
-/*-----------------------------------------------------------------------------------*/
-
-@import url("./Библиотеки/animate.css");
-@import url("./Библиотеки/bootstrap.min.css");
-@import url("./Библиотеки/flexslider.css");
-@import url("./Библиотеки/jqueryFileTree.css");
-@import url("./Библиотеки/owl.carousel.css");
-@import url("./Библиотеки/prettyPhoto.css");
-
-/*-----------------------------------------------------------------------------------*/
 /*	ШРИФТЫ
 /*-----------------------------------------------------------------------------------*/
 
@@ -52,7 +41,7 @@ body {
 
 section {background-color:#fff;}
 
-.container {max-width:98%;}
+.container {max-width:99%;}
 
 .parallax {
 	background-position:0 0;
@@ -263,11 +252,11 @@ header {
 	float:left;
 }
 .logo img{
-	height: 70px;
-	margin-top: 5px;
+    margin-top: -10px;
+	height: 50px;
  }
 .logo a {
-	margin-left: 10px;
+    margin-left: 10px;
 	text-transform:uppercase;
 	line-height:80px;
 	font-size:26px;

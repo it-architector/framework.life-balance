@@ -29,6 +29,9 @@ require_once DIR_RESOURCES . 'Суть ресурсов.php';
 /* Подключаем суть дел */
 require_once DIR_BUSINESS . 'Суть дел.php';
 
+/* Подключаем суть модулей */
+require_once DIR_MODULES . 'Суть модулей.php';
+
 /*
  * 2 этап:
  * Инициация.

@@ -78,10 +78,9 @@
 
 
             <ul id="myTab" class="nav nav-tabs">
-                <li class="active"><a class="i1" href="#tab1" data-toggle="tab" ><i></i><span>Порядок</span></a></li>
+                <li class="active"><a class="i6" href="#tab1" data-toggle="tab" ><i></i><span>Расположение</span></a></li>
                 <li><a class="i2" href="#tab2" data-toggle="tab" ><i></i><span>Интерфейс</span></a></li>
                 <li><a class="i4" href="#tab4" data-toggle="tab" ><i></i><span>Ядро</span></a></li>
-				<li><a class="i6" href="#tab3" data-toggle="tab" ><i></i><span>Сервер</span></a></li>
                 <li><a class="i5" href="#tab5" data-toggle="tab" ><i></i><span>Разработчики</span></a></li>
                 <li><a class="i3" href="#tab6" data-toggle="tab" ><i></i><span>Развёртка</span></a></li>
             </ul>
@@ -198,6 +197,7 @@
 												  <li class="directory collapsed">2.Представления</li>
 												  <li class="directory collapsed">3.Оформления</li>
 												  <li class="directory collapsed">4.Формы</li>
+												  <li class="directory collapsed">5.Библиотеки</li>
 											  </ul></li>
 											  </ul>
 
@@ -230,6 +230,7 @@
 												  <li class="directory collapsed">2.Уведомления</li>
 												  <li class="directory collapsed">3.Ресурсы</li>
 												  <li class="directory collapsed">4.Дела</li>
+												  <li class="directory collapsed">5.Модули</li>
 											  </ul></li>
 											  </ul>
 
@@ -334,6 +335,7 @@
 												  <li class="directory collapsed">2.Представления</li>
 												  <li class="directory collapsed">3.Оформления</li>
 												  <li class="directory collapsed">4.Формы</li>
+												  <li class="directory collapsed">5.Библиотеки</li>
 											  </ul></li>
 												  <li class="directory expanded">Компоненты ядра</li>
 												  <li><ul class="jqueryFileTree">
@@ -341,6 +343,7 @@
 												  <li class="directory collapsed">2.Уведомления</li>
 												  <li class="directory collapsed">3.Ресурсы</li>
 												  <li class="directory collapsed">4.Дела</li>
+												  <li class="directory collapsed">5.Модули</li>
 											  </ul></li>
 												  <li class="directory expanded">Пользовательские данные</li>
 												  <li><ul class="jqueryFileTree">
@@ -364,23 +367,44 @@
                 </div>
                 <div class="tab-pane fade clearfix" id="tab2">
                     <!-- <p class="title"><b>Интерфейс</b></p> -->
-                    <span><br>Интерфейс состоит из главного файла <b>/Интерфейс.html</b> и взаимозависимых компонентов расположенных в папке <b>/Компоненты интерфейса/</b>:
-								<br>
+                    <span>
+						<br>При первом запросе к серверу выдаётся интерфейс (<strong>Интерфейс.html</strong>):
+							<br>
   								  <table class="features-table">
   								      <thead>
   								      <tr>
-     								       <td>Компонент:</td>
-     								       <td>Интеллект<br><pre style="width:110px;"><code><img style="width:100px;height:60px;" src="/Компоненты интерфейса/2.Представления/Картинки/animals/pauk.gif"></code></pre></td>
-     								       <td>Представление<br><pre style="width:110px;"><code><img style="width:100px;height:60px;" src="/Компоненты интерфейса/2.Представления/Картинки/animals/lebed.gif"></code></pre></td>
-     								       <td>Оформление<br><pre style="width:110px;"><code><img style="width:100px;height:60px;" src="/Компоненты интерфейса/2.Представления/Картинки/animals/pavlin.gif"></code></pre></td>
-     								       <td>Формы<br><pre style="width:110px;"><code><img style="width:100px;height:60px;" src="/Компоненты интерфейса/2.Представления/Картинки/animals/homyak.gif"></code></pre></td>
+     								       <td>Код /.htaccess</td>
     								    </tr>
      								   </thead>
    								     <tbody>
    								     <tr>
-      								      <td class="gray">Структура:</td>
+      								      <td class="green"><br>
+											  <pre>
+<code>RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ Интерфейс.html [L,QSA]</code></pre>
+										  </td>
+     								   </tr>
+    								    </tbody>
+    								</table>
+						И включается синхронный режим:<br><br>
+						<pre style="width: 700px;"><code><img style="width: 700px;" src="/Компоненты интерфейса/2.Представления/Картинки/illustrators/razvertka.png"></code></pre>
 
+						<br>Интерфейс состоит из главного файла <b>/Интерфейс.html</b> и взаимозависимых компонентов расположенных в папке <b>/Компоненты интерфейса/</b>:
+								<br>
+
+  								  <table class="features-table" style="width:800px;">
+  								      <thead>
+  								      <tr>
+     								       <td>Компонент</td>
+     								       <td>Структура</td>
+									  </tr>
+     								   </thead>
+   								     <tbody>
+   								     <tr>
+      								      <td class="green">Интеллект<br><pre style="width:110px;"><code><img style="width:100px;height:60px;" src="/Компоненты интерфейса/2.Представления/Картинки/animals/pauk.gif"></code></pre></td>
       								      <td class="green">
+
+
 
 											  <ul class="jqueryFileTree">
 												  <li class="directory expanded">1.Интеллект</li>
@@ -390,34 +414,22 @@
 												  <li class="directory expanded">Цели</li>
 												  <li>
 													  <ul class="jqueryFileTree">
-														  <li class="file ext_txt">1.Цель релиза<br>Framework life balance v1.md</li>
+														  <li class="file ext_txt">v0.Цель релиза Framework life balance.md</li>
 													  </ul>
 												  </li>
 
 												  <li class="directory expanded">Стандарты</li>
 												  <li>
 													  <ul class="jqueryFileTree">
-														  <li class="file ext_txt">1.Стандарт разработчиков.md</li>
-														  <li class="file ext_txt">2.Стандарт разработки.md</li>
+														  <li class="directory expanded">Основа</li>
+												  <li>
+													  <ul class="jqueryFileTree">
+														  <li class="file ext_txt">1.Стандарт интерфейса.md</li>
+														  <li class="file ext_txt">2.Стандарт разработчиков.md</li>
 														  <li class="file ext_txt">3.Стандарт компонентов.md</li>
+														  <li class="file ext_txt">4.Стандарт разработки.md</li>
 													  </ul>
 												  </li>
-
-												  <li class="directory expanded">Нормативы</li>
-												  <li>
-													  <ul class="jqueryFileTree">
-														  <li class="file ext_txt">1.Норматив java script.md</li>
-														  <li class="file ext_txt">2.Норматив дизайна.md</li>
-														  <li class="file ext_txt">3.Норматив css.md</li>
-														  <li class="file ext_txt">4.Норматив блоков.md</li>
-													  </ul>
-												  </li>
-
-												  <li class="directory expanded">Библиотеки</li>
-												  <li>
-													  <ul class="jqueryFileTree">
-														  <li class="file ext_js">jquery.js</li>
-														  <li>...</li>
 													  </ul>
 												  </li>
 
@@ -425,9 +437,10 @@
 											  </ul></li>
 											  </ul>
 
-
-
 										  </td>
+									 </tr>
+   								     <tr>
+      								      <td class="green">Представление<br><pre style="width:110px;"><code><img style="width:100px;height:60px;" src="/Компоненты интерфейса/2.Представления/Картинки/animals/lebed.gif"></code></pre></td>
       								      <td class="green">
 
 											  <ul class="jqueryFileTree">
@@ -461,23 +474,31 @@
 												  </ul></li>
 											  </ul>
 
-
-
-
 										  </td>
+									 </tr>
+   								     <tr>
+      								      <td class="green">Оформление<br><pre style="width:110px;"><code><img style="width:100px;height:60px;" src="/Компоненты интерфейса/2.Представления/Картинки/animals/pavlin.gif"></code></pre></td>
       								      <td class="green">
-
 
 											  <ul class="jqueryFileTree">
 												  <li class="directory expanded">3.Оформления</li>
 												  <li><ul class="jqueryFileTree">
 
-												  <li class="directory expanded">Библиотеки</li>
+												  <li class="directory expanded">Нормативы</li>
 												  <li>
 													  <ul class="jqueryFileTree">
-														  <li class="file ext_css">bootstrap.min.css</li>
-														  <li class="file ext_css">flexslider.css</li>
-												          <li>...</li>
+														  <li class="file ext_txt">1.Норматив интеллекта.md</li>
+														  <li class="file ext_txt">2.Норматив представлений.md</li>
+														  <li class="file ext_txt">3.Норматив оформлений.md</li>
+														  <li class="file ext_txt">4.Норматив форм.md</li>
+														  <li class="file ext_txt">5.Норматив библиотек.md</li>
+													  </ul>
+												  </li>
+
+												  <li class="directory expanded">Схемы</li>
+												  <li>
+													  <ul class="jqueryFileTree">
+														  <li class="file ext_txt">Схема форм.txt</li>
 													  </ul>
 												  </li>
 												  <li class="directory collapsed">Шрифты</li>
@@ -486,8 +507,10 @@
 											  </ul></li>
 											  </ul>
 
-
 										  </td>
+									 </tr>
+   								     <tr>
+      								      <td class="green">Формы<br><pre style="width:110px;"><code><img style="width:100px;height:60px;" src="/Компоненты интерфейса/2.Представления/Картинки/animals/homyak.gif"></code></pre></td>
       								      <td class="green">
 
 											  <ul class="jqueryFileTree">
@@ -514,18 +537,48 @@
 													  <li class="directory expanded">Изменения</li>
 
 													  <li><ul class="jqueryFileTree">
-														  <li class="file ext_txt">1.Изменения под релиз<br>Framework life balance v1.md</li>
+														  <li class="file ext_txt">1.Изменения под релиз Framework life balance v1.md</li>
 													  </ul></li>
+
+													  <li class="directory expanded">Сведения</li>
+												  <li>
+													  <ul class="jqueryFileTree">
+														  <li class="file ext_txt">Версия интерфейса.md</li>
+													  </ul>
+												  </li>
 
 												  <li class="file ext_txt">Суть форм.txt</li>
 											  </ul></li>
 											  </ul>
 
-
 										  </td>
-     								   </tr>
-    								    </tbody>
-    								</table>
+									 </tr>
+   								     <tr>
+      								      <td class="gray">Библиотеки</td>
+      								      <td class="gray">
+											  <ul class="jqueryFileTree">
+												  <li class="directory expanded">5.Библиотеки</li>
+												  <li><ul class="jqueryFileTree">
+
+													  <li class="directory expanded">jquery</li>
+												  <li>
+													  <ul class="jqueryFileTree">
+														  <li class="file ext_js">jquery.min.js</li>
+														  <li class="file ext_css">jqueryFileTree.css</li>
+														  <li>...</li>
+													  </ul>
+												  </li>
+														  <li>...</li>
+
+												  <li class="file ext_js">Суть библиотеки.js</li>
+											  </ul></li>
+											  </ul>
+										  </td>
+									 </tr>
+   								     </tbody>
+								  </table>
+
+
 						В интерфейсе с помощью ajax-запроса загружается информация с ядра (<b>Ядро.php</b>):<br>
   								  <table class="features-table">
   								      <thead>
@@ -745,48 +798,21 @@ framework_life_balance_showError(error);
 												  <li class="directory expanded">Стандарты</li>
 												  <li>
 													  <ul class="jqueryFileTree">
-														  <li class="file ext_txt">1.Стандарт сервера.md</li>
-														  <li class="file ext_txt">2.Стандарт сайта.md</li>
-														  <li class="file ext_txt">3.Стандарт разработчиков.md</li>
+														  <li class="directory expanded">Основа</li>
+												  <li>
+													  <ul class="jqueryFileTree">
+														  <li class="file ext_txt">1.Стандарт ядра.md</li>
+														  <li class="file ext_txt">2.Стандарт разработчиков.md</li>
+														  <li class="file ext_txt">3.Стандарт компонентов.md</li>
 														  <li class="file ext_txt">4.Стандарт разработки.md</li>
-														  <li class="file ext_txt">5.Стандарт компонентов.md</li>
-														  <li class="file ext_txt">6.Стандарт модулей.md</li>
-														  <li class="file ext_txt">7.Стандарт схемы наработок.md</li>
-														  <li class="file ext_txt">8.Стандарт схемы базы данных.md</li>
-														  <li class="file ext_txt">9.Стандарт модуля базы данных mysql.md</li>
-														  <li class="file ext_txt">10.Стандарт схемы взаимодействия с базой данных.md</li>
 													  </ul>
 												  </li>
-
-												  <li class="directory expanded">Нормативы</li>
+														  <li class="directory expanded">Схемы</li>
 												  <li>
 													  <ul class="jqueryFileTree">
-														  <li class="file ext_txt">1.Норматив оптимизации.md</li>
-														  <li class="file ext_txt">2.Норматив смысла.md</li>
-														  <li class="file ext_txt">3.Норматив обеспечения.md</li>
-														  <li class="file ext_txt">4.Норматив выполнения.md</li>
-													  </ul>
-												  </li>
-
-
-
-												  <li class="directory expanded">Модули</li>
-												  <li>
-													  <ul class="jqueryFileTree"><li class="directory expanded">Свои</li>
-												  <li>
-													  <ul class="jqueryFileTree">
-														  <li class="file ext_php">Модуль базы данных mysql.php</li>
-													  </ul>
-												  </li>
-
-												  <li class="directory expanded">Github.com</li>
-												  <li>
-													  <ul class="jqueryFileTree">
-														  <li class="directory collapsed">composer</li>
-														  <li class="directory collapsed">phpmailer</li>
-														  <li class="file ext_php">autoload.php</li>
-														  <li class="file ext_txt">composer.json</li>
-														  <li class="file ext_txt">composer.lock</li>
+														  <li class="file ext_txt">Стандарт схемы базы данных.md</li>
+														  <li class="file ext_txt">Стандарт схемы взаимодействия с базой данных.md</li>
+														  <li class="file ext_txt">Стандарт схемы наработок.md</li>
 													  </ul>
 												  </li>
 													  </ul>
@@ -854,7 +880,6 @@ framework_life_balance_showError(error);
 
 														  <li class="file ext_txt">Структура внутренних путей.md</li>
 														  <li class="file ext_txt">Структура сутей.md</li>
-														  <li class="file ext_php">Структура модуля базы данных mysql.md</li>
 														  <li class="file ext_txt">Структура таблиц базы данных.md</li>
 														  <li class="file ext_txt">Структура взаимодействия с базой данных.md</li>
 														  <li class="file ext_txt">Структура наработок.md</li>
@@ -916,10 +941,22 @@ framework_life_balance_showError(error);
 												  <li class="directory expanded">3.Ресурсы</li>
 												  <li><ul class="jqueryFileTree">
 												  <li class="file ext_php">Настройка коммуникаций.php</li>
+
+												  <li class="directory expanded">Нормативы</li>
+												  <li>
+													  <ul class="jqueryFileTree">
+														  <li class="file ext_txt">1.Норматив решений.md</li>
+														  <li class="file ext_txt">2.Норматив уведомлений.md</li>
+														  <li class="file ext_txt">3.Норматив ресурсов.md</li>
+														  <li class="file ext_txt">4.Норматив дел.md</li>
+														  <li class="file ext_txt">5.Норматив модулей.md</li>
+													  </ul>
+												  </li>
 												  <li class="directory expanded">Схемы</li>
 												  <li>
 													  <ul class="jqueryFileTree">
 														  <li class="file ext_php">Схема внутренних путей.php</li>
+														  <li class="file ext_php">Схема сутей.md</li>
 														  <li class="file ext_php">Схема таблиц базы данных.php</li>
 														  <li class="file ext_php">Схема взаимодействия с базой данных.php</li>
 														  <li class="file ext_php">Схема наработок.php</li>
@@ -982,6 +1019,13 @@ framework_life_balance_showError(error);
 													  </ul>
 												  </li>
 
+												  <li class="directory expanded">Сведения</li>
+												  <li>
+													  <ul class="jqueryFileTree">
+														  <li class="file ext_txt">Версия ядра.md</li>
+													  </ul>
+												  </li>
+
 
 												  <li class="directory expanded">Протоколы</li>
 												  <li>
@@ -992,7 +1036,7 @@ framework_life_balance_showError(error);
 														  <li class="directory expanded">Изменения</li>
 												  <li>
 													  <ul class="jqueryFileTree">
-														  <li class="file ext_txt">1.Изменения под релиз Framework life balance v1.md</li>
+														  <li class="file ext_txt">1.Изменения под релиз Framework life balance.md</li>
 														  <li class="file ext_txt">2.Изменения под взаимодействие с базой данных по схеме.md</li>
 													  </ul>
 												  </li>
@@ -1024,97 +1068,48 @@ framework_life_balance_showError(error);
 												  </pre>
 										  </td>
      								   </tr>
-    								    </tbody>
-    								</table>
-Пример модуля (старая версия) базы данных в котором собраны Сути воедино:
-
-						            <table class="features-table">
-  								      <thead>
-  								      <tr>
-     								       <td style="width:100%;">/Компоненты ядра/1.Решения/Модули/Свои/база_данных.php</td>
-    								    </tr>
-     								   </thead>
-   								     <tbody>
 									 <tr>
-										  <td class="green" style="width:100%;">
-											  <b>Предназначение:</b><br>
-											  <pre>
-<code><u>Data_Base::$driver</u> - драйвер базы данных<br>
-<u>Data_Base::$driver</u> - название Схемы базы данных<br>
-<u>Data_Base::$schema</u> - название Схемы базы данных<br>
-<u>Data_Base::$link_communication_with_data_base</u> - ссылка на коммуникацию с базой данных</code>
-												  </pre>
-											  <b>Отношения:</b><br>
-											  <pre>
-<code><u>Data_Base::send_parameter_to_data_base()</u> - Передаём параметры в базу данных</code>
-												  </pre>
-											  <b>Контроль:</b><br>
-											  <pre>
-<code><u>Data_Base::check_valid_table()</u> - Проверяем таблицу<br>
-<u>Data_Base::check_valid_columns()</u> - Проверяем колонки таблицы</code>
-												  </pre>
-											  <b>Структурирование:</b><br>
-											  <pre>
-<code><u>Data_Base::formation_query()</u> - Формируем запрос<br>
-<u>Data_Base::escape()</u> - Экранизируем значения<br>
-<u>Data_Base::formation_values()</u> - Формируем значения в отдельный массив<br>
-<u>Data_Base::clear_column()</u> - Очищаем колонку от запросов</code>
-												  </pre>
-											  <b>Коммуникации:</b><br>
-											  <pre>
-<code><u>Data_Base::create_communication_with_data_base()</u> - Создаем коммуникацию с базой данных<br>
-<u>Data_Base::complete_communication_with_data_base()</u> - Завершаем коммуникацию с базой данных<br>
-<u>Data_Base::create_communication_with_table()</u> - Подключаемся к таблице</code>
-												  </pre>
-											  <b>Взаимодействие:</b><br>
-											  <pre>
-<code><u>Data_Base::fetch()</u> - Получаем записи по запросу в таблице<br>
-<u>Data_Base::id()</u> - Получаем последний индификационный номер по последнему запросу<br>
-<u>Data_Base::count()</u> - Получаем количество записей по запросу в таблице</code>
-												  </pre>
-											  <b>Действие:</b><br>
-											  <pre>
-<code><u>Data_Base::execute()</u> - Выполняем запрос в базе данных</code>
-												  </pre>
-											  <b>Делегирование:</b><br>
-											  <pre>
-<code><u>Data_Base::add()</u> - Выполняем crud-add в базе данных<br>
-<u>Data_Base::get()</u> - Выполняем crud-get в базе данных<br>
-<u>Data_Base::upd()</u> - Выполняем crud-upd в базе данных<br>
-<u>Data_Base::del()</u> - Выполняем crud-del в базе данных<br>
-<u>Data_Base::add_multi()</u> - Выполняем multi-add в базе данных</code>
-												  </pre>
+      								      <td class="gray" style="width:150px;">
+											  Модули
+										  </td>
+										  <td class="gray" style="width:30%;">
+											   <ul class="jqueryFileTree">
+												  <li class="directory expanded">5.Модули</li>
+												  <li><ul class="jqueryFileTree">
+
+												  <li class="directory expanded">Github.com</li>
+												  <li>
+													  <ul class="jqueryFileTree">
+														  <li class="directory collapsed">composer</li>
+														  <li class="directory collapsed">phpmailer</li>
+														  <li class="file ext_php">autoload.php</li>
+														  <li class="file ext_txt">composer.json</li>
+														  <li class="file ext_txt">composer.lock</li>
+													  </ul>
+												  </li>
+
+												  <li class="directory expanded">Модуль базы данных mysql</li>
+												  <li>
+													  <ul class="jqueryFileTree">
+														  <li class="file ext_txt">Структура модуля базы данных mysql.md</li>
+														  <li class="file ext_txt">Схема модуля базы данных mysql.md</li>
+														  <li class="file ext_php">Суть модуля базы данных mysql.php</li>
+													  </ul>
+												  </li>
+
+												  <li class="file ext_php">Суть модулей.php</li>
+											  </ul></li>
+											  </ul>
+										  </td>
+      								      <td class="gray" style="width:70%;">
 										  </td>
      								   </tr>
+
     								    </tbody>
     								</table>
 
 							</span>
 				</div>
-                <div class="tab-pane fade clearfix" id="tab3">
-                    <!-- <p class="title"><b>Маршрутизация</b></p> -->
-                    <span><br>При первом запросе к серверу отдаётся интерфейс (<strong>Интерфейс.html</strong>):
-							<br>
-  								  <table class="features-table">
-  								      <thead>
-  								      <tr>
-     								       <td>Код /.htaccess</td>
-    								    </tr>
-     								   </thead>
-   								     <tbody>
-   								     <tr>
-      								      <td class="green"><br>
-											  <pre>
-<code>RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.*)$ Интерфейс.html [L,QSA]</code></pre>
-										  </td>
-     								   </tr>
-    								    </tbody>
-    								</table>
-						И включается синхронный режим:<br><br>
-						<pre style="width: 700px;"><code><img style="width: 700px;" src="/Компоненты интерфейса/2.Представления/Картинки/illustrators/razvertka.png"></code></pre>
-							</span>
-                </div>
                 <div class="tab-pane fade clearfix" id="tab5">
                     <!-- <p class="title"><b>Разработчики</b></p> -->
                     <span><br>У framework life balance взаимозависимое распределение мест работы по ролям разработчиков, где каждая роль должна быть отыграна до конца.
@@ -1135,24 +1130,14 @@ RewriteRule ^(.*)$ Интерфейс.html [L,QSA]</code></pre>
      								   </thead>
    								     <tbody>
    								     <tr>
-      								      <td class="gray">Работа над компонентом:</td>
-      								      <td class="green">Интеллект</td>
-      								      <td class="gray min">↔</td>
-      								      <td class="green">Представление</td>
-      								      <td class="gray min">↔</td>
-      								      <td class="green">Оформление</td>
-      								      <td class="gray min">↔</td>
-      								      <td class="green">Формы</td>
-     								   </tr>
-   								     <tr>
       								      <td class="gray">Норматив:</td>
-      								      <td class="green">Java script</td>
+      								      <td class="green">Интеллект, библиотека</td>
       								      <td class="gray min">↔</td>
-      								      <td class="green">Дизайн</td>
+      								      <td class="green">Представление, библиотека</td>
       								      <td class="gray min">↔</td>
-      								      <td class="green">Css</td>
+      								      <td class="green">Оформление, библиотека</td>
       								      <td class="gray min">↔</td>
-      								      <td class="green">Блоки</td>
+      								      <td class="green">Формы, библиотека</td>
      								   </tr>
     								    </tbody>
     								</table>
@@ -1173,24 +1158,14 @@ RewriteRule ^(.*)$ Интерфейс.html [L,QSA]</code></pre>
      								   </thead>
    								     <tbody>
    								     <tr>
-      								      <td class="gray">Работа над компонентом:</td>
-      								      <td class="green">Решения</td>
-      								      <td class="gray min">↔</td>
-      								      <td class="green">Уведомления</td>
-      								      <td class="gray min">↔</td>
-      								      <td class="green">Ресурсы</td>
-      								      <td class="gray min">↔</td>
-      								      <td class="green">Дела</td>
-     								   </tr>
-   								     <tr>
       								      <td class="gray">Норматив:</td>
-      								      <td class="green">Оптимизация</td>
+      								      <td class="green">Решения, модули</td>
       								      <td class="gray min">↔</td>
-      								      <td class="green">Смысл</td>
+      								      <td class="green">Уведомления, модули</td>
       								      <td class="gray min">↔</td>
-      								      <td class="green">Обеспечение</td>
+      								      <td class="green">Ресурсы, модули</td>
       								      <td class="gray min">↔</td>
-      								      <td class="green">Выполнение</td>
+      								      <td class="green">Дела, модули</td>
      								   </tr>
     								    </tbody>
     								</table>
@@ -1268,9 +1243,9 @@ RewriteRule ^(.*)$ Интерфейс.html [L,QSA]</code></pre>
          								   <td class="gray" style="width:10px;">8</td>
         								    <td class="green">Поставить папкам права на запись</td>
         								    <td class="gray">Выполнить chmod (644) папкам:
-												<br><strong>/Компоненты ядра/1.Решения/Github.com/</strong>
 												<br><strong>/Компоненты ядра/3.Ресурсы/Схемы/</strong>
 												<br><strong>/Компоненты ядра/4.Дела/Протоколы/</strong>
+												<br><strong>/Компоненты ядра/5.Модули/Github.com/</strong>
 												<br><strong>/Пользовательские данные/Аватарки/</strong>
 											</td>
         								    <td class="gray">90 сек.</td>
