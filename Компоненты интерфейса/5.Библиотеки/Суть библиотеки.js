@@ -1,6 +1,5 @@
 /* Подключаем файлы js */
 include_js('/jquery/jquery.min.js');
-include_js('/jquery/jquery.prettyPhoto.js');
 include_js('/jquery/jquery.nicescroll.min.js');
 include_js('/jquery/jquery.validate.js');
 include_js('/jquery/jquery.cookie.js');
@@ -15,9 +14,8 @@ include_js('/animate/animate.js');
 include_css('/animate/animate.css');
 include_css('/bootstrap/bootstrap.min.css');
 include_css('/flexslider/flexslider.css');
-include_css('/jquery/jqueryFileTree.css');
+include_css('/filestree/jqueryFileTree.css');
 include_css('/owl.carousel/owl.carousel.css');
-include_css('/prettyPhoto/prettyPhoto.css');
 
 /* Функция Подключения файла js */
 function include_js(file){
