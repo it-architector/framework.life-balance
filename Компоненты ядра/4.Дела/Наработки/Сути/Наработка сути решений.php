@@ -625,7 +625,7 @@ class Solutions
         if (!class_exists($experience_class_name)) {
 
             /* Подключаем файл с классом наработки */
-            Resources::include_information_from_file(DIR_EXPERIENCES, 'Наработка '.$experience,'php');
+            Resources::include_information_from_file(DIR_EXPERIENCES_SITE, 'Наработка сайта '.$experience,'php');
 
         }
 

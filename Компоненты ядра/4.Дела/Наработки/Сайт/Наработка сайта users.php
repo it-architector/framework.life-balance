@@ -7,21 +7,9 @@ use \Framework_life_balance\core_components\Solutions;
 use \Framework_life_balance\core_components\Resources;
 use \Framework_life_balance\core_components\Business;
 
-/**
- * Наработка users
- *
- * Пользователи
- *
- * @package Framework_life_balance\core_components\experiences
- */
 class Users
 {
-    /**
-     * Главная страницы с пользователями
-     *
-     * @param array $parameters параметры
-     * @return array
-     */
+
     function index(array $parameters)
     {
 
@@ -48,12 +36,6 @@ class Users
 
     }
 
-    /**
-     * Регистрация
-     *
-     * @param array $parameters параметры
-     * @return array
-     */
     function registration(array $parameters)
     {
         $nickname = '';
@@ -162,12 +144,6 @@ class Users
         ];
     }
 
-    /**
-     * Регистрация успешно проведена
-     *
-     * @param array $parameters параметры
-     * @return array
-     */
     function registration_ok(array $parameters)
     {
 
@@ -196,12 +172,6 @@ class Users
         ];
     }
 
-    /**
-     * Авторизация
-     *
-     * @param array $parameters параметры
-     * @return array
-     */
     function authorize(array $parameters)
     {
         $nickname = '';
@@ -265,12 +235,6 @@ class Users
 
     }
 
-    /**
-     * Сброс авторизации
-     *
-     * @param array $parameters параметры
-     * @return null
-     */
     function unauthorize(array $parameters)
     {
 
@@ -279,12 +243,6 @@ class Users
 
     }
 
-    /**
-     * Данные авторизованного пользователя
-     *
-     * @param array $parameters параметры
-     * @return array
-     */
     function authorized_data(array $parameters)
     {
         return [
@@ -298,12 +256,6 @@ class Users
 
     }
 
-    /**
-     * Подтверждение успешной авторизации
-     *
-     * @param array $parameters параметры
-     * @return array
-     */
     function authorized_ok(array $parameters)
     {
 
@@ -319,12 +271,6 @@ class Users
 
     }
 
-    /**
-     * Подтверждение успешного выхода из авторизации
-     *
-     * @param array $parameters параметры
-     * @return array
-     */
     function unauthorized_ok(array $parameters)
     {
         return [
@@ -337,14 +283,6 @@ class Users
 
     }
 
-
-    /**
-     * Проверка псевдонима на зарегистрированность
-     *
-     * @param array $parameters параметры
-     * @param string $nickname псевдоним
-     * @return string $is_nickname_registration да-нет
-     */
     function check_nickname_registration(array $parameters, $nickname=null)
     {
 
@@ -370,14 +308,6 @@ class Users
 
     }
 
-
-    /**
-     * Проверка псевдонима на не зарегистрированность
-     *
-     * @param array $parameters параметры
-     * @param string $nickname псевдоним
-     * @return string $is_nickname_no_registration да-нет
-     */
     function check_nickname_no_registration(array $parameters, $nickname=null)
     {
 
@@ -396,13 +326,6 @@ class Users
 
     }
 
-    /**
-     * Проверка доступности электронной почты для регистрации
-     *
-     * @param array $parameters параметры
-     * @param string $email электронная почта
-     * @return string $is_email_no_registration да-нет
-     */
     function check_email_no_registration(array $parameters, $email=null)
     {
 
@@ -429,14 +352,6 @@ class Users
 
     }
 
-    /**
-     * Проверка правильного пароля по псеводиму
-     *
-     * @param array $parameters параметры
-     * @param string $password пароль
-     * @param string $nickname псевдоним
-     * @return string $is_password_valid
-     */
     function check_password_valid_by_nickname(array $parameters, $password=null, $nickname=null)
     {
 

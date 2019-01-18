@@ -46,6 +46,12 @@ define('DIR_SCHEMES', DIR_RESOURCES . 'Схемы' . DIRECTORY_SEPARATOR);
 /* Наработки */
 define('DIR_EXPERIENCES', DIR_BUSINESS . 'Наработки' . DIRECTORY_SEPARATOR);
 
+/* Наработки сайта */
+define('DIR_EXPERIENCES_SITE', DIR_EXPERIENCES . 'Сайт' . DIRECTORY_SEPARATOR);
+
+/* Наработки сутей */
+define('DIR_EXPERIENCES_ESSENCES', DIR_EXPERIENCES . 'Сути' . DIRECTORY_SEPARATOR);
+
 /* Протоколы */
 define('DIR_PROTOCOLS', DIR_BUSINESS . 'Протоколы' . DIRECTORY_SEPARATOR);
 

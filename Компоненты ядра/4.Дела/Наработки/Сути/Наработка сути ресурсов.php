@@ -37,10 +37,10 @@ class Resources
         Notices::set_mission('config_communications',$config_communications);
 
         /* Получаем схему наработок из файла */
-        $schema_experiences = Resources::include_information_from_file(DIR_SCHEMES,'Схема наработок','php');
+        $schema_experiences = Resources::include_information_from_file(DIR_SCHEMES,'Схема сайта','php');
 
         if($schema_experiences === null){
-            Business::fix_error('нет файла схема наработок',__FILE__,__LINE__);
+            Business::fix_error('нет файла схема сайта',__FILE__,__LINE__);
         }
 
         /* Устанавливаем схему наработок */

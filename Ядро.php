@@ -20,16 +20,16 @@
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Компоненты ядра'. DIRECTORY_SEPARATOR . '3.Ресурсы'. DIRECTORY_SEPARATOR . 'Схемы'. DIRECTORY_SEPARATOR . 'Схема внутренних путей.php';
 
 /* Подключаем суть решений */
-require_once DIR_SOLUTIONS . 'Суть решений.php';
+require_once DIR_EXPERIENCES_ESSENCES . 'Наработка сути решений.php';
 
 /* Подключаем суть уведомлений */
-require_once DIR_NOTICES . 'Суть уведомлений.php';
+require_once DIR_EXPERIENCES_ESSENCES . 'Наработка сути уведомлений.php';
 
 /* Подключаем суть ресурсов */
-require_once DIR_RESOURCES . 'Суть ресурсов.php';
+require_once DIR_EXPERIENCES_ESSENCES . 'Наработка сути ресурсов.php';
 
 /* Подключаем суть дел */
-require_once DIR_BUSINESS . 'Суть дел.php';
+require_once DIR_EXPERIENCES_ESSENCES . 'Наработка сути дел.php';
 
 /* Подключаем суть модулей */
 require_once DIR_MODULES . 'Суть модулей.php';

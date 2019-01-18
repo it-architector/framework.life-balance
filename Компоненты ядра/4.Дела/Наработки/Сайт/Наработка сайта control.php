@@ -7,19 +7,10 @@ use \Framework_life_balance\core_components\Solutions;
 use \Framework_life_balance\core_components\Resources;
 use \Framework_life_balance\core_components\Business;
 
-/**
- * Наработка control
- *
- * @package Framework_life_balance\core_components\experiences
- */
+
 class Control
 {
-    /**
-     * Главная контрольной панели
-     *
-     * @param array $parameters параметры
-     * @return array
-     */
+
     function index(array $parameters)
     {
 
@@ -45,12 +36,6 @@ class Control
 
     }
 
-    /**
-     * Ошибки ядра
-     *
-     * @param array $parameters параметры
-     * @return array
-     */
     function errors(array $parameters)
     {
 
@@ -91,12 +76,6 @@ class Control
 
     }
 
-    /**
-     * Пересборка таблиц и колонок в базе данных
-     *
-     * @param array $parameters параметры
-     * @return string
-     */
     function reassembly_data_base(array $parameters){
 
         /* Фиксируем реконструкцию базы данных */
@@ -146,12 +125,6 @@ class Control
 
     }
 
-    /**
-     * Отправляем письмо
-     *
-     * @param array $parameters параметры
-     * @return string
-     */
     function send_email(array $parameters){
 
         if(isset($parameters['email']) and isset($parameters['title']) and isset($parameters['text']) and isset($parameters['template'])){

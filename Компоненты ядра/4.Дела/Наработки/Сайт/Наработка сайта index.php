@@ -7,19 +7,9 @@ use \Framework_life_balance\core_components\Solutions;
 use \Framework_life_balance\core_components\Resources;
 use \Framework_life_balance\core_components\Business;
 
-/**
- * Наработка index
- *
- * @package Framework_life_balance\core_components\experiences
- */
+
 class Index
 {
-    /**
-     * Главная страница
-     *
-     * @param array $parameters параметры
-     * @return array
-     */
     function index(array $parameters)
     {
 
@@ -33,12 +23,6 @@ class Index
 
     }
 
-    /**
-     * Страница ошибки
-     *
-     * @param array $parameters параметры
-     * @return array
-     */
     function error(array $parameters)
     {
 
@@ -91,12 +75,6 @@ class Index
 
     }
 
-    /**
-     * Блокировка доступа по причине губительного влияния
-     *
-     * @param array $parameters параметры
-     * @return array
-     */
     function stop(array $parameters)
     {
 
@@ -110,12 +88,6 @@ class Index
 
     }
 
-    /**
-     * Блокировка доступа по причине технических работ
-     *
-     * @param array $parameters параметры
-     * @return array
-     */
     function engineering_works(array $parameters)
     {
 
@@ -129,12 +101,6 @@ class Index
 
     }
 
-    /**
-     * Сообщение об ошибке
-     *
-     * @param array $parameters параметры
-     * @return array
-     */
     function send_error(array $parameters)
     {
 
@@ -164,12 +130,6 @@ class Index
 
     }
 
-    /**
-     * Выдача sitemap.xml
-     *
-     * @param array $parameters параметры
-     * @return string $xml
-     */
     function site_map_xml(array $parameters){
 
         $urls = [];
@@ -223,12 +183,6 @@ class Index
         return $xml;
     }
 
-    /**
-     * Карта сайта
-     *
-     * @param array $parameters параметры
-     * @return array
-    */
     function site_map(array $parameters){
 
         $urls = [];

@@ -840,7 +840,12 @@ framework_life_balance_showError(error);
 														  <li class="directory expanded">Итоговые</li>
 												  <li>
 													  <ul class="jqueryFileTree">
+
+														  <li class="file ext_txt">Сведение о версии ядра.md</li>
+														  <li class="file ext_txt">Сведения о разработке.md</li>
+														  <li class="file ext_txt">Сведения о функциях сутей.md</li>
 												  <li class="directory expanded">Схемы</li>
+
 												  <li>
 													  <ul class="jqueryFileTree">
 														  <li class="file ext_txt">Сведения о схеме базы данных.md</li>
@@ -848,9 +853,6 @@ framework_life_balance_showError(error);
 														  <li class="file ext_txt">Сведения о схеме наработок.md</li>
 													  </ul>
 												  </li>
-														  <li class="file ext_txt">Сведение о версии ядра.md</li>
-														  <li class="file ext_txt">Сведения о разработке.md</li>
-														  <li class="file ext_txt">Сведения о функциях сутей.md</li>
 													  </ul>
 												  </li>
 													  </ul>
@@ -871,7 +873,6 @@ framework_life_balance_showError(error);
 													  </ul>
 												  </li>
 
-													  <li class="file ext_php">Суть решений.php</li>
 											  </ul></li>
 											  </ul>
 										 </td>
@@ -932,14 +933,14 @@ framework_life_balance_showError(error);
 													  <ul class="jqueryFileTree">
 
 														  <li class="file ext_txt">Структура внутренних путей.md</li>
-														  <li class="file ext_txt">Структура сутей.md</li>
 														  <li class="file ext_txt">Структура таблиц базы данных.md</li>
 														  <li class="file ext_txt">Структура взаимодействия с базой данных.md</li>
-														  <li class="file ext_txt">Структура наработок.md</li>
+														  <li class="file ext_txt">Структура сутей.md</li>
+														  <li class="file ext_txt">Структура сайта.md</li>
 
 													  </ul>
 												  </li>
-												  <li class="file ext_php">Суть уведомлений.php</li>
+
 											  </ul></li>
 											  </ul>
 										  </td>
@@ -959,7 +960,7 @@ framework_life_balance_showError(error);
 <u>Notices::$user_id</u> - индификационный номер пользователя<br>
 <u>Notices::$user_session</u> - сессия пользователя<br>
 <u>Notices::$user_data</u> - данные пользователя<br>
-<u>Notices::$schema_experiences</u> - схема наработок<br>
+<u>Notices::$schema_experiences</u> - схема сайта<br>
 <u>Notices::$schema_data_base</u> - схема таблиц базы данных<br>
 <u>Notices::$schema_interaction_with_data_base</u> - схема взаимодействия с базой данных<br>
 <u>Notices::$link_communication_with_memory</u> - ссылка на коммуникацию с памятью<br>
@@ -1012,17 +1013,17 @@ framework_life_balance_showError(error);
 														  <li class="file ext_txt">Схема сутей.md</li>
 														  <li class="file ext_php">Схема таблиц базы данных.php</li>
 														  <li class="file ext_php">Схема взаимодействия с базой данных.php</li>
-														  <li class="file ext_php">Схема наработок.php</li>
+														  <li class="file ext_php">Схема сайта.php</li>
 													  </ul>
 												  </li>
-												  <li class="file ext_php">Суть ресурсов.php</li>
+
 											  </ul></li>
 											  </ul>
 										  </td>
       								      <td class="green" style="width:70%;">
 											  <b>Схемы:</b><br>
 											  <pre>
-<code><u>Resources::schema_experience()</u> - Схема наработок<br>
+<code><u>Resources::schema_experience()</u> - Схема сайта<br>
 <u>Resources::schema_data_base()</u> - Схема таблиц базы данных<br>
 <u>Resources::save_realized_schema_data_base()</u> - Сохраняем реализованную схему базы данных</code></pre>
 
@@ -1066,9 +1067,25 @@ framework_life_balance_showError(error);
 												  <li class="directory expanded">Наработки</li>
 												  <li>
 													  <ul class="jqueryFileTree">
+
+														  <li class="directory expanded">Сути</li>
+												  <li>
+													  <ul class="jqueryFileTree">
+														  <li class="file ext_php">Наработка сути решений.php</li>
+														  <li class="file ext_php">Наработка сути уведомлений.php</li>
+														  <li class="file ext_php">Наработка сути ресурсов.php</li>
+														  <li class="file ext_php">Наработка сути дел.php</li>
+													  </ul>
+												  </li>
+
+														  <li class="directory expanded">Сайт</li>
+												  <li>
+													  <ul class="jqueryFileTree">
 														  <li class="file ext_php">Наработка index.php</li>
 														  <li class="file ext_php">Наработка users.php</li>
 														  <li class="file ext_php">Наработка control.php</li>
+													  </ul>
+												  </li>
 													  </ul>
 												  </li>
 
@@ -1088,7 +1105,7 @@ framework_life_balance_showError(error);
 												  </li>
 													  </ul>
 												  </li>
-												  <li class="file ext_php">Суть дел.php</li>
+
 											  </ul></li>
 											  </ul>
 										  </td>
