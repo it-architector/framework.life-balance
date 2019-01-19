@@ -425,25 +425,6 @@ class Solutions
             Business::fix_error('no_content_in_result_executed',__FILE__,__LINE__);
         }
 
-        /*запрос был из браузера*/
-        if(Notices::get_mission('user_device')=='browser' and $format_result == 'array'){
-
-
-            if(!isset($result_executed['title'])){
-                Business::fix_error('no_title_in_result_executed',__FILE__,__LINE__);
-            }
-            elseif(!isset($result_executed['description'])){
-                Business::fix_error('no_description_in_result_executed',__FILE__,__LINE__);
-            }
-            elseif(!isset($result_executed['keywords'])){
-                Business::fix_error('no_keywords_in_result_executed',__FILE__,__LINE__);
-            }
-            elseif(!isset($result_executed['content'])){
-                Business::fix_error('no_content_in_result_executed',__FILE__,__LINE__);
-            }
-
-        }
-
     }
 
     /**
@@ -682,13 +663,41 @@ class Solutions
         /*вызванная наработанная цель*/
         $call_experience_goal = Notices::get_mission('call_experience_goal');
 
-        /*формат результата наработанной Цели*/
-        $format_result = Resources::schema_experience($call_experience, $call_experience_goal, 'format_result');
+        /* Схема вызванной наработанной цели */
+        $schema_call_experience_goal = Resources::schema_experience($call_experience, $call_experience_goal);
 
         /*результат выполнения наработанной Цели*/
-        $result_executed = Notices::get_mission('result_executed');
+        $content = Notices::get_mission('result_executed');
 
-        /*запрос был из браузера*/
+        /* Формируем содержимое ответа */
+        switch ($schema_call_experience_goal['format_result']){
+            case 'text':
+                $answer = $content;
+                break;
+            case 'array':
+
+                /*отвечающий*/
+                $result_executed['responding'] = '/'.Notices::get_mission('call_experience').'/'.Notices::get_mission('call_experience_goal');
+
+                /*заголовок*/
+                $result_executed['title'] = htmlspecialchars($schema_call_experience_goal['Заголовок страницы']);
+
+                /*короткое описание*/
+                $result_executed['description'] = htmlspecialchars($schema_call_experience_goal['Описание страницы']);
+
+                /*ключевое описание*/
+                $result_executed['keywords'] = htmlspecialchars($schema_call_experience_goal['Ключевики страницы']);
+
+                /* Содержание */
+                $result_executed['content'] = $content;
+
+                /*кодируем ответ по json*/
+                $answer = json_encode($result_executed);
+
+                break;
+        }
+
+        /* Ответ в браузер */
         if(Notices::get_mission('user_device')=='browser'){
 
             /*всегда 200 код ответа*/
@@ -698,46 +707,16 @@ class Solutions
             header("Cache-Control: no-store, no-cache, must-revalidate");
             header("Expires: " . Solutions::position_time("r"));
 
-            switch ($format_result){
-                case 'text':
-                    $answer = $result_executed;
-                    break;
-                case 'array':
+            if($schema_call_experience_goal['format_result'] == 'array'){
 
-                    header('Content-Type: application/json');
+                header('Content-Type: application/json');
 
-                    /*отвечающий*/
-                    $result_executed['responding'] = '/'.Notices::get_mission('call_experience').'/'.Notices::get_mission('call_experience_goal');
-
-                    /*заголовок*/
-                    $result_executed['title'] = htmlspecialchars($result_executed['title']);
-
-                    /*короткое описание*/
-                    $result_executed['description'] = htmlspecialchars($result_executed['description']);
-
-                    /*ключевое описание*/
-                    $result_executed['keywords'] = htmlspecialchars($result_executed['keywords']);
-
-                    /*содержание = $result_executed['content']*/
-
-                    /*кодируем ответ по json*/
-                    $answer = json_encode($result_executed);
-
-                    break;
             }
+
         }
-        /*запрос был из консоли*/
+        /* Ответ в консоль */
         elseif(Notices::get_mission('user_device')=='console'){
 
-            switch ($format_result){
-                case 'text':
-                    $answer = $result_executed;
-                    break;
-                case 'array':
-                    /*кодируем ответ по json*/
-                    $answer = json_encode($result_executed);
-                    break;
-            }
         }
 
         return $answer;

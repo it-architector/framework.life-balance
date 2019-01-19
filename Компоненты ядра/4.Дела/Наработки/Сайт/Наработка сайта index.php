@@ -13,13 +13,7 @@ class Index
     function index(array $parameters)
     {
 
-        return [
-            'title' => 'Framework life balance',
-            'description' => 'Framework life balance это единый порядок разработки веб-сайта на php и js (html,css,image).',
-            'keywords' => 'framework, php, среда разработки',
-            'content' => [
-            ]
-        ];
+        return [];
 
     }
 
@@ -63,14 +57,8 @@ class Index
         }
 
         return [
-            'title' => 'Ошибка',
-            'description' => '',
-            'keywords' => '',
-            'content' => [
-                'code' => $code,
-                'error' => $error,
-            ]
-
+            'code' => $code,
+            'error' => $error,
         ];
 
     }
@@ -78,26 +66,14 @@ class Index
     function stop(array $parameters)
     {
 
-        return [
-            'title' => 'Ограничение доступа',
-            'description' => '',
-            'keywords' => '',
-            'content' => false
-
-        ];
+        return [];
 
     }
 
     function engineering_works(array $parameters)
     {
 
-        return [
-            'title' => 'Техническая работа',
-            'description' => '',
-            'keywords' => '',
-            'content' => false
-
-        ];
+        return [];
 
     }
 
@@ -120,14 +96,44 @@ class Index
 
 
         return [
-            'title' => 'Обратная связь',
-            'description' => '',
-            'keywords' => '',
-            'content' => [
-                'msg' => $message_result
-            ]
+            'msg' => $message_result
         ];
 
+    }
+
+
+    function site_map(array $parameters){
+
+        $urls = [];
+
+        /*получаем схему наработок*/
+        $schema_experiences = Notices::get_mission('schema_experiences');
+
+        if($schema_experiences != null){
+
+            foreach($schema_experiences as $experience=>$experience_data){
+                foreach($experience_data['goals'] as $experience_goal=>$experience_goal_data){
+
+                    $url = '/'.$experience.'/'.$experience_goal;
+
+                    if($url == '/index/index'){
+                        continue;
+                    }
+
+                    if(in_array($experience_goal_data['intended'],['any','unauthorized'])){
+
+                        $urls[$experience_data['description']][$url] = $experience_goal_data['description'];
+                    }
+                }
+            }
+
+        }
+
+
+
+        return [
+            'urls' => $urls
+        ];
     }
 
     function site_map_xml(array $parameters){
@@ -162,10 +168,6 @@ class Index
 
         }
 
-        /*получаем настройки системы*/
-        $config_system = Notices::get_mission('config_system');
-
-
         $xml = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd http://www.w3.org/1999/xhtml http://www.w3.org/2002/08/xhtml/xhtml1-strict.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">';
 
         foreach ($urls as $url){
@@ -183,42 +185,4 @@ class Index
         return $xml;
     }
 
-    function site_map(array $parameters){
-
-        $urls = [];
-
-        /*получаем схему наработок*/
-        $schema_experiences = Notices::get_mission('schema_experiences');
-
-        if($schema_experiences != null){
-
-            foreach($schema_experiences as $experience=>$experience_data){
-                foreach($experience_data['goals'] as $experience_goal=>$experience_goal_data){
-
-                    $url = '/'.$experience.'/'.$experience_goal;
-
-                    if($url == '/index/index'){
-                        continue;
-                    }
-
-                    if(in_array($experience_goal_data['intended'],['any','unauthorized'])){
-
-                        $urls[$experience_data['description']][$url] = $experience_goal_data['description'];
-                    }
-                }
-            }
-
-        }
-
-
-
-        return [
-            'title' => 'Карта сайта',
-            'description' => '',
-            'keywords' => '',
-            'content' => [
-                'urls' => $urls
-            ]
-        ];
-    }
 }

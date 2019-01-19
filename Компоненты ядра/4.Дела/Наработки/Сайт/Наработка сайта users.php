@@ -26,12 +26,7 @@ class Users
         }
 
         return [
-            'title' => 'Пользователи',
-            'description' => 'Пользователи',
-            'keywords' => 'Пользователи',
-            'content' => [
-                'users' => $users,
-            ]
+            'users' => $users,
         ];
 
     }
@@ -80,10 +75,10 @@ class Users
                 $registration_error = 'У пароля допустима длинна от 5 символов!';
             }
             /*проверка псевдонима на не зарегистрированность*/
-            elseif($this->check_nickname_no_registration($parameters,$nickname)=='false'){
+            elseif($this->check_nickname_no_registration(['nickname' => $nickname])=='false'){
                 $registration_error = 'Псевдоним уже ранее зарегистрирован!';
             }
-            elseif($this->check_email_no_registration($parameters,$email)=='false'){
+            elseif($this->check_email_no_registration(['email' => $email])=='false'){
                 $registration_error = 'Электронная почта уже ранее зарегистрирована!';
             }
             else{
@@ -130,17 +125,12 @@ class Users
         }
 
         return [
-            'title' => 'Регистрация',
-            'description' => 'Регистрация на проекте',
-            'keywords' => 'регистрация',
-            'content' => [
-                'nickname' => $nickname,
-                'name' => $name,
-                'family_name' => $family_name,
-                'password' => $password,
-                'email' => $email,
-                'registration_error' => $registration_error,
-            ]
+            'nickname' => $nickname,
+            'name' => $name,
+            'family_name' => $family_name,
+            'password' => $password,
+            'email' => $email,
+            'registration_error' => $registration_error,
         ];
     }
 
@@ -162,13 +152,8 @@ class Users
         }
 
         return [
-            'title' => 'Вы зарегистрированы!',
-            'description' => 'Вы зарегистрированы на проекте',
-            'keywords' => 'регистрация',
-            'content' => [
-                'nickname' => $nickname,
-                'password' => $password
-            ]
+            'nickname' => $nickname,
+            'password' => $password
         ];
     }
 
@@ -185,11 +170,11 @@ class Users
             $password = htmlspecialchars($parameters['password_authorize']);
 
             /*проверка псевдонима на зарегистрированность*/
-            if($this->check_nickname_registration($parameters,$nickname)=='false'){
+            if($this->check_nickname_registration(['nickname' => $nickname])=='false'){
                 $authorize_error = 'Псевдоним не зарегистрирован!';
             }
             /*проверка правильного пароля по псеводиму*/
-            elseif($this->check_password_valid_by_nickname($parameters,$password, $nickname)=='false'){
+            elseif($this->check_password_valid_by_nickname(['nickname' => $nickname, 'password' => $password])=='false'){
                 $authorize_error = 'Не верный пароль!';
             }
             else{
@@ -223,14 +208,27 @@ class Users
         }
 
         return [
-            'title' => 'Авторизация',
-            'description' => '',
-            'keywords' => '',
-            'content' => [
-                'nickname'        => $nickname,
-                'password'        => $password,
-                'authorize_error' => $authorize_error
-            ]
+            'nickname'        => $nickname,
+            'password'        => $password,
+            'authorize_error' => $authorize_error
+        ];
+
+    }
+
+    function authorized_ok(array $parameters)
+    {
+
+        return [
+            'user_id'      => $parameters['user_id'],
+            'user_session' => $parameters['user_session']
+        ];
+
+    }
+
+    function authorized_data(array $parameters)
+    {
+        return [
+            'user_data' => Business::data_authorized_user()
         ];
 
     }
@@ -243,61 +241,22 @@ class Users
 
     }
 
-    function authorized_data(array $parameters)
-    {
-        return [
-            'title' => 'Вы авторизованы',
-            'description' => '',
-            'keywords' => '',
-            'content' => [
-                'user_data' => Business::data_authorized_user()
-            ]
-        ];
-
-    }
-
-    function authorized_ok(array $parameters)
-    {
-
-        return [
-            'title' => 'Вы авторизованы',
-            'description' => '',
-            'keywords' => '',
-            'content' => [
-                'user_id'      => $parameters['user_id'],
-                'user_session' => $parameters['user_session']
-            ]
-        ];
-
-    }
-
     function unauthorized_ok(array $parameters)
     {
         return [
-            'title' => 'Вы не авторизованы',
-            'description' => '',
-            'keywords' => '',
-            'content' => [
-            ]
         ];
 
     }
 
-    function check_nickname_registration(array $parameters, $nickname=null)
+    function check_nickname_registration(array $parameters)
     {
-
-        if($nickname==null){
-            if(isset($parameters['nickname'])){
-                $nickname=$parameters['nickname'];
-            }
-        }
 
         $is_nickname_registration = 'false';
 
         /*проверяем занятости имени*/
-        if($nickname){
+        if(isset($parameters['nickname'])){
 
-            $nickname = htmlspecialchars($nickname);
+            $nickname = htmlspecialchars($parameters['nickname']);
 
             if(Resources::interchange_information_with_data_base('Получение', 'Id пользователя по псевдониму', [':nickname' => $nickname])){
                 $is_nickname_registration='true';
@@ -308,40 +267,62 @@ class Users
 
     }
 
-    function check_nickname_no_registration(array $parameters, $nickname=null)
+    function check_nickname_no_registration(array $parameters)
     {
 
-        if($nickname==null){
-            if(isset($parameters['nickname'])){
-                $nickname=$parameters['nickname'];
-            }
+        $is_nickname_no_registration = 'false';
+
+        if(isset($parameters['nickname'])){
+
+            /*проверка занятости имени*/
+            $is_nickname_registration = $this->check_nickname_registration(['nickname' => $parameters['nickname']]);
+
+            $is_nickname_no_registration = $is_nickname_registration=='true'?'false':'true';
         }
-
-        /*проверка занятости имени*/
-        $is_nickname_registration = $this->check_nickname_registration($parameters,$nickname);
-
-        $is_nickname_no_registration = $is_nickname_registration=='true'?'false':'true';
 
         return $is_nickname_no_registration;
 
     }
 
-    function check_email_no_registration(array $parameters, $email=null)
+    function check_password_valid_by_nickname(array $parameters)
     {
 
-        if($email==null){
-            if(isset($parameters['email'])){
-                $email=$parameters['email'];
-            }
-        }
+        $is_password_valid = 'false';
+
+       if(isset($parameters['nickname']) and isset($parameters['password'])){
+
+           /*форминование пароля пользователя*/
+           $password_formation = Solutions::formation_user_password($parameters['password']);
+
+           /* Получаем id пользователя по псевдониму и паролю */
+           $user_id = Resources::interchange_information_with_data_base('Получение', 'Id пользователя по авторизационым данным', [
+               ':nickname' => $parameters['nickname'],
+               ':password' => $password_formation,
+           ]);
+
+           if($user_id){
+               $is_password_valid = 'true';
+           }
+           else{
+               $is_password_valid = 'false';
+           }
+
+       }
+
+        return $is_password_valid;
+
+    }
+
+    function check_email_no_registration(array $parameters)
+    {
 
 
         $is_email_no_registration = 'false';
 
         /*проверяем наличие емейла в базе*/
-        if($email!=null){
+        if(isset($parameters['email'])){
 
-            $email = htmlspecialchars($email);
+            $email = htmlspecialchars($parameters['email']);
 
             if(!Resources::interchange_information_with_data_base('Получение', 'Id пользователя по электронному адресу', [':email' => $email])){
                 $is_email_no_registration='true';
@@ -349,41 +330,6 @@ class Users
         }
 
         return $is_email_no_registration;
-
-    }
-
-    function check_password_valid_by_nickname(array $parameters, $password=null, $nickname=null)
-    {
-
-        if($nickname==null){
-            if(isset($parameters['nickname'])){
-                $nickname=$parameters['nickname'];
-            }
-        }
-
-        if($password==null){
-            if(isset($parameters['password'])){
-                $password=$parameters['password'];
-            }
-        }
-
-        /*форминование пароля пользователя*/
-        $password_formation = Solutions::formation_user_password($password);
-
-        /* Получаем id пользователя по псевдониму и паролю */
-        $user_id = Resources::interchange_information_with_data_base('Получение', 'Id пользователя по авторизационым данным', [
-            ':nickname' => $nickname,
-            ':password' => $password_formation,
-        ]);
-
-        if($user_id){
-            $is_password_valid = 'true';
-        }
-        else{
-            $is_password_valid = 'false';
-        }
-
-        return $is_password_valid;
 
     }
 }

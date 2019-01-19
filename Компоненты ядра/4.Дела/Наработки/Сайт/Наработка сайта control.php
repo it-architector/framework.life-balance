@@ -26,12 +26,7 @@ class Control
         }
 
         return [
-            'title' => 'Контрольная панель',
-            'description' => '',
-            'keywords' => '',
-            'content' => [
-                'last_error_in_file_log' => $last_error_in_file_log,
-            ]
+            'last_error_in_file_log' => $last_error_in_file_log,
         ];
 
     }
@@ -65,13 +60,7 @@ class Control
         }
 
         return [
-            'title' => 'Ошибки ядра',
-            'description' => '',
-            'keywords' => '',
-            'content' => [
-                'errors_in_file_log' => count($errors_in_file_log)>0 ? $errors_in_file_log : null,
-            ]
-
+            'errors_in_file_log' => count($errors_in_file_log)>0 ? $errors_in_file_log : null,
         ];
 
     }
