@@ -233,13 +233,13 @@ class Solutions
 
         /*проверка*/
         if($experience!=null and !isset($schema_experiences[$experience])){
-            Business::fix_error('нет Наработки '.$experience,__FILE__,__LINE__, $call_index_goal_on_error);
+            Business::fix_error('нет функции сайта '.$experience,__FILE__,__LINE__, $call_index_goal_on_error);
         }
         elseif($goal!=null and !isset($schema_experiences[$experience]['goals'][$goal])){
-            Business::fix_error('Цели '.$goal.' нет в наработке '.$experience,__FILE__,__LINE__, $call_index_goal_on_error);
+            Business::fix_error('Цели '.$goal.' нет в функции сайта '.$experience,__FILE__,__LINE__, $call_index_goal_on_error);
         }
         elseif($experience!=null and $goal==null and $detail!=null and !isset($schema_experiences[$experience][$detail])){
-            Business::fix_error('нет детали '.$detail.' у Наработки '.$experience,__FILE__,__LINE__, $call_index_goal_on_error);
+            Business::fix_error('нет детали '.$detail.' у функций сайта '.$experience,__FILE__,__LINE__, $call_index_goal_on_error);
         }
         elseif($goal!=null and $detail!=null and !isset($schema_experiences[$experience]['goals'][$goal][$detail])){
             Business::fix_error('нет детали '.$detail.' у Цели '.$goal.' в наработке '.$experience,__FILE__,__LINE__, $call_index_goal_on_error);
@@ -301,13 +301,13 @@ class Solutions
     }
 
     /**
-     * Помечаем начало выполнения Наработки
+     * Помечаем начало выполнения функции сайта
      *
      * @return null
      */
     static function mark_start_execution_experience(){
 
-        /*устанавливаем время вызова Наработки*/
+        /*устанавливаем время вызова функци сайта*/
         Notices::set_mission('mark_time_call_experience',time());
 
         /*вызванная наработка*/
@@ -328,7 +328,7 @@ class Solutions
     }
 
     /**
-     * Помечаем завершение выполнения Наработки
+     * Помечаем завершение выполнения функции сайта
      *
      * @return null
      */
@@ -351,7 +351,7 @@ class Solutions
 
         /*обнаружено превышение времени выполнения*/
         if($lead_time_executed>$lead_time_seconds){
-            Business::fix_error('Превышения выполнения цели '.$call_experience_goal.' наработки '.$call_experience.' на ' . ($lead_time_executed-$lead_time_seconds) . ' сек.',__FILE__,__LINE__,false);
+            Business::fix_error('Превышения выполнения цели '.$call_experience_goal.' функции сайта '.$call_experience.' на ' . ($lead_time_executed-$lead_time_seconds) . ' сек.',__FILE__,__LINE__,false);
         }
 
     }
@@ -606,7 +606,7 @@ class Solutions
         if (!class_exists($experience_class_name)) {
 
             /* Подключаем файл с классом наработки */
-            Resources::include_information_from_file(DIR_EXPERIENCES_SITE, 'Наработка сайта '.$experience,'php');
+            Resources::include_information_from_file(DIR_EXPERIENCES_SITE, 'Функции категории сайта '.$experience,'php');
 
         }
 

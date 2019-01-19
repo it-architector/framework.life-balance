@@ -43,13 +43,13 @@ define('DIR_STRUCTURES', DIR_NOTICES . 'Структуры' . DIRECTORY_SEPARATO
 /* Схемы */
 define('DIR_SCHEMES', DIR_RESOURCES . 'Схемы' . DIRECTORY_SEPARATOR);
 
-/* Наработки */
-define('DIR_EXPERIENCES', DIR_BUSINESS . 'Наработки' . DIRECTORY_SEPARATOR);
+/* Функции */
+define('DIR_EXPERIENCES', DIR_BUSINESS . 'Функции' . DIRECTORY_SEPARATOR);
 
-/* Наработки сайта */
-define('DIR_EXPERIENCES_SITE', DIR_EXPERIENCES . 'Сайт' . DIRECTORY_SEPARATOR);
+/* Функции сайта */
+define('DIR_EXPERIENCES_SITE', DIR_EXPERIENCES . 'Категории сайта' . DIRECTORY_SEPARATOR);
 
-/* Наработки сутей */
+/* Функции сутей */
 define('DIR_EXPERIENCES_ESSENCES', DIR_EXPERIENCES . 'Сути' . DIRECTORY_SEPARATOR);
 
 /* Протоколы */
