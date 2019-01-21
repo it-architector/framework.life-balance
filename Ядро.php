@@ -1,9 +1,9 @@
 <?php
 
 /*
- * Ядро Framework life balance v1
+ * Ядро Framework life balance
  *
- * Версия: /Компоненты ядра/4.Дела/Сведения/Версия ядра.md
+ * Исходник: https://github.com/veter-love/framework-life-balance-v1
  *
  * Этапы:
  * 1. Подключение.
@@ -17,19 +17,19 @@
  */
 
 /* Подключаем схему внутренних путей */
-require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Компоненты ядра'. DIRECTORY_SEPARATOR . '3.Ресурсы'. DIRECTORY_SEPARATOR . 'Схемы'. DIRECTORY_SEPARATOR . 'Схема внутренних путей.php';
+require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Компоненты ядра'. DIRECTORY_SEPARATOR . '1.Ориентировка' . DIRECTORY_SEPARATOR . 'Сведения' . DIRECTORY_SEPARATOR . 'Итоговые' . DIRECTORY_SEPARATOR . 'Сведения о внутренних путях.php';
 
-/* Подключаем суть решений */
-require_once DIR_EXPERIENCES_ESSENCES . 'Функции сути решений.php';
+/* Подключаем функции компонента орентировка */
+require_once DIR_EXPERIENCES_ESSENCES . '1.Функции компонента орентировка.php';
 
-/* Подключаем суть уведомлений */
-require_once DIR_EXPERIENCES_ESSENCES . 'Функции сути уведомлений.php';
+/* Подключаем функции компонента представления */
+require_once DIR_EXPERIENCES_ESSENCES . '2.Функции компонента представления.php';
 
-/* Подключаем суть ресурсов */
-require_once DIR_EXPERIENCES_ESSENCES . 'Функции сути ресурсов.php';
+/* Подключаем функции компонента ресурсы */
+require_once DIR_EXPERIENCES_ESSENCES . '3.Функции компонента ресурсы.php';
 
-/* Подключаем суть дел */
-require_once DIR_EXPERIENCES_ESSENCES . 'Функции сути дел.php';
+/* Подключаем функции компонента интеллект */
+require_once DIR_EXPERIENCES_ESSENCES . '4.Функции компонента интеллект.php';
 
 /* Подключаем суть модулей */
 require_once DIR_MODULES . 'Суть модулей.php';
