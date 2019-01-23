@@ -8,7 +8,7 @@ use \Framework_life_balance\core_components\Resources;
 use \Framework_life_balance\core_components\Business;
 
 
-class Index
+class Category_index
 {
     function index(array $parameters)
     {

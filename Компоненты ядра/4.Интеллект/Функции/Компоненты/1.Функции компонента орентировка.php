@@ -600,7 +600,7 @@ class Solutions
     static function construct_class_experience($experience){
 
         /* Название класса наработки */
-        $experience_class_name = '\Framework_life_balance\core_components\experiences\\'.$experience;
+        $experience_class_name = '\Framework_life_balance\core_components\experiences\Category_'.$experience;
 
         /* Проверяем подключенного класса */
         if (!class_exists($experience_class_name)) {

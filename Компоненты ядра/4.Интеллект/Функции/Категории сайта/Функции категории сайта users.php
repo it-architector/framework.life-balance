@@ -7,7 +7,7 @@ use \Framework_life_balance\core_components\Solutions;
 use \Framework_life_balance\core_components\Resources;
 use \Framework_life_balance\core_components\Business;
 
-class Users
+class Category_users
 {
 
     function index(array $parameters)
