@@ -680,12 +680,12 @@ function framework_life_balance_urlToCore(request) {
 
 											  <br>
 											  <pre><code>/* загружает данные с ядра */
-function framework_life_balance_loadDataFromCore(request,postData) {
+function get_data_from_core(request,postData) {
 ...
 var urlToCore = framework_life_balance_urlToCore(request);
 ...
 /* показываем анимацию загрузки данных */
-framework_life_balance_showLoader();
+show_loader();
 ...
 /*отправляем запрос на ядро*/
 $.post(urlToCore,postData).done(function(values){
@@ -793,10 +793,10 @@ else if(typeof(framework_life_balance_htmlOnRequestsToCore[values["responding"]]
 
 /*массив полученных данных*/
 if(typeof(values["content"]) != "undefined"){
-framework_life_balance_answer_content = values["content"];
+Intelligence.content_core = values["content"];
 }
 else{
-framework_life_balance_answer_content = [];
+Intelligence.content_core = [];
 }
 
 /*ссылка на шаблон html*/

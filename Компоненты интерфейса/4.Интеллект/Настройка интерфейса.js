@@ -1,30 +1,28 @@
+/* Инициируем взаимодействие с ядром */
+
 document.addEventListener('DOMContentLoaded', function(){
 
-    /* Инициируем взаимодействие с ядром */
-
     /*метод проверки русских букв*/
-    $.validator.addMethod('russian_letters', function (value) {
+    jQuery.validator.addMethod('russian_letters', function (value) {
         return /[\Wа-яА-ЯёЁ]/.test(value);
     }, '');
 
     /* переводим навигационные ссылки на core режим */
-    framework_life_balance_transferLinkToCore('.menu_block a');
+    Intelligence.communication_link_with_core('.menu_block a');
 
     /* переводим формы на core режим */
-    framework_life_balance_transferFormToCore('container_navigation');
-    framework_life_balance_transferFormToCore('container_contacts');
+    Intelligence.communication_form_with_core('container_navigation');
+    Intelligence.communication_form_with_core('container_contacts');
 
     /*отмечаем что вначале запрос был пустым*/
-    framework_life_balance_saveCoreUrl('-');
+    Intelligence.save_called_core_url('-');
 
     /* загружаем текущую страницу посредством core */
-    framework_life_balance_loadDataFromCore(window.location.pathname + window.location.search + window.location.hash,'');
+    Intelligence.get_data_from_core(window.location.pathname + window.location.search + window.location.hash,'');
 
     /* показываем авторизацию */
-    framework_life_balance_showAuth();
+    Intelligence.show_authorization_panel();
 
-    //var fixed_menu = true;
-    //window.jQuery = window.$ = jQuery;
 
 //BlackAndWhite
     $(window).load(function(){

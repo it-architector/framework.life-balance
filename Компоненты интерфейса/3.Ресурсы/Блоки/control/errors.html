@@ -1,12 +1,12 @@
 <script>
 
     /*ошибки из файла лога*/
-    if(framework_life_balance_answer_content['errors_in_file_log'] === null){
+    if(Intelligence.content_core['errors_in_file_log'] === null){
         out_errors_in_file_log = 'Нет.';
     }
     else{
         out_errors_in_file_log = '';
-        $.each(framework_life_balance_answer_content['errors_in_file_log'], function(error_id, error) {
+        $.each(Intelligence.content_core['errors_in_file_log'], function(error_id, error) {
 
             out_errors_in_file_log = out_errors_in_file_log + '<p>' + error + '</p>';
 

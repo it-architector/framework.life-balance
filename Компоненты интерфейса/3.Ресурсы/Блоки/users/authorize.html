@@ -1,15 +1,15 @@
 <script>
-    if(framework_life_balance_answer_content['nickname']!=''){
-        $('#nickname_authorize').val(framework_life_balance_answer_content['nickname']);
+    if(Intelligence.content_core['nickname']!=''){
+        $('#nickname_authorize').val(Intelligence.content_core['nickname']);
     }
-    if(framework_life_balance_answer_content['password']!=''){
-        $('#password_authorize').val(framework_life_balance_answer_content['password']);
+    if(Intelligence.content_core['password']!=''){
+        $('#password_authorize').val(Intelligence.content_core['password']);
     }
 
     /*данные ошибки*/
-    if(framework_life_balance_answer_content['authorize_error']!=''){
+    if(Intelligence.content_core['authorize_error']!=''){
 
-        $('#authorize_message_error').html(framework_life_balance_answer_content['authorize_error']);
+        $('#authorize_message_error').html(Intelligence.content_core['authorize_error']);
         $('#authorize_message_error').show();
     }
 </script>

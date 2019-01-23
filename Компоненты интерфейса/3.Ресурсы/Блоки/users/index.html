@@ -2,11 +2,11 @@
     /*данные пользователей*/
     out_users = '';
 
-    if(framework_life_balance_answer_content['users']==false){
+    if(Intelligence.content_core['users']==false){
         out_users = 'Пока никого! Кто первый зарегистрируется тот будет администратором!';
     }
     else{
-        $.each(framework_life_balance_answer_content['users'], function(user_id, user) {
+        $.each(Intelligence.content_core['users'], function(user_id, user) {
 
             if(user['is_admin'] == 'true'){
                 var status = 'администратор';

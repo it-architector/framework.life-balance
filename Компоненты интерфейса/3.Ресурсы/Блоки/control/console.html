@@ -2,9 +2,9 @@
 
     /*фильтр по емейлу*/
 
-    if(framework_life_balance_answer_content['filtr_email']){
+    if(Intelligence.content_core['filtr_email']){
 
-        out_fitr_email = framework_life_balance_answer_content['filtr_email'];
+        out_fitr_email = Intelligence.content_core['filtr_email'];
 
         $('input[name=email_guest]').val(out_fitr_email);
         $('#filtr-email-del').html('<a class="to_core" href="/control/errors">показать без фильтра</a>');
@@ -15,12 +15,12 @@
 
     /*данные ошибок*/
 
-    if(framework_life_balance_answer_content['errors']==false){
+    if(Intelligence.content_core['errors']==false){
         out_errors = 'Здесь нет ошибок!';
     }
     else{
         out_errors = '';
-        $.each(framework_life_balance_answer_content['errors'], function(error_id, error) {
+        $.each(Intelligence.content_core['errors'], function(error_id, error) {
 
             if(error['user_email'] != '' && error['user_email'] != 'NULL' && error['user_email'] != null){
                 var from = error['user_name'] + ' (' + error['user_email'] + ')';
@@ -42,11 +42,11 @@
 
     /*навигация по ошибкам*/
 
-    if(framework_life_balance_answer_content['errors_pages_count']>0){
+    if(Intelligence.content_core['errors_pages_count']>0){
 
         var url = '/control/errors?email=' + out_fitr_email + '&page=';
-        var this_page = framework_life_balance_answer_content['errors_page'];
-        var count_pages = framework_life_balance_answer_content['errors_pages_count'];
+        var this_page = Intelligence.content_core['errors_page'];
+        var count_pages = Intelligence.content_core['errors_pages_count'];
 
         out_errors_navation = '<p><div class="navigation">Страницы: ';
 
@@ -87,12 +87,12 @@
     }
 
     /*ошибки из файла лога*/
-    if(framework_life_balance_answer_content['errors_in_file_log']==null){
+    if(Intelligence.content_core['errors_in_file_log']==null){
         out_errors_in_file_log = 'Файл ошибок пуст!';
     }
     else{
         out_errors_in_file_log = '';
-        $.each(framework_life_balance_answer_content['errors_in_file_log'], function(error_id, error) {
+        $.each(Intelligence.content_core['errors_in_file_log'], function(error_id, error) {
 
             out_errors_in_file_log = out_errors_in_file_log + '<p>' + error + '</p>';
 

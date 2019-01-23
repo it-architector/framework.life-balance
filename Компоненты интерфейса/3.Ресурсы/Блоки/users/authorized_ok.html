@@ -1,10 +1,10 @@
 <script>
     /*сохраняем авторизацию*/
-    $.cookie('user_id', framework_life_balance_answer_content['user_id'], { expires: 120, path: '/', });
-    $.cookie('user_session', framework_life_balance_answer_content['user_session'], { expires: 120, path: '/', });
+    $.cookie('user_id', Intelligence.content_core['user_id'], { expires: 120, path: '/', });
+    $.cookie('user_session', Intelligence.content_core['user_session'], { expires: 120, path: '/', });
 
     /*меняем ссылки авторизации*/
-    framework_life_balance_showAuth();
+    Intelligence.show_authorization_panel();
 </script>
 
 <!-- NEWS -->

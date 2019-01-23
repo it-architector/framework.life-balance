@@ -1,25 +1,25 @@
 <script>
 
-    if(framework_life_balance_answer_content['nickname']!=''){
-        $('#nickname_registration').val(framework_life_balance_answer_content['nickname']);
+    if(Intelligence.content_core['nickname']!=''){
+        $('#nickname_registration').val(Intelligence.content_core['nickname']);
     }
-    if(framework_life_balance_answer_content['name']!=''){
-        $('#name').val(framework_life_balance_answer_content['name']);
+    if(Intelligence.content_core['name']!=''){
+        $('#name').val(Intelligence.content_core['name']);
     }
-    if(framework_life_balance_answer_content['family_name']!=''){
-        $('#family_name').val(framework_life_balance_answer_content['family_name']);
+    if(Intelligence.content_core['family_name']!=''){
+        $('#family_name').val(Intelligence.content_core['family_name']);
     }
-    if(framework_life_balance_answer_content['email']!=''){
-        $('#email').val(framework_life_balance_answer_content['email']);
+    if(Intelligence.content_core['email']!=''){
+        $('#email').val(Intelligence.content_core['email']);
     }
-    if(framework_life_balance_answer_content['password']!=''){
-        $('#password_registration').val(framework_life_balance_answer_content['password']);
+    if(Intelligence.content_core['password']!=''){
+        $('#password_registration').val(Intelligence.content_core['password']);
     }
 
     /*данные ошибки*/
-    if(framework_life_balance_answer_content['registration_error']!=''){
+    if(Intelligence.content_core['registration_error']!=''){
 
-        $('#registration_message_error').html(framework_life_balance_answer_content['registration_error']);
+        $('#registration_message_error').html(Intelligence.content_core['registration_error']);
         $('#registration_message_error').show();
     }
 </script>

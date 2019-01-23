@@ -1,5 +1,5 @@
 /* Блоки html для ответов от ядра */
-framework_life_balance_htmlOnRequestsToCore = {
+list_blocks = {
 
     /* основа */
     '/index/index': 'главная страница',

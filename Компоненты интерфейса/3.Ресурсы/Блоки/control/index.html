@@ -1,13 +1,13 @@
 <script>
     /*данные ошибки добаления пользователя*/
-    $('#add-user-msg').html(framework_life_balance_answer_content['msg_add_user']);
+    $('#add-user-msg').html(Intelligence.content_core['msg_add_user']);
 
     /*последняя ошибка в файле лога*/
-    if(framework_life_balance_answer_content['last_error_in_file_log']==false){
+    if(Intelligence.content_core['last_error_in_file_log']==false){
         var last_error_in_file_log = 'Нет.';
     }
     else{
-        var last_error_in_file_log = framework_life_balance_answer_content['last_error_in_file_log'];
+        var last_error_in_file_log = Intelligence.content_core['last_error_in_file_log'];
     }
     $('#last_error_in_file_log').html(last_error_in_file_log);
 </script>
