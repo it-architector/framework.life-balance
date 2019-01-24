@@ -11,7 +11,7 @@ use \Framework_life_balance\core_components\Business;
 class Category_control
 {
 
-    function index(array $parameters)
+    static function index(array $parameters)
     {
 
         /*ошибки в файле лога*/
@@ -31,7 +31,7 @@ class Category_control
 
     }
 
-    function errors(array $parameters)
+    static function errors(array $parameters)
     {
 
         if(isset($parameters['delete_file_log'])){
@@ -65,7 +65,7 @@ class Category_control
 
     }
 
-    function reassembly_data_base(array $parameters){
+    static function reassembly_data_base(array $parameters){
 
         /* Фиксируем реконструкцию базы данных */
         Business::fix_reassembly_data_base('Запуск');
@@ -114,7 +114,7 @@ class Category_control
 
     }
 
-    function send_email(array $parameters){
+    static function send_email(array $parameters){
 
         if(isset($parameters['email']) and isset($parameters['title']) and isset($parameters['text']) and isset($parameters['template'])){
 

@@ -1,21 +1,6 @@
 <script>
 
-    /*ошибки из файла лога*/
-    if(Intelligence.content_core['errors_in_file_log'] === null){
-        out_errors_in_file_log = 'Нет.';
-    }
-    else{
-        out_errors_in_file_log = '';
-        $.each(Intelligence.content_core['errors_in_file_log'], function(error_id, error) {
 
-            out_errors_in_file_log = out_errors_in_file_log + '<p>' + error + '</p>';
-
-        });
-
-        out_errors_in_file_log = out_errors_in_file_log + '<p><u><a class="to_core" href="/control/errors?delete_file_log=true">Очистить файл лога</a></u></p>';
-    }
-
-    $('#out_errors_in_file_log').html(out_errors_in_file_log);
 </script>
 <!-- NEWS -->
 <section id="news">

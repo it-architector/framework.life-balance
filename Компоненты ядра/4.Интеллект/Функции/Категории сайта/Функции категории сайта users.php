@@ -10,7 +10,7 @@ use \Framework_life_balance\core_components\Business;
 class Category_users
 {
 
-    function index(array $parameters)
+    static function index(array $parameters)
     {
 
         /* Получаем всех пользователей */
@@ -31,7 +31,7 @@ class Category_users
 
     }
 
-    function registration(array $parameters)
+    static function registration(array $parameters)
     {
         $nickname = '';
         $name = '';
@@ -75,10 +75,10 @@ class Category_users
                 $registration_error = 'У пароля допустима длинна от 5 символов!';
             }
             /*проверка псевдонима на не зарегистрированность*/
-            elseif($this->check_nickname_no_registration(['nickname' => $nickname])=='false'){
+            elseif(self::check_nickname_no_registration(['nickname' => $nickname])=='false'){
                 $registration_error = 'Псевдоним уже ранее зарегистрирован!';
             }
-            elseif($this->check_email_no_registration(['email' => $email])=='false'){
+            elseif(self::check_email_no_registration(['email' => $email])=='false'){
                 $registration_error = 'Электронная почта уже ранее зарегистрирована!';
             }
             else{
@@ -134,7 +134,7 @@ class Category_users
         ];
     }
 
-    function registration_ok(array $parameters)
+    static function registration_ok(array $parameters)
     {
 
         if(isset($parameters['nickname'])){
@@ -157,7 +157,7 @@ class Category_users
         ];
     }
 
-    function authorize(array $parameters)
+    static function authorize(array $parameters)
     {
         $nickname = '';
         $password = '';
@@ -170,11 +170,11 @@ class Category_users
             $password = htmlspecialchars($parameters['password_authorize']);
 
             /*проверка псевдонима на зарегистрированность*/
-            if($this->check_nickname_registration(['nickname' => $nickname])=='false'){
+            if(self::check_nickname_registration(['nickname' => $nickname])=='false'){
                 $authorize_error = 'Псевдоним не зарегистрирован!';
             }
             /*проверка правильного пароля по псеводиму*/
-            elseif($this->check_password_valid_by_nickname(['nickname' => $nickname, 'password' => $password])=='false'){
+            elseif(self::check_password_valid_by_nickname(['nickname' => $nickname, 'password' => $password])=='false'){
                 $authorize_error = 'Не верный пароль!';
             }
             else{
@@ -215,7 +215,7 @@ class Category_users
 
     }
 
-    function authorized_ok(array $parameters)
+    static function authorized_ok(array $parameters)
     {
 
         return [
@@ -225,7 +225,7 @@ class Category_users
 
     }
 
-    function authorized_data(array $parameters)
+    static function authorized_data(array $parameters)
     {
         return [
             'user_data' => Business::data_authorized_user()
@@ -233,7 +233,7 @@ class Category_users
 
     }
 
-    function unauthorize(array $parameters)
+    static function unauthorize(array $parameters)
     {
 
         /*Вызываем выполнение удачного сброса авторизации*/
@@ -241,14 +241,14 @@ class Category_users
 
     }
 
-    function unauthorized_ok(array $parameters)
+    static function unauthorized_ok(array $parameters)
     {
         return [
         ];
 
     }
 
-    function check_nickname_registration(array $parameters)
+    static function check_nickname_registration(array $parameters)
     {
 
         $is_nickname_registration = 'false';
@@ -267,7 +267,7 @@ class Category_users
 
     }
 
-    function check_nickname_no_registration(array $parameters)
+    static function check_nickname_no_registration(array $parameters)
     {
 
         $is_nickname_no_registration = 'false';
@@ -275,7 +275,7 @@ class Category_users
         if(isset($parameters['nickname'])){
 
             /*проверка занятости имени*/
-            $is_nickname_registration = $this->check_nickname_registration(['nickname' => $parameters['nickname']]);
+            $is_nickname_registration = self::check_nickname_registration(['nickname' => $parameters['nickname']]);
 
             $is_nickname_no_registration = $is_nickname_registration=='true'?'false':'true';
         }
@@ -284,7 +284,7 @@ class Category_users
 
     }
 
-    function check_password_valid_by_nickname(array $parameters)
+    static function check_password_valid_by_nickname(array $parameters)
     {
 
         $is_password_valid = 'false';
@@ -313,7 +313,7 @@ class Category_users
 
     }
 
-    function check_email_no_registration(array $parameters)
+    static function check_email_no_registration(array $parameters)
     {
 
 

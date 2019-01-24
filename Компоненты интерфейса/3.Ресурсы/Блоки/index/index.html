@@ -24,48 +24,6 @@
     </div><!-- //TOP SLIDER -->
 </section><!-- //HOME -->
 
-<script>
-    /*-----------------------------------------------------------------------------------*/
-    /*	FLEXSLIDER
-    /*-----------------------------------------------------------------------------------*/
-    $('.flexslider.top_slider').flexslider({
-        animation: "fade",
-        controlNav: false,
-        directionNav: false,
-        animationLoop: false,
-        slideshow: false,
-        prevText: "",
-        nextText: "",
-        sync: "#carousel"
-    });
-    $('#carousel').flexslider({
-        animation: "fade",
-        controlNav: false,
-        animationLoop: false,
-        directionNav: false,
-        slideshow: false,
-        itemWidth: 100,
-        itemMargin: 5,
-        asNavFor: '.top_slider'
-    });
-
-
-    jQuery('.flexslider.top_slider .flex-direction-nav').addClass('container');
-
-
-    //Vision Slider
-    $('.flexslider.portfolio_single_slider').flexslider({
-        animation: "fade",
-        controlNav: true,
-        directionNav: true,
-        animationLoop: false,
-        slideshow: false,
-    });
-
-
-    var wh = jQuery(window).height() - 80;
-    jQuery('.top_slider, .top_slider .slides li').css('height', wh);
-</script>
 
 <!-- ABOUT -->
 <section id="about">
@@ -92,7 +50,7 @@
                     <span><br>
 						Framework life balance предназначен для <strong>сопровождения</strong>всех этапов разработки отеческого сайта с любым масштабом на исходном php-коде, html-разметках ( css, image ) и js-скриптах, с применением чёткой последовательностью разработки 10 компонентов сайта.
 						<br><br>
-						Текущая версия ядра: v1.1.8.4 / интерфейса: v1.0.7.4
+						Текущая версия ядра: v1.1.8.6 / интерфейса: v1.0.7.6
 						<hr>
 
                         <table style="margin: auto; text-align: center; "><tr><td>
@@ -580,10 +538,6 @@ RewriteRule ^(.*)$ Интерфейс.html [L,QSA]</code></pre>
 												  <li class="directory expanded">4.Интеллект</li>
 												  <li><ul class="jqueryFileTree">
 
-												  <li class="file ext_js">Настройка интерфейса.js</li>
-												  <li class="file ext_js">Суть интеллекта.js</li>
-
-
 													  <li class="directory expanded">Протоколы</li>
 													  <li><ul class="jqueryFileTree">
 													  <li class="directory expanded">Изменения</li>
@@ -954,7 +908,6 @@ framework_life_balance_showError(error);
 <code><u>Solutions::parse_request()</u> - Разбираем входящий запрос<br>
 <u>Solutions::parse_parameters_request()</u> - Разбираем параметры запроса<br>
 <u>Solutions::parse_authorized()</u> - Разбираем авторизованность<br>
-<u>Solutions::construct_class_experience()</u> - Формируем класс функций сайта<br>
 <a onclick="$('#interface-solutions-2').toggle();return false;" href="">Показать ещё / Скрыть</a><div id="interface-solutions-2" style="display: none">
 <u>Solutions::formation_user_session()</u> - Формируем сессию пользователя<br>
 <u>Solutions::formation_user_password()</u> - Формируем пароль пользователя<br>
@@ -987,8 +940,8 @@ framework_life_balance_showError(error);
 														  <li class="file ext_txt">Структура внутренних путей.md</li>
 														  <li class="file ext_txt">Структура таблиц базы данных.md</li>
 														  <li class="file ext_txt">Структура взаимодействия с базой данных.md</li>
-														  <li class="file ext_txt">Структура сутей.md</li>
-														  <li class="file ext_txt">Структура сайта.md</li>
+														  <li class="file ext_txt">Структура функций компонентов.md</li>
+														  <li class="file ext_txt">Структура функций сайта.md</li>
 
 													  </ul>
 												  </li>
@@ -1012,7 +965,7 @@ framework_life_balance_showError(error);
 <u>Notices::$user_id</u> - индификационный номер пользователя<br>
 <u>Notices::$user_session</u> - сессия пользователя<br>
 <u>Notices::$user_data</u> - данные пользователя<br>
-<u>Notices::$schema_experiences</u> - схема сайта<br>
+<u>Notices::$schema_experiences</u> - Схема функций сайта<br>
 <u>Notices::$schema_data_base</u> - схема таблиц базы данных<br>
 <u>Notices::$schema_interaction_with_data_base</u> - схема взаимодействия с базой данных<br>
 <u>Notices::$link_communication_with_memory</u> - ссылка на коммуникацию с памятью<br>
@@ -1062,10 +1015,10 @@ framework_life_balance_showError(error);
 												  <li>
 													  <ul class="jqueryFileTree">
 														  <li class="file ext_php">Схема внутренних путей.php</li>
-														  <li class="file ext_txt">Схема сутей.md</li>
+														  <li class="file ext_txt">Схема функций компонентов.md</li>
 														  <li class="file ext_php">Схема таблиц базы данных.php</li>
 														  <li class="file ext_php">Схема взаимодействия с базой данных.php</li>
-														  <li class="file ext_php">Схема сайта.php</li>
+														  <li class="file ext_php">Схема функций сайта.php</li>
 													  </ul>
 												  </li>
 
@@ -1075,7 +1028,7 @@ framework_life_balance_showError(error);
       								      <td class="green" style="width:70%;">
 											  <b>Схемы:</b><br>
 											  <pre>
-<code><u>Resources::schema_experience()</u> - Схема сайта<br>
+<code><u>Resources::schema_experience()</u> - Схема функций сайта<br>
 <u>Resources::schema_data_base()</u> - Схема таблиц базы данных<br>
 <u>Resources::save_realized_schema_data_base()</u> - Сохраняем реализованную схему базы данных</code></pre>
 

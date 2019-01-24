@@ -216,16 +216,16 @@ class Business
         /*Помечаем начало выполнения Наработки*/
         Solutions::mark_start_execution_experience();
 
-        /*формируем класс Наработки*/
-        $experience_class = Solutions::construct_class_experience($experience);
+        /* Название класса наработки */
+        $experience_class_name = '\Framework_life_balance\core_components\experiences\Category_'.$experience;
 
         /*проверяем наличие наработанной Цели*/
-        if (!method_exists($experience_class, $experience_goal)) {
+        if (!method_exists($experience_class_name, $experience_goal)) {
             self::fix_error('no_experience_goal',__FILE__, __LINE__);
         }
 
         /*выполняем наработанную цель*/
-        $result_executed = $experience_class->$experience_goal($parameters);
+        $result_executed = $experience_class_name::$experience_goal($parameters);
 
         /*Помечаем окончание выполнения Наработки*/
         Solutions::mark_stop_execution_experience();

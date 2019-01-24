@@ -10,14 +10,14 @@ use \Framework_life_balance\core_components\Business;
 
 class Category_index
 {
-    function index(array $parameters)
+    static function index(array $parameters)
     {
 
         return [];
 
     }
 
-    function error(array $parameters)
+    static function error(array $parameters)
     {
 
         $code = isset($parameters['code'])?$parameters['code']:'';
@@ -63,21 +63,21 @@ class Category_index
 
     }
 
-    function stop(array $parameters)
+    static function stop(array $parameters)
     {
 
         return [];
 
     }
 
-    function engineering_works(array $parameters)
+    static function engineering_works(array $parameters)
     {
 
         return [];
 
     }
 
-    function send_error(array $parameters)
+    static function send_error(array $parameters)
     {
 
         if(isset($parameters['message_error']) and $parameters['message_error']!='' and $parameters['message_error']!='Сообщение об ошибке'){
@@ -102,7 +102,7 @@ class Category_index
     }
 
 
-    function site_map(array $parameters){
+    static function site_map(array $parameters){
 
         $urls = [];
 
@@ -136,7 +136,7 @@ class Category_index
         ];
     }
 
-    function site_map_xml(array $parameters){
+    static function site_map_xml(array $parameters){
 
         $urls = [];
 

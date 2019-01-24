@@ -1,5 +1,98 @@
 class Intelligence {
 
+    static initiation() {
+
+        /*метод проверки русских букв*/
+        jQuery.validator.addMethod('russian_letters', function (value) {
+            return /[\Wа-яА-ЯёЁ]/.test(value);
+        }, '');
+
+        //BlackAndWhite
+        $(window).load(function(){
+            $('.client_img').BlackAndWhite({
+                hoverEffect : true, // default true
+                // set the path to BnWWorker.js for a superfast implementation
+                webworkerPath : false,
+                // for the images with a fluid width and height
+                responsive:true,
+                // to invert the hover effect
+                invertHoverEffect: false,
+                // this option works only on the modern browsers ( on IE lower than 9 it remains always 1)
+                intensity:1,
+                speed: { //this property could also be just speed: value for both fadeIn and fadeOut
+                    fadeIn: 300, // 200ms for fadeIn animations
+                    fadeOut: 300 // 800ms for fadeOut animations
+                },
+                onImageReady:function(img) {
+                    // this callback gets executed anytime an image is converted
+                }
+            });
+
+
+        });
+        jQuery(document).ready(function() {
+            jQuery("body").niceScroll({
+                cursorcolor:"#333",
+                cursorborder:"0px",
+                cursorwidth :"8px",
+                zindex:"9999"
+            });
+
+            //Preloader
+            setTimeout("jQuery('.preloader_hide, .selector_open').animate({'opacity' : '1'},500)",800);
+            setTimeout("jQuery('footer').animate({'opacity' : '1'},500)",2000);
+        });
+
+
+        /*-----------------------------------------------------------------------------------*/
+        /*	MENU
+        /*-----------------------------------------------------------------------------------*/
+
+
+        jQuery(document).ready(function() {
+            //MobileMenu
+            if ($(window).width() < 768){
+                jQuery('.menu_block .container').prepend('<a href="" class="menu_toggler"><span class="fa fa-align-justify"></span></a>');
+                jQuery('header .navmenu').hide();
+                jQuery('.menu_toggler, .navmenu ul li a').click(function(){
+                    jQuery('header .navmenu').slideToggle(300);
+                });
+            }
+            $(window).scroll(function(event) {
+                //calculateScroll();
+            });
+        });
+
+
+        /* Superfish */
+        jQuery(document).ready(function() {
+            if ($(window).width() >= 768){
+                $('.navmenu ul').superfish();
+            }
+        });
+
+        /*-----------------------------------------------------------------------------------*/
+        /*	FOOTER HEIGHT
+        /*-----------------------------------------------------------------------------------*/
+        jQuery(document).ready(function() {
+            Intelligence.height_scroll_bar();
+        });
+
+        jQuery(window).resize(function(){
+            Intelligence.height_scroll_bar();
+        });
+
+    }
+
+    /* Формирует высоту сколлинга */
+    static height_scroll_bar(){
+        if ($(window).width() > 991){
+            var wh = jQuery('footer').height() + 70;
+            jQuery('#contacts').css('min-height', wh);
+        }
+
+    }
+
     /*запоминаем запрос*/
     static save_called_core_url(url) {
         if(url!==''){
@@ -10,6 +103,22 @@ class Intelligence {
     /*получаем последний запрос*/
     static get_called_core_url() {
         return this.called_core_url;
+    }
+
+    /* Получаем категорию сайта по ответу */
+    static get_category_by_responding(responding) {
+        var responding_explode = responding.split('/',2);
+
+        return responding_explode[1];
+
+    }
+
+    /* Получаем выполненную цель по ответу */
+    static get_goal_by_responding(responding) {
+        var responding_explode = responding.split('/',3);
+
+        return responding_explode[2];
+
     }
 
     /* формируем ссылки для передачи запроса в ядро */
@@ -91,12 +200,18 @@ class Intelligence {
     }
 
     /* показываем загруженные данные */
-    static show_content(content) {
+    static show_content(responding, content) {
+
+        var category = this.get_category_by_responding(responding);
+        var goal = this.get_goal_by_responding(responding);
 
         setTimeout(function() {
 
             jQuery('#preloader').hide();
             jQuery('#content').html(content).slideDown('slow');
+
+            /* Выполняем функцию страницы */
+            window["Category_" + category][goal](Intelligence.content_core);
 
             /* переводим ссылки на core режим */
             Intelligence.communication_link_with_core('#content a.to_core');
@@ -170,7 +285,7 @@ class Intelligence {
                     var html_file = '/Компоненты интерфейса/3.Ресурсы/Блоки' + values["responding"] + '.html';
 
                     jQuery.get(html_file).done(function(content){
-                        Intelligence.show_content(content);
+                        Intelligence.show_content(values["responding"], content);
                     }).fail(function(xhr, status, error) {
                         Intelligence.show_error(error);
                     });

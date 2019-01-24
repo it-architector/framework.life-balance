@@ -592,36 +592,6 @@ class Solutions
     }
 
     /**
-     * Формируем класс Наработки
-     *
-     * @param string $experience наработка
-     * @return object
-     */
-    static function construct_class_experience($experience){
-
-        /* Название класса наработки */
-        $experience_class_name = '\Framework_life_balance\core_components\experiences\Category_'.$experience;
-
-        /* Проверяем подключенного класса */
-        if (!class_exists($experience_class_name)) {
-
-            /* Подключаем файл с классом наработки */
-            Resources::include_information_from_file(DIR_EXPERIENCES_SITE, 'Функции категории сайта '.$experience,'php');
-
-        }
-
-        /* Нроверяем наличие класса */
-        if (!class_exists($experience_class_name)) {
-            Business::fix_error('Ошибка в подключении класса: '.$experience_class_name,__FILE__, __LINE__);
-        }
-
-        /* Образуем класс */
-        $experience_class = new $experience_class_name();
-
-        return $experience_class;
-    }
-
-    /**
      * Формируем сессию пользователя
      *
      * @param string $user_id индификационный номер пользователя

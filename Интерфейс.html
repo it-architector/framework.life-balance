@@ -25,14 +25,38 @@
     <!-- ОФОРМЛЕНИЕ -->
     <link href="/Компоненты интерфейса/3.Ресурсы/Настройка оформления.css?v=6" rel="stylesheet" type="text/css" />
 
+    <!-- ИНТЕЛЛЕКТ -->
+    <script src="/Компоненты интерфейса/4.Интеллект/Функции/Компоненты/4.Функции компонента интеллект.js?v=3" type="text/javascript"></script>
+    <script src="/Компоненты интерфейса/4.Интеллект/Функции/Категории сайта/Функции категории сайта index.js" type="text/javascript"></script>
+    <script src="/Компоненты интерфейса/4.Интеллект/Функции/Категории сайта/Функции категории сайта control.js" type="text/javascript"></script>
+    <script src="/Компоненты интерфейса/4.Интеллект/Функции/Категории сайта/Функции категории сайта users.js" type="text/javascript"></script>
+
     <!-- МОДУЛИ -->
     <script src="/Компоненты интерфейса/5.Модули/Суть модулей.js" type="text/javascript"></script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
 
-    <!-- ИНТЕЛЛЕКТ -->
-    <script src="/Компоненты интерфейса/4.Интеллект/Функции/Компоненты/4.Функции компонента интеллект.js?v=3" type="text/javascript"></script>
-    <script src="/Компоненты интерфейса/4.Интеллект/Настройка интерфейса.js?v=2.1" type="text/javascript"></script>
+            Intelligence.initiation();
 
+            /* переводим навигационные ссылки на core режим */
+            Intelligence.communication_link_with_core('.menu_block a');
+
+            /* переводим формы на core режим */
+            Intelligence.communication_form_with_core('container_navigation');
+            Intelligence.communication_form_with_core('container_contacts');
+
+            /*отмечаем что вначале запрос был пустым*/
+            Intelligence.save_called_core_url('-');
+
+            /* загружаем текущую страницу посредством core */
+            Intelligence.get_data_from_core(window.location.pathname + window.location.search + window.location.hash,'');
+
+            /* показываем авторизацию */
+            Intelligence.show_authorization_panel();
+
+        });
+    </script>
 
 </head>
 <body>

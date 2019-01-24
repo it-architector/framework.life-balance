@@ -1,10 +1,3 @@
-<script>
-
-    /*данные ошибки*/
-    $('.flex_caption1').html('<p class="navmenu title3 captionDelay7 FromBottom color_white">Техническая работа*</p>\n' +
-        '                    <br><br>\n' +
-        '                    <p class="navmenu title6 captionDelay7 FromBottom color_white">* приходите через ~ 1 минуту.</p>\n');
-</script>
 <!-- HOME -->
 <section id="home" class="padbot0">
 
@@ -25,46 +18,3 @@
         </ul>
     </div><!-- //TOP SLIDER -->
 </section><!-- //HOME -->
-
-<script>
-    /*-----------------------------------------------------------------------------------*/
-    /*	FLEXSLIDER
-    /*-----------------------------------------------------------------------------------*/
-    $('.flexslider.top_slider').flexslider({
-        animation: "fade",
-        controlNav: false,
-        directionNav: false,
-        animationLoop: false,
-        slideshow: false,
-        prevText: "",
-        nextText: "",
-        sync: "#carousel"
-    });
-    $('#carousel').flexslider({
-        animation: "fade",
-        controlNav: false,
-        animationLoop: false,
-        directionNav: false,
-        slideshow: false,
-        itemWidth: 100,
-        itemMargin: 5,
-        asNavFor: '.top_slider'
-    });
-
-
-    jQuery('.flexslider.top_slider .flex-direction-nav').addClass('container');
-
-
-    //Vision Slider
-    $('.flexslider.portfolio_single_slider').flexslider({
-        animation: "fade",
-        controlNav: true,
-        directionNav: true,
-        animationLoop: false,
-        slideshow: false,
-    });
-
-
-    var wh = jQuery(window).height() - 80;
-    jQuery('.top_slider, .top_slider .slides li').css('height', wh);
-</script>
