@@ -131,18 +131,28 @@ class Intelligence {
     }
 
     /* Получаем категорию сайта по ответу */
-    static get_category_by_responding(responding) {
-        var responding_explode = responding.split('/',2);
+    static get_category_by_page_link(link) {
 
-        return responding_explode[1];
+        var link_explode = link.split('#',2);
+
+        link = link_explode[0];
+
+        link_explode = link.split('/',3);
+
+        return link_explode[1];
 
     }
 
     /* Получаем выполненную цель по ответу */
-    static get_goal_by_responding(responding) {
-        var responding_explode = responding.split('/',3);
+    static get_goal_by_page_link(link) {
 
-        return responding_explode[2];
+        var link_explode = link.split('#',2);
+
+        link = link_explode[0];
+
+        link_explode = link.split('/',3);
+
+        return link_explode[2];
 
     }
 
@@ -225,18 +235,46 @@ class Intelligence {
     }
 
     /* показываем загруженные данные */
-    static show_content(responding, content) {
+    static show_content(category, goal, response) {
 
-        var category = this.get_category_by_responding(responding);
-        var goal = this.get_goal_by_responding(responding);
+        /*устанавливаем заголовок*/
+        if(typeof(response["title"]) != "undefined"){
+            jQuery('title').text(response["title"]);
+        }
+
+        /*устанавливаем короткое описание*/
+        if(typeof(response["description"]) != "undefined"){
+            jQuery('meta[name=description]').attr('content', response["description"]);
+        }
+
+        /*устанавливаем ключевые слова*/
+        if(typeof(response["keywords"]) != "undefined"){
+            jQuery('meta[name=keywords]').attr('content', response["keywords"]);
+        }
+
+        var content_body = '';
+
+        if(typeof(response["content"]) == "undefined"){
+
+            content_body = response;
+
+        }
+        /*обёртываем в html*/
+        else if(typeof(list_blocks['/' + category + '/' + goal]) != "undefined"){
+
+            content_body = this.packaging_core_data(category, goal);
+
+        }
 
         setTimeout(function() {
 
             jQuery('#preloader').hide();
-            jQuery('#content').html(content).slideDown('slow');
+            jQuery('#content').html(content_body).slideDown('slow');
 
             /* Выполняем функцию страницы */
-            window["Category_" + category][goal](Intelligence.content_core);
+            if(typeof(window["Category_" + category]) != "undefined" && typeof(window["Category_" + category][goal]) != "undefined"){
+                window["Category_" + category][goal](response["content"]);
+            }
 
             /* переводим ссылки на core режим */
             Intelligence.communication_link_with_core('#content a.to_core');
@@ -257,75 +295,26 @@ class Intelligence {
     static show_error(error) {
         jQuery('#preloader').hide();
         jQuery('#content').html('<div style="padding: 30px;">' + error + '</div>').slideDown('slow');
-        alert('При запросе произошла ошибка. Повторите пожалуйста!');
     }
 
-    /* загружает данные */
-    static get_data_from_core(request,postData) {
+    /* Загружаем страницу */
+    static load_page(page_link, postData) {
+
+        var category = this.get_category_by_page_link(page_link)
+        var goal = this.get_goal_by_page_link(page_link);
 
         var core_last_url = this.get_called_core_url();
-        var core_url = this.formation_core_url(request);
+        var core_url = this.formation_core_url(page_link);
 
         this.save_called_core_url(core_url);
 
         /*отправляем данные в ядро по post*/
-        if(core_url!=='' && (core_last_url!==core_url || (core_last_url==core_url && window.location.hash == ""))){
+        if(core_url !== '' && (core_last_url !== core_url || (core_last_url === core_url && window.location.hash === ""))){
 
             /* показываем анимацию загрузки данных */
             this.show_loader();
 
-            jQuery.post(core_url,postData).done(function(values){
-
-                /*устанавливаем заголовок*/
-                if(typeof(values["title"]) != "undefined"){
-                    jQuery('title').text(values["title"]);
-                }
-
-                /*устанавливаем короткое описание*/
-                if(typeof(values["description"]) != "undefined"){
-                    jQuery('meta[name=description]').attr('content', values["description"]);
-                }
-
-                /*устанавливаем ключевые слова*/
-                if(typeof(values["keywords"]) != "undefined"){
-                    jQuery('meta[name=keywords]').attr('content', values["keywords"]);
-                }
-
-                /*отвечающий*/
-                if(typeof(values["responding"]) == "undefined"){
-                    Intelligence.show_error(values);
-                }
-                /*обёртываем в html*/
-                else if(typeof(list_blocks[values["responding"]]) != "undefined"){
-
-                    /*массив полученных данных*/
-                    if(typeof(values["content"]) != "undefined"){
-                        Intelligence.content_core = values["content"];
-                    }
-                    else{
-                        Intelligence.content_core = [];
-                    }
-
-                    /*ссылка на шаблон html*/
-                    var html_file = '/Компоненты интерфейса/3.Ресурсы/Блоки' + values["responding"] + '.html';
-
-                    jQuery.get(html_file).done(function(content){
-                        Intelligence.show_content(values["responding"], content);
-                    }).fail(function(xhr, status, error) {
-                        Intelligence.show_error(error);
-                    });
-
-                }
-                else if(typeof(values["content"]) != "undefined"){
-                    Intelligence.show_content(values["content"]);
-                }
-                else{
-                    Intelligence.show_error('');
-                }
-
-            }).fail(function(xhr, status, error) {
-                Intelligence.show_error(error);
-            });
+            this.load_core_data(category, goal, core_url, postData);
 
         }
         else{
@@ -335,16 +324,82 @@ class Intelligence {
 
     }
 
+    /* Загружаем данные с ядра */
+    static load_core_data(category, goal, core_url, post_data) {
+
+        var request = new XMLHttpRequest();
+
+        request.open('POST', core_url, false);
+
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        request.send(post_data);
+
+        if (request.status === 200) {
+
+            var response_text = request.responseText;
+
+            /* Ответ в Json формате */
+            try {
+
+                var response = JSON.parse(response_text);
+
+                if(typeof(response["category"]) == "undefined"){
+                    Intelligence.show_error(response);
+                }
+
+                category = response["category"];
+                goal = response["goal"];
+
+                Intelligence.show_content(category, goal, response);
+
+
+            }
+            /* Ответ текстом */
+            catch (e){
+                Intelligence.show_content(category, goal, response_text);
+            }
+
+        }
+        else {
+            Intelligence.show_error(request.status + ': ' + request.statusText);
+        }
+
+    }
+
+    /* Оборачиваем данные с ядра */
+    static packaging_core_data(category, goal){
+
+        /*ссылка на шаблон html*/
+        var html_file_url = '/Компоненты интерфейса/3.Ресурсы/Блоки/Блоки категории сайта ' + category + '/' + goal + '.html';
+
+        var request = new XMLHttpRequest();
+
+        request.open('GET', html_file_url, false);
+
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        request.send();
+
+        if (request.status === 200) {
+
+            return request.responseText;
+
+        }
+        else {
+            return false;
+        }
+
+    }
+
     /* переводим ссылки на core режим */
     static communication_link_with_core(anchor) {
 
         jQuery(anchor).click(function(){
 
-            var request = jQuery(this).attr('href');
+            var page_link = jQuery(this).attr('href');
 
-            history.pushState(null, null, request);
+            history.pushState(null, null, page_link);
 
-            Intelligence.get_data_from_core(request,'');
+            Intelligence.load_page(page_link,'');
 
             return false;
 
@@ -514,7 +569,7 @@ class Intelligence {
                 var request = jQuery(form).attr('action');
                 var postData = jQuery(form).serialize();
 
-                Intelligence.get_data_from_core(request,postData);
+                Intelligence.load_page(request,postData);
 
                 return false;
             }
