@@ -129,7 +129,7 @@ class Business
                     'email'    => $config_project['email'],
                     'title'    => 'Ошибка ядра',
                     'text'     => 'По запросу /'.Notices::get_mission('request_experience').'/'.Notices::get_mission('request_experience_goal').':<br><b>'.$error_message.'</b>',
-                    'template' => 'mail'.DIRECTORY_SEPARATOR.'message',
+                    'template' => 'Блоки категории сайта mail'.DIRECTORY_SEPARATOR.'message',
                 ]);
 
             }

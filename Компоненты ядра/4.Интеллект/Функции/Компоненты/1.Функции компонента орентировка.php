@@ -646,8 +646,11 @@ class Solutions
                 break;
             case 'array':
 
-                /*отвечающий*/
-                $result_executed['responding'] = '/'.Notices::get_mission('call_experience').'/'.Notices::get_mission('call_experience_goal');
+                /* Категория */
+                $result_executed['category'] = Notices::get_mission('call_experience');
+
+                /* Цель */
+                $result_executed['goal'] = Notices::get_mission('call_experience_goal');
 
                 /*заголовок*/
                 $result_executed['title'] = htmlspecialchars($schema_call_experience_goal['Заголовок страницы']);

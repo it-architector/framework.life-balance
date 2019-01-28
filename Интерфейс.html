@@ -51,8 +51,11 @@
             /*отмечаем что вначале запрос был пустым*/
             Intelligence.save_called_core_url('-');
 
-            /* загружаем текущую страницу посредством core */
-            Intelligence.get_data_from_core(window.location.pathname + window.location.search + window.location.hash,'');
+            var page_link = window.location.pathname + window.location.search + window.location.hash;
+            var page_parameters = '';
+
+            /* загружаем текущую страницу */
+            Intelligence.load_page(page_link, page_parameters);
 
             /* показываем авторизацию */
             Intelligence.show_authorization_panel();

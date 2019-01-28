@@ -78,7 +78,7 @@ class Category_control
             'email'    => $config_project['email'],
             'title'    => 'Запущена реконструкция базы данных',
             'text'     => 'При сбое вручную запустите в консоли команду: php Ядро.php control reassembly_data_base',
-            'template' => 'mail'.DIRECTORY_SEPARATOR.'message',
+            'template' => 'Блоки категории сайта mail'.DIRECTORY_SEPARATOR.'message',
         ]);
 
         /*реализованная схема таблиц базы данных*/
@@ -104,7 +104,7 @@ class Category_control
             'email'    => $config_project['email'],
             'title'    => 'Завершена реконструкция базы данных',
             'text'     => $reconstruction_result ? 'Изменения успешно введены.' : 'Изменений не обнаружено.',
-            'template' => 'mail'.DIRECTORY_SEPARATOR.'message',
+            'template' => 'Блоки категории сайта mail'.DIRECTORY_SEPARATOR.'message',
         ]);
 
         /* Фиксируем реконструкцию базы данных */
