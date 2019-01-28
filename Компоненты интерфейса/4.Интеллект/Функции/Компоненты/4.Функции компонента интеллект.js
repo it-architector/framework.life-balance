@@ -199,20 +199,19 @@ class Intelligence {
     }
 
     /* формируем ссылки для передачи запроса в ядро */
-    static formation_core_url(request) {
+    static formation_core_url(link) {
 
         var core_url = '';
-        var request_explode = request.split('#',2);
+        var link_explode = link.split('#',2);
 
         /*отмечаем что есть запрос к ядру*/
-        if(request_explode[0]!==''){
-            var request_link = request_explode[0].replace("?", "&");
-            var core_url = "/Ядро.php?request=" + request_link;
+        if(link_explode[0]!==''){
+            core_url = "/Ядро.php?request=" + link_explode[0].replace("?", "&");
         }
 
         /*отмечаем переход на якорь*/
-        if(typeof(request_explode[1]) != "undefined"){
-            window.location.hash = request_explode[1];
+        if(typeof(link_explode[1]) != "undefined"){
+            window.location.hash = link_explode[1];
         }
         else{
             window.location.hash = "";
@@ -623,13 +622,6 @@ class Intelligence {
 
 Object.defineProperty(Intelligence, 'called_core_url', {
     value: null,
-    writable : true,
-    enumerable : false,
-    configurable : false
-});
-
-Object.defineProperty(Intelligence, 'content_core', {
-    value: [],
     writable : true,
     enumerable : false,
     configurable : false
