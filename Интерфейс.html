@@ -48,14 +48,11 @@
             Intelligence.communication_form_with_core('container_navigation');
             Intelligence.communication_form_with_core('container_contacts');
 
-            /*отмечаем что вначале запрос был пустым*/
-            Intelligence.save_called_core_url('-');
-
+            /* Запрошенная страница */
             var page_link = window.location.pathname + window.location.search + window.location.hash;
-            var page_parameters = '';
 
             /* загружаем текущую страницу */
-            Intelligence.load_page(page_link, page_parameters);
+            Intelligence.load_page(page_link, '');
 
             /* показываем авторизацию */
             Intelligence.show_authorization_panel();
@@ -176,9 +173,9 @@
                         <div id="note"></div>
                         <div id="fields">
                             <form id="contact-form-face" class="clearfix" action="/index/send_error">
-                                <input class="required full_width" type="text" name="message_error" value="Сообщение об ошибке" onFocus="if (this.value == 'Сообщение об ошибке'){this.value = '';$('#contact-form-face input[name=nickname_guest]').show();$('#contact-form-face input[name=email_guest]').show();}" onBlur="if (this.value == '') this.value = 'Сообщение об ошибке';" />
-                                <input class="required mini_width" type="text" name="nickname_guest" value="Псевдоним" onFocus="if (this.value == 'Псевдоним') this.value = '';" onBlur="if (this.value == '') this.value = 'Псевдоним';" style="display: none;" />
-                                <input class="required mini_width" type="text" name="email_guest" value="Ваш email" onFocus="if (this.value == 'Ваш email') this.value = '';" onBlur="if (this.value == '') this.value = 'Ваш email';" style="display: none;" />
+                                <input class="required full_width" type="text" id="input_message_error" name="message_error" value="Сообщение об ошибке" />
+                                <input class="required mini_width" type="text" id="input_nickname_guest" name="nickname_guest" value="Псевдоним" style="display: none;" />
+                                <input class="required mini_width" type="text" id="input_email_guest" name="email_guest" value="Ваш email" style="display: none;" />
                                 <br>
                                 <input class="contact_btn" type="submit" value="Уведомить" />
                             </form>

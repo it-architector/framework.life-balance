@@ -107,6 +107,48 @@ class Intelligence {
             } else { f(); }
         })(document, window, "yandex_metrika_callbacks2");
 
+        /* Форма для ошибок*/
+
+        document.getElementById("input_message_error").onblur = function() {
+            if (this.value === ''){
+                this.value = 'Сообщение об ошибке';
+            }
+        };
+
+        document.getElementById("input_message_error").onfocus = function() {
+            if (this.value === 'Сообщение об ошибке'){
+                this.value = '';
+                jQuery('#contact-form-face input[name=nickname_guest]').show();
+                jQuery('#contact-form-face input[name=email_guest]').show();
+            }
+        };
+
+        document.getElementById("input_nickname_guest").onblur = function() {
+            if (this.value === ''){
+                this.value = 'Псевдоним';
+            }
+        };
+
+        document.getElementById("input_nickname_guest").onfocus = function() {
+            if (this.value === 'Псевдоним'){
+                this.value = '';
+            }
+        };
+
+        document.getElementById("input_email_guest").onblur = function() {
+            if (this.value === ''){
+                this.value = 'Ваш email';
+            }
+        };
+
+        document.getElementById("input_email_guest").onfocus = function() {
+            if (this.value === 'Ваш email'){
+                this.value = '';
+            }
+        };
+
+
+
     }
 
     /* Формирует высоту сколлинга */
@@ -298,7 +340,7 @@ class Intelligence {
     }
 
     /* Загружаем страницу */
-    static load_page(page_link, postData) {
+    static load_page(page_link, post_data) {
 
         var category = this.get_category_by_page_link(page_link)
         var goal = this.get_goal_by_page_link(page_link);
@@ -314,7 +356,7 @@ class Intelligence {
             /* показываем анимацию загрузки данных */
             this.show_loader();
 
-            this.load_core_data(category, goal, core_url, postData);
+            this.load_core_data(category, goal, core_url, post_data);
 
         }
         else{
