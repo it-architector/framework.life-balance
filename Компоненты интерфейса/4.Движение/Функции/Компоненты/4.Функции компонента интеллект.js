@@ -411,7 +411,7 @@ class Intelligence {
     static packaging_core_data(category, goal){
 
         /*ссылка на шаблон html*/
-        var html_file_url = '/Компоненты интерфейса/3.Аккумуляция/формы/Блоки/Блоки категории сайта ' + category + '/' + goal + '.html';
+        var html_file_url = '/Компоненты интерфейса/3.Аккумуляция/Формы/Блоки/Блоки категории сайта ' + category + '/' + goal + '.html';
 
         var request = new XMLHttpRequest();
 
