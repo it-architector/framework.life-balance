@@ -20,13 +20,13 @@ define('DIR_USERS_DATA', DIR_ROOT . 'Пользовательские данны
 define('DIR_SOLUTIONS', DIR_CORE_COMPONENTS . '1.Ориентировка' . DIRECTORY_SEPARATOR);
 
 /* Компонент уведомления */
-define('DIR_NOTICES', DIR_CORE_COMPONENTS . '2.Представления' . DIRECTORY_SEPARATOR);
+define('DIR_NOTICES', DIR_CORE_COMPONENTS . '2.Представление' . DIRECTORY_SEPARATOR);
 
 /* Компонент ресурсов */
-define('DIR_RESOURCES', DIR_CORE_COMPONENTS . '3.Ресурсы' . DIRECTORY_SEPARATOR);
+define('DIR_RESOURCES', DIR_CORE_COMPONENTS . '3.Аккумуляция' . DIRECTORY_SEPARATOR);
 
 /* Компонент дела */
-define('DIR_BUSINESS', DIR_CORE_COMPONENTS . '4.Интеллект' . DIRECTORY_SEPARATOR);
+define('DIR_BUSINESS', DIR_CORE_COMPONENTS . '4.Движение' . DIRECTORY_SEPARATOR);
 
 /* Компонент модулей */
 define('DIR_MODULES', DIR_CORE_COMPONENTS . '5.Модули' . DIRECTORY_SEPARATOR);
@@ -63,7 +63,7 @@ define('DIR_CHANGES', DIR_PROTOCOLS . 'Изменения' . DIRECTORY_SEPARATOR
 define('DIR_USERS_IMAGES', DIR_USERS_DATA . 'images' . DIRECTORY_SEPARATOR);
 
 /* Html блоки */
-define('DIR_HTML', DIR_INTERFACE_COMPONENTS . '3.Ресурсы' . DIRECTORY_SEPARATOR . 'Блоки' . DIRECTORY_SEPARATOR);
+define('DIR_HTML', DIR_INTERFACE_COMPONENTS . '3.Аккумуляция' . DIRECTORY_SEPARATOR . 'Формы' . DIRECTORY_SEPARATOR . 'Блоки' . DIRECTORY_SEPARATOR);
 
 
 ?>
