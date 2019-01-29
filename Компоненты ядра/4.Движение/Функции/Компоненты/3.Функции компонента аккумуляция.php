@@ -37,30 +37,30 @@ class Resources
         Notices::set_mission('config_communications',$config_communications);
 
         /* Получаем схему наработок из файла */
-        $schema_experiences = Resources::include_information_from_file(DIR_SCHEMES,'Схема функций сайта','php');
+        $schema_experiences = Resources::include_information_from_file(DIR_MEASURES_FUNCTIONS,'Норматив функций сайта','php');
 
         if($schema_experiences === null){
-            Business::fix_error('нет файла схема функций сайта',__FILE__,__LINE__);
+            Business::fix_error('нет файла норматива функций сайта',__FILE__,__LINE__);
         }
 
         /* Устанавливаем схему наработок */
         Notices::set_mission('schema_experiences',$schema_experiences);
 
         /* Получаем схему базы данных из файла */
-        $schema_data_base = Resources::include_information_from_file(DIR_SCHEMES,'Схема таблиц базы данных','php');
+        $schema_data_base = Resources::include_information_from_file(DIR_MEASURES_DATA_BASE,'Норматив таблиц базы данных','php');
 
         if($schema_data_base === null){
-            Business::fix_error('нет файла схемы таблиц базы данных',__FILE__,__LINE__);
+            Business::fix_error('нет файла норматива таблиц базы данных',__FILE__,__LINE__);
         }
 
         /* Устанавливаем схему базы данных */
         Notices::set_mission('schema_data_base',$schema_data_base);
 
         /* Получаем схему взаимодействия с базой данных */
-        $schema_interaction_with_data_base = Resources::include_information_from_file(DIR_SCHEMES,'Схема взаимодействия с базой данных','php');
+        $schema_interaction_with_data_base = Resources::include_information_from_file(DIR_MEASURES_DATA_BASE,'Норматив взаимодействия с базой данных','php');
 
         if($schema_interaction_with_data_base === null){
-            Business::fix_error('нет файла схемы взаимодействия с базой данных',__FILE__,__LINE__);
+            Business::fix_error('нет файла норматива взаимодействия с базой данных',__FILE__,__LINE__);
         }
 
         /* Устанавливаем схему взаимодействия с базой данных */
@@ -69,11 +69,11 @@ class Resources
     }
 
     /*---------------------------------------------------------*/
-    /*-------------------------Схемы---------------------------*/
+    /*-----------------------Нормативы-------------------------*/
     /*---------------------------------------------------------*/
 
     /**
-     * Схема функций сайта
+     * Норматив функций сайта
      *
      * @param string $experience наработка
      * @param string $goal цель
@@ -83,7 +83,7 @@ class Resources
     static function schema_experience($experience = null, $goal = null, $detail = null)
     {
 
-        /*Проверяем правильное взятие Схемы наработок*/
+        /*Проверяем правильное взятие норматива наработок*/
         Solutions::check_correct_taking_schema_experience($experience, $goal, $detail);
 
         /*получаем схему наработок*/
@@ -117,7 +117,7 @@ class Resources
     }
 
     /**
-     * Схема таблиц базы данных
+     * Норматив таблиц базы данных
      *
      * @param string $table показать данные определенной таблицы
      * @param string $column показать данные определенной колонки
@@ -127,7 +127,7 @@ class Resources
     static function schema_data_base($table = null, $column = null, $detail = null)
     {
 
-        /*Проверяем правильное взятие Схемы базы данных*/
+        /*Проверяем правильное взятие норматива базы данных*/
         Solutions::check_correct_taking_schema_data_base($table, $column, $detail);
 
         /*получаем схему базы данных*/
@@ -167,18 +167,18 @@ class Resources
      */
     static function save_realized_schema_data_base($realized_schema){
 
-        self::write_information_in_file(DIR_SCHEMES,'Реализованная схема таблиц базы данных','php', '<?php'."\n".' return '.var_export($realized_schema, true).'; ?>');
+        self::write_information_in_file(DIR_MEASURES_DATA_BASE,'Реализованный норматив таблиц базы данных','php', '<?php'."\n".' return '.var_export($realized_schema, true).'; ?>');
 
     }
 
     /**
-     * Получаем информацию реализованной Схемы базы данных
+     * Получаем информацию реализованной норматива базы данных
      *
      * @return array $realized_schema
      */
     static function get_information_realized_schema_data_base(){
 
-        $realized_schema = self::include_information_from_file(DIR_SCHEMES,'Реализованная схема таблиц базы данных','php');
+        $realized_schema = self::include_information_from_file(DIR_MEASURES_DATA_BASE,'Реализованный норматив таблиц базы данных','php');
 
         return is_array($realized_schema) ? $realized_schema : [];
 
@@ -676,7 +676,7 @@ class Resources
             'create_reference',
         ];
 
-        /*реализованная схема таблиц базы данных*/
+        /* Реализованный норматив таблиц базы данных */
         $realized_schema = Resources::get_information_realized_schema_data_base();
 
         try{

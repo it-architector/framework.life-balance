@@ -40,8 +40,14 @@ define('DIR_MODULE_DATA_BASE', DIR_MODULES . 'Модуль базы данных
 /* Структуры */
 define('DIR_STRUCTURES', DIR_NOTICES . 'Структуры' . DIRECTORY_SEPARATOR);
 
-/* Схемы */
-define('DIR_SCHEMES', DIR_RESOURCES . 'Схемы' . DIRECTORY_SEPARATOR);
+/* Нормативы */
+define('DIR_MEASURES', DIR_RESOURCES . 'Нормативы' . DIRECTORY_SEPARATOR);
+
+/* Нормативы базы данных */
+define('DIR_MEASURES_DATA_BASE', DIR_MEASURES . 'База данных' . DIRECTORY_SEPARATOR);
+
+/* Нормативы функций */
+define('DIR_MEASURES_FUNCTIONS', DIR_MEASURES . 'Функции' . DIRECTORY_SEPARATOR);
 
 /* Функции */
 define('DIR_EXPERIENCES', DIR_BUSINESS . 'Функции' . DIRECTORY_SEPARATOR);
@@ -63,7 +69,7 @@ define('DIR_CHANGES', DIR_PROTOCOLS . 'Изменения' . DIRECTORY_SEPARATOR
 define('DIR_USERS_IMAGES', DIR_USERS_DATA . 'images' . DIRECTORY_SEPARATOR);
 
 /* Html блоки */
-define('DIR_HTML', DIR_INTERFACE_COMPONENTS . '3.Аккумуляция' . DIRECTORY_SEPARATOR . 'Формы' . DIRECTORY_SEPARATOR . 'Блоки' . DIRECTORY_SEPARATOR);
+define('DIR_HTML', DIR_INTERFACE_COMPONENTS . '3.Аккумуляция' . DIRECTORY_SEPARATOR . 'Нормативы' . DIRECTORY_SEPARATOR . 'Блоки' . DIRECTORY_SEPARATOR);
 
 
 ?>

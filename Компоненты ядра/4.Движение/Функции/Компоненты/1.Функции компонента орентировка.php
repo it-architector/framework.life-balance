@@ -66,7 +66,7 @@ class Solutions
         /*запрошенная наработанная цель*/
         $request_experience_goal = Notices::get_mission('request_experience_goal');
 
-        /*Проверяем правильное взятие Схемы наработок*/
+        /*Проверяем правильное взятие норматива наработок*/
         self::check_correct_taking_schema_experience($request_experience, $request_experience_goal, null, 'stop');
 
     }
@@ -119,13 +119,13 @@ class Solutions
             return;
         }
 
-        /*реализованная схема таблиц базы данных*/
+        /* Реализованный норматив таблиц базы данных */
         $realized_schema_data_base = Resources::get_information_realized_schema_data_base();
 
-        /*текущая схема таблиц базы данных*/
+        /* Текущий норматив таблиц базы данных */
         $schema_data_base = Notices::get_mission('schema_data_base');
 
-        /*Сопоставляем Схемы базы данных*/
+        /*Сопоставляем норматива базы данных*/
         $changes = self::matching_schema_data_base($realized_schema_data_base, $schema_data_base);
 
         /*есть изменения*/
@@ -215,7 +215,7 @@ class Solutions
     }
 
     /**
-     * Проверяем правильное взятие Схемы наработок
+     * Проверяем правильное взятие норматива наработок
      *
      * @param string $experience наработка
      * @param string $goal цель
@@ -228,7 +228,7 @@ class Solutions
         $schema_experiences = Notices::get_mission('schema_experiences');
 
         if($schema_experiences == null){
-            Business::fix_error('нет Схемы наработок',__FILE__,__LINE__, $call_index_goal_on_error);
+            Business::fix_error('нет номратива наработок',__FILE__,__LINE__, $call_index_goal_on_error);
         }
 
         /*проверка*/
@@ -248,7 +248,7 @@ class Solutions
     }
 
     /**
-     * Проверяем правильное взятие Схемы базы данных
+     * Проверяем правильное взятие норматива базы данных
      *
      * @param string $table наработка
      * @param string $column цель
@@ -261,7 +261,7 @@ class Solutions
         $schema_data_base = Notices::get_mission('schema_data_base');
 
         if($schema_data_base == null){
-            Business::fix_error('нет Схемы базы данных',__FILE__,__LINE__, $call_index_goal_on_error);
+            Business::fix_error('нет норматива базы данных',__FILE__,__LINE__, $call_index_goal_on_error);
         }
 
         /*проверка*/
@@ -828,7 +828,7 @@ class Solutions
     }
 
     /**
-     * Сопоставляем Схемы базы данных
+     * Сопоставляем нормативы базы данных
      *
      * @param array $realized_schema реализованная схема
      * @param array $current_schema текущая схема

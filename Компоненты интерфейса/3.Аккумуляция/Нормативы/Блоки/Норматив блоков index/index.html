@@ -50,7 +50,7 @@
                     <span><br>
                         <h1>Framework life balance</h1> Предназначен для <strong>сопровождения</strong> всех этапов разработки отеческого сайта с любым масштабом на исходном php-коде, html-разметках ( css, image ) и js-скриптах, с применением чёткой последовательностью разработки 10 компонентов сайта.
 						<br><br>
-						Текущая версия ядра: v1.1.8.16 / интерфейса: v1.0.7.18
+						Текущая версия ядра: v1.1.8.18 / интерфейса: v1.0.7.20
 						<hr>
 
                         <table style="margin: auto; text-align: center; "><tr><td>
@@ -159,7 +159,6 @@
 												  <li class="directory expanded">3.Аккумуляция</li>
 													  <li><ul class="jqueryFileTree">
 														  <li class="directory collapsed">Нормативы</li>
-														  <li class="directory collapsed">Схемы</li>
 													  </ul></li>
 												  <li class="directory expanded">4.Движение</li>
 													  <li><ul class="jqueryFileTree">
@@ -180,7 +179,7 @@
     								</table>
 						</td></tr></table>
 
-						В ядре реализованы Стандарты (детализации) ядра, наглядность Структуры (планировка), 4-е Сути (распределенная альтернатива контролёров в mvc), Наработки (упрощённая альтернатива моделей в mvc) и Схемы (упрощённая альтернатива yii2 migrate, установки и настроек). Благодаря такому подходу была реализована Схема таблиц базы данных и автоматическая реконструкция базы данных, что освободило разработчиков от необходимости формировать запросы до кучи. А так же реализован внутренний самовызов из консоли, оттого на фоновый режим отработки была переведена отправка почтового сообщения и реструктуризация базы данных, что для пользователя значительно уменьшило время ожидания ответа, а у разработчиков отпала необходимость настраивать cron.
+						В ядре реализованы Стандарты (детализации) ядра, наглядность Структуры (планировка), 4-е Сути (распределенная альтернатива контролёров в mvc), Функции (упрощённая альтернатива моделей в mvc) и Нормативы (упрощённая альтернатива yii2 migrate, установки и настроек). Благодаря такому подходу был реализован норматив таблиц базы данных и функция автоматической реконструкции базы данных, что освободило разработчиков от необходимости формировать sql-запросы вручную. А так же реализован внутренний самовызов из консоли, оттого на фоновый режим отработки была переведена отправка почтового сообщения и реструктуризация базы данных, что для пользователя значительно уменьшило время ожидания ответа, а у разработчиков отпала необходимость настраивать cron.
 
 
 						<hr>
@@ -204,13 +203,14 @@
 
 												  <li class="directory expanded">2.Представление</li>
 													  <li><ul class="jqueryFileTree">
-														  <li class="directory collapsed">Дизайн</li>
+
+														  <li class="directory expanded">Структуры</li>
+
 														  <li class="directory collapsed">Картинки</li>
 													  </ul></li>
 												  <li class="directory expanded">3.Аккумуляция</li>
 													  <li><ul class="jqueryFileTree">
 														  <li class="directory collapsed">Нормативы</li>
-														  <li class="directory collapsed">Формы</li>
 													  </ul></li>
 												  <li class="directory expanded">4.Движение</li>
 													  <li><ul class="jqueryFileTree">
@@ -457,7 +457,16 @@ RewriteRule ^(.*)$ Интерфейс.html [L,QSA]</code></pre>
 												  <li class="directory expanded">2.Представление</li>
 												  <li><ul class="jqueryFileTree">
 
-													  <li class="directory expanded">Дизайн</li>
+													  <li class="directory expanded">Структуры</li>
+													  <li><ul class="jqueryFileTree">
+														  <li class="directory expanded">Основа</li>
+
+													  <li><ul class="jqueryFileTree">
+														  <li class="file ext_txt">Структура ролей разработчиков.md</li>
+														  <li class="file ext_txt">Структура компонентов.md</li>
+													  </ul></li>
+
+														  <li class="directory expanded">Дизайн</li>
 
 													  <li>
 													  <ul class="jqueryFileTree">
@@ -465,6 +474,8 @@ RewriteRule ^(.*)$ Интерфейс.html [L,QSA]</code></pre>
 														  <li class="file ext_bmp">2.Взаимодействие.<br>Разработчики.png</li>
 													  </ul>
 												  </li>
+													  </ul></li>
+
 
 													  <li class="directory expanded">Картинки</li>
 												  <li>
@@ -497,6 +508,11 @@ RewriteRule ^(.*)$ Интерфейс.html [L,QSA]</code></pre>
 												  <li class="directory expanded">Нормативы</li>
 												  <li>
 													  <ul class="jqueryFileTree">
+
+
+													  <li class="directory expanded">Компоненты</li>
+														  <li>
+													  <ul class="jqueryFileTree">
 														  <li class="file ext_txt">1.Норматив компонента орентировка.md</li>
 														  <li class="file ext_txt">2.Норматив компонента представление.md</li>
 														  <li class="file ext_txt">3.Норматив компонента аккумуляция.md</li>
@@ -505,14 +521,10 @@ RewriteRule ^(.*)$ Интерфейс.html [L,QSA]</code></pre>
 													  </ul>
 												  </li>
 
-													  <li class="directory expanded">Формы</li>
-
-													  <li><ul class="jqueryFileTree">
-
 														  <li class="directory expanded">Блоки</li>
 
 													  <li><ul class="jqueryFileTree">
-														  <li class="directory expanded">Блоки категории сайта index</li>
+														  <li class="directory expanded">Норматив блоков index</li>
 												  <li>
 													  <ul class="jqueryFileTree">
 														  <li class="file ext_html">index.html</li>
@@ -521,7 +533,7 @@ RewriteRule ^(.*)$ Интерфейс.html [L,QSA]</code></pre>
 													  </ul>
 												  </li>
 
-												  <li class="directory collapsed">Блоки категории сайта users</li>
+												  <li class="directory collapsed">Норматив блоков users</li>
 												  <li>...</li>
 													  </ul></li>
 
@@ -529,13 +541,14 @@ RewriteRule ^(.*)$ Интерфейс.html [L,QSA]</code></pre>
 												  <li class="directory expanded">Стили</li>
 												  <li>
 													  <ul class="jqueryFileTree">
-														  <li class="file ext_css">Всё оформление.css</li>
+														  <li class="file ext_css">Норматив общего стиля.css</li>
 													  </ul>
 												  </li>
 
 												  <li class="directory collapsed">Шрифты</li>
 
-													  </ul></li>
+													  </ul>
+												  </li>
 
 											  </ul></li>
 											  </ul>
@@ -566,7 +579,7 @@ RewriteRule ^(.*)$ Интерфейс.html [L,QSA]</code></pre>
 													  <li class="directory expanded">Компоненты</li>
 
 													  <li><ul class="jqueryFileTree">
-														  <li class="file ext_js">4.Функции компонента интеллект.js</li>
+														  <li class="file ext_js">4.Функции компонента движение.js</li>
 													  </ul></li>
 
 													  <li class="directory expanded">Категории сайта</li>
@@ -876,13 +889,13 @@ framework_life_balance_showError(error);
 														  <li class="file ext_txt">5.Стандарт разработки.md</li>
 													  </ul>
 												  </li>
-														  <li class="directory expanded">Схемы</li>
+														  <li class="directory expanded">Нормативы</li>
 
 												  <li>
 													  <ul class="jqueryFileTree">
-														  <li class="file ext_txt">Стандарт схемы базы данных.md</li>
-														  <li class="file ext_txt">Стандарт схемы взаимодействия с базой данных.md</li>
-														  <li class="file ext_txt">Стандарт схемы наработок.md</li>
+														  <li class="file ext_txt">Стандарт норматива базы данных.md</li>
+														  <li class="file ext_txt">Стандарт норматива взаимодействия с базой данных.md</li>
+														  <li class="file ext_txt">Стандарт норматива наработок.md</li>
 													  </ul>
 												  </li>
 
@@ -926,7 +939,7 @@ framework_life_balance_showError(error);
 <u>Solutions::formation_template()</u> - Формирование шаблона<br>
 <u>Solutions::formation_url_project()</u> - Формирование ссылки проекта<br>
 <u>Solutions::formation_console_command_call_experience()</u> - Формируем консольную консольную команду вызова функции сайта<br>
-<u>Solutions::matching_schema_data_base()</u> - Сопоставляем Схемы базы данных</div></code>
+<u>Solutions::matching_schema_data_base()</u> - Сопоставляем нормативы базы данных</div></code>
 												  </pre>
 
 									 </td>
@@ -947,11 +960,31 @@ framework_life_balance_showError(error);
 												  <li>
 													  <ul class="jqueryFileTree">
 
+												  <li class="directory expanded">Основа</li>
+												  <li>
+													  <ul class="jqueryFileTree">
+														  <li class="file ext_txt">Структура ролей разработчиков.md</li>
+														  <li class="file ext_txt">Структура компонентов.md</li>
 														  <li class="file ext_txt">Структура внутренних путей.md</li>
+													  </ul>
+												  </li>
+
+												  <li class="directory expanded">База данных</li>
+												  <li>
+													  <ul class="jqueryFileTree">
 														  <li class="file ext_txt">Структура таблиц базы данных.md</li>
 														  <li class="file ext_txt">Структура взаимодействия с базой данных.md</li>
+													  </ul>
+												  </li>
+
+												  <li class="directory expanded">Функции</li>
+												  <li>
+													  <ul class="jqueryFileTree">
 														  <li class="file ext_txt">Структура функций компонентов.md</li>
 														  <li class="file ext_txt">Структура функций сайта.md</li>
+													  </ul>
+												  </li>
+
 
 													  </ul>
 												  </li>
@@ -975,9 +1008,9 @@ framework_life_balance_showError(error);
 <u>Notices::$user_id</u> - индификационный номер пользователя<br>
 <u>Notices::$user_session</u> - сессия пользователя<br>
 <u>Notices::$user_data</u> - данные пользователя<br>
-<u>Notices::$schema_experiences</u> - Схема функций сайта<br>
-<u>Notices::$schema_data_base</u> - схема таблиц базы данных<br>
-<u>Notices::$schema_interaction_with_data_base</u> - схема взаимодействия с базой данных<br>
+<u>Notices::$schema_experiences</u> - Норматив функций сайта<br>
+<u>Notices::$schema_data_base</u> - Норматив таблиц базы данных<br>
+<u>Notices::$schema_interaction_with_data_base</u> - Норматив взаимодействия с базой данных<br>
 <u>Notices::$link_communication_with_memory</u> - ссылка на коммуникацию с памятью<br>
 <u>Notices::$link_communication_with_mail</u> - ссылка на коммуникацию с почтой<br>
 <u>Notices::$call_experience</u> - вызванная наработка<br>
@@ -1014,6 +1047,10 @@ framework_life_balance_showError(error);
 												  <li class="directory expanded">Нормативы</li>
 												  <li>
 													  <ul class="jqueryFileTree">
+
+												  <li class="directory expanded">Компоненты</li>
+														  <li>
+													  <ul class="jqueryFileTree">
 														  <li class="file ext_txt">1.Норматив компонента орентировка.md</li>
 														  <li class="file ext_txt">2.Норматив компонента представление.md</li>
 														  <li class="file ext_txt">3.Норматив компонента аккумуляция.md</li>
@@ -1021,14 +1058,23 @@ framework_life_balance_showError(error);
 														  <li class="file ext_txt">5.Норматив компонента модули.md</li>
 													  </ul>
 												  </li>
-												  <li class="directory expanded">Схемы</li>
+
+												  <li class="directory expanded">База данных</li>
 												  <li>
 													  <ul class="jqueryFileTree">
-														  <li class="file ext_php">Схема внутренних путей.php</li>
-														  <li class="file ext_txt">Схема функций компонентов.md</li>
-														  <li class="file ext_php">Схема таблиц базы данных.php</li>
-														  <li class="file ext_php">Схема взаимодействия с базой данных.php</li>
-														  <li class="file ext_php">Схема функций сайта.php</li>
+														  <li class="file ext_php">Норматив таблиц базы данных.php</li>
+														  <li class="file ext_php">Норматив взаимодействия с базой данных.php</li>
+													  </ul>
+												  </li>
+
+												  <li class="directory expanded">Функции</li>
+												  <li>
+													  <ul class="jqueryFileTree">
+														  <li class="file ext_php">Норматив таблиц базы данных.php</li>
+														  <li class="file ext_php">Норматив взаимодействия с базой данных.php</li>
+													  </ul>
+												  </li>
+
 													  </ul>
 												  </li>
 
@@ -1036,10 +1082,10 @@ framework_life_balance_showError(error);
 											  </ul>
 										  </td>
       								      <td class="green" style="width:70%;">
-											  <b>Схемы:</b><br>
+											  <b>Нормативы:</b><br>
 											  <pre>
-<code><u>Resources::schema_experience()</u> - Схема функций сайта<br>
-<u>Resources::schema_data_base()</u> - Схема таблиц базы данных<br>
+<code><u>Resources::schema_experience()</u> - Норматив функций сайта<br>
+<u>Resources::schema_data_base()</u> - Норматив таблиц базы данных<br>
 <u>Resources::save_realized_schema_data_base()</u> - Сохраняем реализованную схему базы данных</code></pre>
 
 											  <b>Коммуникации:</b><br>
@@ -1087,9 +1133,9 @@ framework_life_balance_showError(error);
 												  <li>
 													  <ul class="jqueryFileTree">
 														  <li class="file ext_php">1.Функции компонента орентировка.php</li>
-														  <li class="file ext_php">2.Функции компонента представления.php</li>
-														  <li class="file ext_php">3.Функции компонента ресурсы.php</li>
-														  <li class="file ext_php">4.Функции компонента интеллект.php</li>
+														  <li class="file ext_php">2.Функции компонента представление.php</li>
+														  <li class="file ext_php">3.Функции компонента аккумуляция.php</li>
+														  <li class="file ext_php">4.Функции компонента движение.php</li>
 													  </ul>
 												  </li>
 
@@ -1198,36 +1244,11 @@ framework_life_balance_showError(error);
                 <div class="tab-pane fade clearfix" id="tab5">
                     <!-- <p class="title"><b>Разработчики</b></p> -->
                     <span><br>У framework life balance взаимозависимое распределение мест работы по ролям разработчиков, где каждая роль должна быть отыграна до конца.
-						        <hr>
-								<b>Front-end направление.</b><br>Женская работа над компонентами интерфейса:
-  								  <table class="features-table">
-  								      <thead>
-  								      <tr>
-     								       <td>Роль:<br><pre style="width:140px;"><code><img style="width:140px;" src="/Компоненты интерфейса/2.Представление/Картинки/illustrators/4_girl.jpg"></code></pre></td>
-     								       <td>Мыслитель<br><pre style="width: 100px;"><code><img style="width: 100px;" src="/Компоненты интерфейса/2.Представление/Картинки/illustrators/Lead_Link.png"></code></pre></td>
-      								      <td class="gray min"></td>
-     								       <td>Творец<br><pre style="width: 100px;"><code><img style="width: 100px;" src="/Компоненты интерфейса/2.Представление/Картинки/illustrators/Rep_Link.png"></code></pre></td>
-      								      <td class="gray min"></td>
-     								       <td>Посредник<br><pre style="width: 100px;"><code><img style="width: 100px;" src="/Компоненты интерфейса/2.Представление/Картинки/illustrators/Facilitator_1.png"></code></pre></td>
-      								      <td class="gray min"></td>
-     								       <td>Деятель<br><pre style="width: 100px;"><code><img style="width: 100px;" src="/Компоненты интерфейса/2.Представление/Картинки/illustrators/Secretary.png"></code></pre></td>
-    								    </tr>
-     								   </thead>
-   								     <tbody>
-   								     <tr>
-      								      <td class="gray">Нормативы:</td>
-      								      <td class="green">1.Ориентировка, 5.Модули</td>
-      								      <td class="gray min">↔</td>
-      								      <td class="green">2.Представление, 5.Модули</td>
-      								      <td class="gray min">↔</td>
-      								      <td class="green">3.Аккумуляция, 5.Модули</td>
-      								      <td class="gray min">↔</td>
-      								      <td class="green">4.Движение, 5.Модули</td>
-     								   </tr>
-    								    </tbody>
-    								</table>
-								<hr>
-								<b>Back-end направление.</b><br>Мужская работа над компонентами ядра:
+
+
+						<hr>
+
+						<b>Back-end направление.</b><br>Мужская работа над компонентами ядра:
   								  <table class="features-table">
   								      <thead>
   								      <tr>
@@ -1256,7 +1277,38 @@ framework_life_balance_showError(error);
     								</table>
 
 
+						Под нормативом понимается обязательный объем результата деятельности, которому всегда принято следовать.
+
 						<hr>
+								<b>Front-end направление.</b><br>Женская работа над компонентами интерфейса:
+  								  <table class="features-table">
+  								      <thead>
+  								      <tr>
+     								       <td>Роль:<br><pre style="width:140px;"><code><img style="width:140px;" src="/Компоненты интерфейса/2.Представление/Картинки/illustrators/4_girl.jpg"></code></pre></td>
+     								       <td>Мыслитель<br><pre style="width: 100px;"><code><img style="width: 100px;" src="/Компоненты интерфейса/2.Представление/Картинки/illustrators/Lead_Link.png"></code></pre></td>
+      								      <td class="gray min"></td>
+     								       <td>Творец<br><pre style="width: 100px;"><code><img style="width: 100px;" src="/Компоненты интерфейса/2.Представление/Картинки/illustrators/Rep_Link.png"></code></pre></td>
+      								      <td class="gray min"></td>
+     								       <td>Посредник<br><pre style="width: 100px;"><code><img style="width: 100px;" src="/Компоненты интерфейса/2.Представление/Картинки/illustrators/Facilitator_1.png"></code></pre></td>
+      								      <td class="gray min"></td>
+     								       <td>Деятель<br><pre style="width: 100px;"><code><img style="width: 100px;" src="/Компоненты интерфейса/2.Представление/Картинки/illustrators/Secretary.png"></code></pre></td>
+    								    </tr>
+     								   </thead>
+   								     <tbody>
+   								     <tr>
+      								      <td class="gray">Нормативы:</td>
+      								      <td class="green">1.Ориентировка, 5.Модули</td>
+      								      <td class="gray min">↔</td>
+      								      <td class="green">2.Представление, 5.Модули</td>
+      								      <td class="gray min">↔</td>
+      								      <td class="green">3.Аккумуляция, 5.Модули</td>
+      								      <td class="gray min">↔</td>
+      								      <td class="green">4.Движение, 5.Модули</td>
+     								   </tr>
+    								    </tbody>
+    								</table>
+<hr>
+
 						Примечание:<br>
 						Начиная применять холакратию, власть менеджеров и директоров отменяется, она распределяется по «местам». Это приводит к тому, что в кругах начинают формироваться интересные качества:
                         <br><br>
@@ -1278,7 +1330,7 @@ framework_life_balance_showError(error);
         								    <td style="width:10px;">№</td>
         								    <td>Цель</td>
         								    <td>Действия</td>
-        								    <td>Время</td>
+        								    <td style="width:10px;">Время</td>
        								 </tr>
      								   </thead>
      								   <tbody>
@@ -1286,66 +1338,66 @@ framework_life_balance_showError(error);
      								       <td class="gray" style="width:10px;">1</td>
       								      <td class="green">Скачать framework</td>
 										   <td class="gray">Скачать framework по ссылке:<br><strong><a href="https://github.com/veter-love/framework-life-balance-v1/archive/master.zip">https://github.com/veter-love/framework-life-balance-v1/archive/master.zip</a></strong> и разместить файлы в корень сайта.</td>
-      								      <td class="gray">30&nbsp;сек.</td>
+      								      <td class="gray" style="width:10px;">30&nbsp;сек.</td>
       								  </tr>
      								   <tr>
      								       <td class="gray" style="width:10px;">2</td>
          								   <td class="green">Настроить систему</td>
           								  <td class="gray">Запустить сервер; заменить <strong>/Компоненты ядра/1.Ориентировка/Настройка системы.php.temp</strong> на <strong>Настройка системы.php</strong> и подредактировать</strong></td>
-         								   <td class="gray">60&nbsp;сек.</td>
+         								   <td class="gray" style="width:10px;">60&nbsp;сек.</td>
        								 </tr>
      								   <tr>
      								       <td class="gray" style="width:10px;">3</td>
          								   <td class="green">Описать проект</td>
           								  <td class="gray">Заменить <strong>/Компоненты ядра/2.Представление/Настройка проекта.php.temp</strong> на <strong>Настройка проекта.php</strong> и подредактировать</strong></td>
-         								   <td class="gray">30&nbsp;сек.</td>
+         								   <td class="gray" style="width:10px;">30&nbsp;сек.</td>
        								 </tr>
        								 <tr>
        								     <td class="gray" style="width:10px;">4</td>
       								      <td class="green">Создать базу данных</td>
        								     <td class="gray">Создать базу данных; на данный момент реализовано взаимодействие с mySql базой данных; при создании желательно у базы данных mySql установить сортировку utf8mb4_general_ci.</td>
-      								      <td class="gray">10&nbsp;сек.</td>
+      								      <td class="gray" style="width:10px;">10&nbsp;сек.</td>
     								    </tr>
        								 <tr>
        								     <td class="gray" style="width:10px;">5</td>
       								      <td class="green">Запустить оперативную память</td>
        								     <td class="gray">Включить memcache и memcached</td>
-      								      <td class="gray">120&nbsp;сек.</td>
+      								      <td class="gray" style="width:10px;">120&nbsp;сек.</td>
     								    </tr>
       								  <tr>
       								      <td class="gray" style="width:10px;">6</td>
       								      <td class="green">Настроить коммуникацию</td>
      								       <td class="gray">Заменить <strong>/Компоненты ядра/3.Аккумуляция/Настройка коммуникаций.php.temp</strong> на <strong>Настройка коммуникаций.php</strong> и подредактировать</td>
-      								      <td class="gray">15&nbsp;сек.</td>
+      								      <td class="gray" style="width:10px;">15&nbsp;сек.</td>
     								    </tr>
      								   <tr>
      								       <td class="gray" style="width:10px;">7</td>
          								   <td class="green">Настроить протоколы</td>
           								  <td class="gray">Заменить <strong>/Компоненты ядра/4.Движение/Настройка протоколов.php.temp</strong> на <strong>Настройка протоколов.php</strong> и подредактировать</strong></td>
-         								   <td class="gray">10&nbsp;сек.</td>
+         								   <td class="gray" style="width:10px;">10&nbsp;сек.</td>
        								 </tr>
       								  <tr>
          								   <td class="gray" style="width:10px;">8</td>
         								    <td class="green">Поставить папкам права на запись</td>
         								    <td class="gray">Выполнить chmod (644) папкам:
-												<br><strong>/Компоненты ядра/3.Аккумуляция/Схемы/</strong>
+												<br><strong>/Компоненты ядра/3.Аккумуляция/Нормативы/База&nbsp;данных/</strong>
 												<br><strong>/Компоненты ядра/4.Движение/Протоколы/</strong>
 												<br><strong>/Компоненты ядра/5.Модули/Github.com/</strong>
 												<br><strong>/Пользовательские данные/Аватарки/</strong>
 											</td>
-        								    <td class="gray">90 сек.</td>
+        								    <td class="gray" style="width:10px;">90 сек.</td>
     								    </tr>
       								  <tr>
          								   <td class="gray" style="width:10px;">9</td>
          								   <td class="green">Запустить конструктор базы данных</td>
        								     <td class="gray">Открыть страницу сайта и дождаться когда на почту прийдёт уведомление о завершении конструкции базы данных.</td>
-      								      <td class="gray">20&nbsp;сек.</td>
+      								      <td class="gray" style="width:10px;">20&nbsp;сек.</td>
      								   </tr>
       								  <tr>
          								   <td class="gray" style="width:10px;">10</td>
          								   <td class="green">Завершить</td>
        								     <td class="gray">Изучить и удалить файл <strong>/README.md</strong>, удалить лишнее из интерфейса.</td>
-      								      <td class="gray">120&nbsp;сек.</td>
+      								      <td class="gray" style="width:10px;">120&nbsp;сек.</td>
      								   </tr>
      								   </tbody>
    								 </table>
@@ -1374,7 +1426,7 @@ framework_life_balance_showError(error);
       								  </tr>
      								   <tr>
      								       <td class="gray">База данных:</td>
-      								      <td class="green">При изменении схемы базы данных нужно открыть любую страницу сайта, что инициирует консольную (фоновую) автоматическую реконструкцию базы данных. На время реконструкции базы данных на сайте будет выводиться заглушка технических работ.</td>
+      								      <td class="green">При изменении норматива базы данных нужно открыть любую страницу сайта, что инициирует консольную (фоновую) функцию автоматической реконструкции базы данных. На время реконструкции базы данных на сайте будет выводиться заглушка технических работ.</td>
       								  </tr>
      								   </tbody>
    								 </table>

@@ -115,24 +115,27 @@ class Business
 
         }
 
-        /*исключаем зацикленность отправки письма*/
-        if((Notices::get_mission('request_experience').'/'.Notices::get_mission('request_experience_goal')) != 'control/send_email'){
+        /* Исключаем зацикленность вызова из консоли*/
+        if(Notices::get_mission('user_device') == 'console'){
 
-            /*получаем настройки проекта*/
-            $config_project = Notices::get_mission('config_project');
+            /*прекращаем работу ядра*/
+            Solutions::stop_core();
 
-            /*если нет сбоя инициации*/
-            if($config_project != null){
+        }
 
-                /*вызываем консоль наработку отправления на почту*/
-                Business::call_console_experience('control', 'send_email', [
-                    'email'    => $config_project['email'],
-                    'title'    => 'Ошибка ядра',
-                    'text'     => 'По запросу /'.Notices::get_mission('request_experience').'/'.Notices::get_mission('request_experience_goal').':<br><b>'.$error_message.'</b>',
-                    'template' => 'Блоки категории сайта mail'.DIRECTORY_SEPARATOR.'message',
-                ]);
+        /*получаем настройки проекта*/
+        $config_project = Notices::get_mission('config_project');
 
-            }
+        /*если нет сбоя инициации*/
+        if($config_project != null){
+
+            /*вызываем консоль наработку отправления на почту*/
+            Business::call_console_experience('control', 'send_email', [
+                'email'    => $config_project['email'],
+                'title'    => 'Ошибка ядра',
+                'text'     => 'По запросу /'.Notices::get_mission('request_experience').'/'.Notices::get_mission('request_experience_goal').':<br><b>'.$error_message.'</b>',
+                'template' => 'Норматив блоков mail'.DIRECTORY_SEPARATOR.'message',
+            ]);
 
         }
 

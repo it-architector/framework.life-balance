@@ -75,10 +75,10 @@ class Notices
     /* Схема наработок */
     static $schema_experiences = null;
 
-    /* Схема таблиц базы данных */
+    /* Норматив таблиц базы данных */
     static $schema_data_base = null;
 
-    /* Схема взаимодействия с базой данных */
+    /* Норматив взаимодействия с базой данных */
     static $schema_interaction_with_data_base = null;
 
     /* Ссылка на коммуникацию с памятью */
