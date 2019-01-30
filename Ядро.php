@@ -17,7 +17,7 @@
  */
 
 /* Подключаем схему внутренних путей */
-require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Компоненты ядра'. DIRECTORY_SEPARATOR . '1.Ориентировка' . DIRECTORY_SEPARATOR . 'Сведения' . DIRECTORY_SEPARATOR . 'Итоговые' . DIRECTORY_SEPARATOR . 'Сведения о внутренних путях.php';
+require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Компоненты ядра'. DIRECTORY_SEPARATOR . '1.Ориентировка' . DIRECTORY_SEPARATOR . 'Сведения' . DIRECTORY_SEPARATOR . 'Итоговые' . DIRECTORY_SEPARATOR . 'Итоговое сведение о внутренних путях.php';
 
 /* Подключаем функции компонента орентировка */
 require_once DIR_EXPERIENCES_ESSENCES . '1.Функции компонента орентировка.php';
