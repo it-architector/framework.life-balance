@@ -44,32 +44,32 @@ define('DIR_STRUCTURES', DIR_NOTICES . 'Структуры' . DIRECTORY_SEPARATO
 define('DIR_MEASURES', DIR_RESOURCES . 'Нормативы' . DIRECTORY_SEPARATOR);
 
 /* Нормативы базы данных */
-define('DIR_MEASURES_DATA_BASE', DIR_MEASURES . 'База данных' . DIRECTORY_SEPARATOR);
+define('DIR_MEASURES_DATA_BASE', DIR_MEASURES . 'Базы данных' . DIRECTORY_SEPARATOR);
 
 /* Нормативы функций */
-define('DIR_MEASURES_FUNCTIONS', DIR_MEASURES . 'Функции' . DIRECTORY_SEPARATOR);
+define('DIR_MEASURES_FUNCTIONS', DIR_MEASURES . 'Функций' . DIRECTORY_SEPARATOR);
 
 /* Функции */
 define('DIR_EXPERIENCES', DIR_BUSINESS . 'Функции' . DIRECTORY_SEPARATOR);
 
 /* Функции сайта */
-define('DIR_EXPERIENCES_SITE', DIR_EXPERIENCES . 'Категории сайта' . DIRECTORY_SEPARATOR);
+define('DIR_EXPERIENCES_SITE', DIR_EXPERIENCES . 'Категорий сайта' . DIRECTORY_SEPARATOR);
 
 /* Функции компонентов */
-define('DIR_EXPERIENCES_ESSENCES', DIR_EXPERIENCES . 'Компоненты' . DIRECTORY_SEPARATOR);
+define('DIR_EXPERIENCES_ESSENCES', DIR_EXPERIENCES . 'Компонентов' . DIRECTORY_SEPARATOR);
 
 /* Протоколы */
 define('DIR_PROTOCOLS', DIR_BUSINESS . 'Протоколы' . DIRECTORY_SEPARATOR);
 
-/* Изменения */
-define('DIR_CHANGES', DIR_PROTOCOLS . 'Изменения' . DIRECTORY_SEPARATOR);
+/* Протоколы процессов */
+define('DIR_PROTOCOLS_PROCESSES', DIR_PROTOCOLS . 'Процессов' . DIRECTORY_SEPARATOR);
 
 
 /* Картинки пользователей */
 define('DIR_USERS_IMAGES', DIR_USERS_DATA . 'images' . DIRECTORY_SEPARATOR);
 
 /* Html блоки */
-define('DIR_HTML', DIR_INTERFACE_COMPONENTS . '3.Аккумуляция' . DIRECTORY_SEPARATOR . 'Нормативы' . DIRECTORY_SEPARATOR . 'Блоки' . DIRECTORY_SEPARATOR);
+define('DIR_HTML', DIR_INTERFACE_COMPONENTS . '3.Аккумуляция' . DIRECTORY_SEPARATOR . 'Нормативы' . DIRECTORY_SEPARATOR . 'Блочные' . DIRECTORY_SEPARATOR);
 
 
 ?>

@@ -50,7 +50,7 @@ html[xmlns] .slides {display: block;}
 	bottom:0;
 	width:100%;
 	height:80px;
-	background-image:url("/Компоненты интерфейса/2.Представление/Структуры/Картинки/slider/slide_shadow.png");
+	background-image:url("/Компоненты интерфейса/2.Представление/Структуры/Картиночные/slider/slide_shadow.png");
 	background-repeat:repeat-x;
 	background-size:auto 100%;
 	-webkit-background-size:auto 100%;
@@ -312,7 +312,7 @@ html[xmlns] .slides {display: block;}
 /* Caption */
 .top_slider .slide1 {
 	height:100%;
-	background-image:url("/Компоненты интерфейса/2.Представление/Структуры/Картинки/slider/slide1_bg.jpg");
+	background-image:url("/Компоненты интерфейса/2.Представление/Структуры/Картиночные/slider/slide1_bg.jpg");
 	background-size:cover;
 	background-attachment:fixed !important;
 }
@@ -339,7 +339,7 @@ html[xmlns] .slides {display: block;}
 
 .top_slider .slide2 {
 	height:100%;
-	background-image:url("/Компоненты интерфейса/2.Представление/Структуры/Картинки/slider/slide_navigation.jpg");
+	background-image:url("/Компоненты интерфейса/2.Представление/Структуры/Картиночные/slider/slide_navigation.jpg");
 	background-size:cover;
 	background-attachment:fixed !important;
 }
@@ -365,7 +365,7 @@ html[xmlns] .slides {display: block;}
 
 .top_slider .slide3 {
 	height:100%;
-	background-image:url("/Компоненты интерфейса/2.Представление/Структуры/Картинки/slider/slide_error.jpg");
+	background-image:url("/Компоненты интерфейса/2.Представление/Структуры/Картиночные/slider/slide_error.jpg");
 	background-repeat:no-repeat;
 	background-size:cover;
 }
@@ -391,7 +391,7 @@ html[xmlns] .slides {display: block;}
 
 .top_slider .slide4 {
 	height:100%;
-	background-image:url("/Компоненты интерфейса/2.Представление/Структуры/Картинки/slider/slide_auth.jpg");
+	background-image:url("/Компоненты интерфейса/2.Представление/Структуры/Картиночные/slider/slide_auth.jpg");
 	background-size:cover;
 	background-attachment:fixed !important;
 }
@@ -416,7 +416,7 @@ html[xmlns] .slides {display: block;}
 
 .top_slider .slide5 {
     height:100%;
-    background-image:url("/Компоненты интерфейса/2.Представление/Структуры/Картинки/slider/slide_control.jpg");
+    background-image:url("/Компоненты интерфейса/2.Представление/Структуры/Картиночные/slider/slide_control.jpg");
     background-size:cover;
     background-attachment:fixed !important;
 }
@@ -442,7 +442,7 @@ html[xmlns] .slides {display: block;}
 
 .top_slider .slide6 {
 	height:100%;
-	background-image:url("/Компоненты интерфейса/2.Представление/Структуры/Картинки/slider/slide_stop.jpg");
+	background-image:url("/Компоненты интерфейса/2.Представление/Структуры/Картиночные/slider/slide_stop.jpg");
 	background-repeat:no-repeat;
 	background-size:cover;
 }
