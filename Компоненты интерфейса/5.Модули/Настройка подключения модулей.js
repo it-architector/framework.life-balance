@@ -1,21 +1,35 @@
-/* Подключаем файлы js */
+/**************МОДУЛИ**************/
+
+/* Модуль jQuery */
 include_js('/jquery/jquery.min.js');
 include_js('/jquery/jquery.nicescroll.min.js');
 include_js('/jquery/jquery.validate.js');
 include_js('/jquery/jquery.cookie.js');
 include_js('/jquery/jquery.flexslider-min.js');
 include_js('/jquery/jquery.BlackAndWhite.js');
-include_js('/bootstrap/bootstrap.min.js');
-include_js('/superfish/superfish.min.js');
-include_js('/owl.carousel/owl.carousel.js');
-include_js('/animate/animate.js');
 
-/* Подключаем файлы css */
+/* Модуль animate */
+include_js('/animate/animate.js');
 include_css('/animate/animate.css');
+
+/* Модуль bootstrap */
+include_js('/bootstrap/bootstrap.min.js');
 include_css('/bootstrap/bootstrap.min.css');
-include_css('/flexslider/flexslider.css');
-include_css('/filestree/jqueryFileTree.css');
+
+/* Модуль superfish */
+include_js('/superfish/superfish.min.js');
+
+/* Модуль owl.carousel */
+include_js('/owl.carousel/owl.carousel.js');
 include_css('/owl.carousel/owl.carousel.css');
+
+/* Модуль flexslider */
+include_css('/flexslider/flexslider.css');
+
+/* Модуль filestree */
+include_css('/filestree/jqueryFileTree.css');
+
+/**************ФУНКЦИИ**************/
 
 /* Функция Подключения файла js */
 function include_js(file){
