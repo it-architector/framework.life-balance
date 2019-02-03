@@ -14,7 +14,7 @@ Framework life balance предназначен для **сопровожден�
 
 <a target="_blank" href="https://framework-life-balance.ru/#about">Подробнее о проекте</a> (в том числе про этапы развёртки).
 
-![Framework life balance](http://agappi.info/wp/wp-content/uploads/2017/02/0_1368eb_82b1ef78_orig-1024x473.png)
+![hr](https://avatars.mds.yandex.net/get-pdb/1239772/b26b34b9-e654-47a9-b09c-b38c9899b7e1/s1200?webp=false)
 
 
 ### Среда
@@ -25,7 +25,7 @@ Framework life balance предназначен для **сопровожден�
 
 Здесь нет места для php-кода в интерфейсе, и html-а в ядре. Ядро и интерфейс разделены и изолированы, что позволяет безпрепятственно разрабатывать оба направления одновременно, почтительно дополняя (без возникновения каких либо merge) на git'e.
 
-![Framework life balance](http://arabesko.ru/images/files/vector/arabesq/arabesko.ru_06.png)
+![hr](http://arabesko.ru/images/files/vector/arabesq/arabesko.ru_06.png)
 
 
 ### Ядро
@@ -69,7 +69,7 @@ Framework life balance предназначен для **сопровожден�
 - <a target="_blank" href="/Компоненты ядра/3.Аккумуляция/Нормативы/Функций/Норматив функций компонентов.md">Норматив функций компонентов</a>
 
 
-![Framework life balance](http://www.coollady.ru/pic/0003/068/41.jpg)
+![hr](http://www.coollady.ru/pic/0003/068/41.jpg)
 
 ### Интерфейс
 
@@ -105,7 +105,7 @@ Framework life balance предназначен для **сопровожден�
 
 
 
-![Framework life balance](https://resnic.com.ua/wp-content/uploads/2012/01/ornament_studio_narashivaniya_resnic_3.jpg)
+![hr](http://steklu.net/scinaly/gjel/khokhloma-018.jpg)
 
 ### Разработка
 
@@ -115,10 +115,6 @@ Framework life balance предназначен для **сопровожден�
 
 
 ![Framework life balance](https://framework-life-balance.ru/Компоненты%20интерфейса/2.Представление/Структуры/Картиночные/illustrators/4values.jpg)
-
-
-
-![Framework life balance](https://avatars.mds.yandex.net/get-pdb/1054037/b6d1c164-b8ec-41a6-9fd6-f450a1b0e4ad/s1200?webp=false)
 
 ### Примечание
 
