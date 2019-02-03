@@ -1,47 +1,44 @@
 /**************МОДУЛИ**************/
 
-/* Модуль jQuery */
-include_js('/jquery/jquery.min.js');
-include_js('/jquery/jquery.nicescroll.min.js');
-include_js('/jquery/jquery.validate.js');
-include_js('/jquery/jquery.cookie.js');
-include_js('/jquery/jquery.flexslider-min.js');
-include_js('/jquery/jquery.BlackAndWhite.js');
+/* Модуль J query */
+include_module('J query', 'jquery.min', 'js');
+include_module('J query', 'jquery.nicescroll.min', 'js');
+include_module('J query', 'jquery.validate', 'js');
+include_module('J query', 'jquery.cookie', 'js');
+include_module('J query', 'jquery.BlackAndWhite', 'js');
+include_module('J query', 'jquery.flexslider-min', 'js');
+include_module('J query', 'flexslider/flexslider', 'css');
+include_module('J query', 'animate/animate', 'js');
+include_module('J query', 'animate/animate', 'css');
+include_module('J query', 'superfish.min', 'js');
+include_module('J query', 'owl.carousel/owl.carousel', 'js');
+include_module('J query', 'owl.carousel/owl.carousel', 'css');
 
-/* Модуль animate */
-include_js('/animate/animate.js');
-include_css('/animate/animate.css');
+/* Модуль Boot strap */
+include_module('Boot strap', 'bootstrap.min', 'js');
+include_module('Boot strap', 'bootstrap.min', 'css');
 
-/* Модуль bootstrap */
-include_js('/bootstrap/bootstrap.min.js');
-include_css('/bootstrap/bootstrap.min.css');
+/* Модуль Font awesome */
+include_module('Font awesome', 'font-awesome 4.0.3', 'css');
 
-/* Модуль owl.carousel */
-include_js('/owl.carousel/owl.carousel.js');
-include_css('/owl.carousel/owl.carousel.css');
-
-/* Модуль font-awesome */
-include_css('/font-awesome/font-awesome 4.0.3.css');
-
-/* Модуль superfish */
-include_js('/superfish/superfish.min.js');
-
-/* Модуль flexslider */
-include_css('/flexslider/flexslider.css');
-
-/* Модуль filestree */
-include_css('/filestree/jqueryFileTree.css');
+/* Модуль Files tree */
+include_module('Files tree', 'jqueryFileTree', 'css');
 
 /**************ФУНКЦИИ**************/
 
-/* Функция Подключения файла js */
-function include_js(file){
-    document.write('<script src="/Компоненты%20интерфейса/5.Модули' + file + '" type="text/javascript"></script>');
+/* Функция подключения модуля */
+function include_module(module_name, file_name, file_type){
 
-}
+    if(file_type === 'js'){
 
-/* Функция Подключения файла css */
-function include_css(file){
-    document.write('<link href="/Компоненты%20интерфейса/5.Модули' + file + '" rel="stylesheet" type="text/css" />');
+        document.write('<script src="/Компоненты%20интерфейса/5.Модули/' + module_name + '/' + file_name + '.js" type="text/javascript"></script>');
+
+    }
+    else if(file_type === 'css'){
+
+        document.write('<link href="/Компоненты%20интерфейса/5.Модули/' + module_name + '/' + file_name + '.css" rel="stylesheet" type="text/css" />');
+
+    }
+
 
 }
