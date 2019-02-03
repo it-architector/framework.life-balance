@@ -2,8 +2,19 @@
 /*	ШРИФТЫ
 /*-----------------------------------------------------------------------------------*/
 
-@import url("https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500italic,700,500,700italic,900,900italic");
 @import url("https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css");
+
+
+@font-face {
+	font-family: 'Ardeco';
+	src: url('../Шрифтные/Ardeco.eot');
+	src: local('Ardeco'),
+	url('../Шрифтные/Ardeco.eot?#iefix') format('embedded-opentype'),
+	url('../Шрифтные/Ardeco.woff') format('woff'),
+	url('../Шрифтные/Ardeco.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
 
 /*-----------------------------------------------------------------------------------*/
 /*	GENERAL STYLING
@@ -27,9 +38,9 @@ body {
 	position:relative;
 	margin: 0;
 	padding:0;
-	font-family: 'Roboto', sans-serif;
+	font-family: "Ardeco", sans-serif;
 	font-weight:300;
-	font-size: 13px;
+	font-size: 23px;
 	line-height: 20px;
 	color: #666;
 	background-color:#fff;
@@ -134,7 +145,7 @@ p {margin:0 0 20px;}
 
 h1, h2, h3, h4, h5, h6 {
 	margin-top:0;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Ardeco', sans-serif;
 	text-transform:none;
 	font-weight:300;
 	color:#333;
@@ -147,7 +158,7 @@ h3 b {font-weight:900;}
 h4 {margin:0 0 34px; line-height:25px; font-size:20px;}
 h4 b {font-weight:500;}
 h5 {margin:0 0 15px; line-height:20px; font-size:15px;}
-h6 {margin:0 0 15px; line-height:20px; font-size:12px;}
+h6 {margin:0 0 15px; line-height:20px; font-size: 20px;}
 
 .center {text-align:center;}
 .right {text-align:right;}
@@ -183,7 +194,7 @@ blockquote:before {content:'“'; position:absolute; left:15px; top:13px; font-s
 	text-transform:uppercase;
 	font-weight: 900;
 	line-height: 20px;
-	font-size: 13px;
+	font-size: 20px;
 	color:#999;
 	text-shadow: none;
 	background-image: none !important;
@@ -197,7 +208,7 @@ blockquote:before {content:'“'; position:absolute; left:15px; top:13px; font-s
 
 
 .btn-lg {padding:19px 30px; font-size:18px;}
-.btn-sm {padding: 6px 20px 5px; font-size:13px;}
+.btn-sm {padding: 6px 20px 5px; font-size: 20px;}
 .btn-xs {padding: 2px 15px 3px; font-size:11px;}
 
 
@@ -259,10 +270,12 @@ header {
     margin-left: 10px;
 	text-transform:uppercase;
 	line-height:80px;
-	font-size:26px;
+	font-size:29px;
+	text-decoration:none;
 	color:#333;
 }
 .logo a span {
+	text-decoration:none;
 	display:inline-block;
 	padding-right:18px;
 }
@@ -299,7 +312,7 @@ header {
 	text-transform:uppercase;
 	font-weight:900;
 	line-height:20px;
-	font-size:13px;
+	font-size: 20px;
 	color:#666;
 	transition: all 0.3s ease-in-out; 
 	-webkit-transition: all 0.3s ease-in-out;
@@ -346,7 +359,7 @@ header {
 	padding: 15px 5px 14px 21px;
 	font-weight:400;
 	text-align:left;
-	font-size:12px;
+	font-size: 20px;
 	color:#999 !important;
 	background:#1c1c1c;
 	border-bottom:1px solid #282828;
@@ -379,7 +392,7 @@ header {
 	border-spacing: 0;
 	border: 0;
 	text-shadow: 0 1px 0 #fff;
-	font-size: 13px;
+	font-size: 20px;
 	color: #2a2a2a;
 	background: #fafafa;
 	background-image: -moz-linear-gradient(top, #fff, #eaeaea, #fff); /* Firefox 3.6 */
@@ -635,7 +648,7 @@ header {
 
 .cleancode_block .nav-tabs li a span {
 	display:block;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Ardeco', sans-serif;
 	font-weight:400;
 	line-height:20px;
 	font-size:20px;
@@ -679,7 +692,7 @@ header {
 	text-align:center;
 	font-weight: 900;
 	line-height:20px;
-	font-size:13px;
+	font-size:23px;
 	color:#1C1C1C;
 	transition: all 0.3s ease-in-out; 
 	-webkit-transition: all 0.3s ease-in-out;
@@ -781,7 +794,7 @@ header {
 	height:50px;
 	margin:0 -2px 0 -3px;
 	border:2px solid #ccc;
-	font-family: FontAwesome;
+	font-family: 'Ardeco', sans-serif;
 	transition: all 0.2s ease-in-out; 
 	-webkit-transition: all 0.2s ease-in-out;
 }
@@ -956,7 +969,7 @@ ul.project_info li span {color:#979797;}
 .testim_author {
 	padding-top:46px;
 	font-weight:300;
-	font-size:16px;
+	font-size:20px;
 	color:#666;
 }
 .testim_author b {
@@ -1110,7 +1123,7 @@ footer h4 {color:#fff;}
 	margin-bottom:24px;
 	padding-right:71px;
 	line-height:24px;
-	font-size:12px;
+	font-size: 20px;
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -1161,10 +1174,10 @@ input[type="text"],input[type="password"] {
 	margin:0 0 10px;
 	padding: 10px 8px;
 	text-transform:none;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Ardeco', sans-serif;
 	font-weight:400;
 	line-height:20px;
-	font-size: 12px;
+	font-size: 20px;
 	color: #333;
 	font-style:normal;
 	border-radius: 0;	
@@ -1218,10 +1231,10 @@ input[type="color"]:focus {
 	text-shadow:none;
 	text-decoration:none;
 	text-transform:uppercase;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Ardeco', sans-serif;
 	font-weight:900;
 	line-height:20px;
-	font-size:13px;
+	font-size: 20px;
 	color:#333;
 	background: none; 
 	transition: all 0.3s ease-in-out;
@@ -1437,7 +1450,7 @@ input[type="color"]:focus {
 	font-size:16px;
 	color:#ccc;
 }
-#comments .comment_right p {font-size:12px;}
+#comments .comment_right p {font-size: 20px;}
 
 
 #comment_form textarea,
@@ -1455,7 +1468,7 @@ input[type="color"]:focus {
 }
 #comment_form .contact_btn:hover {background-color:#ccc;}
 
-.comment_note {padding-top:11px; font-size:12px;}
+.comment_note {padding-top:11px; font-size: 20px;}
 
 
 
@@ -1693,7 +1706,7 @@ input[type="color"]:focus {
 	
 
 /* __________ Menu __________ */
-	.navmenu ul li a {padding-left:10px; padding-right:10px; font-size:12px;}
+	.navmenu ul li a {padding-left:10px; padding-right:10px; font-size: 20px;}
 	
 	
 	
@@ -1702,7 +1715,7 @@ input[type="color"]:focus {
 	.cleancode_block span {font-size:20px; line-height:24px;}
 	.cleancode_block .nav-tabs li a {width:100px; height:100px; padding-top:24px;}
 	.cleancode_block .nav-tabs li a i {width:45px; height:45px;}
-	.cleancode_block .nav-tabs li a span {font-size:13px;}
+	.cleancode_block .nav-tabs li a span {font-size: 20px;}
 	.cleancode_block .nav-tabs li a i {background-position:0 -45px;}
 	.nav-tabs li a:hover i {background-position:0 -90px; transform:translateY(-5px); -o-transform:translateY(-5px); -ms-transform:translateY(-5px); -webkit-transform:translateY(-5px);}
 	.nav-tabs li.active a i {background-position:0 0; transform:translateY(-10px); -o-transform:translateY(-10px); -ms-transform:translateY(-10px); -webkit-transform:translateY(-10px);}
@@ -1710,7 +1723,7 @@ input[type="color"]:focus {
 	
 	.purpose_block {padding-top:35px;}
 	.purpose_block .ipad_img1 {margin-top:-50px;}
-	.purpose_block p {font-size:12px; line-height:20px;}
+	.purpose_block p {font-size: 20px; line-height:20px;}
 	
 	
 	.work_item a.zoom {width:40px; height:24px; margin-left:-20px;}
@@ -1724,7 +1737,7 @@ input[type="color"]:focus {
 	.post_item_img a.link:hover {background-position:0 -24px;}
 	.post_item_content a.title {font-size:15px; line-height:20px;}
 	.post_item_content {padding-top:15px;}
-	.post_item_inf a {font-size:12px; padding-right:5px;}
+	.post_item_inf a {font-size: 20px; padding-right:5px;}
 	.post_item_inf li {padding-right:5px;}
 	
 	
@@ -1816,7 +1829,7 @@ input[type="color"]:focus {
 	.cleancode_block .nav-tabs {margin:0 auto; width:450px;}
 	.cleancode_block .nav-tabs li a {width:120px; height:120px; padding-top:24px;}
 	.cleancode_block .nav-tabs li a i {width:45px; height:45px;}
-	.cleancode_block .nav-tabs li a span {font-size:13px;}
+	.cleancode_block .nav-tabs li a span {font-size: 20px;}
 	.cleancode_block .nav-tabs li a i {background-position:0 -45px;}
 	.nav-tabs li a:hover i {background-position:0 -90px; transform:translateY(-5px); -o-transform:translateY(-5px); -ms-transform:translateY(-5px); -webkit-transform:translateY(-5px);}
 	.nav-tabs li.active a i {background-position:0 0; transform:translateY(-10px); -o-transform:translateY(-10px); -ms-transform:translateY(-10px); -webkit-transform:translateY(-10px);}
@@ -1825,7 +1838,7 @@ input[type="color"]:focus {
 	.purpose_block {padding-top:35px;}
 	.ipad_img_in {width:350px; margin:0 auto;}
 	.purpose_block .ipad_img1 {margin-top:40px;}
-	.purpose_block p {font-size:12px; line-height:20px;}
+	.purpose_block p {font-size: 20px; line-height:20px;}
 	
 	
 	.work_item a.zoom {width:40px; height:24px; margin-left:-20px;}
@@ -1841,7 +1854,7 @@ input[type="color"]:focus {
 	.post_item_img a.link:hover {background-position:0 -24px;}
 	.post_item_content a.title {font-size:15px; line-height:20px;}
 	.post_item_content {padding-top:15px;}
-	.post_item_inf a {font-size:12px; padding-right:5px;}
+	.post_item_inf a {font-size: 20px; padding-right:5px;}
 	.post_item_inf li {padding-right:5px;}
 	
 	
@@ -1869,7 +1882,7 @@ input[type="color"]:focus {
 	.blog_post_title {font-size:19px; line-height:22px;}
 	.blog_post_descr hr {clear:both; border:0;}
 	.blog_post_content {font-size:14px; line-height:22px;}
-	.blog_post_info li a {font-size:13px;}
+	.blog_post_info li a {font-size: 20px;}
 	.blog_post_info li {padding-right:15px;}
 	.blog_post_info li:before {right:6px;}
 	.blog_post_content {padding-top:20px;}
@@ -1955,7 +1968,7 @@ input[type="color"]:focus {
 	
 /* __________ Single Blog Post __________ */
 	.single_blog_post_title {font-size:17px; line-height:22px;}
-	.single_blog_post_content {font-size:13px; line-height:20px;}
+	.single_blog_post_content {font-size: 20px; line-height:20px;}
 
 	
 	
