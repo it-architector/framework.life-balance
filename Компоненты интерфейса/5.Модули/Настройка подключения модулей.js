@@ -16,12 +16,15 @@ include_css('/animate/animate.css');
 include_js('/bootstrap/bootstrap.min.js');
 include_css('/bootstrap/bootstrap.min.css');
 
-/* Модуль superfish */
-include_js('/superfish/superfish.min.js');
-
 /* Модуль owl.carousel */
 include_js('/owl.carousel/owl.carousel.js');
 include_css('/owl.carousel/owl.carousel.css');
+
+/* Модуль font-awesome */
+include_css('/font-awesome/font-awesome 4.0.3.css');
+
+/* Модуль superfish */
+include_js('/superfish/superfish.min.js');
 
 /* Модуль flexslider */
 include_css('/flexslider/flexslider.css');

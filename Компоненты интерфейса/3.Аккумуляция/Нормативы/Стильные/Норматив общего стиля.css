@@ -2,16 +2,13 @@
 /*	ШРИФТЫ
 /*-----------------------------------------------------------------------------------*/
 
-@import url("https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css");
-
-
 @font-face {
 	font-family: 'Ardeco';
-	src: url('../Шрифтные/Ardeco.eot');
+	src: url('./Шрифты/Ardeco.eot');
 	src: local('Ardeco'),
-	url('../Шрифтные/Ardeco.eot?#iefix') format('embedded-opentype'),
-	url('../Шрифтные/Ardeco.woff') format('woff'),
-	url('../Шрифтные/Ardeco.ttf') format('truetype');
+	url('./Шрифты/Ardeco.eot?#iefix') format('embedded-opentype'),
+	url('./Шрифты/Ardeco.woff') format('woff'),
+	url('./Шрифты/Ardeco.ttf') format('truetype');
 	font-weight: normal;
 	font-style: normal;
 }
