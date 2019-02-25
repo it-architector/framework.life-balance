@@ -2,9 +2,9 @@
 
 namespace Framework_life_balance\core_components;
 
-use \Framework_life_balance\core_components\Notices;
-use \Framework_life_balance\core_components\Solutions;
-use \Framework_life_balance\core_components\Business;
+use \Framework_life_balance\core_components\Representation;
+use \Framework_life_balance\core_components\Orientation;
+use \Framework_life_balance\core_components\Motion;
 
 use \Framework_life_balance\core_components\their_modules\Data_Base;
 use \PHPMailer\PHPMailer\PHPMailer;
@@ -15,7 +15,7 @@ use \PHPMailer\PHPMailer\PHPMailer;
  * @package Framework_life_balance\core_components
  *
  */
-class Resources
+class Accumulation
 {
 
     /**
@@ -27,44 +27,44 @@ class Resources
     {
 
         /* Получаем настройки коммуникаций из файла */
-        $config_communications = Resources::include_information_from_file(DIR_RESOURCES,'Настройка коммуникаций','php');
+        $config_communications = Accumulation::include_information_from_file(DIR_RESOURCES,'Настройка коммуникаций','php');
 
         if($config_communications === null){
-            Business::fix_error('нет файла настройки коммуникаций',__FILE__,__LINE__);
+            Motion::fix_error('нет файла настройки коммуникаций',__FILE__,__LINE__);
         }
 
         /* Устанавливаем настройки коммуникаций */
-        Notices::set_mission('config_communications',$config_communications);
+        Representation::set_mission('config_communications',$config_communications);
 
         /* Получаем схему наработок из файла */
-        $schema_experiences = Resources::include_information_from_file(DIR_MEASURES_FUNCTIONS,'Норматив функций сайта','php');
+        $schema_experiences = Accumulation::include_information_from_file(DIR_MEASURES_FUNCTIONS,'Норматив функций сайта','php');
 
         if($schema_experiences === null){
-            Business::fix_error('нет файла норматива функций сайта',__FILE__,__LINE__);
+            Motion::fix_error('нет файла норматива функций сайта',__FILE__,__LINE__);
         }
 
         /* Устанавливаем схему наработок */
-        Notices::set_mission('schema_experiences',$schema_experiences);
+        Representation::set_mission('schema_experiences',$schema_experiences);
 
         /* Получаем схему базы данных из файла */
-        $schema_data_base = Resources::include_information_from_file(DIR_MEASURES_DATA_BASE,'Норматив таблиц базы данных','php');
+        $schema_data_base = Accumulation::include_information_from_file(DIR_MEASURES_DATA_BASE,'Норматив таблиц базы данных','php');
 
         if($schema_data_base === null){
-            Business::fix_error('нет файла норматива таблиц базы данных',__FILE__,__LINE__);
+            Motion::fix_error('нет файла норматива таблиц базы данных',__FILE__,__LINE__);
         }
 
         /* Устанавливаем схему базы данных */
-        Notices::set_mission('schema_data_base',$schema_data_base);
+        Representation::set_mission('schema_data_base',$schema_data_base);
 
         /* Получаем схему взаимодействия с базой данных */
-        $schema_interaction_with_data_base = Resources::include_information_from_file(DIR_MEASURES_DATA_BASE,'Норматив взаимодействия с базой данных','php');
+        $schema_interaction_with_data_base = Accumulation::include_information_from_file(DIR_MEASURES_DATA_BASE,'Норматив взаимодействия с базой данных','php');
 
         if($schema_interaction_with_data_base === null){
-            Business::fix_error('нет файла норматива взаимодействия с базой данных',__FILE__,__LINE__);
+            Motion::fix_error('нет файла норматива взаимодействия с базой данных',__FILE__,__LINE__);
         }
 
         /* Устанавливаем схему взаимодействия с базой данных */
-        Notices::set_mission('schema_interaction_with_data_base', $schema_interaction_with_data_base);
+        Representation::set_mission('schema_interaction_with_data_base', $schema_interaction_with_data_base);
 
     }
 
@@ -84,10 +84,10 @@ class Resources
     {
 
         /*Проверяем правильное взятие норматива наработок*/
-        Solutions::check_correct_taking_schema_experience($experience, $goal, $detail);
+        Orientation::check_correct_taking_schema_experience($experience, $goal, $detail);
 
         /*получаем схему наработок*/
-        $schema_experiences = Notices::get_mission('schema_experiences');
+        $schema_experiences = Representation::get_mission('schema_experiences');
 
         /*получаем данные на цель*/
         if($experience!== null and $goal !== null){
@@ -128,10 +128,10 @@ class Resources
     {
 
         /*Проверяем правильное взятие норматива базы данных*/
-        Solutions::check_correct_taking_schema_data_base($table, $column, $detail);
+        Orientation::check_correct_taking_schema_data_base($table, $column, $detail);
 
         /*получаем схему базы данных*/
-        $schema_data_base = Notices::get_mission('schema_data_base');
+        $schema_data_base = Representation::get_mission('schema_data_base');
 
         /*получаем данные на цель*/
         if($table!=null and $column!=null){
@@ -196,7 +196,7 @@ class Resources
     static function create_communication_with_data_base(){
 
         /*получаем настройки системы*/
-        $config_system = Notices::get_mission('config_system');
+        $config_system = Representation::get_mission('config_system');
 
         /*включено ли*/
         if(!$config_system['inclusiveness_data_base']){
@@ -206,19 +206,19 @@ class Resources
         /*подключен ли класс для работы*/
         if(!class_exists('\Framework_life_balance\core_components\their_modules\Data_Base')){
             /*фиксируем ошибку*/
-            Business::fix_error('no class Data_Base',__FILE__,__LINE__);
+            Motion::fix_error('no class Data_Base',__FILE__,__LINE__);
         }
 
         /*получаем настройки ппроекта*/
-        $config_project = Notices::get_mission('config_project');
+        $config_project = Representation::get_mission('config_project');
 
         /*получаем настройки коммуникаций*/
-        $config_communications = Notices::get_mission('config_communications');
+        $config_communications = Representation::get_mission('config_communications');
 
         try{
 
             /*получаем настройки протоколов*/
-            $config_protocols = Notices::get_mission('config_protocols');
+            $config_protocols = Representation::get_mission('config_protocols');
 
             /*запись взаимодействий с базой данных в файл лога */
             if($config_protocols['Запросы в базу данных']){
@@ -240,7 +240,7 @@ class Resources
 
         }catch (\Exception $e) {
             /*фиксируем ошибку*/
-            Business::fix_error($e->getMessage(),__FILE__,__LINE__);
+            Motion::fix_error($e->getMessage(),__FILE__,__LINE__);
         }
 
     }
@@ -264,7 +264,7 @@ class Resources
             return $result;
         }catch (\Exception $e) {
             /*фиксируем ошибку*/
-            Business::fix_error($e->getMessage(),__FILE__,__LINE__);
+            Motion::fix_error($e->getMessage(),__FILE__,__LINE__);
         }
 
     }
@@ -277,7 +277,7 @@ class Resources
     static function create_communication_with_memory(){
 
         /*получаем настройки системы*/
-        $config_system = Notices::get_mission('config_system');
+        $config_system = Representation::get_mission('config_system');
 
         /*включено ли*/
         if(!$config_system['inclusiveness_memory']){
@@ -285,7 +285,7 @@ class Resources
         }
 
         /*получаем настройки коммуникации*/
-        $config_communications = Notices::get_mission('config_communications');
+        $config_communications = Representation::get_mission('config_communications');
 
         /*есть ли настройки*/
         if(!isset($config_communications['memory'])){
@@ -295,7 +295,7 @@ class Resources
         /*подключен ли класс для работы*/
         if(!class_exists('Memcache')){
             /*фиксируем ошибку*/
-            Business::fix_error('no install/start memcache',__FILE__,__LINE__);
+            Motion::fix_error('no install/start memcache',__FILE__,__LINE__);
         }
 
         try{
@@ -306,11 +306,11 @@ class Resources
             );
 
             /*устанавливаем ссылку на коммуникацию с памятью*/
-            Notices::set_mission('link_communication_with_memory',$link_communication_with_memory);
+            Representation::set_mission('link_communication_with_memory',$link_communication_with_memory);
 
         }catch ( \Exception $e ) {
             /*фиксируем ошибку*/
-            Business::fix_error($e->getMessage(),__FILE__,__LINE__);
+            Motion::fix_error($e->getMessage(),__FILE__,__LINE__);
         }
 
     }
@@ -323,7 +323,7 @@ class Resources
     static function complete_communication_with_memory(){
 
         /*получаем ссылку на коммуникацию с памятью*/
-        $link_communication_with_memory = Notices::get_mission('link_communication_with_memory');
+        $link_communication_with_memory = Representation::get_mission('link_communication_with_memory');
 
         if($link_communication_with_memory == null){
             return false;
@@ -332,7 +332,7 @@ class Resources
         \memcache_close($link_communication_with_memory);
 
         /*Обнуляем ссылку на коммуникацию с памятью*/
-        Notices::delete_mission('link_communication_with_memory');
+        Representation::delete_mission('link_communication_with_memory');
 
         return true;
 
@@ -346,7 +346,7 @@ class Resources
     static function create_communication_with_mail(){
 
         /*получаем настройки системы*/
-        $config_system = Notices::get_mission('config_system');
+        $config_system = Representation::get_mission('config_system');
 
         /*включено ли*/
         if(!$config_system['inclusiveness_mail']){
@@ -356,14 +356,14 @@ class Resources
         /*подключен ли класс для работы*/
         if(!class_exists('\PHPMailer\PHPMailer\PHPMailer')){
             /*фиксируем ошибку*/
-            Business::fix_error('no class PHPMailer',__FILE__,__LINE__);
+            Motion::fix_error('no class PHPMailer',__FILE__,__LINE__);
         }
 
         /*получаем настройки ппроекта*/
-        $config_project = Notices::get_mission('config_project');
+        $config_project = Representation::get_mission('config_project');
 
         /*получаем настройки коммуникации*/
-        $config_communications = Notices::get_mission('config_communications');
+        $config_communications = Representation::get_mission('config_communications');
 
         try {
 
@@ -393,13 +393,13 @@ class Resources
                 );
             }
             /*получаем настройки проекта*/
-            $config_project = Notices::get_mission('config_project');
+            $config_project = Representation::get_mission('config_project');
 
             /*от кого письмо*/
             $mail->setFrom($config_project['email'], $config_project['name']);
 
             /*устанавливаем ссылку на коммуникацию с почтой*/
-            Notices::set_mission('link_communication_with_mail',$mail);
+            Representation::set_mission('link_communication_with_mail',$mail);
 
             return true;
 
@@ -407,7 +407,7 @@ class Resources
         catch (\PHPMailer\PHPMailer\Exception $e) {
 
             /*фиксируем ошибку*/
-            Business::fix_error($mail->ErrorInfo,__FILE__,__LINE__);
+            Motion::fix_error($mail->ErrorInfo,__FILE__,__LINE__);
         }
 
     }
@@ -420,14 +420,14 @@ class Resources
     static function complete_communication_with_mail(){
 
         /*получаем ссылку на коммуникацию с почтой*/
-        $link_communication_with_mail = Notices::get_mission('link_communication_with_mail');
+        $link_communication_with_mail = Representation::get_mission('link_communication_with_mail');
 
         if($link_communication_with_mail == null){
             return false;
         }
 
         /*Обнуляем ссылку на коммуникацию с почтой*/
-        Notices::delete_mission('link_communication_with_mail');
+        Representation::delete_mission('link_communication_with_mail');
 
         return true;
 
@@ -451,7 +451,7 @@ class Resources
     static function write_information_in_file($dir, $name, $type, $information){
 
         if($type == 'log'){
-            $information = '['.Solutions::position_time().'] ' . $information . "\r\n";
+            $information = '['.Orientation::position_time().'] ' . $information . "\r\n";
             /*дозапись*/
             $addition = true;
         }
@@ -549,7 +549,7 @@ class Resources
     static function interchange_information_with_data_base($direction, $what, $values){
 
         /* Получаем схему взаимодействия с базой данных */
-        $schema_interaction_with_data_base = Notices::get_mission('schema_interaction_with_data_base');
+        $schema_interaction_with_data_base = Representation::get_mission('schema_interaction_with_data_base');
 
         if($schema_interaction_with_data_base == null){
             return false;
@@ -557,11 +557,11 @@ class Resources
 
         if(!isset($schema_interaction_with_data_base[$direction])){
             /* Фиксируем ошибку */
-            Business::fix_error('Не известно направление "'.$direction.'" во взаимодействии с базой данных', __FILE__, __LINE__);
+            Motion::fix_error('Не известно направление "'.$direction.'" во взаимодействии с базой данных', __FILE__, __LINE__);
         }
         elseif(!isset($schema_interaction_with_data_base[$direction][$what])){
             /* Фиксируем ошибку */
-            Business::fix_error('Не известно чего "'.$what.'" направления "'.$direction.'" во взаимодействии с базой данных', __FILE__, __LINE__);
+            Motion::fix_error('Не известно чего "'.$what.'" направления "'.$direction.'" во взаимодействии с базой данных', __FILE__, __LINE__);
         }
 
         /* Информация запроса */
@@ -633,12 +633,12 @@ class Resources
             }
             else{
                 /* Фиксируем ошибку */
-                Business::fix_error('Не известно направление "'.$direction.'" во взаимодействии с базой данных', __FILE__, __LINE__);
+                Motion::fix_error('Не известно направление "'.$direction.'" во взаимодействии с базой данных', __FILE__, __LINE__);
             }
 
         }catch (\Exception $e) {
             /*фиксируем ошибку*/
-            Business::fix_error($e->getMessage(),__FILE__,__LINE__);
+            Motion::fix_error($e->getMessage(),__FILE__,__LINE__);
         }
 
     }
@@ -677,7 +677,7 @@ class Resources
         ];
 
         /* Реализованный норматив таблиц базы данных */
-        $realized_schema = Resources::get_information_realized_schema_data_base();
+        $realized_schema = Accumulation::get_information_realized_schema_data_base();
 
         try{
 
@@ -711,7 +711,7 @@ class Resources
                             self::save_realized_schema_data_base($realized_schema);
 
                             /* Фиксируем реконструкцию базы данных */
-                            Business::fix_reassembly_data_base('Создана таблица '.$table);
+                            Motion::fix_reassembly_data_base('Создана таблица '.$table);
 
                         }
 
@@ -741,7 +741,7 @@ class Resources
                                 self::save_realized_schema_data_base($realized_schema);
 
                                 /* Фиксируем реконструкцию базы данных */
-                                Business::fix_reassembly_data_base('Создана колонка '.$column.' в таблице '.$table);
+                                Motion::fix_reassembly_data_base('Создана колонка '.$column.' в таблице '.$table);
 
                             }
                         }
@@ -770,7 +770,7 @@ class Resources
                                 self::save_realized_schema_data_base($realized_schema);
 
                                 /* Фиксируем реконструкцию базы данных */
-                                Business::fix_reassembly_data_base('Создана сортировка '.$sorting.' в таблице '.$table);
+                                Motion::fix_reassembly_data_base('Создана сортировка '.$sorting.' в таблице '.$table);
 
                             }
                         }
@@ -782,7 +782,7 @@ class Resources
 
                                 /*проверяем соотвествие типов колонок*/
                                 if($realized_schema[$table]['columns'][$column]['type'] != $realized_schema[$reference_change['table']]['columns'][$reference_change['column']]['type']){
-                                    Business::fix_error('нет возможности создать связь у колонок '.$table.'.'.$column.' ('.$realized_schema[$table]['columns'][$column]['type'].') и '.$reference_change['table'].'.'.$reference_change['column'].' ('.$realized_schema[$reference_change['table']]['columns'][$reference_change['column']]['type'].') по причине разных типов колонок' . $instruction_when_error,__FILE__,__LINE__);
+                                    Motion::fix_error('нет возможности создать связь у колонок '.$table.'.'.$column.' ('.$realized_schema[$table]['columns'][$column]['type'].') и '.$reference_change['table'].'.'.$reference_change['column'].' ('.$realized_schema[$reference_change['table']]['columns'][$reference_change['column']]['type'].') по причине разных типов колонок' . $instruction_when_error,__FILE__,__LINE__);
                                 }
 
                                 /*Вызываем создание Структуры связи*/
@@ -808,7 +808,7 @@ class Resources
                                 self::save_realized_schema_data_base($realized_schema);
 
                                 /* Фиксируем реконструкцию базы данных */
-                                Business::fix_reassembly_data_base('Создана связь колонке '.$column.' в таблице '.$table);
+                                Motion::fix_reassembly_data_base('Создана связь колонке '.$column.' в таблице '.$table);
 
                             }
                         }
@@ -834,7 +834,7 @@ class Resources
                                 self::save_realized_schema_data_base($realized_schema);
 
                                 /* Фиксируем реконструкцию базы данных */
-                                Business::fix_reassembly_data_base('Удалена связь колонке '.$column.' в таблице '.$table);
+                                Motion::fix_reassembly_data_base('Удалена связь колонке '.$column.' в таблице '.$table);
 
                             }
                         }
@@ -859,7 +859,7 @@ class Resources
                                 self::save_realized_schema_data_base($realized_schema);
 
                                 /* Фиксируем реконструкцию базы данных */
-                                Business::fix_reassembly_data_base('Удалена сортировка '.$sorting.' в таблице '.$table);
+                                Motion::fix_reassembly_data_base('Удалена сортировка '.$sorting.' в таблице '.$table);
 
                             }
                         }
@@ -883,7 +883,7 @@ class Resources
                                 self::save_realized_schema_data_base($realized_schema);
 
                                 /* Фиксируем реконструкцию базы данных */
-                                Business::fix_reassembly_data_base('Удалена колонка '.$column.' в таблице '.$table);
+                                Motion::fix_reassembly_data_base('Удалена колонка '.$column.' в таблице '.$table);
 
                             }
                         }
@@ -905,16 +905,16 @@ class Resources
                             self::save_realized_schema_data_base($realized_schema);
 
                             /* Фиксируем реконструкцию базы данных */
-                            Business::fix_reassembly_data_base('Удалена таблица '.$table);
+                            Motion::fix_reassembly_data_base('Удалена таблица '.$table);
 
                         }
 
                     }
                     elseif($change == 'correct_comment_table'){
-                        Business::fix_error('correct_comment_table не реализовано' . $instruction_when_error,__FILE__, __LINE__);
+                        Motion::fix_error('correct_comment_table не реализовано' . $instruction_when_error,__FILE__, __LINE__);
                     }
                     elseif($change == 'correct_primary_column_table'){
-                        Business::fix_error('correct_primary_column_table не реализовано' . $instruction_when_error,__FILE__, __LINE__);
+                        Motion::fix_error('correct_primary_column_table не реализовано' . $instruction_when_error,__FILE__, __LINE__);
                     }
                     elseif($change == 'correct_column'){
 
@@ -941,13 +941,13 @@ class Resources
                                 self::save_realized_schema_data_base($realized_schema);
 
                                 /* Фиксируем реконструкцию базы данных */
-                                Business::fix_reassembly_data_base('Изменена колонка '.$column.' в таблице '.$table);
+                                Motion::fix_reassembly_data_base('Изменена колонка '.$column.' в таблице '.$table);
 
                             }
                         }
                     }
                     else{
-                        Business::fix_error('no '.$change . $instruction_when_error,__FILE__, __LINE__);
+                        Motion::fix_error('no '.$change . $instruction_when_error,__FILE__, __LINE__);
                     }
                 }
 
@@ -957,7 +957,7 @@ class Resources
 
         }catch (\Exception $e) {
             /*фиксируем ошибку*/
-            Business::fix_error($e->getMessage() . $instruction_when_error,__FILE__,__LINE__);
+            Motion::fix_error($e->getMessage() . $instruction_when_error,__FILE__,__LINE__);
         }
 
     }

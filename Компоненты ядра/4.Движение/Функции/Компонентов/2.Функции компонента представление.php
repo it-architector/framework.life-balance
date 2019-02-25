@@ -7,7 +7,7 @@ namespace Framework_life_balance\core_components;
  *
  * @package Framework_life_balance\core_components
  */
-class Notices
+class Representation
 {
 
     /**
@@ -18,14 +18,14 @@ class Notices
     static function initiation(){
 
         /* Берём настройки проекта из файла */
-        $config_project = Resources::include_information_from_file(DIR_NOTICES,'Настройка проекта','php');
+        $config_project = Accumulation::include_information_from_file(DIR_NOTICES,'Настройка проекта','php');
 
         if($config_project == null){
-            Business::fix_error('нет файла настройки проекта',__FILE__, __LINE__);
+            Motion::fix_error('нет файла настройки проекта',__FILE__, __LINE__);
         }
 
         /* Устанавливаем настройки проекта */
-        Notices::set_mission('config_project',$config_project);
+        Representation::set_mission('config_project',$config_project);
 
     }
 
@@ -117,7 +117,7 @@ class Notices
     static function set_mission($key,$value){
 
         if(!isset(self::$$key) and self::$$key!==null){
-            Business::fix_error('no cloud $'.$key);
+            Motion::fix_error('no cloud $'.$key);
         }
 
         self::$$key = $value;
@@ -132,8 +132,8 @@ class Notices
      */
     static function get_mission($key){
 
-        if(!property_exists('\Framework_life_balance\core_components\Notices', $key)){
-            Business::fix_error('no cloud $'.$key);
+        if(!property_exists('\Framework_life_balance\core_components\Representation', $key)){
+            Motion::fix_error('no cloud $'.$key);
         }
 
         $value = self::$$key;
@@ -149,8 +149,8 @@ class Notices
      */
     static function delete_mission($key){
 
-        if(!property_exists('\Framework_life_balance\core_components\Notices', $key)){
-            Business::fix_error('no cloud $'.$key);
+        if(!property_exists('\Framework_life_balance\core_components\Representation', $key)){
+            Motion::fix_error('no cloud $'.$key);
         }
 
         self::$$key = null;
@@ -164,7 +164,7 @@ class Notices
      */
     static function delete_all_missions() {
 
-        $over_casts = get_class_vars('Framework_life_balance\core_components\Notices');
+        $over_casts = get_class_vars('Framework_life_balance\core_components\Representation');
 
         if(count($over_casts)>0){
             foreach($over_casts as $key=>$value){
@@ -186,7 +186,7 @@ class Notices
     static function result_executed_to_interface(){
 
         /* Формируем ответ */
-        $answer = Solutions::formation_result_executed_to_interface();
+        $answer = Orientation::formation_result_executed_to_interface();
 
         /* Выводим ответ */
         echo $answer;
@@ -205,7 +205,7 @@ class Notices
     static function message_to_mail($email, $title, $text, $template){
 
         /* Получаем ссылку на коммуникацию с почтой */
-        $link_communication_with_mail = Notices::get_mission('link_communication_with_mail');
+        $link_communication_with_mail = Representation::get_mission('link_communication_with_mail');
 
         /* Проверяем ссылку на коммуникацию с почтой */
         if($link_communication_with_mail == null){
@@ -215,7 +215,7 @@ class Notices
         try {
 
             /* Получаем настройки проекта */
-            $config_project = Notices::get_mission('config_project');
+            $config_project = Representation::get_mission('config_project');
 
             /* От кого письмо */
             $link_communication_with_mail->setFrom($config_project['email'], $config_project['name']);
@@ -226,11 +226,11 @@ class Notices
             /* Формируем содержимое */
             $link_communication_with_mail->isHTML(true);
             $link_communication_with_mail->Subject = $title;
-            $link_communication_with_mail->Body    = Solutions::formation_template($template,[
+            $link_communication_with_mail->Body    = Orientation::formation_template($template,[
                 'TITLE'        => $title,
                 'TEXT'         => $text,
                 'PROJECT_NAME' => $config_project['name'],
-                'PROJECT_URL'  => Solutions::formation_url_project(),
+                'PROJECT_URL'  => Orientation::formation_url_project(),
             ]);
             $link_communication_with_mail->AltBody = strip_tags($text);
 
@@ -243,10 +243,10 @@ class Notices
         catch (\PHPMailer\PHPMailer\Exception $e) {
 
             /* Удаляем коммуникацию с почтой */
-            Notices::delete_mission('link_communication_with_mail');
+            Representation::delete_mission('link_communication_with_mail');
 
             /* Фиксируем ошибку */
-            Business::fix_error($e->getMessage(),__FILE__,__LINE__);
+            Motion::fix_error($e->getMessage(),__FILE__,__LINE__);
         }
 
     }

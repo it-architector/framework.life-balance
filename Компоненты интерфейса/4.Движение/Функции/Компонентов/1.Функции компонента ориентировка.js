@@ -1,4 +1,4 @@
-class Intelligence {
+class Orientation {
 
     static initiation() {
 
@@ -75,11 +75,11 @@ class Intelligence {
         /*	FOOTER HEIGHT
         /*-----------------------------------------------------------------------------------*/
         jQuery(document).ready(function() {
-            Intelligence.height_scroll_bar();
+            Orientation.height_scroll_bar();
         });
 
         jQuery(window).resize(function(){
-            Intelligence.height_scroll_bar();
+            Orientation.height_scroll_bar();
         });
 
         /* Yandex.Metrika counter */
@@ -318,14 +318,14 @@ class Intelligence {
             }
 
             /* переводим ссылки на core режим */
-            Intelligence.communication_link_with_core('#content a.to_core');
+            Orientation.communication_link_with_core('#content a.to_core');
 
             /* переводим формы на core режим */
-            Intelligence.communication_form_with_core('content');
+            Orientation.communication_form_with_core('content');
 
             /*переходим на якорь*/
             setTimeout(function(){
-                Intelligence.navigation_to_page_anchor();
+                Orientation.navigation_to_page_anchor();
             },800);
 
         }, 800);
@@ -385,24 +385,24 @@ class Intelligence {
                 var response = JSON.parse(response_text);
 
                 if(typeof(response["category"]) == "undefined"){
-                    Intelligence.show_error(response);
+                    Orientation.show_error(response);
                 }
 
                 category = response["category"];
                 goal = response["goal"];
 
-                Intelligence.show_content(category, goal, response);
+                Orientation.show_content(category, goal, response);
 
 
             }
             /* Ответ текстом */
             catch (e){
-                Intelligence.show_content(category, goal, response_text);
+                Orientation.show_content(category, goal, response_text);
             }
 
         }
         else {
-            Intelligence.show_error(request.status + ': ' + request.statusText);
+            Orientation.show_error(request.status + ': ' + request.statusText);
         }
 
     }
@@ -440,7 +440,7 @@ class Intelligence {
 
             history.pushState(null, null, page_link);
 
-            Intelligence.load_page(page_link,'');
+            Orientation.load_page(page_link,'');
 
             return false;
 
@@ -610,7 +610,7 @@ class Intelligence {
                 var request = jQuery(form).attr('action');
                 var postData = jQuery(form).serialize();
 
-                Intelligence.load_page(request,postData);
+                Orientation.load_page(request,postData);
 
                 return false;
             }
@@ -620,7 +620,7 @@ class Intelligence {
 
 }
 
-Object.defineProperty(Intelligence, 'called_core_url', {
+Object.defineProperty(Orientation, 'called_core_url', {
     value: null,
     writable : true,
     enumerable : false,

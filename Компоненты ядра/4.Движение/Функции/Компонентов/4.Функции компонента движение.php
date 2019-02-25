@@ -2,9 +2,9 @@
 
 namespace Framework_life_balance\core_components;
 
-use \Framework_life_balance\core_components\Notices;
-use \Framework_life_balance\core_components\Solutions;
-use \Framework_life_balance\core_components\Resources;
+use \Framework_life_balance\core_components\Representation;
+use \Framework_life_balance\core_components\Orientation;
+use \Framework_life_balance\core_components\Accumulation;
 
 /**
  * Суть дел
@@ -12,7 +12,7 @@ use \Framework_life_balance\core_components\Resources;
  * @package Framework_life_balance\core_components
  *
  */
-class Business
+class Motion
 {
 
     /**
@@ -23,14 +23,14 @@ class Business
     static function initiation(){
 
         /*берём настройки протоколов из файла*/
-        $config_protocols = Resources::include_information_from_file(DIR_BUSINESS,'Настройка протоколов','php');
+        $config_protocols = Accumulation::include_information_from_file(DIR_BUSINESS,'Настройка протоколов','php');
 
         if($config_protocols === null){
             self::fix_error('нет файла настройки протоколов',__FILE__, __LINE__);
         }
 
         /*устанавливаем настройки протоколов*/
-        Notices::set_mission('config_protocols',$config_protocols);
+        Representation::set_mission('config_protocols',$config_protocols);
 
     }
 
@@ -46,14 +46,14 @@ class Business
     static function execute_request_experience_goal(){
 
         /*Вызываем наработку*/
-        $result_executed = Business::call_experience(
-            Notices::get_mission('request_experience'),
-            Notices::get_mission('request_experience_goal'),
-            Notices::get_mission('parameters_request')
+        $result_executed = Motion::call_experience(
+            Representation::get_mission('request_experience'),
+            Representation::get_mission('request_experience_goal'),
+            Representation::get_mission('parameters_request')
         );
 
         /*устанавливаем результат выполнения*/
-        Notices::set_mission('result_executed',$result_executed);
+        Representation::set_mission('result_executed',$result_executed);
 
     }
 
@@ -72,13 +72,13 @@ class Business
         if($stub == 'error'){
 
             /*номер ошибки*/
-            $number_crash = Notices::get_mission('number_crash') + 1;
+            $number_crash = Representation::get_mission('number_crash') + 1;
 
             /*устанавливаем номер ошибки*/
-            Notices::set_mission('number_crash',$number_crash);
+            Representation::set_mission('number_crash',$number_crash);
 
             /*устанавливаем ошибку сбоя*/
-            Notices::set_mission('message_crash',$error_message);
+            Representation::set_mission('message_crash',$error_message);
 
             /*исключаем зацикленность самовызова*/
             if($number_crash==2){
@@ -86,7 +86,7 @@ class Business
                 echo 'Критическая ошибка. Смотрите протокол /Компоненты ядра/4.Дела/Протоколы/Ошибки в ядре.log';
 
                 /*прекращаем работу ядра*/
-                Solutions::stop_core();
+                Orientation::stop_core();
 
             }
 
@@ -96,7 +96,7 @@ class Business
         $error_message = trim(str_replace(["\r\n","\n","\r"], ' ', $error_message));
 
         /*получаем настройки протоколов*/
-        $config_protocols = Notices::get_mission('config_protocols');
+        $config_protocols = Representation::get_mission('config_protocols');
 
         /*на случай сбоя инициации*/
         if($config_protocols === null){
@@ -107,33 +107,33 @@ class Business
         if($config_protocols['Ошибки ядра'] == true){
 
             /*записываем ошибку в файл*/
-            Resources::write_information_in_file(DIR_PROTOCOLS_PROCESSES,'Ошибки в ядре','log',
-                'request ('.Notices::get_mission('request_experience').'/'.Notices::get_mission('request_experience_goal').'): '.explode("\n",$error_message)[0]
-                .' | user ip: '.Notices::get_mission('user_ip')
+            Accumulation::write_information_in_file(DIR_PROTOCOLS_PROCESSES,'Ошибки в ядре','log',
+                'request ('.Representation::get_mission('request_experience').'/'.Representation::get_mission('request_experience_goal').'): '.explode("\n",$error_message)[0]
+                .' | user ip: '.Representation::get_mission('user_ip')
                 .(($file_name!=null)?' | file name: ' . $file_name:'')
                 .(($num_line_on_file_error!=null)?' | file line: ' . $num_line_on_file_error:''));
 
         }
 
         /* Исключаем зацикленность вызова из консоли*/
-        if(Notices::get_mission('user_device') == 'console'){
+        if(Representation::get_mission('user_device') == 'console'){
 
             /*прекращаем работу ядра*/
-            Solutions::stop_core();
+            Orientation::stop_core();
 
         }
 
         /*получаем настройки проекта*/
-        $config_project = Notices::get_mission('config_project');
+        $config_project = Representation::get_mission('config_project');
 
         /*если нет сбоя инициации*/
         if($config_project != null){
 
             /*вызываем консоль наработку отправления на почту*/
-            Business::call_console_experience('control', 'send_email', [
+            Motion::call_console_experience('control', 'send_email', [
                 'email'    => $config_project['email'],
                 'title'    => 'Ошибка ядра',
-                'text'     => 'По запросу /'.Notices::get_mission('request_experience').'/'.Notices::get_mission('request_experience_goal').':<br><b>'.$error_message.'</b>',
+                'text'     => 'По запросу /'.Representation::get_mission('request_experience').'/'.Representation::get_mission('request_experience_goal').':<br><b>'.$error_message.'</b>',
                 'template' => 'Норматив блоков mail'.DIRECTORY_SEPARATOR.'message',
             ]);
 
@@ -143,16 +143,16 @@ class Business
         if($stub){
 
             /*Вызываем выполнение информирования ошибки или остановки*/
-            $result_executed = Business::call_experience('index', $stub, ['code'=>$error_message]);
+            $result_executed = Motion::call_experience('index', $stub, ['code'=>$error_message]);
 
             /*устанавливаем результат выполнения*/
-            Notices::set_mission('result_executed',$result_executed);
+            Representation::set_mission('result_executed',$result_executed);
 
             /*результат выполнения в интерфейс*/
-            Notices::result_executed_to_interface();
+            Representation::result_executed_to_interface();
 
             /*Прекращаем работу ядра*/
-            Solutions::stop_core();
+            Orientation::stop_core();
 
         }
 
@@ -170,25 +170,25 @@ class Business
         if($completed){
 
             /* Удаляем заглушку */
-            Resources::delete_file(DIR_PROTOCOLS_PROCESSES, 'Текущая реконструкция базы данных','log');
+            Accumulation::delete_file(DIR_PROTOCOLS_PROCESSES, 'Текущая реконструкция базы данных','log');
 
         }
         else{
 
             /* Протокол */
-            Resources::write_information_in_file(
+            Accumulation::write_information_in_file(
                 DIR_PROTOCOLS_PROCESSES, 'Текущая реконструкция базы данных','log',
                 $information
             );
         }
 
         /* Получаем настройки протоколов */
-        $config_protocols = Notices::get_mission('config_protocols');
+        $config_protocols = Representation::get_mission('config_protocols');
 
         if($config_protocols['Реконструкции базы данных']){
 
             /* Протокол */
-            Resources::write_information_in_file(
+            Accumulation::write_information_in_file(
                 DIR_PROTOCOLS_PROCESSES, 'Реконструкции базы данных','log', $information);
 
         }
@@ -211,13 +211,13 @@ class Business
     static function call_experience($experience, $experience_goal, array $parameters){
 
         /*устанавливаем вызванную на выполнение наработку*/
-        Notices::set_mission('call_experience',$experience);
+        Representation::set_mission('call_experience',$experience);
 
         /*устанавливаем вызванную на выполнение наработанную цель*/
-        Notices::set_mission('call_experience_goal',$experience_goal);
+        Representation::set_mission('call_experience_goal',$experience_goal);
 
         /*Помечаем начало выполнения Наработки*/
-        Solutions::mark_start_execution_experience();
+        Orientation::mark_start_execution_experience();
 
         /* Название класса наработки */
         $experience_class_name = '\Framework_life_balance\core_components\experiences\Category_'.$experience;
@@ -231,15 +231,15 @@ class Business
         $result_executed = $experience_class_name::$experience_goal($parameters);
 
         /*Помечаем окончание выполнения Наработки*/
-        Solutions::mark_stop_execution_experience();
+        Orientation::mark_stop_execution_experience();
 
         /*получаем откуда запрос*/
-        $user_device = Notices::get_mission('user_device');
+        $user_device = Representation::get_mission('user_device');
 
         if($user_device == 'console' and isset($_SERVER['argv'][3]) and $_SERVER['argv'][3]>0){
 
             /* Обновляем статус запроса консоли в базе данных */
-            Resources::interchange_information_with_data_base('Изменение', 'Статуса запуска консоли', [
+            Accumulation::interchange_information_with_data_base('Изменение', 'Статуса запуска консоли', [
                 ':id'     => $_SERVER['argv'][3],
                 ':status' => (($result_executed == 'true')?'true':'false'),
             ]);
@@ -262,8 +262,8 @@ class Business
         if(count($parameters)>0){
 
             /* Добавляем запрос консоли в базу данных */
-            $id_save_parameters = Resources::interchange_information_with_data_base('Добавление', 'Нового запуска из консоли', [
-                ':date'       => Solutions::position_time(),
+            $id_save_parameters = Accumulation::interchange_information_with_data_base('Добавление', 'Нового запуска из консоли', [
+                ':date'       => Orientation::position_time(),
                 ':request'    => $experience.'/'.$experience_goal,
                 ':parameters' => json_encode($parameters),
             ]);
@@ -278,10 +278,10 @@ class Business
         }
 
         /*Формируем консольную консольную команду вызова Наработки*/
-        $command = Solutions::formation_console_command_call_experience($experience, $experience_goal, $id_save_parameters);
+        $command = Orientation::formation_console_command_call_experience($experience, $experience_goal, $id_save_parameters);
 
         /*вызов в windows*/
-        if (Notices::get_mission('operating_system') == "windows"){
+        if (Representation::get_mission('operating_system') == "windows"){
             pclose(popen($command, "r"));
         }
         /*вызов в unix*/
@@ -307,7 +307,7 @@ class Business
     static function work_with_memory_data($name, $value_update=false, $time_update=false, $clear = false){
 
         /*получаем значение коммуникации с памятью*/
-        $link_communication_with_memory = Notices::get_mission('link_communication_with_memory');
+        $link_communication_with_memory = Representation::get_mission('link_communication_with_memory');
 
         /*доступна ли память*/
         if($link_communication_with_memory == null){
@@ -357,31 +357,31 @@ class Business
     static function data_authorized_user($detail=null)
     {
         /*получаем значение индификационного номера пользователя*/
-        $user_id = Notices::get_mission('user_id');
+        $user_id = Representation::get_mission('user_id');
 
         if($user_id==null){
             return false;
         }
 
-        if(Notices::get_mission('user_data') == null){
+        if(Representation::get_mission('user_data') == null){
 
             /*берём из памяти*/
-            $user_data = Business::work_with_memory_data('session_'.$user_id);
+            $user_data = Motion::work_with_memory_data('session_'.$user_id);
 
             if($user_data){
                 /*всё верно*/
-                if(isset($user_data['session']) and $user_data['session'] == Notices::get_mission('user_session')){
+                if(isset($user_data['session']) and $user_data['session'] == Representation::get_mission('user_session')){
 
                     /*устанавливаем значение индификационного номера пользователя*/
-                    Notices::set_mission('user_data',$user_data);
+                    Representation::set_mission('user_data',$user_data);
 
                 }
                 /*последняя авторизация была проведена с другого устройства, и эта сессия уже не подходит*/
                 else{
 
                     /*очищаем от значений*/
-                    Notices::delete_mission('user_id');
-                    Notices::delete_mission('user_session');
+                    Representation::delete_mission('user_id');
+                    Representation::delete_mission('user_session');
 
                     return false;
                 }
@@ -389,24 +389,24 @@ class Business
             /*на случай если в памяти уже нет, берём из базы данных*/
             else{
 
-                $user_data = Resources::interchange_information_with_data_base('Получение', 'Информации о пользователе по сессии', [
+                $user_data = Accumulation::interchange_information_with_data_base('Получение', 'Информации о пользователе по сессии', [
                     ':id'      => $user_id,
-                    ':session' => Notices::get_mission('user_session'),
+                    ':session' => Representation::get_mission('user_session'),
                 ]);
 
                 /*всё верно*/
                 if($user_data){
 
                     /*устанавливаем значение индификационного номера пользователя*/
-                    Notices::set_mission('user_data',$user_data);
+                    Representation::set_mission('user_data',$user_data);
 
                 }
                 /*последняя авторизация была проведена с другого устройства, и эта сессия уже не подходит*/
                 else{
 
                     /*очищаем от значений*/
-                    Notices::delete_mission('user_id');
-                    Notices::delete_mission('user_session');
+                    Representation::delete_mission('user_id');
+                    Representation::delete_mission('user_session');
 
                     return false;
                 }
@@ -416,7 +416,7 @@ class Business
         }
 
         /*получаем значение данных пользователя*/
-        $user_data = Notices::get_mission('user_data');
+        $user_data = Representation::get_mission('user_data');
 
         if($detail!=null){
             if(isset($user_data[$detail])){

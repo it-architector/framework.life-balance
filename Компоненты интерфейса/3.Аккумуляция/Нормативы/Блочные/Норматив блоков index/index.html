@@ -573,7 +573,7 @@ RewriteRule ^(.*)$ Интерфейс.html [L,QSA]</code></pre>
 													  <li class="directory expanded">Компонентов</li>
 
 													  <li><ul class="jqueryFileTree">
-														  <li class="file ext_js">4.Функции компонента движение.js</li>
+														  <li class="file ext_js">1.Функции компонента ориентировка.js</li>
 													  </ul></li>
 
 													  <li class="directory expanded">Категорий сайта</li>
@@ -789,10 +789,10 @@ else if(typeof(framework_life_balance_htmlOnRequestsToCore[values["responding"]]
 
 /*массив полученных данных*/
 if(typeof(values["content"]) != "undefined"){
-Intelligence.content_core = values["content"];
+Motion.content_core = values["content"];
 }
 else{
-Intelligence.content_core = [];
+Motion.content_core = [];
 }
 
 /*ссылка на шаблон html*/
@@ -908,37 +908,37 @@ framework_life_balance_showError(error);
 
 										 <b>Контроль:</b><br>
 											  <pre>
-<code><u>Solutions::check_request_legality()</u> - Проверяем запрос на правомерность<br>
-<u>Solutions::check_request_destructive()</u> - Проверяем запрос на деструктив<br>
-<u>Solutions::check_changes_schema_data_base()</u> - Проверяем изменения в схеме базы данных<br>
-<u>Solutions::check_request_access()</u> - Проверяем запрос на доступность<br>
+<code><u>Orientation::check_request_legality()</u> - Проверяем запрос на правомерность<br>
+<u>Orientation::check_request_destructive()</u> - Проверяем запрос на деструктив<br>
+<u>Orientation::check_changes_schema_data_base()</u> - Проверяем изменения в схеме базы данных<br>
+<u>Orientation::check_request_access()</u> - Проверяем запрос на доступность<br>
 <a onclick="$('#interface-solutions-1').toggle();return false;" href="">Показать ещё / Скрыть</a><div id="interface-solutions-1" style="display: none">
-<u>Solutions::check_correct_taking_schema_experience()</u> - Проверяем правильное взятие Схемы наработок<br>
-<u>Solutions::check_correct_taking_schema_data_base()</u> - Проверяем правильное взятие Схемы базы данных<br>
-<u>Solutions::position_time()</u> - Позиция во времени<br>
-<u>Solutions::mark_start_execution_experience()</u> - Помечаем начало выполнения функции<br>
-<u>Solutions::mark_stop_execution_experience()</u> - Помечаем завершения выполнения функции<br>
-<u>Solutions::detect_error()</u> - Выявляем ошибку<br>
-<u>Solutions::detect_operating_system()</u> - Определяем операционную систему<br>
-<u>Solutions::detect_path_executable_php()</u> - Определяем путь до исполнителя PHP<br>
-<u>Solutions::check_answer_correct()</u> - Проверяем ответ на правильность<br>
-<u>Solutions::stop_core()</u> - Прекращаем работу ядра</div></code>
+<u>Orientation::check_correct_taking_schema_experience()</u> - Проверяем правильное взятие Схемы наработок<br>
+<u>Orientation::check_correct_taking_schema_data_base()</u> - Проверяем правильное взятие Схемы базы данных<br>
+<u>Orientation::position_time()</u> - Позиция во времени<br>
+<u>Orientation::mark_start_execution_experience()</u> - Помечаем начало выполнения функции<br>
+<u>Orientation::mark_stop_execution_experience()</u> - Помечаем завершения выполнения функции<br>
+<u>Orientation::detect_error()</u> - Выявляем ошибку<br>
+<u>Orientation::detect_operating_system()</u> - Определяем операционную систему<br>
+<u>Orientation::detect_path_executable_php()</u> - Определяем путь до исполнителя PHP<br>
+<u>Orientation::check_answer_correct()</u> - Проверяем ответ на правильность<br>
+<u>Orientation::stop_core()</u> - Прекращаем работу ядра</div></code>
 												  </pre>
 
 										 <b>Структурирование:</b><br>
 											  <pre>
-<code><u>Solutions::parse_request()</u> - Разбираем входящий запрос<br>
-<u>Solutions::parse_parameters_request()</u> - Разбираем параметры запроса<br>
-<u>Solutions::parse_authorized()</u> - Разбираем авторизованность<br>
+<code><u>Orientation::parse_request()</u> - Разбираем входящий запрос<br>
+<u>Orientation::parse_parameters_request()</u> - Разбираем параметры запроса<br>
+<u>Orientation::parse_authorized()</u> - Разбираем авторизованность<br>
 <a onclick="$('#interface-solutions-2').toggle();return false;" href="">Показать ещё / Скрыть</a><div id="interface-solutions-2" style="display: none">
-<u>Solutions::formation_user_session()</u> - Формируем сессию пользователя<br>
-<u>Solutions::formation_user_password()</u> - Формируем пароль пользователя<br>
-<u>Solutions::formation_result_executed_to_interface()</u> - Формируем результат выполнения в интерфейс<br>
-<u>Solutions::definition_user_ip()</u> - Определение удалённого адреса пользователя<br>
-<u>Solutions::formation_template()</u> - Формирование шаблона<br>
-<u>Solutions::formation_url_project()</u> - Формирование ссылки проекта<br>
-<u>Solutions::formation_console_command_call_experience()</u> - Формируем консольную консольную команду вызова функции сайта<br>
-<u>Solutions::matching_schema_data_base()</u> - Сопоставляем нормативы базы данных</div></code>
+<u>Orientation::formation_user_session()</u> - Формируем сессию пользователя<br>
+<u>Orientation::formation_user_password()</u> - Формируем пароль пользователя<br>
+<u>Orientation::formation_result_executed_to_interface()</u> - Формируем результат выполнения в интерфейс<br>
+<u>Orientation::definition_user_ip()</u> - Определение удалённого адреса пользователя<br>
+<u>Orientation::formation_template()</u> - Формирование шаблона<br>
+<u>Orientation::formation_url_project()</u> - Формирование ссылки проекта<br>
+<u>Orientation::formation_console_command_call_experience()</u> - Формируем консольную консольную команду вызова функции сайта<br>
+<u>Orientation::matching_schema_data_base()</u> - Сопоставляем нормативы базы данных</div></code>
 												  </pre>
 
 									 </td>
@@ -992,40 +992,40 @@ framework_life_balance_showError(error);
 										  <td class="green" style="width:70%;">
 											  <b>Предназначение:</b><br>
 											  <pre>
-<code><u>Notices::$config_project</u> - настройки проекта<br>
-<u>Notices::$config_system</u> - настройки системы<br>
-<u>Notices::$config_communications</u> - настройки коммуникаций<br>
-<u>Notices::$config_protocols</u> - настройки протоколов<br>
-<u>Notices::$request_experience</u> - запрошенная наработка<br>
+<code><u>Representation::$config_project</u> - настройки проекта<br>
+<u>Representation::$config_system</u> - настройки системы<br>
+<u>Representation::$config_communications</u> - настройки коммуникаций<br>
+<u>Representation::$config_protocols</u> - настройки протоколов<br>
+<u>Representation::$request_experience</u> - запрошенная наработка<br>
 <a onclick="$('#interface-notice-1').toggle();return false;" href="">Показать ещё / Скрыть</a><div id="interface-notice-1" style="display: none">
-<u>Notices::$request_experience_goal</u> - запрошенная наработанная цель<br>
-<u>Notices::$parameters_request</u> - параметры запроса<br>
-<u>Notices::$user_device</u> - устройство пользователя<br>
-<u>Notices::$user_ip</u> - удалённый адрес пользователя<br>
-<u>Notices::$user_id</u> - индификационный номер пользователя<br>
-<u>Notices::$user_session</u> - сессия пользователя<br>
-<u>Notices::$user_data</u> - данные пользователя<br>
-<u>Notices::$schema_experiences</u> - Норматив функций сайта<br>
-<u>Notices::$schema_data_base</u> - Норматив таблиц базы данных<br>
-<u>Notices::$schema_interaction_with_data_base</u> - Норматив взаимодействия с базой данных<br>
-<u>Notices::$link_communication_with_memory</u> - ссылка на коммуникацию с памятью<br>
-<u>Notices::$link_communication_with_mail</u> - ссылка на коммуникацию с почтой<br>
-<u>Notices::$call_experience</u> - вызванная наработка<br>
-<u>Notices::$call_experience_goal</u> - вызванная наработанная цель<br>
-<u>Notices::$mark_time_call_experience</u> - время вызова функции сайта<br>
-<u>Notices::$result_executed</u> - результат выполнения<br>
-<u>Notices::$lead_time_executed</u> - время выполнения<br>
-<u>Notices::$number_crash</u> - номер сбоя<br>
-<u>Notices::$message_crash</u> - текст сбоя<br>
-<u>Notices::set_mission()</u> - Устанавливаем предназначение<br>
-<u>Notices::get_mission()</u> - Получаем предназначение<br>
-<u>Notices::delete_mission()</u> - Удаляем предназначение<br>
-<u>Notices::delete_all_missions()</u> - Удаляем все предназначения</div></code>
+<u>Representation::$request_experience_goal</u> - запрошенная наработанная цель<br>
+<u>Representation::$parameters_request</u> - параметры запроса<br>
+<u>Representation::$user_device</u> - устройство пользователя<br>
+<u>Representation::$user_ip</u> - удалённый адрес пользователя<br>
+<u>Representation::$user_id</u> - индификационный номер пользователя<br>
+<u>Representation::$user_session</u> - сессия пользователя<br>
+<u>Representation::$user_data</u> - данные пользователя<br>
+<u>Representation::$schema_experiences</u> - Норматив функций сайта<br>
+<u>Representation::$schema_data_base</u> - Норматив таблиц базы данных<br>
+<u>Representation::$schema_interaction_with_data_base</u> - Норматив взаимодействия с базой данных<br>
+<u>Representation::$link_communication_with_memory</u> - ссылка на коммуникацию с памятью<br>
+<u>Representation::$link_communication_with_mail</u> - ссылка на коммуникацию с почтой<br>
+<u>Representation::$call_experience</u> - вызванная наработка<br>
+<u>Representation::$call_experience_goal</u> - вызванная наработанная цель<br>
+<u>Representation::$mark_time_call_experience</u> - время вызова функции сайта<br>
+<u>Representation::$result_executed</u> - результат выполнения<br>
+<u>Representation::$lead_time_executed</u> - время выполнения<br>
+<u>Representation::$number_crash</u> - номер сбоя<br>
+<u>Representation::$message_crash</u> - текст сбоя<br>
+<u>Representation::set_mission()</u> - Устанавливаем предназначение<br>
+<u>Representation::get_mission()</u> - Получаем предназначение<br>
+<u>Representation::delete_mission()</u> - Удаляем предназначение<br>
+<u>Representation::delete_all_missions()</u> - Удаляем все предназначения</div></code>
 												  </pre>
 											  <b>Отношения:</b><br>
 <pre>
-<code>Notices::result_executed_to_interface()</u> - Результат выполнения в интерфейс<br>
-<u>Notices::message_to_mail()</u> - Сообщение на почту</code>
+<code>Representation::result_executed_to_interface()</u> - Результат выполнения в интерфейс<br>
+<u>Representation::message_to_mail()</u> - Сообщение на почту</code>
 												  </pre>
 										  </td>
      								   </tr>
@@ -1081,30 +1081,30 @@ framework_life_balance_showError(error);
       								      <td class="green" style="width:70%;">
 											  <b>Нормативы:</b><br>
 											  <pre>
-<code><u>Resources::schema_experience()</u> - Норматив функций сайта<br>
-<u>Resources::schema_data_base()</u> - Норматив таблиц базы данных<br>
-<u>Resources::save_realized_schema_data_base()</u> - Сохраняем реализованную схему базы данных</code></pre>
+<code><u>Accumulation::schema_experience()</u> - Норматив функций сайта<br>
+<u>Accumulation::schema_data_base()</u> - Норматив таблиц базы данных<br>
+<u>Accumulation::save_realized_schema_data_base()</u> - Сохраняем реализованную схему базы данных</code></pre>
 
 											  <b>Коммуникации:</b><br>
 											  <pre>
-<code><u>Resources::create_communication_with_data_base()</u> - Создаем коммуникацию с базой данных<br>
+<code><u>Accumulation::create_communication_with_data_base()</u> - Создаем коммуникацию с базой данных<br>
 <a onclick="$('#interface-resources-1').toggle();return false;" href="">Показать ещё / Скрыть</a><div id="interface-resources-1" style="display: none">
-<u>Resources::complete_communication_with_data_base()</u> - Завершаем коммуникацию с базой данных<br>
-<u>Resources::create_communication_with_memory()</u> - Создаем коммуникацию с памятью<br>
-<u>Resources::complete_communication_with_memory()</u> - Завершаем коммуникацию с памятью<br>
-<u>Resources::create_communication_with_mail()</u> - Создаем коммуникацию с почтой<br>
-<u>Resources::complete_communication_with_mail()</u> - Завершаем коммуникацию с почтой</div></code>
+<u>Accumulation::complete_communication_with_data_base()</u> - Завершаем коммуникацию с базой данных<br>
+<u>Accumulation::create_communication_with_memory()</u> - Создаем коммуникацию с памятью<br>
+<u>Accumulation::complete_communication_with_memory()</u> - Завершаем коммуникацию с памятью<br>
+<u>Accumulation::create_communication_with_mail()</u> - Создаем коммуникацию с почтой<br>
+<u>Accumulation::complete_communication_with_mail()</u> - Завершаем коммуникацию с почтой</div></code>
 												  </pre>
 											  <b>Взаимодействие:</b><br>
 											  <pre>
 <code>/*--------ФАЙЛОВОЕ ХРАНИЛИЩЕ------*/<br>
-<u>Resources::write_information_in_file()</u> - Записываем информацию в файл<br>
-<u>Resources::include_information_from_file()</u> - Подключаем информацию из файла<br>
+<u>Accumulation::write_information_in_file()</u> - Записываем информацию в файл<br>
+<u>Accumulation::include_information_from_file()</u> - Подключаем информацию из файла<br>
 <a onclick="$('#interface-resources-2').toggle();return false;" href="">Показать ещё / Скрыть</a><div id="interface-resources-2" style="display: none">
-<br><u>Resources::delete_file()</u> - Удаляем файл<br>
+<br><u>Accumulation::delete_file()</u> - Удаляем файл<br>
 /*------БАЗА ДАННЫХ------*/<br>
-<u>Resources::interchange_information_with_data_base()</u> - Взаимообмен информацией с базой данных<br>
-<u>Resources::reconstruction_data_base()</u> - Реконструкция в базе данных</div></code>
+<u>Accumulation::interchange_information_with_data_base()</u> - Взаимообмен информацией с базой данных<br>
+<u>Accumulation::reconstruction_data_base()</u> - Реконструкция в базе данных</div></code>
 												  </pre>
 
 										  </td>
@@ -1179,21 +1179,21 @@ framework_life_balance_showError(error);
 
 											  <b>Действие:</b><br>
 											  <pre>
-<code><u>Business::execute_request_experience_goal()</u> - Выполняем запрошенную наработанную цель<br>
-<u>Business::fix_error()</u> - Фиксируем ошибку<br>
-<u>Business::fix_reassembly_data_base()</u> - Фиксируем реконструкцию базы данных</code>
+<code><u>Motion::execute_request_experience_goal()</u> - Выполняем запрошенную наработанную цель<br>
+<u>Motion::fix_error()</u> - Фиксируем ошибку<br>
+<u>Motion::fix_reassembly_data_base()</u> - Фиксируем реконструкцию базы данных</code>
 												  </pre>
 
 											  <b>Делегирование:</b><br>
 											  <pre>
-<code><u>Business::call_experience()</u> - Вызываем наработку<br>
-<u>Business::call_console_experience()</u> - Вызываем консольную наработку</code>
+<code><u>Motion::call_experience()</u> - Вызываем наработку<br>
+<u>Motion::call_console_experience()</u> - Вызываем консольную наработку</code>
 												  </pre>
 
 											  <b>Память:</b><br>
 											  <pre>
-<code><u>Business::work_with_memory_data()</u> - Работаем с оперативной памятью<br>
-<u>Business::data_authorized_user()</u> - Данные авторизованного пользователя</code>
+<code><u>Motion::work_with_memory_data()</u> - Работаем с оперативной памятью<br>
+<u>Motion::data_authorized_user()</u> - Данные авторизованного пользователя</code>
 												  </pre>
 										  </td>
      								   </tr>

@@ -48,22 +48,22 @@ require_once DIR_MODULES . 'Настройка подключения модул
  * Инициация.
  */
 
-use \Framework_life_balance\core_components\Notices;
-use \Framework_life_balance\core_components\Solutions;
-use \Framework_life_balance\core_components\Resources;
-use \Framework_life_balance\core_components\Business;
+use \Framework_life_balance\core_components\Representation;
+use \Framework_life_balance\core_components\Orientation;
+use \Framework_life_balance\core_components\Accumulation;
+use \Framework_life_balance\core_components\Motion;
 
 /* Включаем контроль ядра */
-Solutions::initiation();
+Orientation::initiation();
 
 /* Определяем вывод информации */
-Notices::initiation();
+Representation::initiation();
 
 /* Подготавливаем работу с ресурсами */
-Resources::initiation();
+Accumulation::initiation();
 
-/* Подготавливаем работу с наработками */
-Business::initiation();
+/* Подготавливаем работу движений */
+Motion::initiation();
 
 /*
  * 3 этап:
@@ -71,42 +71,42 @@ Business::initiation();
  */
 
 /* Разбираем запрос */
-Solutions::parse_request();
+Orientation::parse_request();
 
 /* Разбираем авторизованность */
-Solutions::parse_authorized();
+Orientation::parse_authorized();
 
 /* Проверяем запрос на правомерность */
-Solutions::check_request_legality();
+Orientation::check_request_legality();
 
 /* Создаем комуникацию с памятью */
-Resources::create_communication_with_memory();
+Accumulation::create_communication_with_memory();
 
 /* Проверяем изменения в схеме базы данных */
-Solutions::check_changes_schema_data_base();
+Orientation::check_changes_schema_data_base();
 
 /* Создаем комуникацию с базой данных */
-Resources::create_communication_with_data_base();
+Accumulation::create_communication_with_data_base();
 
 /* Проверяем запрос на доступность */
-Solutions::check_request_access();
+Orientation::check_request_access();
 
 /* Разбираем параметры запроса */
-Solutions::parse_parameters_request();
+Orientation::parse_parameters_request();
 
 /* Проверяем запрос на деструктив */
-Solutions::check_request_destructive();
+Orientation::check_request_destructive();
 
 /* Выполняем запрошенную наработанную цель */
-Business::execute_request_experience_goal();
+Motion::execute_request_experience_goal();
 
 /* Проверяем ответ на правильность */
-Solutions::check_answer_correct();
+Orientation::check_answer_correct();
 
 /* Результат выполнения в интерфейс */
-Notices::result_executed_to_interface();
+Representation::result_executed_to_interface();
 
 /* Прекращаем работу ядра */
-Solutions::stop_core();
+Orientation::stop_core();
 
 ?>

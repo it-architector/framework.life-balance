@@ -2,23 +2,24 @@
 
 namespace Framework_life_balance\core_components\experiences;
 
-use \Framework_life_balance\core_components\Notices;
-use \Framework_life_balance\core_components\Solutions;
-use \Framework_life_balance\core_components\Resources;
-use \Framework_life_balance\core_components\Business;
+use \Framework_life_balance\core_components\Representation;
+use \Framework_life_balance\core_components\Orientation;
+use \Framework_life_balance\core_components\Accumulation;
+use \Framework_life_balance\core_components\Motion;
 
 
 class Category_index
 {
-    static function index(array $parameters)
+    static function index($parameters = [])
     {
 
         return [];
 
     }
 
-    static function error(array $parameters)
-    {
+    static function error($parameters = [
+        'code' => null,
+    ]){
 
         $code = isset($parameters['code'])?$parameters['code']:'';
 
@@ -57,27 +58,31 @@ class Category_index
         }
 
         return [
-            'code' => $code,
+            'code'  => $code,
             'error' => $error,
         ];
 
     }
 
-    static function stop(array $parameters)
+    static function stop($parameters = [])
     {
 
         return [];
 
     }
 
-    static function engineering_works(array $parameters)
+    static function engineering_works($parameters = [])
     {
 
         return [];
 
     }
 
-    static function send_error(array $parameters)
+    static function send_error($parameters = [
+        'message_error'  => null,
+        'nickname_guest' => null,
+        'email_guest'    => null,
+    ])
     {
 
         if(isset($parameters['message_error']) and $parameters['message_error']!='' and $parameters['message_error']!='Сообщение об ошибке'){
@@ -86,7 +91,7 @@ class Category_index
             $nickname = htmlspecialchars(@$parameters['nickname_guest']);
             $email = htmlspecialchars(@$parameters['email_guest']);
 
-            Business::fix_error($nickname.' ('.$email.') сообщает, что '.$message_error, __FILE__, __LINE__, false);
+            Motion::fix_error($nickname.' ('.$email.') сообщает, что '.$message_error, __FILE__, __LINE__, false);
 
             $message_result = 'Спасибо! Ваше сообщение доставлено в отдел разработчиков.';
         }
@@ -101,13 +106,12 @@ class Category_index
 
     }
 
-
-    static function site_map(array $parameters){
+    static function site_map($parameters = []){
 
         $urls = [];
 
         /*получаем схему наработок*/
-        $schema_experiences = Notices::get_mission('schema_experiences');
+        $schema_experiences = Representation::get_mission('schema_experiences');
 
         if($schema_experiences != null){
 
@@ -136,12 +140,12 @@ class Category_index
         ];
     }
 
-    static function site_map_xml(array $parameters){
+    static function site_map_xml($parameters = []){
 
         $urls = [];
 
         /*получаем схему наработок*/
-        $schema_experiences = Notices::get_mission('schema_experiences');
+        $schema_experiences = Representation::get_mission('schema_experiences');
 
         if($schema_experiences!=null){
 
@@ -172,7 +176,7 @@ class Category_index
 
         foreach ($urls as $url){
             $xml.='<url>
-        <loc>'.Solutions::formation_url_project().$url['loc'].'</loc>
+        <loc>'.Orientation::formation_url_project().$url['loc'].'</loc>
         <lastmod>'.date(DATE_W3C, $url['lastmod']).'</lastmod>
         <changefreq>'.$url['changefreq'].'</changefreq>
         <priority>'.$url['priority'].'</priority>

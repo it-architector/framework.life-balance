@@ -25,7 +25,7 @@
     <!-- /ПОДКЛЮЧАЕМ АККУМУЛЯЦИЮ -->
 
     <!-- ПОДКЛЮЧАЕМ ДВИЖЕНИЕ -->
-    <script src="/Компоненты интерфейса/4.Движение/Функции/Компонентов/4.Функции компонента движение.js?v=6" type="text/javascript"></script>
+    <script src="/Компоненты интерфейса/4.Движение/Функции/Компонентов/1.Функции компонента ориентировка.js?v=6" type="text/javascript"></script>
     <script src="/Компоненты интерфейса/4.Движение/Функции/Категорий сайта/Функции категории сайта index.js" type="text/javascript"></script>
     <script src="/Компоненты интерфейса/4.Движение/Функции/Категорий сайта/Функции категории сайта control.js" type="text/javascript"></script>
     <script src="/Компоненты интерфейса/4.Движение/Функции/Категорий сайта/Функции категории сайта users.js" type="text/javascript"></script>
@@ -39,23 +39,24 @@
     <script>
         document.addEventListener('DOMContentLoaded', function(){
 
-            Intelligence.initiation();
+            /* Подготавливаем работу ориентации */
+            Orientation.initiation();
 
-            /* переводим навигационные ссылки на core режим */
-            Intelligence.communication_link_with_core('.menu_block a');
+            /* Переводим навигационные ссылки на core режим */
+            Orientation.communication_link_with_core('.menu_block a');
 
-            /* переводим формы на core режим */
-            Intelligence.communication_form_with_core('container_navigation');
-            Intelligence.communication_form_with_core('container_contacts');
+            /* Переводим формы на core режим */
+            Orientation.communication_form_with_core('container_navigation');
+            Orientation.communication_form_with_core('container_contacts');
 
             /* Запрошенная страница */
             var page_link = window.location.pathname + window.location.search + window.location.hash;
 
-            /* загружаем текущую страницу */
-            Intelligence.load_page(page_link, '');
+            /* Загружаем текущую страницу */
+            Orientation.load_page(page_link, '');
 
-            /* показываем авторизацию */
-            Intelligence.show_authorization_panel();
+            /* Показываем авторизацию */
+            Orientation.show_authorization_panel();
 
         });
     </script>

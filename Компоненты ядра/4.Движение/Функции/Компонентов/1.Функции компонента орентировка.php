@@ -2,7 +2,7 @@
 
 namespace Framework_life_balance\core_components;
 
-use \Framework_life_balance\core_components\Resources;
+use \Framework_life_balance\core_components\Accumulation;
 use PHPMailer\PHPMailer\Exception;
 
 /**
@@ -11,7 +11,7 @@ use PHPMailer\PHPMailer\Exception;
  * @package Framework_life_balance\core_components
  *
  */
-class Solutions
+class Orientation
 {
     /**
      * Включаем контроль ядра
@@ -21,14 +21,14 @@ class Solutions
     static function initiation(){
 
         /* Берём настройки системы из файла */
-        $config_system = Resources::include_information_from_file(DIR_SOLUTIONS,'Настройка системы','php');
+        $config_system = Accumulation::include_information_from_file(DIR_SOLUTIONS,'Настройка системы','php');
 
         if($config_system === null){
-            Business::fix_error('нет файла настройки системы',__FILE__, __LINE__);
+            Motion::fix_error('нет файла настройки системы',__FILE__, __LINE__);
         }
 
         /* Устанавливаем настройки системы */
-        Notices::set_mission('config_system',$config_system);
+        Representation::set_mission('config_system',$config_system);
 
         /* Определяем операционную систему */
         self::detect_operating_system();
@@ -61,10 +61,10 @@ class Solutions
     static function check_request_legality(){
 
         /*запрошенная наработка*/
-        $request_experience = Notices::get_mission('request_experience');
+        $request_experience = Representation::get_mission('request_experience');
 
         /*запрошенная наработанная цель*/
-        $request_experience_goal = Notices::get_mission('request_experience_goal');
+        $request_experience_goal = Representation::get_mission('request_experience_goal');
 
         /*Проверяем правильное взятие норматива наработок*/
         self::check_correct_taking_schema_experience($request_experience, $request_experience_goal, null, 'stop');
@@ -79,7 +79,7 @@ class Solutions
     static function check_request_destructive(){
 
         /*получаем параметры запроса*/
-        $parameters_request = Notices::get_mission('parameters_request');
+        $parameters_request = Representation::get_mission('parameters_request');
 
         if(count($parameters_request)==0){
             return;
@@ -94,7 +94,7 @@ class Solutions
         foreach($parameters_request as $key=>$value){
             foreach($destructive_data as $string){
                 if(substr_count(mb_strtolower($value),mb_strtolower($string))){
-                    Business::fix_error('обнаружены губительные данные ('.htmlspecialchars($string).') в '.htmlspecialchars($key).': '.htmlspecialchars($value),__FILE__,__LINE__, 'stop');
+                    Motion::fix_error('обнаружены губительные данные ('.htmlspecialchars($string).') в '.htmlspecialchars($key).': '.htmlspecialchars($value),__FILE__,__LINE__, 'stop');
                 }
             }
         }
@@ -109,10 +109,10 @@ class Solutions
     static function check_changes_schema_data_base(){
 
         /*запрошенная наработка*/
-        $request_experience = Notices::get_mission('request_experience');
+        $request_experience = Representation::get_mission('request_experience');
 
         /*запрошенная наработанная цель*/
-        $request_experience_goal = Notices::get_mission('request_experience_goal');
+        $request_experience_goal = Representation::get_mission('request_experience_goal');
 
         /*для такой Цели делать проверку нет надобности*/
         if(($request_experience.'/'.$request_experience_goal) == 'control/reassembly_data_base'){
@@ -120,10 +120,10 @@ class Solutions
         }
 
         /* Реализованный норматив таблиц базы данных */
-        $realized_schema_data_base = Resources::get_information_realized_schema_data_base();
+        $realized_schema_data_base = Accumulation::get_information_realized_schema_data_base();
 
         /* Текущий норматив таблиц базы данных */
-        $schema_data_base = Notices::get_mission('schema_data_base');
+        $schema_data_base = Representation::get_mission('schema_data_base');
 
         /*Сопоставляем норматива базы данных*/
         $changes = self::matching_schema_data_base($realized_schema_data_base, $schema_data_base);
@@ -132,20 +132,20 @@ class Solutions
         if($changes){
 
             /* Проверяем запущен ли процес реструктуризации */
-            if(Resources::include_information_from_file(DIR_PROTOCOLS_PROCESSES, 'Текущая реконструкция базы данных','log') === null){
+            if(Accumulation::include_information_from_file(DIR_PROTOCOLS_PROCESSES, 'Текущая реконструкция базы данных','log') === null){
 
                 /* Фиксируем реконструкцию базы данных */
-                Business::fix_reassembly_data_base('Вызов');
+                Motion::fix_reassembly_data_base('Вызов');
 
                 /*вызываем консоль наработку реструктуризации базы данных*/
-                Business::call_console_experience('control', 'reassembly_data_base', []);
+                Motion::call_console_experience('control', 'reassembly_data_base', []);
 
             }
 
-            if(Notices::get_mission('user_device') != 'console'){
+            if(Representation::get_mission('user_device') != 'console'){
 
                 /*Ставим заглушку сообщающую о технических работах*/
-                Business::fix_error('технические работы с базой данных',__FILE__,__LINE__, 'engineering_works');
+                Motion::fix_error('технические работы с базой данных',__FILE__,__LINE__, 'engineering_works');
 
             }
         }
@@ -161,13 +161,13 @@ class Solutions
     {
 
         /* Запрощенная наработка */
-        $request_experience = Notices::get_mission('request_experience');
+        $request_experience = Representation::get_mission('request_experience');
 
         /* Запрощенная наработанная цель */
-        $request_experience_goal = Notices::get_mission('request_experience_goal');
+        $request_experience_goal = Representation::get_mission('request_experience_goal');
 
         /* Кому предназначена наработанная цель */
-        $experience_goal_intended = Resources::schema_experience($request_experience, $request_experience_goal, 'intended');
+        $experience_goal_intended = Accumulation::schema_experience($request_experience, $request_experience_goal, 'intended');
 
         switch ($experience_goal_intended) {
             /*всем*/
@@ -176,38 +176,38 @@ class Solutions
                 break;
             /*только для не авторизованных*/
             case 'unauthorized':
-                if (!Business::data_authorized_user()){
+                if (!Motion::data_authorized_user()){
                     return true;
                 }
                 else{
-                    Business::fix_error('only_unauthorized',__FILE__,__LINE__,'stop');
+                    Motion::fix_error('only_unauthorized',__FILE__,__LINE__,'stop');
                 }
                 break;
             /*только для авторизованных*/
             case 'authorized':
-                if (Business::data_authorized_user()){
+                if (Motion::data_authorized_user()){
                     return true;
                 }
                 else{
-                    Business::fix_error('only_authorized',__FILE__,__LINE__,'stop');
+                    Motion::fix_error('only_authorized',__FILE__,__LINE__,'stop');
                 }
                 break;
             /*только для администраторов*/
             case 'authorized_by_administrator':
-                if (Business::data_authorized_user() and Business::data_authorized_user('is_admin') == 'true'){
+                if (Motion::data_authorized_user() and Motion::data_authorized_user('is_admin') == 'true'){
                     return true;
                 }
                 else{
-                    Business::fix_error('only_authorized_by_admin',__FILE__,__LINE__,'stop');
+                    Motion::fix_error('only_authorized_by_admin',__FILE__,__LINE__,'stop');
                 }
                 break;
             /*только для запуска из под консоли*/
             case 'console':
-                if(Notices::get_mission('user_device') == 'console'){
+                if(Representation::get_mission('user_device') == 'console'){
                     return true;
                 }
                 else{
-                    Business::fix_error('only_console',__FILE__,__LINE__,'stop');
+                    Motion::fix_error('only_console',__FILE__,__LINE__,'stop');
                 }
                 break;
         }
@@ -225,24 +225,24 @@ class Solutions
     static function check_correct_taking_schema_experience($experience = null, $goal = null, $detail = null, $call_index_goal_on_error = 'error'){
 
         /*получаем схему наработок*/
-        $schema_experiences = Notices::get_mission('schema_experiences');
+        $schema_experiences = Representation::get_mission('schema_experiences');
 
         if($schema_experiences == null){
-            Business::fix_error('нет номратива наработок',__FILE__,__LINE__, $call_index_goal_on_error);
+            Motion::fix_error('нет номратива наработок',__FILE__,__LINE__, $call_index_goal_on_error);
         }
 
         /*проверка*/
         if($experience!=null and !isset($schema_experiences[$experience])){
-            Business::fix_error('нет функции сайта '.$experience,__FILE__,__LINE__, $call_index_goal_on_error);
+            Motion::fix_error('нет функции сайта '.$experience,__FILE__,__LINE__, $call_index_goal_on_error);
         }
         elseif($goal!=null and !isset($schema_experiences[$experience]['goals'][$goal])){
-            Business::fix_error('Цели '.$goal.' нет в функции сайта '.$experience,__FILE__,__LINE__, $call_index_goal_on_error);
+            Motion::fix_error('Цели '.$goal.' нет в функции сайта '.$experience,__FILE__,__LINE__, $call_index_goal_on_error);
         }
         elseif($experience!=null and $goal==null and $detail!=null and !isset($schema_experiences[$experience][$detail])){
-            Business::fix_error('нет детали '.$detail.' у функций сайта '.$experience,__FILE__,__LINE__, $call_index_goal_on_error);
+            Motion::fix_error('нет детали '.$detail.' у функций сайта '.$experience,__FILE__,__LINE__, $call_index_goal_on_error);
         }
         elseif($goal!=null and $detail!=null and !isset($schema_experiences[$experience]['goals'][$goal][$detail])){
-            Business::fix_error('нет детали '.$detail.' у Цели '.$goal.' в наработке '.$experience,__FILE__,__LINE__, $call_index_goal_on_error);
+            Motion::fix_error('нет детали '.$detail.' у Цели '.$goal.' в наработке '.$experience,__FILE__,__LINE__, $call_index_goal_on_error);
         }
 
     }
@@ -258,24 +258,24 @@ class Solutions
     static function check_correct_taking_schema_data_base($table = null, $column = null, $detail = null, $call_index_goal_on_error = 'error'){
 
         /*получаем схему базы данных*/
-        $schema_data_base = Notices::get_mission('schema_data_base');
+        $schema_data_base = Representation::get_mission('schema_data_base');
 
         if($schema_data_base == null){
-            Business::fix_error('нет норматива базы данных',__FILE__,__LINE__, $call_index_goal_on_error);
+            Motion::fix_error('нет норматива базы данных',__FILE__,__LINE__, $call_index_goal_on_error);
         }
 
         /*проверка*/
         if($table!=null and !isset($schema_data_base[$table])){
-            Business::fix_error('нет таблицы '.$table,__FILE__,__LINE__, $call_index_goal_on_error);
+            Motion::fix_error('нет таблицы '.$table,__FILE__,__LINE__, $call_index_goal_on_error);
         }
         elseif($column!=null and !isset($schema_data_base[$table]['columns'][$column])){
-            Business::fix_error('колонки '.$column.' нет в таблице '.$table,__FILE__,__LINE__, $call_index_goal_on_error);
+            Motion::fix_error('колонки '.$column.' нет в таблице '.$table,__FILE__,__LINE__, $call_index_goal_on_error);
         }
         elseif($table!=null and $column==null and $detail!=null and !isset($schema_data_base[$table][$detail])){
-            Business::fix_error('нет детали '.$detail.' у таблицы '.$table,__FILE__,__LINE__, $call_index_goal_on_error);
+            Motion::fix_error('нет детали '.$detail.' у таблицы '.$table,__FILE__,__LINE__, $call_index_goal_on_error);
         }
         elseif($column!=null and $detail!=null and !isset($schema_data_base[$table]['columns'][$column][$detail])){
-            Business::fix_error('нет детали '.$detail.' у колонки '.$column.' в таблице '.$table,__FILE__,__LINE__, $call_index_goal_on_error);
+            Motion::fix_error('нет детали '.$detail.' у колонки '.$column.' в таблице '.$table,__FILE__,__LINE__, $call_index_goal_on_error);
         }
 
     }
@@ -296,7 +296,7 @@ class Solutions
             return $date;
         }
         catch (\Exception $e){
-            Business::fix_error($e->getMessage(),__FILE__,__LINE__);
+            Motion::fix_error($e->getMessage(),__FILE__,__LINE__);
         }
     }
 
@@ -308,16 +308,16 @@ class Solutions
     static function mark_start_execution_experience(){
 
         /*устанавливаем время вызова функци сайта*/
-        Notices::set_mission('mark_time_call_experience',time());
+        Representation::set_mission('mark_time_call_experience',time());
 
         /*вызванная наработка*/
-        $call_experience = Notices::get_mission('call_experience');
+        $call_experience = Representation::get_mission('call_experience');
 
         /*вызванная наработанная цель*/
-        $call_experience_goal = Notices::get_mission('call_experience_goal');
+        $call_experience_goal = Representation::get_mission('call_experience_goal');
 
         /*выделенное время на выполнение наработанной Цели*/
-        $lead_time_seconds = Resources::schema_experience($call_experience, $call_experience_goal, 'lead_time');
+        $lead_time_seconds = Accumulation::schema_experience($call_experience, $call_experience_goal, 'lead_time');
 
         if(!$lead_time_seconds){
             $lead_time_seconds = 1;
@@ -335,23 +335,23 @@ class Solutions
     static function mark_stop_execution_experience(){
 
         /*вычисляем время выполнения*/
-        $lead_time_executed = time() - Notices::get_mission('mark_time_call_experience');
+        $lead_time_executed = time() - Representation::get_mission('mark_time_call_experience');
 
         /*время выполнения*/
-        Notices::set_mission('lead_time_executed',$lead_time_executed);
+        Representation::set_mission('lead_time_executed',$lead_time_executed);
 
         /*вызванная наработка*/
-        $call_experience = Notices::get_mission('call_experience');
+        $call_experience = Representation::get_mission('call_experience');
 
         /*вызванная наработанная цель*/
-        $call_experience_goal = Notices::get_mission('call_experience_goal');
+        $call_experience_goal = Representation::get_mission('call_experience_goal');
 
         /*выделенное время на выполнение наработанной Цели*/
-        $lead_time_seconds = Resources::schema_experience($call_experience, $call_experience_goal, 'lead_time');
+        $lead_time_seconds = Accumulation::schema_experience($call_experience, $call_experience_goal, 'lead_time');
 
         /*обнаружено превышение времени выполнения*/
         if($lead_time_executed>$lead_time_seconds){
-            Business::fix_error('Превышения выполнения цели '.$call_experience_goal.' функции сайта '.$call_experience.' на ' . ($lead_time_executed-$lead_time_seconds) . ' сек.',__FILE__,__LINE__,false);
+            Motion::fix_error('Превышения выполнения цели '.$call_experience_goal.' функции сайта '.$call_experience.' на ' . ($lead_time_executed-$lead_time_seconds) . ' сек.',__FILE__,__LINE__,false);
         }
 
     }
@@ -364,7 +364,7 @@ class Solutions
     static function detect_error()
     {
 
-        if (Notices::get_mission('message_crash')==null and @is_array($e = @error_get_last())) {
+        if (Representation::get_mission('message_crash')==null and @is_array($e = @error_get_last())) {
 
             /*данные на ошибку*/
             $error_no = isset($e['type']) ? $e['type'] : 0;
@@ -373,7 +373,7 @@ class Solutions
             $file_line = isset($e['line']) ? $e['line'] : '';
 
             if ($error_no > 0) {
-                Business::fix_error($error_message, $file_name, $file_line);
+                Motion::fix_error($error_message, $file_name, $file_line);
             }
 
         }
@@ -388,11 +388,11 @@ class Solutions
     static function detect_operating_system(){
         /*windows*/
         if (substr(php_uname(), 0, 7) == "Windows"){
-            Notices::set_mission('operating_system','windows');
+            Representation::set_mission('operating_system','windows');
         }
         /*unix*/
         else{
-            Notices::set_mission('operating_system','unix');
+            Representation::set_mission('operating_system','unix');
         }
     }
 
@@ -404,25 +404,25 @@ class Solutions
     static function check_answer_correct(){
 
         /*Выявляем ошибку*/
-        Solutions::detect_error();
+        Orientation::detect_error();
 
         /*вызванная наработка*/
-        $call_experience = Notices::get_mission('call_experience');
+        $call_experience = Representation::get_mission('call_experience');
 
         /*вызванная наработанная цель*/
-        $call_experience_goal = Notices::get_mission('call_experience_goal');
+        $call_experience_goal = Representation::get_mission('call_experience_goal');
 
         /*формат результата наработанной Цели*/
-        $format_result = Resources::schema_experience($call_experience, $call_experience_goal, 'format_result');
+        $format_result = Accumulation::schema_experience($call_experience, $call_experience_goal, 'format_result');
 
         /*результат выполнения наработанной Цели*/
-        $result_executed = Notices::get_mission('result_executed');
+        $result_executed = Representation::get_mission('result_executed');
 
         if($format_result == 'array' and !is_array($result_executed)){
-            Business::fix_error('no_array_in_result_executed',__FILE__,__LINE__);
+            Motion::fix_error('no_array_in_result_executed',__FILE__,__LINE__);
         }
         elseif($format_result == 'text' and is_array($result_executed)){
-            Business::fix_error('no_content_in_result_executed',__FILE__,__LINE__);
+            Motion::fix_error('no_content_in_result_executed',__FILE__,__LINE__);
         }
 
     }
@@ -435,16 +435,16 @@ class Solutions
     static function stop_core(){
 
         /*Завершаем коммуникацию с базой данных*/
-        Resources::complete_communication_with_data_base();
+        Accumulation::complete_communication_with_data_base();
 
         /*Завершаем коммуникацию с памятью*/
-        Resources::complete_communication_with_memory();
+        Accumulation::complete_communication_with_memory();
 
         /*Завершаем коммуникацию с почтой*/
-        Resources::complete_communication_with_mail();
+        Accumulation::complete_communication_with_mail();
 
         /*Удаляем все предназначения*/
-        Notices::delete_all_missions();
+        Representation::delete_all_missions();
 
         exit;
     }
@@ -495,13 +495,13 @@ class Solutions
         $request_experience_goal = htmlspecialchars(mb_strtolower($request_experience_goal));
 
         /*устанавливаем откуда запрос*/
-        Notices::set_mission('user_device',$user_device);
+        Representation::set_mission('user_device',$user_device);
 
         /*устанавливаем запрошенные Наработки*/
-        Notices::set_mission('request_experience',$request_experience);
+        Representation::set_mission('request_experience',$request_experience);
 
         /*устанавливаем запрошенную наработанную цель*/
-        Notices::set_mission('request_experience_goal',$request_experience_goal);
+        Representation::set_mission('request_experience_goal',$request_experience_goal);
 
     }
 
@@ -516,7 +516,7 @@ class Solutions
         $parameters_request = [];
 
         /*получаем откуда запрос*/
-        $user_device = Notices::get_mission('user_device');
+        $user_device = Representation::get_mission('user_device');
 
         if($user_device == 'console'){
 
@@ -524,14 +524,14 @@ class Solutions
             if(isset($_SERVER['argv'][3]) and $_SERVER['argv'][3]>0){
 
                 /* Получаем параметры из базы данных */
-                $request_console = Resources::interchange_information_with_data_base('Получение', 'Информации о запуске из консоли по id', [
+                $request_console = Accumulation::interchange_information_with_data_base('Получение', 'Информации о запуске из консоли по id', [
                     ':id' => $_SERVER['argv'][3]
                 ]);
 
                 if($request_console and isset($request_console['parameters'])){
 
                     /* Обновляем статус запроса консоли в базе данных */
-                    Resources::interchange_information_with_data_base('Изменение', 'Статуса запуска консоли', [
+                    Accumulation::interchange_information_with_data_base('Изменение', 'Статуса запуска консоли', [
                         ':id'     => $_SERVER['argv'][3],
                         ':status' => 'do',
                     ]);
@@ -555,11 +555,11 @@ class Solutions
             $parameters_request = (array)@$_GET + (array)@$_POST;
         }
         else{
-            Business::fix_error('unknown user_device: ' . $user_device,__FILE__, __LINE__);
+            Motion::fix_error('unknown user_device: ' . $user_device,__FILE__, __LINE__);
         }
 
         /*устанавливаем параметры запроса*/
-        Notices::set_mission('parameters_request',$parameters_request);
+        Representation::set_mission('parameters_request',$parameters_request);
 
     }
 
@@ -570,7 +570,7 @@ class Solutions
      */
     static function parse_authorized(){
 
-        if(isset($_COOKIE["user_id"]) and $_COOKIE["user_id"]!=false and isset($_COOKIE["user_session"]) and $_COOKIE["user_session"] == Solutions::formation_user_session($_COOKIE["user_id"])){
+        if(isset($_COOKIE["user_id"]) and $_COOKIE["user_id"]!=false and isset($_COOKIE["user_session"]) and $_COOKIE["user_session"] == Orientation::formation_user_session($_COOKIE["user_id"])){
 
             /*индификационный номер пользователя*/
             $user_id = $_COOKIE["user_id"];
@@ -579,15 +579,15 @@ class Solutions
             $user_session = $_COOKIE["user_session"];
 
             /*устанавливаем индификационный номер пользователя*/
-            Notices::set_mission('user_id',$user_id);
+            Representation::set_mission('user_id',$user_id);
 
             /*устанавливаем сессию пользователя*/
-            Notices::set_mission('user_session',$user_session);
+            Representation::set_mission('user_session',$user_session);
 
         }
 
         /*устанавливаем удалённый адрес пользователя*/
-        Notices::set_mission('user_ip',Solutions::definition_user_ip());
+        Representation::set_mission('user_ip',Orientation::definition_user_ip());
 
     }
 
@@ -628,16 +628,16 @@ class Solutions
         $answer ='';
 
         /*вызванная наработка*/
-        $call_experience = Notices::get_mission('call_experience');
+        $call_experience = Representation::get_mission('call_experience');
 
         /*вызванная наработанная цель*/
-        $call_experience_goal = Notices::get_mission('call_experience_goal');
+        $call_experience_goal = Representation::get_mission('call_experience_goal');
 
         /* Схема вызванной наработанной цели */
-        $schema_call_experience_goal = Resources::schema_experience($call_experience, $call_experience_goal);
+        $schema_call_experience_goal = Accumulation::schema_experience($call_experience, $call_experience_goal);
 
         /*результат выполнения наработанной Цели*/
-        $content = Notices::get_mission('result_executed');
+        $content = Representation::get_mission('result_executed');
 
         /* Формируем содержимое ответа */
         switch ($schema_call_experience_goal['format_result']){
@@ -647,10 +647,10 @@ class Solutions
             case 'array':
 
                 /* Категория */
-                $result_executed['category'] = Notices::get_mission('call_experience');
+                $result_executed['category'] = Representation::get_mission('call_experience');
 
                 /* Цель */
-                $result_executed['goal'] = Notices::get_mission('call_experience_goal');
+                $result_executed['goal'] = Representation::get_mission('call_experience_goal');
 
                 /*заголовок*/
                 $result_executed['title'] = htmlspecialchars($schema_call_experience_goal['Заголовок страницы']);
@@ -671,14 +671,14 @@ class Solutions
         }
 
         /* Ответ в браузер */
-        if(Notices::get_mission('user_device')=='browser'){
+        if(Representation::get_mission('user_device')=='browser'){
 
             /*всегда 200 код ответа*/
             http_response_code(200);
 
             /*объявляем запрет на кэширование*/
             header("Cache-Control: no-store, no-cache, must-revalidate");
-            header("Expires: " . Solutions::position_time("r"));
+            header("Expires: " . Orientation::position_time("r"));
 
             if($schema_call_experience_goal['format_result'] == 'array'){
 
@@ -688,7 +688,7 @@ class Solutions
 
         }
         /* Ответ в консоль */
-        elseif(Notices::get_mission('user_device')=='console'){
+        elseif(Representation::get_mission('user_device')=='console'){
 
         }
 
@@ -724,10 +724,10 @@ class Solutions
     static function formation_template($template,$parameters){
 
         /*получаем шаблон*/
-        $body = Resources::include_information_from_file(DIR_HTML,$template,'html');
+        $body = Accumulation::include_information_from_file(DIR_HTML,$template,'html');
 
         if($body === null){
-            Business::fix_error('нет файла html шаблона: '.$template,__FILE__,__LINE__);
+            Motion::fix_error('нет файла html шаблона: '.$template,__FILE__,__LINE__);
         }
 
         foreach($parameters as $key=>$value){
@@ -746,10 +746,10 @@ class Solutions
     static function formation_url_project(){
 
         /*получаем настройки системы*/
-        $config_system = Notices::get_mission('config_system');
+        $config_system = Representation::get_mission('config_system');
 
         /*получаем настройки проекта*/
-        $config_project = Notices::get_mission('config_project');
+        $config_project = Representation::get_mission('config_project');
 
         /*ссылка проекта*/
         $url_project = (($config_system['inclusiveness_ssl'])?'https':'http').'://'.$config_project['url'];
@@ -771,15 +771,15 @@ class Solutions
         $command = self::detect_path_executable_php() . ' ' . DIR_ROOT . 'Ядро.php' . ' ' . $experience . ' ' . $experience_goal . ' ' . $id_save_parameters;
 
         /*команда для windows*/
-        if(Notices::get_mission('operating_system') == "windows"){
+        if(Representation::get_mission('operating_system') == "windows"){
             $command = "start /B " . $command;
         }
         /*команда для unix*/
-        elseif(Notices::get_mission('operating_system') == "unix"){
+        elseif(Representation::get_mission('operating_system') == "unix"){
             $command = $command . " > /dev/null &";
         }
         else{
-            Business::fix_error('no operating_system',__FILE__,__LINE__);
+            Motion::fix_error('no operating_system',__FILE__,__LINE__);
         }
 
         return $command;
@@ -800,14 +800,14 @@ class Solutions
         foreach ($paths as $path){
 
             /*для windows xampp*/
-            if(Notices::get_mission('operating_system') == "windows" and strstr($path, 'php.exe') and file_exists($path) and is_file($path)){
+            if(Representation::get_mission('operating_system') == "windows" and strstr($path, 'php.exe') and file_exists($path) and is_file($path)){
                 $path_executable_php = $path;
                 break;
             }
             else{
 
                 /*предполагаем*/
-                $path_executable_php = $path . DIRECTORY_SEPARATOR . "php" . (Notices::get_mission('operating_system') == "windows" ? ".exe" : "");
+                $path_executable_php = $path . DIRECTORY_SEPARATOR . "php" . (Representation::get_mission('operating_system') == "windows" ? ".exe" : "");
 
                 if (file_exists($path_executable_php) && is_file($path_executable_php)) {
                     break;
@@ -821,7 +821,7 @@ class Solutions
         }
 
         if(!$path_executable_php){
-            Business::fix_error('no path_executable_php',__FILE__,__LINE__);
+            Motion::fix_error('no path_executable_php',__FILE__,__LINE__);
         }
 
         return $path_executable_php;

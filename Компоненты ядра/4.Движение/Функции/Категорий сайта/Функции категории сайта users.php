@@ -2,19 +2,19 @@
 
 namespace Framework_life_balance\core_components\experiences;
 
-use \Framework_life_balance\core_components\Notices;
-use \Framework_life_balance\core_components\Solutions;
-use \Framework_life_balance\core_components\Resources;
-use \Framework_life_balance\core_components\Business;
+use \Framework_life_balance\core_components\Representation;
+use \Framework_life_balance\core_components\Orientation;
+use \Framework_life_balance\core_components\Accumulation;
+use \Framework_life_balance\core_components\Motion;
 
 class Category_users
 {
 
-    static function index(array $parameters)
+    static function index($parameters=[])
     {
 
         /* Получаем всех пользователей */
-        $users = Resources::interchange_information_with_data_base('Получение', 'Всех пользователей', []);
+        $users = Accumulation::interchange_information_with_data_base('Получение', 'Всех пользователей', []);
 
         /*убираем приватные данные*/
         if($users){
@@ -31,7 +31,7 @@ class Category_users
 
     }
 
-    static function registration(array $parameters)
+    static function registration($parameters)
     {
         $nickname = '';
         $name = '';
@@ -84,10 +84,10 @@ class Category_users
             else{
 
                 /*форминование пароля пользователя*/
-                $password_formation = Solutions::formation_user_password($password);
+                $password_formation = Orientation::formation_user_password($password);
 
                 /* Добавляем пользователя */
-                $user_id = Resources::interchange_information_with_data_base('Добавление', 'Нового пользователя', [
+                $user_id = Accumulation::interchange_information_with_data_base('Добавление', 'Нового пользователя', [
                     ':nickname'    => $nickname,
                     ':password'    => $password_formation,
                     ':name'        => $name,
@@ -96,13 +96,13 @@ class Category_users
                 ]);
 
                 /* Получаем количество всех пользователей */
-                $users_count = Resources::interchange_information_with_data_base('Количество', 'Всех пользователей', []);
+                $users_count = Accumulation::interchange_information_with_data_base('Количество', 'Всех пользователей', []);
 
                 /*присваиваем административные права первому пользователю*/
                 if($users_count == 1){
 
                     /* Ставит/отменяет назначение администратором */
-                    Resources::interchange_information_with_data_base('Изменение', 'Роли администрирования у пользователя', [
+                    Accumulation::interchange_information_with_data_base('Изменение', 'Роли администрирования у пользователя', [
                         ':id'       => $user_id,
                         ':is_admin' => 'true',
                     ]);
@@ -110,7 +110,7 @@ class Category_users
                 }
 
                 /*вызываем консоль наработку отправления на почту*/
-                Business::call_console_experience('control', 'send_email', [
+                Motion::call_console_experience('control', 'send_email', [
                     'email'    => $email,
                     'title'    => 'Ваша регистрация на '.$_SERVER['SERVER_NAME'],
                     'text'     => 'Вы успешно зарегистрированы!<br>Ваш псевдоним: <b style="color:green;">'.$nickname.'</b><br>Ваш пароль: <b style="color:green;">'.$password.'</b>',
@@ -118,7 +118,7 @@ class Category_users
                 ]);
 
                 /*Вызываем выполнение подтверждения регистрации*/
-                return Business::call_experience('users','registration_ok',['nickname' => $nickname, 'password' => $password]);
+                return Motion::call_experience('users','registration_ok',['nickname' => $nickname, 'password' => $password]);
 
             }
 
@@ -134,7 +134,7 @@ class Category_users
         ];
     }
 
-    static function registration_ok(array $parameters)
+    static function registration_ok($parameters)
     {
 
         if(isset($parameters['nickname'])){
@@ -157,7 +157,7 @@ class Category_users
         ];
     }
 
-    static function authorize(array $parameters)
+    static function authorize($parameters)
     {
         $nickname = '';
         $password = '';
@@ -180,25 +180,25 @@ class Category_users
             else{
 
                 /*форминование пароля пользователя*/
-                $password_formation = Solutions::formation_user_password($password);
+                $password_formation = Orientation::formation_user_password($password);
 
                 /* Получаем id пользователя по псевдониму и паролю */
-                $user_id = Resources::interchange_information_with_data_base('Получение', 'Id пользователя по авторизационым данным', [
+                $user_id = Accumulation::interchange_information_with_data_base('Получение', 'Id пользователя по авторизационым данным', [
                     ':nickname' => $nickname,
                     ':password' => $password_formation,
                 ]);
 
                 /*обновление у пользователя сессии авторизации*/
-                $user_session = Solutions::formation_user_session($user_id);
+                $user_session = Orientation::formation_user_session($user_id);
 
                 /* Обновление пользователю сессии авторизации */
-                Resources::interchange_information_with_data_base('Изменение', 'Сессии у пользователя', [
+                Accumulation::interchange_information_with_data_base('Изменение', 'Сессии у пользователя', [
                     ':id'      => $user_id,
                     ':session' => $user_session,
                 ]);
 
                 /*Вызываем выполнение удачной авторизации*/
-                return Business::call_experience('users','authorized_ok',[
+                return Motion::call_experience('users','authorized_ok',[
                     'user_id'      => $user_id,
                     'user_session' => $user_session
                 ]);
@@ -215,7 +215,7 @@ class Category_users
 
     }
 
-    static function authorized_ok(array $parameters)
+    static function authorized_ok($parameters)
     {
 
         return [
@@ -225,30 +225,30 @@ class Category_users
 
     }
 
-    static function authorized_data(array $parameters)
+    static function authorized_data($parameters)
     {
         return [
-            'user_data' => Business::data_authorized_user()
+            'user_data' => Motion::data_authorized_user()
         ];
 
     }
 
-    static function unauthorize(array $parameters)
+    static function unauthorize($parameters)
     {
 
         /*Вызываем выполнение удачного сброса авторизации*/
-        return Business::call_experience('users','unauthorized_ok',[]);
+        return Motion::call_experience('users','unauthorized_ok',[]);
 
     }
 
-    static function unauthorized_ok(array $parameters)
+    static function unauthorized_ok($parameters)
     {
         return [
         ];
 
     }
 
-    static function check_nickname_registration(array $parameters)
+    static function check_nickname_registration($parameters)
     {
 
         $is_nickname_registration = 'false';
@@ -258,7 +258,7 @@ class Category_users
 
             $nickname = htmlspecialchars($parameters['nickname']);
 
-            if(Resources::interchange_information_with_data_base('Получение', 'Id пользователя по псевдониму', [':nickname' => $nickname])){
+            if(Accumulation::interchange_information_with_data_base('Получение', 'Id пользователя по псевдониму', [':nickname' => $nickname])){
                 $is_nickname_registration='true';
             }
         }
@@ -267,7 +267,7 @@ class Category_users
 
     }
 
-    static function check_nickname_no_registration(array $parameters)
+    static function check_nickname_no_registration($parameters)
     {
 
         $is_nickname_no_registration = 'false';
@@ -284,7 +284,7 @@ class Category_users
 
     }
 
-    static function check_password_valid_by_nickname(array $parameters)
+    static function check_password_valid_by_nickname($parameters)
     {
 
         $is_password_valid = 'false';
@@ -292,10 +292,10 @@ class Category_users
        if(isset($parameters['nickname']) and isset($parameters['password'])){
 
            /*форминование пароля пользователя*/
-           $password_formation = Solutions::formation_user_password($parameters['password']);
+           $password_formation = Orientation::formation_user_password($parameters['password']);
 
            /* Получаем id пользователя по псевдониму и паролю */
-           $user_id = Resources::interchange_information_with_data_base('Получение', 'Id пользователя по авторизационым данным', [
+           $user_id = Accumulation::interchange_information_with_data_base('Получение', 'Id пользователя по авторизационым данным', [
                ':nickname' => $parameters['nickname'],
                ':password' => $password_formation,
            ]);
@@ -313,7 +313,7 @@ class Category_users
 
     }
 
-    static function check_email_no_registration(array $parameters)
+    static function check_email_no_registration($parameters)
     {
 
 
@@ -324,7 +324,7 @@ class Category_users
 
             $email = htmlspecialchars($parameters['email']);
 
-            if(!Resources::interchange_information_with_data_base('Получение', 'Id пользователя по электронному адресу', [':email' => $email])){
+            if(!Accumulation::interchange_information_with_data_base('Получение', 'Id пользователя по электронному адресу', [':email' => $email])){
                 $is_email_no_registration='true';
             }
         }
@@ -332,4 +332,5 @@ class Category_users
         return $is_email_no_registration;
 
     }
+    
 }

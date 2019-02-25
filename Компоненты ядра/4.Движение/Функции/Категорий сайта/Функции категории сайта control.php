@@ -2,20 +2,20 @@
 
 namespace Framework_life_balance\core_components\experiences;
 
-use \Framework_life_balance\core_components\Notices;
-use \Framework_life_balance\core_components\Solutions;
-use \Framework_life_balance\core_components\Resources;
-use \Framework_life_balance\core_components\Business;
+use \Framework_life_balance\core_components\Representation;
+use \Framework_life_balance\core_components\Orientation;
+use \Framework_life_balance\core_components\Accumulation;
+use \Framework_life_balance\core_components\Motion;
 
 
 class Category_control
 {
 
-    static function index(array $parameters)
+    static function index($parameters = [])
     {
 
         /*ошибки в файле лога*/
-        $errors_in_file_log = Resources::include_information_from_file(DIR_PROTOCOLS_PROCESSES,'Ошибки в ядре','log');
+        $errors_in_file_log = Accumulation::include_information_from_file(DIR_PROTOCOLS_PROCESSES,'Ошибки в ядре','log');
 
         /*последняя ошибка в файле лога*/
         if($errors_in_file_log!=null){
@@ -31,18 +31,20 @@ class Category_control
 
     }
 
-    static function errors(array $parameters)
+    static function errors($parameters = [
+        'delete_file_log' => null,
+    ])
     {
 
         if(isset($parameters['delete_file_log'])){
-            Resources::delete_file(DIR_PROTOCOLS_PROCESSES,'Ошибки в ядре','log');
+            Accumulation::delete_file(DIR_PROTOCOLS_PROCESSES,'Ошибки в ядре','log');
         }
 
         /*сколько выводить ошибок на страницу*/
         $max_errors_on_page = 10;
 
         /*ошибки в файле лога*/
-        $errors_all_in_file_log = Resources::include_information_from_file(DIR_PROTOCOLS_PROCESSES,'Ошибки в ядре','log');
+        $errors_all_in_file_log = Accumulation::include_information_from_file(DIR_PROTOCOLS_PROCESSES,'Ошибки в ядре','log');
 
         $errors_in_file_log = [];
 
@@ -65,16 +67,16 @@ class Category_control
 
     }
 
-    static function reassembly_data_base(array $parameters){
+    static function reassembly_data_base($parameters = []){
 
         /* Фиксируем реконструкцию базы данных */
-        Business::fix_reassembly_data_base('Запуск');
+        Motion::fix_reassembly_data_base('Запуск');
 
         /*получаем настройки проекта*/
-        $config_project = Notices::get_mission('config_project');
+        $config_project = Representation::get_mission('config_project');
 
         /*вызываем наработку отправления на почту*/
-        Business::call_experience('control', 'send_email', [
+        Motion::call_experience('control', 'send_email', [
             'email'    => $config_project['email'],
             'title'    => 'Запущена реконструкция базы данных',
             'text'     => 'При сбое вручную запустите в консоли команду: php Ядро.php control reassembly_data_base',
@@ -82,25 +84,25 @@ class Category_control
         ]);
 
         /* Реализованный норматив таблиц базы данных */
-        $realized_schema_data_base = Resources::get_information_realized_schema_data_base();
+        $realized_schema_data_base = Accumulation::get_information_realized_schema_data_base();
 
         /* Текущий норматив таблиц базы данных */
-        $schema_data_base = Notices::get_mission('schema_data_base');
+        $schema_data_base = Representation::get_mission('schema_data_base');
 
         /*Сопоставляем нормативы базы данных*/
-        $changes = Solutions::matching_schema_data_base($realized_schema_data_base, $schema_data_base);
+        $changes = Orientation::matching_schema_data_base($realized_schema_data_base, $schema_data_base);
 
         $reconstruction_result = false;
 
         if($changes){
 
             /*Реконструируем базу данных*/
-            $reconstruction_result = Resources::reconstruction_data_base($changes);
+            $reconstruction_result = Accumulation::reconstruction_data_base($changes);
 
         }
 
         /*вызываем наработку отправления на почту*/
-        Business::call_experience('control', 'send_email', [
+        Motion::call_experience('control', 'send_email', [
             'email'    => $config_project['email'],
             'title'    => 'Завершена реконструкция базы данных',
             'text'     => $reconstruction_result ? 'Изменения успешно введены.' : 'Изменений не обнаружено.',
@@ -108,21 +110,26 @@ class Category_control
         ]);
 
         /* Фиксируем реконструкцию базы данных */
-        Business::fix_reassembly_data_base('Завершено', true);
+        Motion::fix_reassembly_data_base('Завершено', true);
 
         return $reconstruction_result ? 'true' : 'false';
 
     }
 
-    static function send_email(array $parameters){
+    static function send_email($parameters = [
+        'email'    => null,
+        'title'    => null,
+        'text'     => null,
+        'template' => null,
+    ]){
 
         if(isset($parameters['email']) and isset($parameters['title']) and isset($parameters['text']) and isset($parameters['template'])){
 
             /*создаем комуникацию с почтой*/
-            Resources::create_communication_with_mail();
+            Accumulation::create_communication_with_mail();
 
             /*отправляем письмо*/
-            $sended = Notices::message_to_mail(
+            $sended = Representation::message_to_mail(
                 $parameters['email'],
                 $parameters['title'],
                 $parameters['text'],
