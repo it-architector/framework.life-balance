@@ -2,11 +2,11 @@
 
 namespace Framework_life_balance\core_components;
 
-use \Framework_life_balance\core_components\Accumulation;
+use \Framework_life_balance\core_components\Distribution;
 use PHPMailer\PHPMailer\Exception;
 
 /**
- * Суть решений
+ * Суть ореинтеровки
  *
  * @package Framework_life_balance\core_components
  *
@@ -21,7 +21,7 @@ class Orientation
     static function initiation(){
 
         /* Берём настройки системы из файла */
-        $config_system = Accumulation::include_information_from_file(DIR_SOLUTIONS,'Настройка системы','php');
+        $config_system = Distribution::include_information_from_file(DIR_SOLUTIONS,'Настройка системы','php');
 
         if($config_system === null){
             Motion::fix_error('нет файла настройки системы',__FILE__, __LINE__);
@@ -120,7 +120,7 @@ class Orientation
         }
 
         /* Реализованный норматив таблиц базы данных */
-        $realized_schema_data_base = Accumulation::get_information_realized_schema_data_base();
+        $realized_schema_data_base = Distribution::get_information_realized_schema_data_base();
 
         /* Текущий норматив таблиц базы данных */
         $schema_data_base = Representation::get_mission('schema_data_base');
@@ -132,7 +132,7 @@ class Orientation
         if($changes){
 
             /* Проверяем запущен ли процес реструктуризации */
-            if(Accumulation::include_information_from_file(DIR_PROTOCOLS_PROCESSES, 'Текущая реконструкция базы данных','log') === null){
+            if(Distribution::include_information_from_file(DIR_PROTOCOLS_PROCESSES, 'Текущая реконструкция базы данных','log') === null){
 
                 /* Фиксируем реконструкцию базы данных */
                 Motion::fix_reassembly_data_base('Вызов');
@@ -167,7 +167,7 @@ class Orientation
         $request_experience_goal = Representation::get_mission('request_experience_goal');
 
         /* Кому предназначена наработанная цель */
-        $experience_goal_intended = Accumulation::schema_experience($request_experience, $request_experience_goal, 'intended');
+        $experience_goal_intended = Distribution::schema_experience($request_experience, $request_experience_goal, 'intended');
 
         switch ($experience_goal_intended) {
             /*всем*/
@@ -317,7 +317,7 @@ class Orientation
         $call_experience_goal = Representation::get_mission('call_experience_goal');
 
         /*выделенное время на выполнение наработанной Цели*/
-        $lead_time_seconds = Accumulation::schema_experience($call_experience, $call_experience_goal, 'lead_time');
+        $lead_time_seconds = Distribution::schema_experience($call_experience, $call_experience_goal, 'lead_time');
 
         if(!$lead_time_seconds){
             $lead_time_seconds = 1;
@@ -347,7 +347,7 @@ class Orientation
         $call_experience_goal = Representation::get_mission('call_experience_goal');
 
         /*выделенное время на выполнение наработанной Цели*/
-        $lead_time_seconds = Accumulation::schema_experience($call_experience, $call_experience_goal, 'lead_time');
+        $lead_time_seconds = Distribution::schema_experience($call_experience, $call_experience_goal, 'lead_time');
 
         /*обнаружено превышение времени выполнения*/
         if($lead_time_executed>$lead_time_seconds){
@@ -413,7 +413,7 @@ class Orientation
         $call_experience_goal = Representation::get_mission('call_experience_goal');
 
         /*формат результата наработанной Цели*/
-        $format_result = Accumulation::schema_experience($call_experience, $call_experience_goal, 'format_result');
+        $format_result = Distribution::schema_experience($call_experience, $call_experience_goal, 'format_result');
 
         /*результат выполнения наработанной Цели*/
         $result_executed = Representation::get_mission('result_executed');
@@ -435,13 +435,13 @@ class Orientation
     static function stop_core(){
 
         /*Завершаем коммуникацию с базой данных*/
-        Accumulation::complete_communication_with_data_base();
+        Distribution::complete_communication_with_data_base();
 
         /*Завершаем коммуникацию с памятью*/
-        Accumulation::complete_communication_with_memory();
+        Distribution::complete_communication_with_memory();
 
         /*Завершаем коммуникацию с почтой*/
-        Accumulation::complete_communication_with_mail();
+        Distribution::complete_communication_with_mail();
 
         /*Удаляем все предназначения*/
         Representation::delete_all_missions();
@@ -524,14 +524,14 @@ class Orientation
             if(isset($_SERVER['argv'][3]) and $_SERVER['argv'][3]>0){
 
                 /* Получаем параметры из базы данных */
-                $request_console = Accumulation::interchange_information_with_data_base('Получение', 'Информации о запуске из консоли по id', [
+                $request_console = Distribution::interchange_information_with_data_base('Получение', 'Информации о запуске из консоли по id', [
                     ':id' => $_SERVER['argv'][3]
                 ]);
 
                 if($request_console and isset($request_console['parameters'])){
 
                     /* Обновляем статус запроса консоли в базе данных */
-                    Accumulation::interchange_information_with_data_base('Изменение', 'Статуса запуска консоли', [
+                    Distribution::interchange_information_with_data_base('Изменение', 'Статуса запуска консоли', [
                         ':id'     => $_SERVER['argv'][3],
                         ':status' => 'do',
                     ]);
@@ -634,7 +634,7 @@ class Orientation
         $call_experience_goal = Representation::get_mission('call_experience_goal');
 
         /* Схема вызванной наработанной цели */
-        $schema_call_experience_goal = Accumulation::schema_experience($call_experience, $call_experience_goal);
+        $schema_call_experience_goal = Distribution::schema_experience($call_experience, $call_experience_goal);
 
         /*результат выполнения наработанной Цели*/
         $content = Representation::get_mission('result_executed');
@@ -724,7 +724,7 @@ class Orientation
     static function formation_template($template,$parameters){
 
         /*получаем шаблон*/
-        $body = Accumulation::include_information_from_file(DIR_HTML,$template,'html');
+        $body = Distribution::include_information_from_file(DIR_HTML,$template,'html');
 
         if($body === null){
             Motion::fix_error('нет файла html шаблона: '.$template,__FILE__,__LINE__);

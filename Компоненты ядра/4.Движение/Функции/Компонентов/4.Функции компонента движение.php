@@ -4,10 +4,10 @@ namespace Framework_life_balance\core_components;
 
 use \Framework_life_balance\core_components\Representation;
 use \Framework_life_balance\core_components\Orientation;
-use \Framework_life_balance\core_components\Accumulation;
+use \Framework_life_balance\core_components\Distribution;
 
 /**
- * Суть дел
+ * Суть движения
  *
  * @package Framework_life_balance\core_components
  *
@@ -23,7 +23,7 @@ class Motion
     static function initiation(){
 
         /*берём настройки протоколов из файла*/
-        $config_protocols = Accumulation::include_information_from_file(DIR_BUSINESS,'Настройка протоколов','php');
+        $config_protocols = Distribution::include_information_from_file(DIR_BUSINESS,'Настройка протоколов','php');
 
         if($config_protocols === null){
             self::fix_error('нет файла настройки протоколов',__FILE__, __LINE__);
@@ -107,7 +107,7 @@ class Motion
         if($config_protocols['Ошибки ядра'] == true){
 
             /*записываем ошибку в файл*/
-            Accumulation::write_information_in_file(DIR_PROTOCOLS_PROCESSES,'Ошибки в ядре','log',
+            Distribution::write_information_in_file(DIR_PROTOCOLS_PROCESSES,'Ошибки в ядре','log',
                 'request ('.Representation::get_mission('request_experience').'/'.Representation::get_mission('request_experience_goal').'): '.explode("\n",$error_message)[0]
                 .' | user ip: '.Representation::get_mission('user_ip')
                 .(($file_name!=null)?' | file name: ' . $file_name:'')
@@ -170,13 +170,13 @@ class Motion
         if($completed){
 
             /* Удаляем заглушку */
-            Accumulation::delete_file(DIR_PROTOCOLS_PROCESSES, 'Текущая реконструкция базы данных','log');
+            Distribution::delete_file(DIR_PROTOCOLS_PROCESSES, 'Текущая реконструкция базы данных','log');
 
         }
         else{
 
             /* Протокол */
-            Accumulation::write_information_in_file(
+            Distribution::write_information_in_file(
                 DIR_PROTOCOLS_PROCESSES, 'Текущая реконструкция базы данных','log',
                 $information
             );
@@ -188,7 +188,7 @@ class Motion
         if($config_protocols['Реконструкции базы данных']){
 
             /* Протокол */
-            Accumulation::write_information_in_file(
+            Distribution::write_information_in_file(
                 DIR_PROTOCOLS_PROCESSES, 'Реконструкции базы данных','log', $information);
 
         }
@@ -239,7 +239,7 @@ class Motion
         if($user_device == 'console' and isset($_SERVER['argv'][3]) and $_SERVER['argv'][3]>0){
 
             /* Обновляем статус запроса консоли в базе данных */
-            Accumulation::interchange_information_with_data_base('Изменение', 'Статуса запуска консоли', [
+            Distribution::interchange_information_with_data_base('Изменение', 'Статуса запуска консоли', [
                 ':id'     => $_SERVER['argv'][3],
                 ':status' => (($result_executed == 'true')?'true':'false'),
             ]);
@@ -262,7 +262,7 @@ class Motion
         if(count($parameters)>0){
 
             /* Добавляем запрос консоли в базу данных */
-            $id_save_parameters = Accumulation::interchange_information_with_data_base('Добавление', 'Нового запуска из консоли', [
+            $id_save_parameters = Distribution::interchange_information_with_data_base('Добавление', 'Нового запуска из консоли', [
                 ':date'       => Orientation::position_time(),
                 ':request'    => $experience.'/'.$experience_goal,
                 ':parameters' => json_encode($parameters),
@@ -389,7 +389,7 @@ class Motion
             /*на случай если в памяти уже нет, берём из базы данных*/
             else{
 
-                $user_data = Accumulation::interchange_information_with_data_base('Получение', 'Информации о пользователе по сессии', [
+                $user_data = Distribution::interchange_information_with_data_base('Получение', 'Информации о пользователе по сессии', [
                     ':id'      => $user_id,
                     ':session' => Representation::get_mission('user_session'),
                 ]);

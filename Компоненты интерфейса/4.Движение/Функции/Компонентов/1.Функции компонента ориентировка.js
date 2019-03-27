@@ -411,7 +411,7 @@ class Orientation {
     static packaging_core_data(category, goal){
 
         /*ссылка на шаблон html*/
-        var html_file_url = '/Компоненты интерфейса/3.Аккумуляция/Нормативы/Блочные/Норматив блоков ' + category + '/' + goal + '.html';
+        var html_file_url = '/Компоненты интерфейса/3.Распределение/Нормативы/Блочные/Норматив блоков ' + category + '/' + goal + '.html';
 
         var request = new XMLHttpRequest();
 

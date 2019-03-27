@@ -4,7 +4,7 @@ namespace Framework_life_balance\core_components\experiences;
 
 use \Framework_life_balance\core_components\Representation;
 use \Framework_life_balance\core_components\Orientation;
-use \Framework_life_balance\core_components\Accumulation;
+use \Framework_life_balance\core_components\Distribution;
 use \Framework_life_balance\core_components\Motion;
 
 
@@ -15,7 +15,7 @@ class Category_control
     {
 
         /*ошибки в файле лога*/
-        $errors_in_file_log = Accumulation::include_information_from_file(DIR_PROTOCOLS_PROCESSES,'Ошибки в ядре','log');
+        $errors_in_file_log = Distribution::include_information_from_file(DIR_PROTOCOLS_PROCESSES,'Ошибки в ядре','log');
 
         /*последняя ошибка в файле лога*/
         if($errors_in_file_log!=null){
@@ -37,14 +37,14 @@ class Category_control
     {
 
         if(isset($parameters['delete_file_log'])){
-            Accumulation::delete_file(DIR_PROTOCOLS_PROCESSES,'Ошибки в ядре','log');
+            Distribution::delete_file(DIR_PROTOCOLS_PROCESSES,'Ошибки в ядре','log');
         }
 
         /*сколько выводить ошибок на страницу*/
         $max_errors_on_page = 10;
 
         /*ошибки в файле лога*/
-        $errors_all_in_file_log = Accumulation::include_information_from_file(DIR_PROTOCOLS_PROCESSES,'Ошибки в ядре','log');
+        $errors_all_in_file_log = Distribution::include_information_from_file(DIR_PROTOCOLS_PROCESSES,'Ошибки в ядре','log');
 
         $errors_in_file_log = [];
 
@@ -84,7 +84,7 @@ class Category_control
         ]);
 
         /* Реализованный норматив таблиц базы данных */
-        $realized_schema_data_base = Accumulation::get_information_realized_schema_data_base();
+        $realized_schema_data_base = Distribution::get_information_realized_schema_data_base();
 
         /* Текущий норматив таблиц базы данных */
         $schema_data_base = Representation::get_mission('schema_data_base');
@@ -97,7 +97,7 @@ class Category_control
         if($changes){
 
             /*Реконструируем базу данных*/
-            $reconstruction_result = Accumulation::reconstruction_data_base($changes);
+            $reconstruction_result = Distribution::reconstruction_data_base($changes);
 
         }
 
@@ -126,7 +126,7 @@ class Category_control
         if(isset($parameters['email']) and isset($parameters['title']) and isset($parameters['text']) and isset($parameters['template'])){
 
             /*создаем комуникацию с почтой*/
-            Accumulation::create_communication_with_mail();
+            Distribution::create_communication_with_mail();
 
             /*отправляем письмо*/
             $sended = Representation::message_to_mail(

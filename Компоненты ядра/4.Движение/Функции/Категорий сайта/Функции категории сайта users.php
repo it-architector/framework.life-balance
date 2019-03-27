@@ -4,7 +4,7 @@ namespace Framework_life_balance\core_components\experiences;
 
 use \Framework_life_balance\core_components\Representation;
 use \Framework_life_balance\core_components\Orientation;
-use \Framework_life_balance\core_components\Accumulation;
+use \Framework_life_balance\core_components\Distribution;
 use \Framework_life_balance\core_components\Motion;
 
 class Category_users
@@ -14,7 +14,7 @@ class Category_users
     {
 
         /* Получаем всех пользователей */
-        $users = Accumulation::interchange_information_with_data_base('Получение', 'Всех пользователей', []);
+        $users = Distribution::interchange_information_with_data_base('Получение', 'Всех пользователей', []);
 
         /*убираем приватные данные*/
         if($users){
@@ -87,7 +87,7 @@ class Category_users
                 $password_formation = Orientation::formation_user_password($password);
 
                 /* Добавляем пользователя */
-                $user_id = Accumulation::interchange_information_with_data_base('Добавление', 'Нового пользователя', [
+                $user_id = Distribution::interchange_information_with_data_base('Добавление', 'Нового пользователя', [
                     ':nickname'    => $nickname,
                     ':password'    => $password_formation,
                     ':name'        => $name,
@@ -96,13 +96,13 @@ class Category_users
                 ]);
 
                 /* Получаем количество всех пользователей */
-                $users_count = Accumulation::interchange_information_with_data_base('Количество', 'Всех пользователей', []);
+                $users_count = Distribution::interchange_information_with_data_base('Количество', 'Всех пользователей', []);
 
                 /*присваиваем административные права первому пользователю*/
                 if($users_count == 1){
 
                     /* Ставит/отменяет назначение администратором */
-                    Accumulation::interchange_information_with_data_base('Изменение', 'Роли администрирования у пользователя', [
+                    Distribution::interchange_information_with_data_base('Изменение', 'Роли администрирования у пользователя', [
                         ':id'       => $user_id,
                         ':is_admin' => 'true',
                     ]);
@@ -183,7 +183,7 @@ class Category_users
                 $password_formation = Orientation::formation_user_password($password);
 
                 /* Получаем id пользователя по псевдониму и паролю */
-                $user_id = Accumulation::interchange_information_with_data_base('Получение', 'Id пользователя по авторизационым данным', [
+                $user_id = Distribution::interchange_information_with_data_base('Получение', 'Id пользователя по авторизационым данным', [
                     ':nickname' => $nickname,
                     ':password' => $password_formation,
                 ]);
@@ -192,7 +192,7 @@ class Category_users
                 $user_session = Orientation::formation_user_session($user_id);
 
                 /* Обновление пользователю сессии авторизации */
-                Accumulation::interchange_information_with_data_base('Изменение', 'Сессии у пользователя', [
+                Distribution::interchange_information_with_data_base('Изменение', 'Сессии у пользователя', [
                     ':id'      => $user_id,
                     ':session' => $user_session,
                 ]);
@@ -258,7 +258,7 @@ class Category_users
 
             $nickname = htmlspecialchars($parameters['nickname']);
 
-            if(Accumulation::interchange_information_with_data_base('Получение', 'Id пользователя по псевдониму', [':nickname' => $nickname])){
+            if(Distribution::interchange_information_with_data_base('Получение', 'Id пользователя по псевдониму', [':nickname' => $nickname])){
                 $is_nickname_registration='true';
             }
         }
@@ -295,7 +295,7 @@ class Category_users
            $password_formation = Orientation::formation_user_password($parameters['password']);
 
            /* Получаем id пользователя по псевдониму и паролю */
-           $user_id = Accumulation::interchange_information_with_data_base('Получение', 'Id пользователя по авторизационым данным', [
+           $user_id = Distribution::interchange_information_with_data_base('Получение', 'Id пользователя по авторизационым данным', [
                ':nickname' => $parameters['nickname'],
                ':password' => $password_formation,
            ]);
@@ -324,7 +324,7 @@ class Category_users
 
             $email = htmlspecialchars($parameters['email']);
 
-            if(!Accumulation::interchange_information_with_data_base('Получение', 'Id пользователя по электронному адресу', [':email' => $email])){
+            if(!Distribution::interchange_information_with_data_base('Получение', 'Id пользователя по электронному адресу', [':email' => $email])){
                 $is_email_no_registration='true';
             }
         }

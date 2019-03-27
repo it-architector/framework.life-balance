@@ -25,8 +25,8 @@ require_once DIR_EXPERIENCES_ESSENCES . '1.Функции компонента �
 /* Подключаем функции компонента представления */
 require_once DIR_EXPERIENCES_ESSENCES . '2.Функции компонента представление.php';
 
-/* Подключаем функции компонента ресурсы */
-require_once DIR_EXPERIENCES_ESSENCES . '3.Функции компонента аккумуляция.php';
+/* Подключаем функции компонента распределение */
+require_once DIR_EXPERIENCES_ESSENCES . '3.Функции компонента распределение.php';
 
 /* Подключаем функции компонента интеллект */
 require_once DIR_EXPERIENCES_ESSENCES . '4.Функции компонента движение.php';
@@ -50,7 +50,7 @@ require_once DIR_MODULES . 'Настройка подключения модул
 
 use \Framework_life_balance\core_components\Representation;
 use \Framework_life_balance\core_components\Orientation;
-use \Framework_life_balance\core_components\Accumulation;
+use \Framework_life_balance\core_components\Distribution;
 use \Framework_life_balance\core_components\Motion;
 
 /* Включаем контроль ядра */
@@ -60,7 +60,7 @@ Orientation::initiation();
 Representation::initiation();
 
 /* Подготавливаем работу с ресурсами */
-Accumulation::initiation();
+Distribution::initiation();
 
 /* Подготавливаем работу движений */
 Motion::initiation();
@@ -80,13 +80,13 @@ Orientation::parse_authorized();
 Orientation::check_request_legality();
 
 /* Создаем комуникацию с памятью */
-Accumulation::create_communication_with_memory();
+Distribution::create_communication_with_memory();
 
 /* Проверяем изменения в схеме базы данных */
 Orientation::check_changes_schema_data_base();
 
 /* Создаем комуникацию с базой данных */
-Accumulation::create_communication_with_data_base();
+Distribution::create_communication_with_data_base();
 
 /* Проверяем запрос на доступность */
 Orientation::check_request_access();

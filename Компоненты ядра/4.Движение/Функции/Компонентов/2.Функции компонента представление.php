@@ -3,7 +3,7 @@
 namespace Framework_life_balance\core_components;
 
 /**
- * Суть уведомлений
+ * Суть представления
  *
  * @package Framework_life_balance\core_components
  */
@@ -18,7 +18,7 @@ class Representation
     static function initiation(){
 
         /* Берём настройки проекта из файла */
-        $config_project = Accumulation::include_information_from_file(DIR_NOTICES,'Настройка проекта','php');
+        $config_project = Distribution::include_information_from_file(DIR_NOTICES,'Настройка проекта','php');
 
         if($config_project == null){
             Motion::fix_error('нет файла настройки проекта',__FILE__, __LINE__);

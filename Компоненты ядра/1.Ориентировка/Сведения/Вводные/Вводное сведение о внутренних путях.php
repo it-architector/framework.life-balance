@@ -23,7 +23,7 @@ define('DIR_SOLUTIONS', DIR_CORE_COMPONENTS . '1.Ориентировка' . DIR
 define('DIR_NOTICES', DIR_CORE_COMPONENTS . '2.Представление' . DIRECTORY_SEPARATOR);
 
 /* Компонент ресурсов */
-define('DIR_RESOURCES', DIR_CORE_COMPONENTS . '3.Аккумуляция' . DIRECTORY_SEPARATOR);
+define('DIR_RESOURCES', DIR_CORE_COMPONENTS . '3.Распределение' . DIRECTORY_SEPARATOR);
 
 /* Компонент дела */
 define('DIR_BUSINESS', DIR_CORE_COMPONENTS . '4.Движение' . DIRECTORY_SEPARATOR);
@@ -69,7 +69,7 @@ define('DIR_PROTOCOLS_PROCESSES', DIR_PROTOCOLS . 'Процессов' . DIRECTO
 define('DIR_USERS_IMAGES', DIR_USERS_DATA . 'images' . DIRECTORY_SEPARATOR);
 
 /* Html блоки */
-define('DIR_HTML', DIR_INTERFACE_COMPONENTS . '3.Аккумуляция' . DIRECTORY_SEPARATOR . 'Нормативы' . DIRECTORY_SEPARATOR . 'Блочные' . DIRECTORY_SEPARATOR);
+define('DIR_HTML', DIR_INTERFACE_COMPONENTS . '3.Распределение' . DIRECTORY_SEPARATOR . 'Нормативы' . DIRECTORY_SEPARATOR . 'Блочные' . DIRECTORY_SEPARATOR);
 
 
 ?>
