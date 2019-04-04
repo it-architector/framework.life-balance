@@ -20,9 +20,9 @@
     <link rel="shortcut icon" href="/Компоненты интерфейса/2.Представление/Структуры/Картиночные/illustrators/Звезда.jpg">
     <!-- /ПОДКЛЮЧАЕМ ПРЕДСТАВЛЕНИЕ -->
 
-    <!-- ПОДКЛЮЧАЕМ АККУМУЛЯЦИЮ -->
+    <!-- ПОДКЛЮЧАЕМ РАСПРЕДЕЛЕНИЕ -->
     <link href="/Компоненты интерфейса/3.Распределение/Нормативы/Стильные/Норматив общего стиля.css?v=3" rel="stylesheet" type="text/css" />
-    <!-- /ПОДКЛЮЧАЕМ АККУМУЛЯЦИЮ -->
+    <!-- /ПОДКЛЮЧАЕМ РАСПРЕДЕЛЕНИЕ -->
 
     <!-- ПОДКЛЮЧАЕМ ДВИЖЕНИЕ -->
     <script src="/Компоненты интерфейса/4.Движение/Функции/Компонентов/1.Функции компонента ориентировка.js?v=6" type="text/javascript"></script>
@@ -42,20 +42,17 @@
             /* Подготавливаем работу ориентации */
             Orientation.initiation();
 
-            /* Переводим навигационные ссылки на core режим */
+            /* Переводим навигационные ссылки на работу с ядром */
             Orientation.communication_link_with_core('.menu_block a');
 
-            /* Переводим формы на core режим */
+            /* Переводим формы на работу с ядром  */
             Orientation.communication_form_with_core('container_navigation');
             Orientation.communication_form_with_core('container_contacts');
 
-            /* Запрошенная страница */
-            var page_link = window.location.pathname + window.location.search + window.location.hash;
+            /* Загружаем текущую страницу по открытой ссылке */
+            Orientation.load_page(window.location.pathname + window.location.search + window.location.has, '');
 
-            /* Загружаем текущую страницу */
-            Orientation.load_page(page_link, '');
-
-            /* Показываем авторизацию */
+            /* Показываем панель авторизации */
             Orientation.show_authorization_panel();
 
         });
@@ -65,38 +62,35 @@
 </head>
 <body>
 
-<!-- ПОДКЛЮЧАЕМ АНИМАЦИЮ ЗАГРУЗКИ -->
+<!-- КАРТИНКА АНИМАЦИИ ФОНОВОЙ ЗАГРУЗКИ -->
 <img id="preloader" src="/Компоненты интерфейса/2.Представление/Структуры/Картиночные/preloader.gif" alt="" />
-<!-- /ПОДКЛЮЧАЕМ АНИМАЦИЮ ЗАГРУЗКИ -->
+<!-- /КАРТИНКА АНИМАЦИИ ФОНОВОЙ ЗАГРУЗКИ -->
 
-<!-- ПОДКЛЮЧАЕМ ЯНДЕКС СЧЁТЧИК ПОСЕЩЕНИЙ -->
+<!-- ЯНДЕКС СЧЁТЧИК ПОСЕЩЕНИЙ (JS СЧЁТЧИКА В КЛАССЕ ORIENTATION) -->
 <noscript><div><img src="https://mc.yandex.ru/watch/51370444" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /ПОДКЛЮЧАЕМ ЯНДЕКС СЧЁТЧИК ПОСЕЩЕНИЙ -->
+<!-- /ЯНДЕКС СЧЁТЧИК ПОСЕЩЕНИЙ (JS СЧЁТЧИКА В КЛАССЕ ORIENTATION) -->
 
-<!-- ПОДКЛЮЧАЕМ КОНТЕНТ -->
+<!-- ИНТЕРФЕЙС -->
 <div class="preloader_hide">
 
-    <!-- PAGE -->
+    <!-- ВЕРХ И ЦЕНТР ИНТЕРФЕЙСА -->
     <div id="page">
 
-        <!-- HEADER -->
+        <!-- НАВИГАЦИЯ -->
         <header>
-
-            <!-- MENU BLOCK -->
             <div class="menu_block">
-
-                <!-- CONTAINER -->
                 <div class="container clearfix">
 
-                    <!-- LOGO -->
+                    <!-- ЛОГОТИП -->
                     <div class="logo pull-left">
                         <a href="/" >
 						<img src="/Компоненты интерфейса/2.Представление/Структуры/Картиночные/illustrators/Звезда.jpg">
-						<span class="b1">Framework</span> <span class="b3">life</span> <span class="b3">balance</span></a>
-                    </div><!-- /LOGO -->
+						<span class="b2">Framework</span> <span class="b4">life</span> <span class="b4">balance</span></a>
+                    </div>
+                    <!-- /ЛОГОТИП -->
 
 
-                    <!-- MENU -->
+                    <!-- МЕНЮ -->
                     <div class="pull-center">
                         <nav class="navmenu right">
                             <ul>
@@ -129,34 +123,33 @@
                                 </li>
                             </ul>
                         </nav>
-                    </div><!-- /MENU -->
-                </div><!-- /MENU BLOCK -->
-            </div><!-- /CONTAINER -->
-        </header><!-- /HEADER -->
+                    </div>
+                    <!-- /МЕНЮ -->
+                </div>
+            </div>
+        </header>
+        <!-- /НАВИГАЦИЯ -->
 
-
+        <!-- КОНТЕНТ (ИНФОРМАЦИЯ ПОДГРУЖАЕТСЯ С ЯДРА) -->
 		<p id="content"></p>
+        <!-- /КОНТЕНТ (ИНФОРМАЦИЯ ПОДГРУЖАЕТСЯ С ЯДРА) -->
 
-    </div><!-- /PAGE -->
+    </div>
+    <!-- /ВЕРХ И ЦЕНТР ИНТЕРФЕЙСА -->
 
-    <!-- CONTACTS -->
-    <section id="contacts">
-    </section><!-- /CONTACTS -->
-
-    <!-- FOOTER -->
+    <!-- НИЗ ИНТЕРФЕЙСА -->
     <footer>
-
-        <!-- CONTAINER -->
         <div class="container" id="container_contacts">
-
-            <!-- ROW -->
             <div class="row" data-appear-top-offset="-200" data-animated="fadeInUp">
 
-
+                <!-- ПРИНЦИПЫ -->
                 <div class="col-lg-4 col-md-4 col-sm-6 padbot30 foot_about_block">
                     <h4 style="padding-top:40px;"><b>Принципы</b></h4>
                     <p><b class="base_info">1. Гармония<br>2. Любовь<br>3. Дружба<br>4. Жизнь</b></p>
                 </div>
+                <!-- /ПРИНЦИПЫ -->
+
+                <!-- КОНТАКТЫ -->
                 <div class="col-lg-4 col-md-4 col-sm-6 padbot30">
                     <h4 style="padding-top:40px;"> <b>Контакты</b></h4>
                     <ul class="social">
@@ -164,9 +157,11 @@
                         <li><a target="_blank" href="mailto:veter-love@framework-life-balance.ru" ><i class="fa fa-envelope"></i></a></li>
                     </ul>
                 </div>
+                <!-- /КОНТАКТЫ -->
 
                 <div class="respond_clear"></div>
 
+                <!-- ФОРМА ОБРАТНОЙ СВЯЗИ -->
                 <div class="col-lg-4 col-md-4 padbot30">
                     <h4 style="padding-top:40px;"><b>Об ошибке</b></h4>
 
@@ -184,12 +179,15 @@
                         </div>
                     </div><!-- /CONTACT FORM -->
                 </div>
-            </div><!-- /ROW -->
-        </div><!-- /CONTAINER -->
-    </footer><!-- /FOOTER -->
+                <!-- /ФОРМА ОБРАТНОЙ СВЯЗИ -->
+
+            </div>
+        </div>
+    </footer>
+    <!-- /НИЗ ИНТЕРФЕЙСА -->
 
 </div>
-<!-- /ПОДКЛЮЧАЕМ КОНТЕНТ -->
+<!-- /ИНТЕРФЕЙС -->
 
 </body>
 </html>

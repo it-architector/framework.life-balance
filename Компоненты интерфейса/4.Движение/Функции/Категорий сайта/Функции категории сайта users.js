@@ -100,7 +100,7 @@ class Category_users{
         $.cookie('user_session', $parameters['user_session'], { expires: 120, path: '/', });
 
         /*меняем ссылки авторизации*/
-        Motion.show_authorization_panel();
+        Orientation.show_authorization_panel();
 
     }
 
@@ -185,7 +185,7 @@ class Category_users{
         $.cookie('user_session', null, { expires: -1, path: '/', });
 
         /*меняем ссылки авторизации*/
-        Motion.show_authorization_panel();
+        Orientation.show_authorization_panel();
     }
 
 }
