@@ -219,7 +219,7 @@ blockquote:before {content:'“'; position:absolute; left:15px; top:13px; font-s
 /* __________ breadcrumb __________ */
 .breadcrumbs_block {
 	padding:81px 0;
-	background-image:url("/Компоненты интерфейса/2.Условие/Структуры/Картиночные/slider/slide_doc.jpg");
+	background-image:url("/Компоненты интерфейса/2.Условия/Структуры/Картиночные/slider/slide_doc.jpg");
 	background-repeat:no-repeat;
 	background-size:cover;
 }
@@ -532,7 +532,7 @@ header {
 /* __________ Clean Code __________ */
 .cleancode_block {
 	padding:15px 0 78px;
-	background-image:url("/Компоненты интерфейса/2.Условие/Структуры/Картиночные/slider/slide_doc.jpg");
+	background-image:url("/Компоненты интерфейса/2.Условия/Структуры/Картиночные/slider/slide_doc.jpg");
 	background-size:cover;
 	background-position:0 0;
 	background-attachment:fixed !important;
@@ -611,12 +611,12 @@ header {
 	transition: transform 0.2s ease-in-out; 
 	-webkit-transition: -webkit-transform 0.2s ease-in-out;
 }
-.cleancode_block .nav-tabs li a.i1 i {background-image:url("/Компоненты интерфейса/2.Условие/Структуры/Картиночные/menu/i1.png");}
-.cleancode_block .nav-tabs li a.i2 i {background-image:url("/Компоненты интерфейса/2.Условие/Структуры/Картиночные/menu/i2.png");}
-.cleancode_block .nav-tabs li a.i3 i {background-image:url("/Компоненты интерфейса/2.Условие/Структуры/Картиночные/menu/i3.png");}
-.cleancode_block .nav-tabs li a.i4 i {background-image:url("/Компоненты интерфейса/2.Условие/Структуры/Картиночные/menu/i4.png");}
-.cleancode_block .nav-tabs li a.i5 i {background-image:url("/Компоненты интерфейса/2.Условие/Структуры/Картиночные/menu/i5.png");}
-.cleancode_block .nav-tabs li a.i6 i {background-image:url("/Компоненты интерфейса/2.Условие/Структуры/Картиночные/menu/i6.png");}
+.cleancode_block .nav-tabs li a.i1 i {background-image:url("/Компоненты интерфейса/2.Условия/Структуры/Картиночные/menu/i1.png");}
+.cleancode_block .nav-tabs li a.i2 i {background-image:url("/Компоненты интерфейса/2.Условия/Структуры/Картиночные/menu/i2.png");}
+.cleancode_block .nav-tabs li a.i3 i {background-image:url("/Компоненты интерфейса/2.Условия/Структуры/Картиночные/menu/i3.png");}
+.cleancode_block .nav-tabs li a.i4 i {background-image:url("/Компоненты интерфейса/2.Условия/Структуры/Картиночные/menu/i4.png");}
+.cleancode_block .nav-tabs li a.i5 i {background-image:url("/Компоненты интерфейса/2.Условия/Структуры/Картиночные/menu/i5.png");}
+.cleancode_block .nav-tabs li a.i6 i {background-image:url("/Компоненты интерфейса/2.Условия/Структуры/Картиночные/menu/i6.png");}
 
 .nav-tabs li a:hover,
 .nav-tabs li a:focus {
@@ -860,7 +860,7 @@ ul.project_info li span {color:#979797;}
 /*-----------------------------------------------------------------------------------*/
 #team {
 	padding:75px 0 100px;
-	background-image:url("/Компоненты интерфейса/2.Условие/Структуры/Картиночные/slider/slide_team.jpg");
+	background-image:url("/Компоненты интерфейса/2.Условия/Структуры/Картиночные/slider/slide_team.jpg");
 	background-size:cover;
 	background-attachment:fixed !important;
 }
@@ -2043,7 +2043,7 @@ input.mini_width {
 }
 
 .youtube .play {
-	background:url("/Компоненты интерфейса/2.Условие/Структуры/Картиночные/menu/youtube-play-btn.png") no-repeat;
+	background:url("/Компоненты интерфейса/2.Условия/Структуры/Картиночные/menu/youtube-play-btn.png") no-repeat;
 	background-position: 0 -50px;
 	-webkit-background-size: 100% auto;
 	background-size: 100% auto;
