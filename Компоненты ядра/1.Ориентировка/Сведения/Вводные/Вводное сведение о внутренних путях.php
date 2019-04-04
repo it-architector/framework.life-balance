@@ -20,7 +20,7 @@ define('DIR_USERS_DATA', DIR_ROOT . 'Пользовательские данны
 define('DIR_SOLUTIONS', DIR_CORE_COMPONENTS . '1.Ориентировка' . DIRECTORY_SEPARATOR);
 
 /* Компонент уведомления */
-define('DIR_NOTICES', DIR_CORE_COMPONENTS . '2.Представление' . DIRECTORY_SEPARATOR);
+define('DIR_NOTICES', DIR_CORE_COMPONENTS . '2.Условие' . DIRECTORY_SEPARATOR);
 
 /* Компонент ресурсов */
 define('DIR_RESOURCES', DIR_CORE_COMPONENTS . '3.Распределение' . DIRECTORY_SEPARATOR);
