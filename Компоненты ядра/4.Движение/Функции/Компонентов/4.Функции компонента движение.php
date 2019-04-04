@@ -400,6 +400,9 @@ class Motion
                     /*устанавливаем значение индификационного номера пользователя*/
                     Conditions::set_mission('user_data',$user_data);
 
+                    /* Запоминаем пользователя */
+                    Motion::work_with_memory_data('session_'.$user_id, $user_data);
+
                 }
                 /*последняя авторизация была проведена с другого устройства, и эта сессия уже не подходит*/
                 else{

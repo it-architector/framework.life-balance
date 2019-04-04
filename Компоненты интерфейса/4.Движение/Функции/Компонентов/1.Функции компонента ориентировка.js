@@ -172,6 +172,31 @@ class Orientation {
         return this.called_core_url;
     }
 
+    /* Получаем ссылку открытой страницы */
+    static get_url_by_opened_page(){
+
+        var open_page = '';
+
+        if(window.location.pathname !== undefined){
+            open_page = open_page + window.location.pathname;
+        }
+
+        if(window.location.search !== undefined){
+            open_page = open_page + window.location.search;
+        }
+
+        if(window.location.hash !== undefined){
+            open_page = open_page + window.location.hash;
+        }
+
+        if(open_page == ''){
+            open_page = '/';
+        }
+
+        return open_page;
+
+    }
+
     /* Получаем категорию сайта по ответу */
     static get_category_by_page_link(link) {
 

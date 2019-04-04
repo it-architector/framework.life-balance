@@ -235,6 +235,11 @@ class Category_users
 
     static function unauthorize($parameters)
     {
+        /*получаем значение индификационного номера пользователя*/
+        $user_id = Conditions::get_mission('user_id');
+
+        /* Сбрасываем память о пользователе */
+        Motion::work_with_memory_data('session_'.$user_id, false, false, true);
 
         /*Вызываем выполнение удачного сброса авторизации*/
         return Motion::call_experience('users','unauthorized_ok',[]);
