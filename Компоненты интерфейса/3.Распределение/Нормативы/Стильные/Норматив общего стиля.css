@@ -2061,3 +2061,7 @@ input.mini_width {
 .youtube:hover .play {
 	background-position: 0 0;
 }
+
+#input_nickname_guest, #input_email_guest {
+	display: none;
+}
