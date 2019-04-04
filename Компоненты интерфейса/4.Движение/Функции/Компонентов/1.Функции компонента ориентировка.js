@@ -339,7 +339,11 @@ class Orientation {
     }
 
     /* Загружаем страницу */
-    static load_page(page_link, post_data) {
+    static load_page(page_link = '', post_data = '') {
+
+        if(page_link == '/undefined'){
+            page_link = '/';
+        }
 
         var category = this.get_category_by_page_link(page_link)
         var goal = this.get_goal_by_page_link(page_link);
