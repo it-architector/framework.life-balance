@@ -3,11 +3,11 @@
 namespace Framework_life_balance\core_components;
 
 /**
- * Суть представления
+ * Суть условия
  *
  * @package Framework_life_balance\core_components
  */
-class Representation
+class Conditions
 {
 
     /**
@@ -25,7 +25,7 @@ class Representation
         }
 
         /* Устанавливаем настройки проекта */
-        Representation::set_mission('config_project',$config_project);
+        Conditions::set_mission('config_project',$config_project);
 
     }
 
@@ -132,7 +132,7 @@ class Representation
      */
     static function get_mission($key){
 
-        if(!property_exists('\Framework_life_balance\core_components\Representation', $key)){
+        if(!property_exists('\Framework_life_balance\core_components\Conditions', $key)){
             Motion::fix_error('no cloud $'.$key);
         }
 
@@ -149,7 +149,7 @@ class Representation
      */
     static function delete_mission($key){
 
-        if(!property_exists('\Framework_life_balance\core_components\Representation', $key)){
+        if(!property_exists('\Framework_life_balance\core_components\Conditions', $key)){
             Motion::fix_error('no cloud $'.$key);
         }
 
@@ -164,7 +164,7 @@ class Representation
      */
     static function delete_all_missions() {
 
-        $over_casts = get_class_vars('Framework_life_balance\core_components\Representation');
+        $over_casts = get_class_vars('Framework_life_balance\core_components\Conditions');
 
         if(count($over_casts)>0){
             foreach($over_casts as $key=>$value){
@@ -205,7 +205,7 @@ class Representation
     static function message_to_mail($email, $title, $text, $template){
 
         /* Получаем ссылку на коммуникацию с почтой */
-        $link_communication_with_mail = Representation::get_mission('link_communication_with_mail');
+        $link_communication_with_mail = Conditions::get_mission('link_communication_with_mail');
 
         /* Проверяем ссылку на коммуникацию с почтой */
         if($link_communication_with_mail == null){
@@ -215,7 +215,7 @@ class Representation
         try {
 
             /* Получаем настройки проекта */
-            $config_project = Representation::get_mission('config_project');
+            $config_project = Conditions::get_mission('config_project');
 
             /* От кого письмо */
             $link_communication_with_mail->setFrom($config_project['email'], $config_project['name']);
@@ -243,7 +243,7 @@ class Representation
         catch (\PHPMailer\PHPMailer\Exception $e) {
 
             /* Удаляем коммуникацию с почтой */
-            Representation::delete_mission('link_communication_with_mail');
+            Conditions::delete_mission('link_communication_with_mail');
 
             /* Фиксируем ошибку */
             Motion::fix_error($e->getMessage(),__FILE__,__LINE__);

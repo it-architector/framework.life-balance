@@ -23,7 +23,7 @@ require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Компоненты я�
 require_once DIR_EXPERIENCES_ESSENCES . '1.Функции компонента орентировка.php';
 
 /* Подключаем функции компонента представления */
-require_once DIR_EXPERIENCES_ESSENCES . '2.Функции компонента представление.php';
+require_once DIR_EXPERIENCES_ESSENCES . '2.Функции компонента условие.php';
 
 /* Подключаем функции компонента распределение */
 require_once DIR_EXPERIENCES_ESSENCES . '3.Функции компонента распределение.php';
@@ -48,7 +48,7 @@ require_once DIR_MODULES . 'Настройка подключения модул
  * Инициация.
  */
 
-use \Framework_life_balance\core_components\Representation;
+use \Framework_life_balance\core_components\Conditions;
 use \Framework_life_balance\core_components\Orientation;
 use \Framework_life_balance\core_components\Distribution;
 use \Framework_life_balance\core_components\Motion;
@@ -57,7 +57,7 @@ use \Framework_life_balance\core_components\Motion;
 Orientation::initiation();
 
 /* Определяем вывод информации */
-Representation::initiation();
+Conditions::initiation();
 
 /* Подготавливаем работу с ресурсами */
 Distribution::initiation();
@@ -104,7 +104,7 @@ Motion::execute_request_experience_goal();
 Orientation::check_answer_correct();
 
 /* Результат выполнения в интерфейс */
-Representation::result_executed_to_interface();
+Conditions::result_executed_to_interface();
 
 /* Прекращаем работу ядра */
 Orientation::stop_core();

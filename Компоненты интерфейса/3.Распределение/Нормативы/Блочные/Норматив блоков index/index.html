@@ -50,7 +50,7 @@
                     <span><br>
                         <h1>Framework life balance</h1> Предназначен для <strong>сопровождения</strong> всех этапов разработки отеческого сайта с любым масштабом на исходном php-коде, html-разметках ( css, image ) и js-скриптах, с применением чёткой последовательностью разработки 10 компонентов сайта.
 						<br><br>
-						Текущая версия ядра: v1.1.8.19 / интерфейса: v1.0.7.22
+						Текущая версия ядра: v1.1.8.20 / интерфейса: v1.0.7.23
 						<hr>
 
                         <table style="margin: auto; text-align: center; "><tr><td>
@@ -450,7 +450,7 @@ RewriteRule ^(.*)$ Интерфейс.html [L,QSA]</code></pre>
 										  </td>
 									 </tr>
    								     <tr>
-      								      <td class="green">Представление<br><pre style="width:110px;"><code><img style="width:100px;height:60px;" src="/Компоненты интерфейса/2.Условие/Структуры/Картиночные/animals/lebed.gif"></code></pre></td>
+      								      <td class="green">Условие<br><pre style="width:110px;"><code><img style="width:100px;height:60px;" src="/Компоненты интерфейса/2.Условие/Структуры/Картиночные/animals/lebed.gif"></code></pre></td>
       								      <td class="green">
 
 											  <ul class="jqueryFileTree">
@@ -509,7 +509,7 @@ RewriteRule ^(.*)$ Интерфейс.html [L,QSA]</code></pre>
 														  <li>
 													  <ul class="jqueryFileTree">
 														  <li class="file ext_txt">1.Норматив компонента орентировка.md</li>
-														  <li class="file ext_txt">2.Норматив компонента представление.md</li>
+														  <li class="file ext_txt">2.Норматив компонента условие.md</li>
 														  <li class="file ext_txt">3.Норматив компонента распределение.md</li>
 														  <li class="file ext_txt">4.Норматив компонента движение.md</li>
 														  <li class="file ext_txt">5.Норматив компонента модули.md</li>
@@ -992,40 +992,40 @@ framework_life_balance_showError(error);
 										  <td class="green" style="width:70%;">
 											  <b>Предназначение:</b><br>
 											  <pre>
-<code><u>Representation::$config_project</u> - настройки проекта<br>
-<u>Representation::$config_system</u> - настройки системы<br>
-<u>Representation::$config_communications</u> - настройки коммуникаций<br>
-<u>Representation::$config_protocols</u> - настройки протоколов<br>
-<u>Representation::$request_experience</u> - запрошенная наработка<br>
+<code><u>Conditions::$config_project</u> - настройки проекта<br>
+<u>Conditions::$config_system</u> - настройки системы<br>
+<u>Conditions::$config_communications</u> - настройки коммуникаций<br>
+<u>Conditions::$config_protocols</u> - настройки протоколов<br>
+<u>Conditions::$request_experience</u> - запрошенная наработка<br>
 <a onclick="$('#interface-notice-1').toggle();return false;" href="">Показать ещё / Скрыть</a><div id="interface-notice-1" style="display: none">
-<u>Representation::$request_experience_goal</u> - запрошенная наработанная цель<br>
-<u>Representation::$parameters_request</u> - параметры запроса<br>
-<u>Representation::$user_device</u> - устройство пользователя<br>
-<u>Representation::$user_ip</u> - удалённый адрес пользователя<br>
-<u>Representation::$user_id</u> - индификационный номер пользователя<br>
-<u>Representation::$user_session</u> - сессия пользователя<br>
-<u>Representation::$user_data</u> - данные пользователя<br>
-<u>Representation::$schema_experiences</u> - Норматив функций сайта<br>
-<u>Representation::$schema_data_base</u> - Норматив таблиц базы данных<br>
-<u>Representation::$schema_interaction_with_data_base</u> - Норматив взаимодействия с базой данных<br>
-<u>Representation::$link_communication_with_memory</u> - ссылка на коммуникацию с памятью<br>
-<u>Representation::$link_communication_with_mail</u> - ссылка на коммуникацию с почтой<br>
-<u>Representation::$call_experience</u> - вызванная наработка<br>
-<u>Representation::$call_experience_goal</u> - вызванная наработанная цель<br>
-<u>Representation::$mark_time_call_experience</u> - время вызова функции сайта<br>
-<u>Representation::$result_executed</u> - результат выполнения<br>
-<u>Representation::$lead_time_executed</u> - время выполнения<br>
-<u>Representation::$number_crash</u> - номер сбоя<br>
-<u>Representation::$message_crash</u> - текст сбоя<br>
-<u>Representation::set_mission()</u> - Устанавливаем предназначение<br>
-<u>Representation::get_mission()</u> - Получаем предназначение<br>
-<u>Representation::delete_mission()</u> - Удаляем предназначение<br>
-<u>Representation::delete_all_missions()</u> - Удаляем все предназначения</div></code>
+<u>Conditions::$request_experience_goal</u> - запрошенная наработанная цель<br>
+<u>Conditions::$parameters_request</u> - параметры запроса<br>
+<u>Conditions::$user_device</u> - устройство пользователя<br>
+<u>Conditions::$user_ip</u> - удалённый адрес пользователя<br>
+<u>Conditions::$user_id</u> - индификационный номер пользователя<br>
+<u>Conditions::$user_session</u> - сессия пользователя<br>
+<u>Conditions::$user_data</u> - данные пользователя<br>
+<u>Conditions::$schema_experiences</u> - Норматив функций сайта<br>
+<u>Conditions::$schema_data_base</u> - Норматив таблиц базы данных<br>
+<u>Conditions::$schema_interaction_with_data_base</u> - Норматив взаимодействия с базой данных<br>
+<u>Conditions::$link_communication_with_memory</u> - ссылка на коммуникацию с памятью<br>
+<u>Conditions::$link_communication_with_mail</u> - ссылка на коммуникацию с почтой<br>
+<u>Conditions::$call_experience</u> - вызванная наработка<br>
+<u>Conditions::$call_experience_goal</u> - вызванная наработанная цель<br>
+<u>Conditions::$mark_time_call_experience</u> - время вызова функции сайта<br>
+<u>Conditions::$result_executed</u> - результат выполнения<br>
+<u>Conditions::$lead_time_executed</u> - время выполнения<br>
+<u>Conditions::$number_crash</u> - номер сбоя<br>
+<u>Conditions::$message_crash</u> - текст сбоя<br>
+<u>Conditions::set_mission()</u> - Устанавливаем предназначение<br>
+<u>Conditions::get_mission()</u> - Получаем предназначение<br>
+<u>Conditions::delete_mission()</u> - Удаляем предназначение<br>
+<u>Conditions::delete_all_missions()</u> - Удаляем все предназначения</div></code>
 												  </pre>
 											  <b>Отношения:</b><br>
 <pre>
-<code>Representation::result_executed_to_interface()</u> - Результат выполнения в интерфейс<br>
-<u>Representation::message_to_mail()</u> - Сообщение на почту</code>
+<code>Conditions::result_executed_to_interface()</u> - Результат выполнения в интерфейс<br>
+<u>Conditions::message_to_mail()</u> - Сообщение на почту</code>
 												  </pre>
 										  </td>
      								   </tr>
@@ -1049,7 +1049,7 @@ framework_life_balance_showError(error);
 														  <li>
 													  <ul class="jqueryFileTree">
 														  <li class="file ext_txt">1.Норматив компонента орентировка.md</li>
-														  <li class="file ext_txt">2.Норматив компонента представление.md</li>
+														  <li class="file ext_txt">2.Норматив компонента условие.md</li>
 														  <li class="file ext_txt">3.Норматив компонента распределение.md</li>
 														  <li class="file ext_txt">4.Норматив компонента движение.md</li>
 														  <li class="file ext_txt">5.Норматив компонента модули.md</li>
@@ -1130,7 +1130,7 @@ framework_life_balance_showError(error);
 												  <li>
 													  <ul class="jqueryFileTree">
 														  <li class="file ext_php">1.Функции компонента орентировка.php</li>
-														  <li class="file ext_php">2.Функции компонента представление.php</li>
+														  <li class="file ext_php">2.Функции компонента условие.php</li>
 														  <li class="file ext_php">3.Функции компонента распределение.php</li>
 														  <li class="file ext_php">4.Функции компонента движение.php</li>
 													  </ul>

@@ -2,7 +2,7 @@
 
 namespace Framework_life_balance\core_components;
 
-use \Framework_life_balance\core_components\Representation;
+use \Framework_life_balance\core_components\Conditions;
 use \Framework_life_balance\core_components\Orientation;
 use \Framework_life_balance\core_components\Distribution;
 
@@ -30,7 +30,7 @@ class Motion
         }
 
         /*устанавливаем настройки протоколов*/
-        Representation::set_mission('config_protocols',$config_protocols);
+        Conditions::set_mission('config_protocols',$config_protocols);
 
     }
 
@@ -47,13 +47,13 @@ class Motion
 
         /*Вызываем наработку*/
         $result_executed = Motion::call_experience(
-            Representation::get_mission('request_experience'),
-            Representation::get_mission('request_experience_goal'),
-            Representation::get_mission('parameters_request')
+            Conditions::get_mission('request_experience'),
+            Conditions::get_mission('request_experience_goal'),
+            Conditions::get_mission('parameters_request')
         );
 
         /*устанавливаем результат выполнения*/
-        Representation::set_mission('result_executed',$result_executed);
+        Conditions::set_mission('result_executed',$result_executed);
 
     }
 
@@ -72,13 +72,13 @@ class Motion
         if($stub == 'error'){
 
             /*номер ошибки*/
-            $number_crash = Representation::get_mission('number_crash') + 1;
+            $number_crash = Conditions::get_mission('number_crash') + 1;
 
             /*устанавливаем номер ошибки*/
-            Representation::set_mission('number_crash',$number_crash);
+            Conditions::set_mission('number_crash',$number_crash);
 
             /*устанавливаем ошибку сбоя*/
-            Representation::set_mission('message_crash',$error_message);
+            Conditions::set_mission('message_crash',$error_message);
 
             /*исключаем зацикленность самовызова*/
             if($number_crash==2){
@@ -96,7 +96,7 @@ class Motion
         $error_message = trim(str_replace(["\r\n","\n","\r"], ' ', $error_message));
 
         /*получаем настройки протоколов*/
-        $config_protocols = Representation::get_mission('config_protocols');
+        $config_protocols = Conditions::get_mission('config_protocols');
 
         /*на случай сбоя инициации*/
         if($config_protocols === null){
@@ -108,15 +108,15 @@ class Motion
 
             /*записываем ошибку в файл*/
             Distribution::write_information_in_file(DIR_PROTOCOLS_PROCESSES,'Ошибки в ядре','log',
-                'request ('.Representation::get_mission('request_experience').'/'.Representation::get_mission('request_experience_goal').'): '.explode("\n",$error_message)[0]
-                .' | user ip: '.Representation::get_mission('user_ip')
+                'request ('.Conditions::get_mission('request_experience').'/'.Conditions::get_mission('request_experience_goal').'): '.explode("\n",$error_message)[0]
+                .' | user ip: '.Conditions::get_mission('user_ip')
                 .(($file_name!=null)?' | file name: ' . $file_name:'')
                 .(($num_line_on_file_error!=null)?' | file line: ' . $num_line_on_file_error:''));
 
         }
 
         /* Исключаем зацикленность вызова из консоли*/
-        if(Representation::get_mission('user_device') == 'console'){
+        if(Conditions::get_mission('user_device') == 'console'){
 
             /*прекращаем работу ядра*/
             Orientation::stop_core();
@@ -124,7 +124,7 @@ class Motion
         }
 
         /*получаем настройки проекта*/
-        $config_project = Representation::get_mission('config_project');
+        $config_project = Conditions::get_mission('config_project');
 
         /*если нет сбоя инициации*/
         if($config_project != null){
@@ -133,7 +133,7 @@ class Motion
             Motion::call_console_experience('control', 'send_email', [
                 'email'    => $config_project['email'],
                 'title'    => 'Ошибка ядра',
-                'text'     => 'По запросу /'.Representation::get_mission('request_experience').'/'.Representation::get_mission('request_experience_goal').':<br><b>'.$error_message.'</b>',
+                'text'     => 'По запросу /'.Conditions::get_mission('request_experience').'/'.Conditions::get_mission('request_experience_goal').':<br><b>'.$error_message.'</b>',
                 'template' => 'Норматив блоков mail'.DIRECTORY_SEPARATOR.'message',
             ]);
 
@@ -146,10 +146,10 @@ class Motion
             $result_executed = Motion::call_experience('index', $stub, ['code'=>$error_message]);
 
             /*устанавливаем результат выполнения*/
-            Representation::set_mission('result_executed',$result_executed);
+            Conditions::set_mission('result_executed',$result_executed);
 
             /*результат выполнения в интерфейс*/
-            Representation::result_executed_to_interface();
+            Conditions::result_executed_to_interface();
 
             /*Прекращаем работу ядра*/
             Orientation::stop_core();
@@ -183,7 +183,7 @@ class Motion
         }
 
         /* Получаем настройки протоколов */
-        $config_protocols = Representation::get_mission('config_protocols');
+        $config_protocols = Conditions::get_mission('config_protocols');
 
         if($config_protocols['Реконструкции базы данных']){
 
@@ -211,10 +211,10 @@ class Motion
     static function call_experience($experience, $experience_goal, array $parameters){
 
         /*устанавливаем вызванную на выполнение наработку*/
-        Representation::set_mission('call_experience',$experience);
+        Conditions::set_mission('call_experience',$experience);
 
         /*устанавливаем вызванную на выполнение наработанную цель*/
-        Representation::set_mission('call_experience_goal',$experience_goal);
+        Conditions::set_mission('call_experience_goal',$experience_goal);
 
         /*Помечаем начало выполнения Наработки*/
         Orientation::mark_start_execution_experience();
@@ -234,7 +234,7 @@ class Motion
         Orientation::mark_stop_execution_experience();
 
         /*получаем откуда запрос*/
-        $user_device = Representation::get_mission('user_device');
+        $user_device = Conditions::get_mission('user_device');
 
         if($user_device == 'console' and isset($_SERVER['argv'][3]) and $_SERVER['argv'][3]>0){
 
@@ -281,7 +281,7 @@ class Motion
         $command = Orientation::formation_console_command_call_experience($experience, $experience_goal, $id_save_parameters);
 
         /*вызов в windows*/
-        if (Representation::get_mission('operating_system') == "windows"){
+        if (Conditions::get_mission('operating_system') == "windows"){
             pclose(popen($command, "r"));
         }
         /*вызов в unix*/
@@ -307,7 +307,7 @@ class Motion
     static function work_with_memory_data($name, $value_update=false, $time_update=false, $clear = false){
 
         /*получаем значение коммуникации с памятью*/
-        $link_communication_with_memory = Representation::get_mission('link_communication_with_memory');
+        $link_communication_with_memory = Conditions::get_mission('link_communication_with_memory');
 
         /*доступна ли память*/
         if($link_communication_with_memory == null){
@@ -357,31 +357,31 @@ class Motion
     static function data_authorized_user($detail=null)
     {
         /*получаем значение индификационного номера пользователя*/
-        $user_id = Representation::get_mission('user_id');
+        $user_id = Conditions::get_mission('user_id');
 
         if($user_id==null){
             return false;
         }
 
-        if(Representation::get_mission('user_data') == null){
+        if(Conditions::get_mission('user_data') == null){
 
             /*берём из памяти*/
             $user_data = Motion::work_with_memory_data('session_'.$user_id);
 
             if($user_data){
                 /*всё верно*/
-                if(isset($user_data['session']) and $user_data['session'] == Representation::get_mission('user_session')){
+                if(isset($user_data['session']) and $user_data['session'] == Conditions::get_mission('user_session')){
 
                     /*устанавливаем значение индификационного номера пользователя*/
-                    Representation::set_mission('user_data',$user_data);
+                    Conditions::set_mission('user_data',$user_data);
 
                 }
                 /*последняя авторизация была проведена с другого устройства, и эта сессия уже не подходит*/
                 else{
 
                     /*очищаем от значений*/
-                    Representation::delete_mission('user_id');
-                    Representation::delete_mission('user_session');
+                    Conditions::delete_mission('user_id');
+                    Conditions::delete_mission('user_session');
 
                     return false;
                 }
@@ -391,22 +391,22 @@ class Motion
 
                 $user_data = Distribution::interchange_information_with_data_base('Получение', 'Информации о пользователе по сессии', [
                     ':id'      => $user_id,
-                    ':session' => Representation::get_mission('user_session'),
+                    ':session' => Conditions::get_mission('user_session'),
                 ]);
 
                 /*всё верно*/
                 if($user_data){
 
                     /*устанавливаем значение индификационного номера пользователя*/
-                    Representation::set_mission('user_data',$user_data);
+                    Conditions::set_mission('user_data',$user_data);
 
                 }
                 /*последняя авторизация была проведена с другого устройства, и эта сессия уже не подходит*/
                 else{
 
                     /*очищаем от значений*/
-                    Representation::delete_mission('user_id');
-                    Representation::delete_mission('user_session');
+                    Conditions::delete_mission('user_id');
+                    Conditions::delete_mission('user_session');
 
                     return false;
                 }
@@ -416,7 +416,7 @@ class Motion
         }
 
         /*получаем значение данных пользователя*/
-        $user_data = Representation::get_mission('user_data');
+        $user_data = Conditions::get_mission('user_data');
 
         if($detail!=null){
             if(isset($user_data[$detail])){

@@ -2,7 +2,7 @@
 
 namespace Framework_life_balance\core_components;
 
-use \Framework_life_balance\core_components\Representation;
+use \Framework_life_balance\core_components\Conditions;
 use \Framework_life_balance\core_components\Orientation;
 use \Framework_life_balance\core_components\Motion;
 
@@ -34,7 +34,7 @@ class Distribution
         }
 
         /* Устанавливаем настройки коммуникаций */
-        Representation::set_mission('config_communications',$config_communications);
+        Conditions::set_mission('config_communications',$config_communications);
 
         /* Получаем схему наработок из файла */
         $schema_experiences = Distribution::include_information_from_file(DIR_MEASURES_FUNCTIONS,'Норматив функций сайта','php');
@@ -44,7 +44,7 @@ class Distribution
         }
 
         /* Устанавливаем схему наработок */
-        Representation::set_mission('schema_experiences',$schema_experiences);
+        Conditions::set_mission('schema_experiences',$schema_experiences);
 
         /* Получаем схему базы данных из файла */
         $schema_data_base = Distribution::include_information_from_file(DIR_MEASURES_DATA_BASE,'Норматив таблиц базы данных','php');
@@ -54,7 +54,7 @@ class Distribution
         }
 
         /* Устанавливаем схему базы данных */
-        Representation::set_mission('schema_data_base',$schema_data_base);
+        Conditions::set_mission('schema_data_base',$schema_data_base);
 
         /* Получаем схему взаимодействия с базой данных */
         $schema_interaction_with_data_base = Distribution::include_information_from_file(DIR_MEASURES_DATA_BASE,'Норматив взаимодействия с базой данных','php');
@@ -64,7 +64,7 @@ class Distribution
         }
 
         /* Устанавливаем схему взаимодействия с базой данных */
-        Representation::set_mission('schema_interaction_with_data_base', $schema_interaction_with_data_base);
+        Conditions::set_mission('schema_interaction_with_data_base', $schema_interaction_with_data_base);
 
     }
 
@@ -87,7 +87,7 @@ class Distribution
         Orientation::check_correct_taking_schema_experience($experience, $goal, $detail);
 
         /*получаем схему наработок*/
-        $schema_experiences = Representation::get_mission('schema_experiences');
+        $schema_experiences = Conditions::get_mission('schema_experiences');
 
         /*получаем данные на цель*/
         if($experience!== null and $goal !== null){
@@ -131,7 +131,7 @@ class Distribution
         Orientation::check_correct_taking_schema_data_base($table, $column, $detail);
 
         /*получаем схему базы данных*/
-        $schema_data_base = Representation::get_mission('schema_data_base');
+        $schema_data_base = Conditions::get_mission('schema_data_base');
 
         /*получаем данные на цель*/
         if($table!=null and $column!=null){
@@ -196,7 +196,7 @@ class Distribution
     static function create_communication_with_data_base(){
 
         /*получаем настройки системы*/
-        $config_system = Representation::get_mission('config_system');
+        $config_system = Conditions::get_mission('config_system');
 
         /*включено ли*/
         if(!$config_system['inclusiveness_data_base']){
@@ -210,15 +210,15 @@ class Distribution
         }
 
         /*получаем настройки ппроекта*/
-        $config_project = Representation::get_mission('config_project');
+        $config_project = Conditions::get_mission('config_project');
 
         /*получаем настройки коммуникаций*/
-        $config_communications = Representation::get_mission('config_communications');
+        $config_communications = Conditions::get_mission('config_communications');
 
         try{
 
             /*получаем настройки протоколов*/
-            $config_protocols = Representation::get_mission('config_protocols');
+            $config_protocols = Conditions::get_mission('config_protocols');
 
             /*запись взаимодействий с базой данных в файл лога */
             if($config_protocols['Запросы в базу данных']){
@@ -277,7 +277,7 @@ class Distribution
     static function create_communication_with_memory(){
 
         /*получаем настройки системы*/
-        $config_system = Representation::get_mission('config_system');
+        $config_system = Conditions::get_mission('config_system');
 
         /*включено ли*/
         if(!$config_system['inclusiveness_memory']){
@@ -285,7 +285,7 @@ class Distribution
         }
 
         /*получаем настройки коммуникации*/
-        $config_communications = Representation::get_mission('config_communications');
+        $config_communications = Conditions::get_mission('config_communications');
 
         /*есть ли настройки*/
         if(!isset($config_communications['memory'])){
@@ -306,7 +306,7 @@ class Distribution
             );
 
             /*устанавливаем ссылку на коммуникацию с памятью*/
-            Representation::set_mission('link_communication_with_memory',$link_communication_with_memory);
+            Conditions::set_mission('link_communication_with_memory',$link_communication_with_memory);
 
         }catch ( \Exception $e ) {
             /*фиксируем ошибку*/
@@ -323,7 +323,7 @@ class Distribution
     static function complete_communication_with_memory(){
 
         /*получаем ссылку на коммуникацию с памятью*/
-        $link_communication_with_memory = Representation::get_mission('link_communication_with_memory');
+        $link_communication_with_memory = Conditions::get_mission('link_communication_with_memory');
 
         if($link_communication_with_memory == null){
             return false;
@@ -332,7 +332,7 @@ class Distribution
         \memcache_close($link_communication_with_memory);
 
         /*Обнуляем ссылку на коммуникацию с памятью*/
-        Representation::delete_mission('link_communication_with_memory');
+        Conditions::delete_mission('link_communication_with_memory');
 
         return true;
 
@@ -346,7 +346,7 @@ class Distribution
     static function create_communication_with_mail(){
 
         /*получаем настройки системы*/
-        $config_system = Representation::get_mission('config_system');
+        $config_system = Conditions::get_mission('config_system');
 
         /*включено ли*/
         if(!$config_system['inclusiveness_mail']){
@@ -360,10 +360,10 @@ class Distribution
         }
 
         /*получаем настройки ппроекта*/
-        $config_project = Representation::get_mission('config_project');
+        $config_project = Conditions::get_mission('config_project');
 
         /*получаем настройки коммуникации*/
-        $config_communications = Representation::get_mission('config_communications');
+        $config_communications = Conditions::get_mission('config_communications');
 
         try {
 
@@ -393,13 +393,13 @@ class Distribution
                 );
             }
             /*получаем настройки проекта*/
-            $config_project = Representation::get_mission('config_project');
+            $config_project = Conditions::get_mission('config_project');
 
             /*от кого письмо*/
             $mail->setFrom($config_project['email'], $config_project['name']);
 
             /*устанавливаем ссылку на коммуникацию с почтой*/
-            Representation::set_mission('link_communication_with_mail',$mail);
+            Conditions::set_mission('link_communication_with_mail',$mail);
 
             return true;
 
@@ -420,14 +420,14 @@ class Distribution
     static function complete_communication_with_mail(){
 
         /*получаем ссылку на коммуникацию с почтой*/
-        $link_communication_with_mail = Representation::get_mission('link_communication_with_mail');
+        $link_communication_with_mail = Conditions::get_mission('link_communication_with_mail');
 
         if($link_communication_with_mail == null){
             return false;
         }
 
         /*Обнуляем ссылку на коммуникацию с почтой*/
-        Representation::delete_mission('link_communication_with_mail');
+        Conditions::delete_mission('link_communication_with_mail');
 
         return true;
 
@@ -549,7 +549,7 @@ class Distribution
     static function interchange_information_with_data_base($direction, $what, $values){
 
         /* Получаем схему взаимодействия с базой данных */
-        $schema_interaction_with_data_base = Representation::get_mission('schema_interaction_with_data_base');
+        $schema_interaction_with_data_base = Conditions::get_mission('schema_interaction_with_data_base');
 
         if($schema_interaction_with_data_base == null){
             return false;

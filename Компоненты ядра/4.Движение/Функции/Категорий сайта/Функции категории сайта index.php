@@ -2,7 +2,7 @@
 
 namespace Framework_life_balance\core_components\experiences;
 
-use \Framework_life_balance\core_components\Representation;
+use \Framework_life_balance\core_components\Conditions;
 use \Framework_life_balance\core_components\Orientation;
 use \Framework_life_balance\core_components\Distribution;
 use \Framework_life_balance\core_components\Motion;
@@ -111,7 +111,7 @@ class Category_index
         $urls = [];
 
         /*получаем схему наработок*/
-        $schema_experiences = Representation::get_mission('schema_experiences');
+        $schema_experiences = Conditions::get_mission('schema_experiences');
 
         if($schema_experiences != null){
 
@@ -145,7 +145,7 @@ class Category_index
         $urls = [];
 
         /*получаем схему наработок*/
-        $schema_experiences = Representation::get_mission('schema_experiences');
+        $schema_experiences = Conditions::get_mission('schema_experiences');
 
         if($schema_experiences!=null){
 

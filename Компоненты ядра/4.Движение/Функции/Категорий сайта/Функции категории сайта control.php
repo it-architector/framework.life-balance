@@ -2,7 +2,7 @@
 
 namespace Framework_life_balance\core_components\experiences;
 
-use \Framework_life_balance\core_components\Representation;
+use \Framework_life_balance\core_components\Conditions;
 use \Framework_life_balance\core_components\Orientation;
 use \Framework_life_balance\core_components\Distribution;
 use \Framework_life_balance\core_components\Motion;
@@ -73,7 +73,7 @@ class Category_control
         Motion::fix_reassembly_data_base('Запуск');
 
         /*получаем настройки проекта*/
-        $config_project = Representation::get_mission('config_project');
+        $config_project = Conditions::get_mission('config_project');
 
         /*вызываем наработку отправления на почту*/
         Motion::call_experience('control', 'send_email', [
@@ -87,7 +87,7 @@ class Category_control
         $realized_schema_data_base = Distribution::get_information_realized_schema_data_base();
 
         /* Текущий норматив таблиц базы данных */
-        $schema_data_base = Representation::get_mission('schema_data_base');
+        $schema_data_base = Conditions::get_mission('schema_data_base');
 
         /*Сопоставляем нормативы базы данных*/
         $changes = Orientation::matching_schema_data_base($realized_schema_data_base, $schema_data_base);
@@ -129,7 +129,7 @@ class Category_control
             Distribution::create_communication_with_mail();
 
             /*отправляем письмо*/
-            $sended = Representation::message_to_mail(
+            $sended = Conditions::message_to_mail(
                 $parameters['email'],
                 $parameters['title'],
                 $parameters['text'],

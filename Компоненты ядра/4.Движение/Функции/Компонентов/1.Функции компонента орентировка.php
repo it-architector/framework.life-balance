@@ -28,7 +28,7 @@ class Orientation
         }
 
         /* Устанавливаем настройки системы */
-        Representation::set_mission('config_system',$config_system);
+        Conditions::set_mission('config_system',$config_system);
 
         /* Определяем операционную систему */
         self::detect_operating_system();
@@ -61,10 +61,10 @@ class Orientation
     static function check_request_legality(){
 
         /*запрошенная наработка*/
-        $request_experience = Representation::get_mission('request_experience');
+        $request_experience = Conditions::get_mission('request_experience');
 
         /*запрошенная наработанная цель*/
-        $request_experience_goal = Representation::get_mission('request_experience_goal');
+        $request_experience_goal = Conditions::get_mission('request_experience_goal');
 
         /*Проверяем правильное взятие норматива наработок*/
         self::check_correct_taking_schema_experience($request_experience, $request_experience_goal, null, 'stop');
@@ -79,7 +79,7 @@ class Orientation
     static function check_request_destructive(){
 
         /*получаем параметры запроса*/
-        $parameters_request = Representation::get_mission('parameters_request');
+        $parameters_request = Conditions::get_mission('parameters_request');
 
         if(count($parameters_request)==0){
             return;
@@ -109,10 +109,10 @@ class Orientation
     static function check_changes_schema_data_base(){
 
         /*запрошенная наработка*/
-        $request_experience = Representation::get_mission('request_experience');
+        $request_experience = Conditions::get_mission('request_experience');
 
         /*запрошенная наработанная цель*/
-        $request_experience_goal = Representation::get_mission('request_experience_goal');
+        $request_experience_goal = Conditions::get_mission('request_experience_goal');
 
         /*для такой Цели делать проверку нет надобности*/
         if(($request_experience.'/'.$request_experience_goal) == 'control/reassembly_data_base'){
@@ -123,7 +123,7 @@ class Orientation
         $realized_schema_data_base = Distribution::get_information_realized_schema_data_base();
 
         /* Текущий норматив таблиц базы данных */
-        $schema_data_base = Representation::get_mission('schema_data_base');
+        $schema_data_base = Conditions::get_mission('schema_data_base');
 
         /*Сопоставляем норматива базы данных*/
         $changes = self::matching_schema_data_base($realized_schema_data_base, $schema_data_base);
@@ -142,7 +142,7 @@ class Orientation
 
             }
 
-            if(Representation::get_mission('user_device') != 'console'){
+            if(Conditions::get_mission('user_device') != 'console'){
 
                 /*Ставим заглушку сообщающую о технических работах*/
                 Motion::fix_error('технические работы с базой данных',__FILE__,__LINE__, 'engineering_works');
@@ -161,10 +161,10 @@ class Orientation
     {
 
         /* Запрощенная наработка */
-        $request_experience = Representation::get_mission('request_experience');
+        $request_experience = Conditions::get_mission('request_experience');
 
         /* Запрощенная наработанная цель */
-        $request_experience_goal = Representation::get_mission('request_experience_goal');
+        $request_experience_goal = Conditions::get_mission('request_experience_goal');
 
         /* Кому предназначена наработанная цель */
         $experience_goal_intended = Distribution::schema_experience($request_experience, $request_experience_goal, 'intended');
@@ -203,7 +203,7 @@ class Orientation
                 break;
             /*только для запуска из под консоли*/
             case 'console':
-                if(Representation::get_mission('user_device') == 'console'){
+                if(Conditions::get_mission('user_device') == 'console'){
                     return true;
                 }
                 else{
@@ -225,7 +225,7 @@ class Orientation
     static function check_correct_taking_schema_experience($experience = null, $goal = null, $detail = null, $call_index_goal_on_error = 'error'){
 
         /*получаем схему наработок*/
-        $schema_experiences = Representation::get_mission('schema_experiences');
+        $schema_experiences = Conditions::get_mission('schema_experiences');
 
         if($schema_experiences == null){
             Motion::fix_error('нет номратива наработок',__FILE__,__LINE__, $call_index_goal_on_error);
@@ -258,7 +258,7 @@ class Orientation
     static function check_correct_taking_schema_data_base($table = null, $column = null, $detail = null, $call_index_goal_on_error = 'error'){
 
         /*получаем схему базы данных*/
-        $schema_data_base = Representation::get_mission('schema_data_base');
+        $schema_data_base = Conditions::get_mission('schema_data_base');
 
         if($schema_data_base == null){
             Motion::fix_error('нет норматива базы данных',__FILE__,__LINE__, $call_index_goal_on_error);
@@ -308,13 +308,13 @@ class Orientation
     static function mark_start_execution_experience(){
 
         /*устанавливаем время вызова функци сайта*/
-        Representation::set_mission('mark_time_call_experience',time());
+        Conditions::set_mission('mark_time_call_experience',time());
 
         /*вызванная наработка*/
-        $call_experience = Representation::get_mission('call_experience');
+        $call_experience = Conditions::get_mission('call_experience');
 
         /*вызванная наработанная цель*/
-        $call_experience_goal = Representation::get_mission('call_experience_goal');
+        $call_experience_goal = Conditions::get_mission('call_experience_goal');
 
         /*выделенное время на выполнение наработанной Цели*/
         $lead_time_seconds = Distribution::schema_experience($call_experience, $call_experience_goal, 'lead_time');
@@ -335,16 +335,16 @@ class Orientation
     static function mark_stop_execution_experience(){
 
         /*вычисляем время выполнения*/
-        $lead_time_executed = time() - Representation::get_mission('mark_time_call_experience');
+        $lead_time_executed = time() - Conditions::get_mission('mark_time_call_experience');
 
         /*время выполнения*/
-        Representation::set_mission('lead_time_executed',$lead_time_executed);
+        Conditions::set_mission('lead_time_executed',$lead_time_executed);
 
         /*вызванная наработка*/
-        $call_experience = Representation::get_mission('call_experience');
+        $call_experience = Conditions::get_mission('call_experience');
 
         /*вызванная наработанная цель*/
-        $call_experience_goal = Representation::get_mission('call_experience_goal');
+        $call_experience_goal = Conditions::get_mission('call_experience_goal');
 
         /*выделенное время на выполнение наработанной Цели*/
         $lead_time_seconds = Distribution::schema_experience($call_experience, $call_experience_goal, 'lead_time');
@@ -364,7 +364,7 @@ class Orientation
     static function detect_error()
     {
 
-        if (Representation::get_mission('message_crash')==null and @is_array($e = @error_get_last())) {
+        if (Conditions::get_mission('message_crash')==null and @is_array($e = @error_get_last())) {
 
             /*данные на ошибку*/
             $error_no = isset($e['type']) ? $e['type'] : 0;
@@ -388,11 +388,11 @@ class Orientation
     static function detect_operating_system(){
         /*windows*/
         if (substr(php_uname(), 0, 7) == "Windows"){
-            Representation::set_mission('operating_system','windows');
+            Conditions::set_mission('operating_system','windows');
         }
         /*unix*/
         else{
-            Representation::set_mission('operating_system','unix');
+            Conditions::set_mission('operating_system','unix');
         }
     }
 
@@ -407,16 +407,16 @@ class Orientation
         Orientation::detect_error();
 
         /*вызванная наработка*/
-        $call_experience = Representation::get_mission('call_experience');
+        $call_experience = Conditions::get_mission('call_experience');
 
         /*вызванная наработанная цель*/
-        $call_experience_goal = Representation::get_mission('call_experience_goal');
+        $call_experience_goal = Conditions::get_mission('call_experience_goal');
 
         /*формат результата наработанной Цели*/
         $format_result = Distribution::schema_experience($call_experience, $call_experience_goal, 'format_result');
 
         /*результат выполнения наработанной Цели*/
-        $result_executed = Representation::get_mission('result_executed');
+        $result_executed = Conditions::get_mission('result_executed');
 
         if($format_result == 'array' and !is_array($result_executed)){
             Motion::fix_error('no_array_in_result_executed',__FILE__,__LINE__);
@@ -444,7 +444,7 @@ class Orientation
         Distribution::complete_communication_with_mail();
 
         /*Удаляем все предназначения*/
-        Representation::delete_all_missions();
+        Conditions::delete_all_missions();
 
         exit;
     }
@@ -495,13 +495,13 @@ class Orientation
         $request_experience_goal = htmlspecialchars(mb_strtolower($request_experience_goal));
 
         /*устанавливаем откуда запрос*/
-        Representation::set_mission('user_device',$user_device);
+        Conditions::set_mission('user_device',$user_device);
 
         /*устанавливаем запрошенные Наработки*/
-        Representation::set_mission('request_experience',$request_experience);
+        Conditions::set_mission('request_experience',$request_experience);
 
         /*устанавливаем запрошенную наработанную цель*/
-        Representation::set_mission('request_experience_goal',$request_experience_goal);
+        Conditions::set_mission('request_experience_goal',$request_experience_goal);
 
     }
 
@@ -516,7 +516,7 @@ class Orientation
         $parameters_request = [];
 
         /*получаем откуда запрос*/
-        $user_device = Representation::get_mission('user_device');
+        $user_device = Conditions::get_mission('user_device');
 
         if($user_device == 'console'){
 
@@ -559,7 +559,7 @@ class Orientation
         }
 
         /*устанавливаем параметры запроса*/
-        Representation::set_mission('parameters_request',$parameters_request);
+        Conditions::set_mission('parameters_request',$parameters_request);
 
     }
 
@@ -579,15 +579,15 @@ class Orientation
             $user_session = $_COOKIE["user_session"];
 
             /*устанавливаем индификационный номер пользователя*/
-            Representation::set_mission('user_id',$user_id);
+            Conditions::set_mission('user_id',$user_id);
 
             /*устанавливаем сессию пользователя*/
-            Representation::set_mission('user_session',$user_session);
+            Conditions::set_mission('user_session',$user_session);
 
         }
 
         /*устанавливаем удалённый адрес пользователя*/
-        Representation::set_mission('user_ip',Orientation::definition_user_ip());
+        Conditions::set_mission('user_ip',Orientation::definition_user_ip());
 
     }
 
@@ -628,16 +628,16 @@ class Orientation
         $answer ='';
 
         /*вызванная наработка*/
-        $call_experience = Representation::get_mission('call_experience');
+        $call_experience = Conditions::get_mission('call_experience');
 
         /*вызванная наработанная цель*/
-        $call_experience_goal = Representation::get_mission('call_experience_goal');
+        $call_experience_goal = Conditions::get_mission('call_experience_goal');
 
         /* Схема вызванной наработанной цели */
         $schema_call_experience_goal = Distribution::schema_experience($call_experience, $call_experience_goal);
 
         /*результат выполнения наработанной Цели*/
-        $content = Representation::get_mission('result_executed');
+        $content = Conditions::get_mission('result_executed');
 
         /* Формируем содержимое ответа */
         switch ($schema_call_experience_goal['format_result']){
@@ -647,10 +647,10 @@ class Orientation
             case 'array':
 
                 /* Категория */
-                $result_executed['category'] = Representation::get_mission('call_experience');
+                $result_executed['category'] = Conditions::get_mission('call_experience');
 
                 /* Цель */
-                $result_executed['goal'] = Representation::get_mission('call_experience_goal');
+                $result_executed['goal'] = Conditions::get_mission('call_experience_goal');
 
                 /*заголовок*/
                 $result_executed['title'] = htmlspecialchars($schema_call_experience_goal['Заголовок страницы']);
@@ -671,7 +671,7 @@ class Orientation
         }
 
         /* Ответ в браузер */
-        if(Representation::get_mission('user_device')=='browser'){
+        if(Conditions::get_mission('user_device')=='browser'){
 
             /*всегда 200 код ответа*/
             http_response_code(200);
@@ -688,7 +688,7 @@ class Orientation
 
         }
         /* Ответ в консоль */
-        elseif(Representation::get_mission('user_device')=='console'){
+        elseif(Conditions::get_mission('user_device')=='console'){
 
         }
 
@@ -746,10 +746,10 @@ class Orientation
     static function formation_url_project(){
 
         /*получаем настройки системы*/
-        $config_system = Representation::get_mission('config_system');
+        $config_system = Conditions::get_mission('config_system');
 
         /*получаем настройки проекта*/
-        $config_project = Representation::get_mission('config_project');
+        $config_project = Conditions::get_mission('config_project');
 
         /*ссылка проекта*/
         $url_project = (($config_system['inclusiveness_ssl'])?'https':'http').'://'.$config_project['url'];
@@ -771,11 +771,11 @@ class Orientation
         $command = self::detect_path_executable_php() . ' ' . DIR_ROOT . 'Ядро.php' . ' ' . $experience . ' ' . $experience_goal . ' ' . $id_save_parameters;
 
         /*команда для windows*/
-        if(Representation::get_mission('operating_system') == "windows"){
+        if(Conditions::get_mission('operating_system') == "windows"){
             $command = "start /B " . $command;
         }
         /*команда для unix*/
-        elseif(Representation::get_mission('operating_system') == "unix"){
+        elseif(Conditions::get_mission('operating_system') == "unix"){
             $command = $command . " > /dev/null &";
         }
         else{
@@ -800,14 +800,14 @@ class Orientation
         foreach ($paths as $path){
 
             /*для windows xampp*/
-            if(Representation::get_mission('operating_system') == "windows" and strstr($path, 'php.exe') and file_exists($path) and is_file($path)){
+            if(Conditions::get_mission('operating_system') == "windows" and strstr($path, 'php.exe') and file_exists($path) and is_file($path)){
                 $path_executable_php = $path;
                 break;
             }
             else{
 
                 /*предполагаем*/
-                $path_executable_php = $path . DIRECTORY_SEPARATOR . "php" . (Representation::get_mission('operating_system') == "windows" ? ".exe" : "");
+                $path_executable_php = $path . DIRECTORY_SEPARATOR . "php" . (Conditions::get_mission('operating_system') == "windows" ? ".exe" : "");
 
                 if (file_exists($path_executable_php) && is_file($path_executable_php)) {
                     break;
