@@ -2,36 +2,35 @@
 
 namespace Framework_life_balance\core_components;
 
-use \Framework_life_balance\core_components\Distribution;
-use PHPMailer\PHPMailer\Exception;
-
-/**
- * Суть ореинтеровки
- *
- * @package Framework_life_balance\core_components
- *
- */
 class Orientation
 {
-    /**
-     * Включаем контроль ядра
-     *
-     * @return null
-     */
-    static function initiation(){
+
+    static function initiation($parameters){
 
         /* Берём настройки системы из файла */
-        $config_system = Distribution::include_information_from_file(DIR_SOLUTIONS,'Настройка системы','php');
+        $config_system = Distribution::include_information_from_file([
+            'Папка'          => DIR_SOLUTIONS,
+            'Название файла' => 'Настройка системы',
+            'Тип файла'      => 'php',
+        ]);
 
         if($config_system === null){
-            Motion::fix_error('нет файла настройки системы',__FILE__, __LINE__);
+            Motion::fix_error([
+                'Текст ошибки'          => 'нет файла настройки системы',
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => 'error',
+            ]);
         }
 
         /* Устанавливаем настройки системы */
-        Conditions::set_mission('config_system',$config_system);
+        Conditions::set_mission([
+            'Ключ'     => 'config_system',
+            'Значение' => $config_system,
+        ]);
 
         /* Определяем операционную систему */
-        self::detect_operating_system();
+        self::detect_operating_system([]);
 
         /* Устанавливаем языковой стандарт */
         setlocale(LC_ALL, $config_system['locale']);
@@ -44,42 +43,39 @@ class Orientation
 
         /* Включаем выявление ошибки */
         register_shutdown_function(function(){
-            self::detect_error();
+            self::detect_error([]);
         });
 
     }
 
-    /*---------------------------------------------------------*/
-    /*-----------------------КОНТРОЛЬ--------------------------*/
-    /*---------------------------------------------------------*/
-
-    /**
-     * Проверяем запрос на правомерность
-     *
-     * @return null
-     */
-    static function check_request_legality(){
+    static function check_request_legality($parameters){
 
         /*запрошенная наработка*/
-        $request_experience = Conditions::get_mission('request_experience');
+        $request_experience = Conditions::get_mission([
+            'Ключ' => 'request_experience',
+        ]);
 
         /*запрошенная наработанная цель*/
-        $request_experience_goal = Conditions::get_mission('request_experience_goal');
+        $request_experience_goal = Conditions::get_mission([
+            'Ключ' => 'request_experience_goal',
+        ]);
 
         /*Проверяем правильное взятие норматива наработок*/
-        self::check_correct_taking_schema_experience($request_experience, $request_experience_goal, null, 'stop');
+        self::check_correct_taking_schema_experience([
+            'Наработка' => $request_experience,
+            'Цель'      => $request_experience_goal,
+            'Деталь'    => null,
+            'Заглушка'  => 'stop',
+        ]);
 
     }
 
-    /**
-     * Проверяем запрос на деструктив
-     *
-     * @return null
-     */
-    static function check_request_destructive(){
+    static function check_request_destructive($parameters){
 
         /*получаем параметры запроса*/
-        $parameters_request = Conditions::get_mission('parameters_request');
+        $parameters_request = Conditions::get_mission([
+            'Ключ' => 'parameters_request',
+        ]);
 
         if(count($parameters_request)==0){
             return;
@@ -94,25 +90,29 @@ class Orientation
         foreach($parameters_request as $key=>$value){
             foreach($destructive_data as $string){
                 if(substr_count(mb_strtolower($value),mb_strtolower($string))){
-                    Motion::fix_error('обнаружены губительные данные ('.htmlspecialchars($string).') в '.htmlspecialchars($key).': '.htmlspecialchars($value),__FILE__,__LINE__, 'stop');
+                    Motion::fix_error([
+                        'Текст ошибки'          => 'обнаружены губительные данные ('.htmlspecialchars($string).') в '.htmlspecialchars($key).': '.htmlspecialchars($value),
+                        'Файл'                  => __FILE__,
+                        'Номер строчки в файле' => __LINE__,
+                        'Заглушка страницы'     => 'stop',
+                    ]);
                 }
             }
         }
 
     }
 
-    /**
-     * Проверяем изменения в схеме базы данных
-     *
-     * @return null
-     */
-    static function check_changes_schema_data_base(){
+    static function check_changes_schema_data_base($parameters){
 
         /*запрошенная наработка*/
-        $request_experience = Conditions::get_mission('request_experience');
+        $request_experience = Conditions::get_mission([
+            'Ключ' => 'request_experience',
+        ]);
 
         /*запрошенная наработанная цель*/
-        $request_experience_goal = Conditions::get_mission('request_experience_goal');
+        $request_experience_goal = Conditions::get_mission([
+            'Ключ' => 'request_experience_goal',
+        ]);
 
         /*для такой Цели делать проверку нет надобности*/
         if(($request_experience.'/'.$request_experience_goal) == 'control/reassembly_data_base'){
@@ -120,54 +120,82 @@ class Orientation
         }
 
         /* Реализованный норматив таблиц базы данных */
-        $realized_schema_data_base = Distribution::get_information_realized_schema_data_base();
+        $realized_schema_data_base = Distribution::get_information_realized_schema_data_base([]);
 
         /* Текущий норматив таблиц базы данных */
-        $schema_data_base = Conditions::get_mission('schema_data_base');
+        $schema_data_base = Conditions::get_mission([
+            'Ключ' => 'schema_data_base',
+        ]);
 
         /*Сопоставляем норматива базы данных*/
-        $changes = self::matching_schema_data_base($realized_schema_data_base, $schema_data_base);
+        $changes = self::matching_schema_data_base([
+            'Реализованная схема' => $realized_schema_data_base,
+            'Текущая схема'       => $schema_data_base,
+        ]);
 
         /*есть изменения*/
         if($changes){
 
             /* Проверяем запущен ли процес реструктуризации */
-            if(Distribution::include_information_from_file(DIR_PROTOCOLS_PROCESSES, 'Текущая реконструкция базы данных','log') === null){
+            if(Distribution::include_information_from_file([
+                'Папка'          => DIR_PROTOCOLS_PROCESSES,
+                'Название файла' => 'Текущая реконструкция базы данных',
+                'Тип файла'      => 'log',
+            ]) === null){
 
                 /* Фиксируем реконструкцию базы данных */
-                Motion::fix_reassembly_data_base('Вызов');
+                Motion::fix_reassembly_data_base([
+                    'Информация' => 'Вызов',
+                    'Завершение' => false,
+                ]);
 
                 /*вызываем консоль наработку реструктуризации базы данных*/
-                Motion::call_console_experience('control', 'reassembly_data_base', []);
+                Motion::call_console_experience([
+                    'Наработка'         => 'control',
+                    'Наработанная цель' => 'reassembly_data_base',
+                    'Параметры'         => [],
+                ]);
 
             }
 
-            if(Conditions::get_mission('user_device') != 'console'){
+            $user_device = Conditions::get_mission([
+                'Ключ' => 'user_device',
+            ]);
+
+            if($user_device != 'console'){
 
                 /*Ставим заглушку сообщающую о технических работах*/
-                Motion::fix_error('технические работы с базой данных',__FILE__,__LINE__, 'engineering_works');
+                Motion::fix_error([
+                    'Текст ошибки'          => 'технические работы с базой данных',
+                    'Файл'                  => __FILE__,
+                    'Номер строчки в файле' => __LINE__,
+                    'Заглушка страницы'     => 'engineering_works',
+                ]);
 
             }
         }
 
     }
 
-    /**
-     * Проверяем правомерность запроса
-     *
-     * @return boolean
-     */
-    static function check_request_access()
+    static function check_request_access($parameters)
     {
 
         /* Запрощенная наработка */
-        $request_experience = Conditions::get_mission('request_experience');
+        $request_experience = Conditions::get_mission([
+            'Ключ' => 'request_experience',
+        ]);
 
         /* Запрощенная наработанная цель */
-        $request_experience_goal = Conditions::get_mission('request_experience_goal');
+        $request_experience_goal = Conditions::get_mission([
+            'Ключ' => 'request_experience_goal',
+        ]);
 
         /* Кому предназначена наработанная цель */
-        $experience_goal_intended = Distribution::schema_experience($request_experience, $request_experience_goal, 'intended');
+        $experience_goal_intended = Distribution::schema_experience([
+            'Наработка' => $request_experience,
+            'Цель'      => $request_experience_goal,
+            'Деталь'    => 'intended',
+        ]);
 
         switch ($experience_goal_intended) {
             /*всем*/
@@ -176,119 +204,194 @@ class Orientation
                 break;
             /*только для не авторизованных*/
             case 'unauthorized':
-                if (!Motion::data_authorized_user()){
+                if (!Motion::data_authorized_user([
+                    'Показать определенную часть данных' => null,
+                ])){
                     return true;
                 }
                 else{
-                    Motion::fix_error('only_unauthorized',__FILE__,__LINE__,'stop');
+                    Motion::fix_error([
+                        'Текст ошибки'          => 'only_unauthorized',
+                        'Файл'                  => __FILE__,
+                        'Номер строчки в файле' => __LINE__,
+                        'Заглушка страницы'     => 'stop',
+                    ]);
                 }
                 break;
             /*только для авторизованных*/
             case 'authorized':
-                if (Motion::data_authorized_user()){
+                if (Motion::data_authorized_user([
+                    'Показать определенную часть данных' => null,
+                ])){
                     return true;
                 }
                 else{
-                    Motion::fix_error('only_authorized',__FILE__,__LINE__,'stop');
+                    Motion::fix_error([
+                        'Текст ошибки'          => 'only_authorized',
+                        'Файл'                  => __FILE__,
+                        'Номер строчки в файле' => __LINE__,
+                        'Заглушка страницы'     => 'stop',
+                    ]);
                 }
                 break;
             /*только для администраторов*/
             case 'authorized_by_administrator':
-                if (Motion::data_authorized_user() and Motion::data_authorized_user('is_admin') == 'true'){
+                if (Motion::data_authorized_user([
+                        'Показать определенную часть данных' => null,
+                    ]) and Motion::data_authorized_user([
+                        'Показать определенную часть данных' => 'is_admin',
+                    ]) == 'true'){
                     return true;
                 }
                 else{
-                    Motion::fix_error('only_authorized_by_admin',__FILE__,__LINE__,'stop');
+                    Motion::fix_error([
+                        'Текст ошибки'          => 'only_authorized_by_admin',
+                        'Файл'                  => __FILE__,
+                        'Номер строчки в файле' => __LINE__,
+                        'Заглушка страницы'     => 'stop',
+                    ]);
                 }
                 break;
             /*только для запуска из под консоли*/
             case 'console':
-                if(Conditions::get_mission('user_device') == 'console'){
+                $user_device = Conditions::get_mission([
+                    'Ключ' => 'user_device',
+                ]);
+                if($user_device == 'console'){
                     return true;
                 }
                 else{
-                    Motion::fix_error('only_console',__FILE__,__LINE__,'stop');
+                    Motion::fix_error([
+                        'Текст ошибки'          => 'only_console',
+                        'Файл'                  => __FILE__,
+                        'Номер строчки в файле' => __LINE__,
+                        'Заглушка страницы'     => 'stop',
+                    ]);
                 }
                 break;
         }
 
     }
 
-    /**
-     * Проверяем правильное взятие норматива наработок
-     *
-     * @param string $experience наработка
-     * @param string $goal цель
-     * @param string $detail деталь
-     * @param string $call_index_goal_on_error вызвать наработанную index цель при ошибке
-     */
-    static function check_correct_taking_schema_experience($experience = null, $goal = null, $detail = null, $call_index_goal_on_error = 'error'){
+    static function check_correct_taking_schema_experience($parameters){
+
+        $experience = $parameters['Наработка'];
+        $goal = $parameters['Цель'];
+        $detail = $parameters['Деталь'];
+        $call_index_goal_on_error = $parameters['Заглушка'];
 
         /*получаем схему наработок*/
-        $schema_experiences = Conditions::get_mission('schema_experiences');
+        $schema_experiences = Conditions::get_mission([
+            'Ключ' => 'schema_experiences',
+        ]);
 
         if($schema_experiences == null){
-            Motion::fix_error('нет номратива наработок',__FILE__,__LINE__, $call_index_goal_on_error);
+            Motion::fix_error([
+                'Текст ошибки'          => 'нет номратива наработок',
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => $call_index_goal_on_error,
+            ]);
         }
 
         /*проверка*/
         if($experience!=null and !isset($schema_experiences[$experience])){
-            Motion::fix_error('нет функции сайта '.$experience,__FILE__,__LINE__, $call_index_goal_on_error);
+            Motion::fix_error([
+                'Текст ошибки'          => 'нет функции сайта '.$experience,
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => $call_index_goal_on_error,
+            ]);
         }
         elseif($goal!=null and !isset($schema_experiences[$experience]['goals'][$goal])){
-            Motion::fix_error('Цели '.$goal.' нет в функции сайта '.$experience,__FILE__,__LINE__, $call_index_goal_on_error);
+            Motion::fix_error([
+                'Текст ошибки'          => 'Цели '.$goal.' нет в функции сайта '.$experience,
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => $call_index_goal_on_error,
+            ]);
         }
         elseif($experience!=null and $goal==null and $detail!=null and !isset($schema_experiences[$experience][$detail])){
-            Motion::fix_error('нет детали '.$detail.' у функций сайта '.$experience,__FILE__,__LINE__, $call_index_goal_on_error);
+            Motion::fix_error([
+                'Текст ошибки'          => 'нет детали '.$detail.' у функций сайта '.$experience,
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => $call_index_goal_on_error,
+            ]);
         }
         elseif($goal!=null and $detail!=null and !isset($schema_experiences[$experience]['goals'][$goal][$detail])){
-            Motion::fix_error('нет детали '.$detail.' у Цели '.$goal.' в наработке '.$experience,__FILE__,__LINE__, $call_index_goal_on_error);
+            Motion::fix_error([
+                'Текст ошибки'          => 'нет детали '.$detail.' у Цели '.$goal.' в наработке '.$experience,
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => $call_index_goal_on_error,
+            ]);
         }
 
     }
 
-    /**
-     * Проверяем правильное взятие норматива базы данных
-     *
-     * @param string $table наработка
-     * @param string $column цель
-     * @param string $detail деталь
-     * @param string $call_index_goal_on_error вызвать наработанную index цель при ошибке
-     */
-    static function check_correct_taking_schema_data_base($table = null, $column = null, $detail = null, $call_index_goal_on_error = 'error'){
+    static function check_correct_taking_schema_data_base($parameters){
+
+        $table = $parameters['Таблица'];
+        $column = $parameters['Колонка'];
+        $detail = $parameters['Деталь'];
+        $call_index_goal_on_error = $parameters['Заглушка'];
 
         /*получаем схему базы данных*/
-        $schema_data_base = Conditions::get_mission('schema_data_base');
+        $schema_data_base = Conditions::get_mission([
+            'Ключ' => 'schema_data_base',
+        ]);
 
         if($schema_data_base == null){
-            Motion::fix_error('нет норматива базы данных',__FILE__,__LINE__, $call_index_goal_on_error);
+            Motion::fix_error([
+                'Текст ошибки'          => 'нет норматива базы данных',
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => $call_index_goal_on_error,
+            ]);
         }
 
         /*проверка*/
         if($table!=null and !isset($schema_data_base[$table])){
-            Motion::fix_error('нет таблицы '.$table,__FILE__,__LINE__, $call_index_goal_on_error);
+            Motion::fix_error([
+                'Текст ошибки'          => 'нет таблицы '.$table,
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => $call_index_goal_on_error,
+            ]);
         }
         elseif($column!=null and !isset($schema_data_base[$table]['columns'][$column])){
-            Motion::fix_error('колонки '.$column.' нет в таблице '.$table,__FILE__,__LINE__, $call_index_goal_on_error);
+            Motion::fix_error([
+                'Текст ошибки'          => 'колонки '.$column.' нет в таблице '.$table,
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => $call_index_goal_on_error,
+            ]);
         }
         elseif($table!=null and $column==null and $detail!=null and !isset($schema_data_base[$table][$detail])){
-            Motion::fix_error('нет детали '.$detail.' у таблицы '.$table,__FILE__,__LINE__, $call_index_goal_on_error);
+            Motion::fix_error([
+                'Текст ошибки'          => 'нет детали '.$detail.' у таблицы '.$table,
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => $call_index_goal_on_error,
+            ]);
         }
         elseif($column!=null and $detail!=null and !isset($schema_data_base[$table]['columns'][$column][$detail])){
-            Motion::fix_error('нет детали '.$detail.' у колонки '.$column.' в таблице '.$table,__FILE__,__LINE__, $call_index_goal_on_error);
+            Motion::fix_error([
+                'Текст ошибки'          => 'нет детали '.$detail.' у колонки '.$column.' в таблице '.$table,
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => $call_index_goal_on_error,
+            ]);
         }
 
     }
 
-    /**
-     * Позиция во времени
-     *
-     * @param string $format формат даты
-     * @return string $date
-     * @throws
-     */
-    static function position_time($format = 'Y-m-d H:i:s')
+    static function position_time($parameters)
     {
+
+        $format = $parameters['Формат'];
+
         try{
             $date_class = new \DateTime();
             $date = $date_class->format($format);
@@ -296,28 +399,39 @@ class Orientation
             return $date;
         }
         catch (\Exception $e){
-            Motion::fix_error($e->getMessage(),__FILE__,__LINE__);
+            Motion::fix_error([
+                'Текст ошибки'          => $e->getMessage(),
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => 'error',
+            ]);
         }
     }
 
-    /**
-     * Помечаем начало выполнения функции сайта
-     *
-     * @return null
-     */
-    static function mark_start_execution_experience(){
+    static function mark_start_execution_experience($parameters){
 
         /*устанавливаем время вызова функци сайта*/
-        Conditions::set_mission('mark_time_call_experience',time());
+        Conditions::set_mission([
+            'Ключ'     => 'mark_time_call_experience',
+            'Значение' => time(),
+        ]);
 
         /*вызванная наработка*/
-        $call_experience = Conditions::get_mission('call_experience');
+        $call_experience = Conditions::get_mission([
+            'Ключ' => 'call_experience',
+        ]);
 
         /*вызванная наработанная цель*/
-        $call_experience_goal = Conditions::get_mission('call_experience_goal');
+        $call_experience_goal = Conditions::get_mission([
+            'Ключ' => 'call_experience_goal',
+        ]);
 
         /*выделенное время на выполнение наработанной Цели*/
-        $lead_time_seconds = Distribution::schema_experience($call_experience, $call_experience_goal, 'lead_time');
+        $lead_time_seconds = Distribution::schema_experience([
+            'Наработка' => $call_experience,
+            'Цель'      => $call_experience_goal,
+            'Деталь'    => 'lead_time',
+        ]);
 
         if(!$lead_time_seconds){
             $lead_time_seconds = 1;
@@ -327,44 +441,54 @@ class Orientation
 
     }
 
-    /**
-     * Помечаем завершение выполнения функции сайта
-     *
-     * @return null
-     */
-    static function mark_stop_execution_experience(){
+    static function mark_stop_execution_experience($parameters){
 
         /*вычисляем время выполнения*/
-        $lead_time_executed = time() - Conditions::get_mission('mark_time_call_experience');
+        $lead_time_executed = time() - Conditions::get_mission([
+                'Ключ' => 'mark_time_call_experience',
+            ]);
 
         /*время выполнения*/
-        Conditions::set_mission('lead_time_executed',$lead_time_executed);
+        Conditions::set_mission([
+            'Ключ'     => 'lead_time_executed',
+            'Значение' => $lead_time_executed,
+        ]);
 
         /*вызванная наработка*/
-        $call_experience = Conditions::get_mission('call_experience');
+        $call_experience = Conditions::get_mission([
+            'Ключ' => 'call_experience',
+        ]);
 
         /*вызванная наработанная цель*/
-        $call_experience_goal = Conditions::get_mission('call_experience_goal');
+        $call_experience_goal = Conditions::get_mission([
+            'Ключ' => 'call_experience_goal',
+        ]);
 
         /*выделенное время на выполнение наработанной Цели*/
-        $lead_time_seconds = Distribution::schema_experience($call_experience, $call_experience_goal, 'lead_time');
+        $lead_time_seconds = Distribution::schema_experience([
+            'Наработка' => $call_experience,
+            'Цель'      => $call_experience_goal,
+            'Деталь'    => 'lead_time',
+        ]);
 
         /*обнаружено превышение времени выполнения*/
         if($lead_time_executed>$lead_time_seconds){
-            Motion::fix_error('Превышения выполнения цели '.$call_experience_goal.' функции сайта '.$call_experience.' на ' . ($lead_time_executed-$lead_time_seconds) . ' сек.',__FILE__,__LINE__,false);
+            Motion::fix_error([
+                'Текст ошибки'          => 'Превышения выполнения цели '.$call_experience_goal.' функции сайта '.$call_experience.' на ' . ($lead_time_executed-$lead_time_seconds) . ' сек.',
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => false,
+            ]);
         }
 
     }
 
-    /**
-     * Выявляем ошибку
-     *
-     * @return null
-     */
-    static function detect_error()
+    static function detect_error($parameters)
     {
 
-        if (Conditions::get_mission('message_crash')==null and @is_array($e = @error_get_last())) {
+        if (Conditions::get_mission([
+            'Ключ' => 'message_crash',
+        ])==null and @is_array($e = @error_get_last())) {
 
             /*данные на ошибку*/
             $error_no = isset($e['type']) ? $e['type'] : 0;
@@ -373,92 +497,144 @@ class Orientation
             $file_line = isset($e['line']) ? $e['line'] : '';
 
             if ($error_no > 0) {
-                Motion::fix_error($error_message, $file_name, $file_line);
+                Motion::fix_error([
+                    'Текст ошибки'          => $error_message,
+                    'Файл'                  => __FILE__,
+                    'Номер строчки в файле' => __LINE__,
+                    'Заглушка страницы'     => 'error',
+                ]);
             }
 
         }
 
     }
 
-    /**
-     * Определяем операционную систему
-     *
-     * @return null
-     */
-    static function detect_operating_system(){
+    static function detect_operating_system($parameters){
         /*windows*/
         if (substr(php_uname(), 0, 7) == "Windows"){
-            Conditions::set_mission('operating_system','windows');
+            Conditions::set_mission([
+                'Ключ'     => 'operating_system',
+                'Значение' => 'windows',
+            ]);
         }
         /*unix*/
         else{
-            Conditions::set_mission('operating_system','unix');
+            Conditions::set_mission([
+                'Ключ'     => 'operating_system',
+                'Значение' => 'unix',
+            ]);
         }
     }
 
-    /**
-     * Проверяем правомерность ответа
-     *
-     * @return null
-     */
-    static function check_answer_correct(){
+    static function detect_path_executable_php($parameters){
+
+        $path_executable_php = false;
+
+        $paths = explode(PATH_SEPARATOR, getenv('PATH'));
+
+        foreach ($paths as $path){
+
+            /*для windows xampp*/
+            if(Conditions::get_mission([
+                'Ключ' => 'operating_system',
+            ]) == "windows" and strstr($path, 'php.exe') and file_exists($path) and is_file($path)){
+                $path_executable_php = $path;
+                break;
+            }
+            else{
+
+                /*предполагаем*/
+                $path_executable_php = $path . DIRECTORY_SEPARATOR . "php" . (Conditions::get_mission([
+                        'Ключ' => 'operating_system',
+                    ]) == "windows" ? ".exe" : "");
+
+                if (file_exists($path_executable_php) && is_file($path_executable_php)) {
+                    break;
+                }
+                else{
+                    $path_executable_php = false;
+                }
+
+            }
+
+        }
+
+        if(!$path_executable_php){
+            Motion::fix_error([
+                'Текст ошибки'          => 'no path_executable_php',
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => 'error',
+            ]);
+        }
+
+        return $path_executable_php;
+    }
+
+    static function check_answer_correct($parameters){
 
         /*Выявляем ошибку*/
-        Orientation::detect_error();
+        Orientation::detect_error([]);
 
         /*вызванная наработка*/
-        $call_experience = Conditions::get_mission('call_experience');
+        $call_experience = Conditions::get_mission([
+            'Ключ' => 'call_experience',
+        ]);
 
         /*вызванная наработанная цель*/
-        $call_experience_goal = Conditions::get_mission('call_experience_goal');
+        $call_experience_goal = Conditions::get_mission([
+            'Ключ' => 'call_experience_goal',
+        ]);
 
         /*формат результата наработанной Цели*/
-        $format_result = Distribution::schema_experience($call_experience, $call_experience_goal, 'format_result');
+        $format_result = Distribution::schema_experience([
+            'Наработка' => $call_experience,
+            'Цель'      => $call_experience_goal,
+            'Деталь'    => 'format_result',
+        ]);
 
         /*результат выполнения наработанной Цели*/
-        $result_executed = Conditions::get_mission('result_executed');
+        $result_executed = Conditions::get_mission([
+            'Ключ' => 'result_executed',
+        ]);
 
         if($format_result == 'array' and !is_array($result_executed)){
-            Motion::fix_error('no_array_in_result_executed',__FILE__,__LINE__);
+            Motion::fix_error([
+                'Текст ошибки'          => 'no_array_in_result_executed',
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => 'error',
+            ]);
         }
         elseif($format_result == 'text' and is_array($result_executed)){
-            Motion::fix_error('no_content_in_result_executed',__FILE__,__LINE__);
+            Motion::fix_error([
+                'Текст ошибки'          => 'no_content_in_result_executed',
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => 'error',
+            ]);
         }
 
     }
 
-    /**
-     * Прекращаем работу ядра
-     *
-     * @return null
-     */
-    static function stop_core(){
+    static function stop_core($parameters){
 
         /*Завершаем коммуникацию с базой данных*/
-        Distribution::complete_communication_with_data_base();
+        Distribution::complete_communication_with_data_base([]);
 
         /*Завершаем коммуникацию с памятью*/
-        Distribution::complete_communication_with_memory();
+        Distribution::complete_communication_with_memory([]);
 
         /*Завершаем коммуникацию с почтой*/
-        Distribution::complete_communication_with_mail();
+        Distribution::complete_communication_with_mail([]);
 
         /*Удаляем все предназначения*/
-        Conditions::delete_all_missions();
+        Conditions::delete_all_missions([]);
 
         exit;
     }
 
-    /*---------------------------------------------------------*/
-    /*-------------------СТРУКТУРИРОВАНИЕ----------------------*/
-    /*---------------------------------------------------------*/
-
-    /**
-     * Разбираем запрос
-     *
-     * @return null
-     */
-    static function parse_request(){
+    static function parse_request($parameters){
 
         if(isset($_SERVER['argv'][0])){
 
@@ -495,28 +671,34 @@ class Orientation
         $request_experience_goal = htmlspecialchars(mb_strtolower($request_experience_goal));
 
         /*устанавливаем откуда запрос*/
-        Conditions::set_mission('user_device',$user_device);
+        Conditions::set_mission([
+            'Ключ'     => 'user_device',
+            'Значение' => $user_device,
+        ]);
 
         /*устанавливаем запрошенные Наработки*/
-        Conditions::set_mission('request_experience',$request_experience);
+        Conditions::set_mission([
+            'Ключ'     => 'request_experience',
+            'Значение' => $request_experience,
+        ]);
 
         /*устанавливаем запрошенную наработанную цель*/
-        Conditions::set_mission('request_experience_goal',$request_experience_goal);
+        Conditions::set_mission([
+            'Ключ'     => 'request_experience_goal',
+            'Значение' => $request_experience_goal,
+        ]);
 
     }
 
-    /**
-     * Разбираем параметры запроса
-     *
-     * @return null
-     */
-    static function parse_parameters_request(){
+    static function parse_parameters_request($parameters){
 
         /*параметры запроса*/
         $parameters_request = [];
 
         /*получаем откуда запрос*/
-        $user_device = Conditions::get_mission('user_device');
+        $user_device = Conditions::get_mission([
+            'Ключ' => 'user_device',
+        ]);
 
         if($user_device == 'console'){
 
@@ -524,16 +706,24 @@ class Orientation
             if(isset($_SERVER['argv'][3]) and $_SERVER['argv'][3]>0){
 
                 /* Получаем параметры из базы данных */
-                $request_console = Distribution::interchange_information_with_data_base('Получение', 'Информации о запуске из консоли по id', [
-                    ':id' => $_SERVER['argv'][3]
+                $request_console = Distribution::interchange_information_with_data_base([
+                    'Направление' => 'Получение',
+                    'Чего'        => 'Информации о запуске из консоли по id',
+                    'Значение'    => [
+                        ':id' => $_SERVER['argv'][3]
+                    ],
                 ]);
 
                 if($request_console and isset($request_console['parameters'])){
 
                     /* Обновляем статус запроса консоли в базе данных */
-                    Distribution::interchange_information_with_data_base('Изменение', 'Статуса запуска консоли', [
-                        ':id'     => $_SERVER['argv'][3],
-                        ':status' => 'do',
+                    Distribution::interchange_information_with_data_base([
+                        'Направление' => 'Изменение',
+                        'Чего'        => 'Статуса запуска консоли',
+                        'Значение'    => [
+                            ':id'     => $_SERVER['argv'][3],
+                            ':status' => 'do',
+                        ],
                     ]);
 
                     /*параметры запроса*/
@@ -555,89 +745,107 @@ class Orientation
             $parameters_request = (array)@$_GET + (array)@$_POST;
         }
         else{
-            Motion::fix_error('unknown user_device: ' . $user_device,__FILE__, __LINE__);
+            Motion::fix_error([
+                'Текст ошибки'          => 'unknown user_device: ' . $user_device,
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => 'error',
+            ]);
         }
 
         /*устанавливаем параметры запроса*/
-        Conditions::set_mission('parameters_request',$parameters_request);
+        Conditions::set_mission([
+            'Ключ'     => 'parameters_request',
+            'Значение' => $parameters_request,
+        ]);
 
     }
 
-    /**
-     * Разбираем авторизованность
-     *
-     * @return null
-     */
-    static function parse_authorized(){
+    static function parse_authorized($parameters){
 
-        if(isset($_COOKIE["user_id"]) and $_COOKIE["user_id"]!=false and isset($_COOKIE["user_session"]) and $_COOKIE["user_session"] == Orientation::formation_user_session($_COOKIE["user_id"])){
+        if(isset($_COOKIE["user_id"]) and $_COOKIE["user_id"]!=false and isset($_COOKIE["user_session"])){
 
-            /*индификационный номер пользователя*/
-            $user_id = $_COOKIE["user_id"];
+            $formation_user_session = Orientation::formation_user_session([
+                'Идентификатор пользователя' => $_COOKIE["user_id"],
+            ]);
 
-            /*сессия пользователя*/
-            $user_session = $_COOKIE["user_session"];
+            if($_COOKIE["user_session"] == $formation_user_session){
 
-            /*устанавливаем индификационный номер пользователя*/
-            Conditions::set_mission('user_id',$user_id);
+                /*индификационный номер пользователя*/
+                $user_id = $_COOKIE["user_id"];
 
-            /*устанавливаем сессию пользователя*/
-            Conditions::set_mission('user_session',$user_session);
+                /*сессия пользователя*/
+                $user_session = $_COOKIE["user_session"];
+
+                /*устанавливаем индификационный номер пользователя*/
+                Conditions::set_mission([
+                    'Ключ'     => 'user_id',
+                    'Значение' => $user_id,
+                ]);
+
+                /*устанавливаем сессию пользователя*/
+                Conditions::set_mission([
+                    'Ключ'     => 'user_session',
+                    'Значение' => $user_session,
+                ]);
+
+            }
+
 
         }
 
         /*устанавливаем удалённый адрес пользователя*/
-        Conditions::set_mission('user_ip',Orientation::definition_user_ip());
+        Conditions::set_mission([
+            'Ключ'     => 'user_ip',
+            'Значение' => Orientation::definition_user_ip([]),
+        ]);
 
     }
 
-    /**
-     * Формируем сессию пользователя
-     *
-     * @param string $user_id индификационный номер пользователя
-     * @return string $session сессия пользователя
-     */
-    static function formation_user_session($user_id){
+    static function formation_user_session($parameters){
+
+        $user_id = $parameters['Идентификатор пользователя'];
 
         $session = md5('formation-'.$user_id.'-'.$_SERVER['SERVER_ADDR']);
 
         return $session;
     }
 
-    /**
-     * Формируем пароль пользователя
-     *
-     * @param string $password пароль пользователя
-     * @return string $password_formation сформированный пароль пользователя
-     */
-    static function formation_user_password($password){
+    static function formation_user_password($parameters){
+
+        $password = $parameters['Пароль пользователя'];
 
         $password_formation = md5('formation-'.$password);
 
         return $password_formation;
     }
 
-    /**
-     * Формируем результат выполенения в интерфейс
-     *
-     * @return string $answer текст ответа
-     */
-    static function formation_result_executed_to_interface(){
+    static function formation_result_executed_to_interface($parameters){
 
         /*текст ответа*/
         $answer ='';
 
         /*вызванная наработка*/
-        $call_experience = Conditions::get_mission('call_experience');
+        $call_experience = Conditions::get_mission([
+            'Ключ' => 'call_experience',
+        ]);
 
         /*вызванная наработанная цель*/
-        $call_experience_goal = Conditions::get_mission('call_experience_goal');
+        $call_experience_goal = Conditions::get_mission([
+            'Ключ' => 'call_experience_goal',
+        ]);
 
         /* Схема вызванной наработанной цели */
-        $schema_call_experience_goal = Distribution::schema_experience($call_experience, $call_experience_goal);
+        $schema_call_experience_goal = Distribution::schema_experience([
+            'Наработка' => $call_experience,
+            'Цель'      => $call_experience_goal,
+            'Деталь'    => null,
+        ]);
 
         /*результат выполнения наработанной Цели*/
-        $content = Conditions::get_mission('result_executed');
+        $content = Conditions::get_mission([
+            'Ключ' => 'result_executed',
+        ]);
 
         /* Формируем содержимое ответа */
         switch ($schema_call_experience_goal['format_result']){
@@ -647,10 +855,14 @@ class Orientation
             case 'array':
 
                 /* Категория */
-                $result_executed['category'] = Conditions::get_mission('call_experience');
+                $result_executed['category'] = Conditions::get_mission([
+                    'Ключ' => 'call_experience',
+                ]);
 
                 /* Цель */
-                $result_executed['goal'] = Conditions::get_mission('call_experience_goal');
+                $result_executed['goal'] = Conditions::get_mission([
+                    'Ключ' => 'call_experience_goal',
+                ]);
 
                 /*заголовок*/
                 $result_executed['title'] = htmlspecialchars($schema_call_experience_goal['Заголовок страницы']);
@@ -671,14 +883,20 @@ class Orientation
         }
 
         /* Ответ в браузер */
-        if(Conditions::get_mission('user_device')=='browser'){
+        if(Conditions::get_mission([
+            'Ключ' => 'user_device',
+        ])=='browser'){
 
             /*всегда 200 код ответа*/
             http_response_code(200);
 
+            $expires = Orientation::position_time([
+                'Формат'  => 'r',
+            ]);
+
             /*объявляем запрет на кэширование*/
             header("Cache-Control: no-store, no-cache, must-revalidate");
-            header("Expires: " . Orientation::position_time("r"));
+            header("Expires: " . $expires);
 
             if($schema_call_experience_goal['format_result'] == 'array'){
 
@@ -688,7 +906,9 @@ class Orientation
 
         }
         /* Ответ в консоль */
-        elseif(Conditions::get_mission('user_device')=='console'){
+        elseif(Conditions::get_mission([
+            'Ключ' => 'user_device',
+        ])=='console'){
 
         }
 
@@ -696,12 +916,7 @@ class Orientation
 
     }
 
-    /**
-     * Определение удалённого адреса пользователя
-     *
-     * @return string $user_ip
-     */
-    static function definition_user_ip(){
+    static function definition_user_ip($parameters){
 
         if(isset($_SERVER['REMOTE_ADDR'])){
             $user_ip = $_SERVER['REMOTE_ADDR'];
@@ -714,23 +929,28 @@ class Orientation
 
     }
 
-    /**
-     * Формирование шаблона
-     *
-     * @param string $template шаблон
-     * @param array $parameters параметры
-     * @return string
-     */
-    static function formation_template($template,$parameters){
+    static function formation_template($parameters){
+
+        $template = $parameters['Шаблон'];
+        $template_parameters = $parameters['Параметры'];
 
         /*получаем шаблон*/
-        $body = Distribution::include_information_from_file(DIR_HTML,$template,'html');
+        $body = Distribution::include_information_from_file([
+            'Папка'          => DIR_HTML,
+            'Название файла' => $template,
+            'Тип файла'      => 'html',
+        ]);
 
         if($body === null){
-            Motion::fix_error('нет файла html шаблона: '.$template,__FILE__,__LINE__);
+            Motion::fix_error([
+                'Текст ошибки'          => 'нет файла html шаблона: '.$template,
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => 'error',
+            ]);
         }
 
-        foreach($parameters as $key=>$value){
+        foreach($template_parameters as $key=>$value){
             $body = str_replace('{'.$key.'}',$value,$body);
         }
 
@@ -738,18 +958,17 @@ class Orientation
 
     }
 
-    /**
-     * Формирование ссылки проекта
-     *
-     * @return string
-     */
-    static function formation_url_project(){
+    static function formation_url_project($parameters){
 
         /*получаем настройки системы*/
-        $config_system = Conditions::get_mission('config_system');
+        $config_system = Conditions::get_mission([
+            'Ключ' => 'config_system',
+        ]);
 
         /*получаем настройки проекта*/
-        $config_project = Conditions::get_mission('config_project');
+        $config_project = Conditions::get_mission([
+            'Ключ' => 'config_project',
+        ]);
 
         /*ссылка проекта*/
         $url_project = (($config_system['inclusiveness_ssl'])?'https':'http').'://'.$config_project['url'];
@@ -758,83 +977,43 @@ class Orientation
 
     }
 
-    /**
-     * Формируем консольную консольную команду вызова Наработки
-     *
-     * @param string $experience наработка
-     * @param string $experience_goal цель
-     * @param integer $id_save_parameters id сохранённых параметров
-     * @return string
-     */
-    static function formation_console_command_call_experience($experience, $experience_goal, $id_save_parameters){
+    static function formation_console_command_call_experience($parameters){
 
-        $command = self::detect_path_executable_php() . ' ' . DIR_ROOT . 'Ядро.php' . ' ' . $experience . ' ' . $experience_goal . ' ' . $id_save_parameters;
+        $experience = $parameters['Наработка'];
+        $experience_goal = $parameters['Цель'];
+        $id_save_parameters = $parameters['Идентификатор сохранённых параметров'];
+
+        $command = self::detect_path_executable_php([]) . ' ' . DIR_ROOT . 'Ядро.php' . ' ' . $experience . ' ' . $experience_goal . ' ' . $id_save_parameters;
 
         /*команда для windows*/
-        if(Conditions::get_mission('operating_system') == "windows"){
+        if(Conditions::get_mission([
+            'Ключ' => 'operating_system',
+        ]) == "windows"){
             $command = "start /B " . $command;
         }
         /*команда для unix*/
-        elseif(Conditions::get_mission('operating_system') == "unix"){
+        elseif(Conditions::get_mission([
+            'Ключ' => 'operating_system',
+        ]) == "unix"){
             $command = $command . " > /dev/null &";
         }
         else{
-            Motion::fix_error('no operating_system',__FILE__,__LINE__);
+            Motion::fix_error([
+                'Текст ошибки'          => 'no operating_system',
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => 'error',
+            ]);
         }
 
         return $command;
 
     }
 
-    /**
-     * Определяем путь до исполнителя PHP
-     *
-     * @return string
-     */
-    static function detect_path_executable_php(){
+    static function matching_schema_data_base($parameters){
 
-        $path_executable_php = false;
-
-        $paths = explode(PATH_SEPARATOR, getenv('PATH'));
-
-        foreach ($paths as $path){
-
-            /*для windows xampp*/
-            if(Conditions::get_mission('operating_system') == "windows" and strstr($path, 'php.exe') and file_exists($path) and is_file($path)){
-                $path_executable_php = $path;
-                break;
-            }
-            else{
-
-                /*предполагаем*/
-                $path_executable_php = $path . DIRECTORY_SEPARATOR . "php" . (Conditions::get_mission('operating_system') == "windows" ? ".exe" : "");
-
-                if (file_exists($path_executable_php) && is_file($path_executable_php)) {
-                    break;
-                }
-                else{
-                    $path_executable_php = false;
-                }
-
-            }
-
-        }
-
-        if(!$path_executable_php){
-            Motion::fix_error('no path_executable_php',__FILE__,__LINE__);
-        }
-
-        return $path_executable_php;
-    }
-
-    /**
-     * Сопоставляем нормативы базы данных
-     *
-     * @param array $realized_schema реализованная схема
-     * @param array $current_schema текущая схема
-     * @return array|false
-     */
-    static function matching_schema_data_base($realized_schema, $current_schema){
+        $realized_schema = $parameters['Реализованная схема'];
+        $current_schema = $parameters['Текущая схема'];
 
         if(json_encode($realized_schema) == json_encode($current_schema)){
             return false;

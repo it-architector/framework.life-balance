@@ -54,16 +54,16 @@ use \Framework_life_balance\core_components\Distribution;
 use \Framework_life_balance\core_components\Motion;
 
 /* Включаем контроль ядра */
-Orientation::initiation();
+Orientation::initiation([]);
 
 /* Определяем вывод информации */
-Conditions::initiation();
+Conditions::initiation([]);
 
 /* Подготавливаем работу с ресурсами */
-Distribution::initiation();
+Distribution::initiation([]);
 
 /* Подготавливаем работу движений */
-Motion::initiation();
+Motion::initiation([]);
 
 /*
  * 3 этап:
@@ -71,42 +71,42 @@ Motion::initiation();
  */
 
 /* Разбираем запрос */
-Orientation::parse_request();
+Orientation::parse_request([]);
 
 /* Разбираем авторизованность */
-Orientation::parse_authorized();
+Orientation::parse_authorized([]);
 
 /* Проверяем запрос на правомерность */
-Orientation::check_request_legality();
+Orientation::check_request_legality([]);
 
 /* Создаем комуникацию с памятью */
-Distribution::create_communication_with_memory();
+Distribution::create_communication_with_memory([]);
 
 /* Проверяем изменения в схеме базы данных */
-Orientation::check_changes_schema_data_base();
+Orientation::check_changes_schema_data_base([]);
 
 /* Создаем комуникацию с базой данных */
-Distribution::create_communication_with_data_base();
+Distribution::create_communication_with_data_base([]);
 
 /* Проверяем запрос на доступность */
-Orientation::check_request_access();
+Orientation::check_request_access([]);
 
 /* Разбираем параметры запроса */
-Orientation::parse_parameters_request();
+Orientation::parse_parameters_request([]);
 
 /* Проверяем запрос на деструктив */
-Orientation::check_request_destructive();
+Orientation::check_request_destructive([]);
 
 /* Выполняем запрошенную наработанную цель */
-Motion::execute_request_experience_goal();
+Motion::execute_request_experience_goal([]);
 
 /* Проверяем ответ на правильность */
-Orientation::check_answer_correct();
+Orientation::check_answer_correct([]);
 
 /* Результат выполнения в интерфейс */
-Conditions::result_executed_to_interface();
+Conditions::result_executed_to_interface([]);
 
 /* Прекращаем работу ядра */
-Orientation::stop_core();
+Orientation::stop_core([]);
 
 ?>

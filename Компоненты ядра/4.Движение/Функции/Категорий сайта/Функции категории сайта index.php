@@ -10,18 +10,16 @@ use \Framework_life_balance\core_components\Motion;
 
 class Category_index
 {
-    static function index($parameters = [])
+    static function index($parameters)
     {
 
         return [];
 
     }
 
-    static function error($parameters = [
-        'code' => null,
-    ]){
+    static function error($parameters){
 
-        $code = isset($parameters['code'])?$parameters['code']:'';
+        $code = $parameters['code'];
 
         switch($code){
             case 'no_experience_class':
@@ -64,25 +62,21 @@ class Category_index
 
     }
 
-    static function stop($parameters = [])
+    static function stop($parameters)
     {
 
         return [];
 
     }
 
-    static function engineering_works($parameters = [])
+    static function engineering_works($parameters)
     {
 
         return [];
 
     }
 
-    static function send_error($parameters = [
-        'message_error'  => null,
-        'nickname_guest' => null,
-        'email_guest'    => null,
-    ])
+    static function send_error($parameters)
     {
 
         if(isset($parameters['message_error']) and $parameters['message_error']!='' and $parameters['message_error']!='Сообщение об ошибке'){
@@ -91,7 +85,12 @@ class Category_index
             $nickname = htmlspecialchars(@$parameters['nickname_guest']);
             $email = htmlspecialchars(@$parameters['email_guest']);
 
-            Motion::fix_error($nickname.' ('.$email.') сообщает, что '.$message_error, __FILE__, __LINE__, false);
+            Motion::fix_error([
+                'Текст ошибки'          => $nickname.' ('.$email.') сообщает, что '.$message_error,
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => false,
+            ]);
 
             $message_result = 'Спасибо! Ваше сообщение доставлено в отдел разработчиков.';
         }
@@ -106,12 +105,14 @@ class Category_index
 
     }
 
-    static function site_map($parameters = []){
+    static function site_map($parameters){
 
         $urls = [];
 
         /*получаем схему наработок*/
-        $schema_experiences = Conditions::get_mission('schema_experiences');
+        $schema_experiences = Conditions::get_mission([
+            'Ключ' => 'schema_experiences',
+        ]);
 
         if($schema_experiences != null){
 
@@ -126,7 +127,7 @@ class Category_index
 
                     if(in_array($experience_goal_data['intended'],['any','unauthorized'])){
 
-                        $urls[$experience_data['description']][$url] = $experience_goal_data['description'];
+                        $urls[$experience][$url] = $experience_goal;
                     }
                 }
             }
@@ -140,12 +141,14 @@ class Category_index
         ];
     }
 
-    static function site_map_xml($parameters = []){
+    static function site_map_xml($parameters){
 
         $urls = [];
 
         /*получаем схему наработок*/
-        $schema_experiences = Conditions::get_mission('schema_experiences');
+        $schema_experiences = Conditions::get_mission([
+            'Ключ' => 'schema_experiences',
+        ]);
 
         if($schema_experiences!=null){
 
@@ -176,7 +179,7 @@ class Category_index
 
         foreach ($urls as $url){
             $xml.='<url>
-        <loc>'.Orientation::formation_url_project().$url['loc'].'</loc>
+        <loc>'.Orientation::formation_url_project([]).$url['loc'].'</loc>
         <lastmod>'.date(DATE_W3C, $url['lastmod']).'</lastmod>
         <changefreq>'.$url['changefreq'].'</changefreq>
         <priority>'.$url['priority'].'</priority>

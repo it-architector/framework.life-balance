@@ -2,92 +2,124 @@
 
 namespace Framework_life_balance\core_components;
 
-use \Framework_life_balance\core_components\Conditions;
-use \Framework_life_balance\core_components\Orientation;
-use \Framework_life_balance\core_components\Motion;
-
 use \Framework_life_balance\core_components\their_modules\Data_Base;
 use \PHPMailer\PHPMailer\PHPMailer;
 
-/**
- * Суть распределения
- *
- * @package Framework_life_balance\core_components
- *
- */
 class Distribution
 {
 
-    /**
-     * Подготавливаем работу с ресурсами
-     *
-     * @return null
-     */
-    static function initiation()
+    static function initiation($parameters)
     {
 
         /* Получаем настройки коммуникаций из файла */
-        $config_communications = Distribution::include_information_from_file(DIR_RESOURCES,'Настройка коммуникаций','php');
+        $config_communications = Distribution::include_information_from_file([
+            'Папка'          => DIR_RESOURCES,
+            'Название файла' => 'Настройка коммуникаций',
+            'Тип файла'      => 'php',
+        ]);
 
         if($config_communications === null){
-            Motion::fix_error('нет файла настройки коммуникаций',__FILE__,__LINE__);
+            Motion::fix_error([
+                'Текст ошибки'          => 'нет файла настройки коммуникаций',
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => 'error',
+            ]);
         }
 
         /* Устанавливаем настройки коммуникаций */
-        Conditions::set_mission('config_communications',$config_communications);
+        Conditions::set_mission([
+            'Ключ'     => 'config_communications',
+            'Значение' => $config_communications,
+        ]);
 
         /* Получаем схему наработок из файла */
-        $schema_experiences = Distribution::include_information_from_file(DIR_MEASURES_FUNCTIONS,'Норматив функций сайта','php');
+        $schema_experiences = Distribution::include_information_from_file([
+            'Папка'          => DIR_MEASURES_FUNCTIONS,
+            'Название файла' => 'Норматив функций сайта',
+            'Тип файла'      => 'php',
+        ]);
 
         if($schema_experiences === null){
-            Motion::fix_error('нет файла норматива функций сайта',__FILE__,__LINE__);
+            Motion::fix_error([
+                'Текст ошибки'          => 'нет файла норматива функций сайта',
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => 'error',
+            ]);
         }
 
         /* Устанавливаем схему наработок */
-        Conditions::set_mission('schema_experiences',$schema_experiences);
+        Conditions::set_mission([
+            'Ключ'     => 'schema_experiences',
+            'Значение' => $schema_experiences,
+        ]);
 
         /* Получаем схему базы данных из файла */
-        $schema_data_base = Distribution::include_information_from_file(DIR_MEASURES_DATA_BASE,'Норматив таблиц базы данных','php');
+        $schema_data_base = Distribution::include_information_from_file([
+            'Папка'          => DIR_MEASURES_DATA_BASE,
+            'Название файла' => 'Норматив таблиц базы данных',
+            'Тип файла'      => 'php',
+        ]);
 
         if($schema_data_base === null){
-            Motion::fix_error('нет файла норматива таблиц базы данных',__FILE__,__LINE__);
+            Motion::fix_error([
+                'Текст ошибки'          => 'нет файла норматива таблиц базы данных',
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => 'error',
+            ]);
         }
 
         /* Устанавливаем схему базы данных */
-        Conditions::set_mission('schema_data_base',$schema_data_base);
+        Conditions::set_mission([
+            'Ключ'     => 'schema_data_base',
+            'Значение' => $schema_data_base,
+        ]);
 
         /* Получаем схему взаимодействия с базой данных */
-        $schema_interaction_with_data_base = Distribution::include_information_from_file(DIR_MEASURES_DATA_BASE,'Норматив взаимодействия с базой данных','php');
+        $schema_interaction_with_data_base = Distribution::include_information_from_file([
+            'Папка'          => DIR_MEASURES_DATA_BASE,
+            'Название файла' => 'Норматив взаимодействия с базой данных',
+            'Тип файла'      => 'php',
+        ]);
 
         if($schema_interaction_with_data_base === null){
-            Motion::fix_error('нет файла норматива взаимодействия с базой данных',__FILE__,__LINE__);
+            Motion::fix_error([
+                'Текст ошибки'          => 'нет файла норматива взаимодействия с базой данных',
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => 'error',
+            ]);
         }
 
         /* Устанавливаем схему взаимодействия с базой данных */
-        Conditions::set_mission('schema_interaction_with_data_base', $schema_interaction_with_data_base);
+        Conditions::set_mission([
+            'Ключ'     => 'schema_interaction_with_data_base',
+            'Значение' => $schema_interaction_with_data_base,
+        ]);
 
     }
 
-    /*---------------------------------------------------------*/
-    /*-----------------------Нормативы-------------------------*/
-    /*---------------------------------------------------------*/
-
-    /**
-     * Норматив функций сайта
-     *
-     * @param string $experience наработка
-     * @param string $goal цель
-     * @param string $detail деталь
-     * @return array|boolean
-     */
-    static function schema_experience($experience = null, $goal = null, $detail = null)
+    static function schema_experience($parameters)
     {
 
+        $experience = $parameters['Наработка'];
+        $goal = $parameters['Цель'];
+        $detail = $parameters['Деталь'];
+
         /*Проверяем правильное взятие норматива наработок*/
-        Orientation::check_correct_taking_schema_experience($experience, $goal, $detail);
+        Orientation::check_correct_taking_schema_experience([
+            'Наработка' => $experience,
+            'Цель'      => $goal,
+            'Деталь'    => $detail,
+            'Заглушка'  => 'error',
+        ]);
 
         /*получаем схему наработок*/
-        $schema_experiences = Conditions::get_mission('schema_experiences');
+        $schema_experiences = Conditions::get_mission([
+            'Ключ' => 'schema_experiences',
+        ]);
 
         /*получаем данные на цель*/
         if($experience!== null and $goal !== null){
@@ -116,22 +148,25 @@ class Distribution
 
     }
 
-    /**
-     * Норматив таблиц базы данных
-     *
-     * @param string $table показать данные определенной таблицы
-     * @param string $column показать данные определенной колонки
-     * @param string $detail деталь
-     * @return array|boolean
-     */
-    static function schema_data_base($table = null, $column = null, $detail = null)
+    static function schema_data_base($parameters)
     {
 
+        $table = $parameters['Показать данные определенной таблицы'];
+        $column = $parameters['Показать данные определенной колонки'];
+        $detail = $parameters['Деталь'];
+
         /*Проверяем правильное взятие норматива базы данных*/
-        Orientation::check_correct_taking_schema_data_base($table, $column, $detail);
+        Orientation::check_correct_taking_schema_data_base([
+            'Таблица'   => $table,
+            'Колонка'   => $column,
+            'Деталь'    => $detail,
+            'Заглушка'  => 'error',
+        ]);
 
         /*получаем схему базы данных*/
-        $schema_data_base = Conditions::get_mission('schema_data_base');
+        $schema_data_base = Conditions::get_mission([
+            'Ключ' => 'schema_data_base',
+        ]);
 
         /*получаем данные на цель*/
         if($table!=null and $column!=null){
@@ -160,43 +195,37 @@ class Distribution
 
     }
 
-    /**
-     * Сохраняем реализованную схему базы данных
-     *
-     * @param array $realized_schema реализованная схема
-     */
-    static function save_realized_schema_data_base($realized_schema){
+    static function save_realized_schema_data_base($parameters){
 
-        self::write_information_in_file(DIR_MEASURES_DATA_BASE,'Реализованный норматив таблиц базы данных','php', '<?php'."\n".' return '.var_export($realized_schema, true).'; ?>');
+        $realized_schema = $parameters['Реализованная схема'];
+
+        self::write_information_in_file([
+            'Папка'          => DIR_MEASURES_DATA_BASE,
+            'Название файла' => 'Реализованный норматив таблиц базы данных',
+            'Тип файла'      => 'php',
+            'Текст'          => '<?php'."\n".' return '.var_export($realized_schema, true).'; ?>',
+        ]);
 
     }
 
-    /**
-     * Получаем информацию реализованной норматива базы данных
-     *
-     * @return array $realized_schema
-     */
-    static function get_information_realized_schema_data_base(){
+    static function get_information_realized_schema_data_base($parameters){
 
-        $realized_schema = self::include_information_from_file(DIR_MEASURES_DATA_BASE,'Реализованный норматив таблиц базы данных','php');
+        $realized_schema = self::include_information_from_file([
+            'Папка'          => DIR_MEASURES_DATA_BASE,
+            'Название файла' => 'Реализованный норматив таблиц базы данных',
+            'Тип файла'      => 'php',
+        ]);
 
         return is_array($realized_schema) ? $realized_schema : [];
 
     }
 
-    /*---------------------------------------------------------*/
-    /*---------------------КОММУНИКАЦИИ------------------------*/
-    /*---------------------------------------------------------*/
-
-    /**
-     * Создаем коммуникацию с базой данных
-     *
-     * @return boolean
-     */
-    static function create_communication_with_data_base(){
+    static function create_communication_with_data_base($parameters){
 
         /*получаем настройки системы*/
-        $config_system = Conditions::get_mission('config_system');
+        $config_system = Conditions::get_mission([
+            'Ключ' => 'config_system',
+        ]);
 
         /*включено ли*/
         if(!$config_system['inclusiveness_data_base']){
@@ -206,19 +235,30 @@ class Distribution
         /*подключен ли класс для работы*/
         if(!class_exists('\Framework_life_balance\core_components\their_modules\Data_Base')){
             /*фиксируем ошибку*/
-            Motion::fix_error('no class Data_Base',__FILE__,__LINE__);
+            Motion::fix_error([
+                'Текст ошибки'          => 'no class Data_Base',
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => 'error',
+            ]);
         }
 
         /*получаем настройки ппроекта*/
-        $config_project = Conditions::get_mission('config_project');
+        $config_project = Conditions::get_mission([
+            'Ключ' => 'config_project',
+        ]);
 
         /*получаем настройки коммуникаций*/
-        $config_communications = Conditions::get_mission('config_communications');
+        $config_communications = Conditions::get_mission([
+            'Ключ' => 'config_communications',
+        ]);
 
         try{
 
             /*получаем настройки протоколов*/
-            $config_protocols = Conditions::get_mission('config_protocols');
+            $config_protocols = Conditions::get_mission([
+                'Ключ' => 'config_protocols',
+            ]);
 
             /*запись взаимодействий с базой данных в файл лога */
             if($config_protocols['Запросы в базу данных']){
@@ -240,17 +280,17 @@ class Distribution
 
         }catch (\Exception $e) {
             /*фиксируем ошибку*/
-            Motion::fix_error($e->getMessage(),__FILE__,__LINE__);
+            Motion::fix_error([
+                'Текст ошибки'          => $e->getMessage(),
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => 'error',
+            ]);
         }
 
     }
 
-    /**
-     * Завершаем коммуникацию с базой данных
-     *
-     * @return boolean
-     */
-    static function complete_communication_with_data_base(){
+    static function complete_communication_with_data_base($parameters){
 
         /*подключен ли класс для работы*/
         if(!class_exists('\Framework_life_balance\core_components\their_modules\Data_Base')){
@@ -264,20 +304,22 @@ class Distribution
             return $result;
         }catch (\Exception $e) {
             /*фиксируем ошибку*/
-            Motion::fix_error($e->getMessage(),__FILE__,__LINE__);
+            Motion::fix_error([
+                'Текст ошибки'          => $e->getMessage(),
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => 'error',
+            ]);
         }
 
     }
 
-    /**
-     * Создаем коммуникацию с памятью
-     *
-     * @return boolean
-     */
-    static function create_communication_with_memory(){
+    static function create_communication_with_memory($parameters){
 
         /*получаем настройки системы*/
-        $config_system = Conditions::get_mission('config_system');
+        $config_system = Conditions::get_mission([
+            'Ключ' => 'config_system',
+        ]);
 
         /*включено ли*/
         if(!$config_system['inclusiveness_memory']){
@@ -285,7 +327,9 @@ class Distribution
         }
 
         /*получаем настройки коммуникации*/
-        $config_communications = Conditions::get_mission('config_communications');
+        $config_communications = Conditions::get_mission([
+            'Ключ' => 'config_communications',
+        ]);
 
         /*есть ли настройки*/
         if(!isset($config_communications['memory'])){
@@ -295,7 +339,12 @@ class Distribution
         /*подключен ли класс для работы*/
         if(!class_exists('Memcache')){
             /*фиксируем ошибку*/
-            Motion::fix_error('no install/start memcache',__FILE__,__LINE__);
+            Motion::fix_error([
+                'Текст ошибки'          => 'no install/start memcache',
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => 'error',
+            ]);
         }
 
         try{
@@ -306,24 +355,29 @@ class Distribution
             );
 
             /*устанавливаем ссылку на коммуникацию с памятью*/
-            Conditions::set_mission('link_communication_with_memory',$link_communication_with_memory);
+            Conditions::set_mission([
+                'Ключ'     => 'link_communication_with_memory',
+                'Значение' => $link_communication_with_memory,
+            ]);
 
         }catch ( \Exception $e ) {
             /*фиксируем ошибку*/
-            Motion::fix_error($e->getMessage(),__FILE__,__LINE__);
+            Motion::fix_error([
+                'Текст ошибки'          => $e->getMessage(),
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => 'error',
+            ]);
         }
 
     }
 
-    /**
-     * Завершаем коммуникацию с памятью
-     *
-     * @return boolean
-     */
-    static function complete_communication_with_memory(){
+    static function complete_communication_with_memory($parameters){
 
         /*получаем ссылку на коммуникацию с памятью*/
-        $link_communication_with_memory = Conditions::get_mission('link_communication_with_memory');
+        $link_communication_with_memory = Conditions::get_mission([
+            'Ключ' => 'link_communication_with_memory',
+        ]);
 
         if($link_communication_with_memory == null){
             return false;
@@ -332,21 +386,20 @@ class Distribution
         \memcache_close($link_communication_with_memory);
 
         /*Обнуляем ссылку на коммуникацию с памятью*/
-        Conditions::delete_mission('link_communication_with_memory');
+        Conditions::delete_mission([
+            'Ключ' => 'link_communication_with_memory',
+        ]);
 
         return true;
 
     }
 
-    /**
-     * Создаем коммуникацию с почтой
-     *
-     * @return boolean
-     */
-    static function create_communication_with_mail(){
+    static function create_communication_with_mail($parameters){
 
         /*получаем настройки системы*/
-        $config_system = Conditions::get_mission('config_system');
+        $config_system = Conditions::get_mission([
+            'Ключ' => 'config_system',
+        ]);
 
         /*включено ли*/
         if(!$config_system['inclusiveness_mail']){
@@ -356,14 +409,23 @@ class Distribution
         /*подключен ли класс для работы*/
         if(!class_exists('\PHPMailer\PHPMailer\PHPMailer')){
             /*фиксируем ошибку*/
-            Motion::fix_error('no class PHPMailer',__FILE__,__LINE__);
+            Motion::fix_error([
+                'Текст ошибки'          => 'no class PHPMailer',
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => 'error',
+            ]);
         }
 
         /*получаем настройки ппроекта*/
-        $config_project = Conditions::get_mission('config_project');
+        $config_project = Conditions::get_mission([
+            'Ключ' => 'config_project',
+        ]);
 
         /*получаем настройки коммуникации*/
-        $config_communications = Conditions::get_mission('config_communications');
+        $config_communications = Conditions::get_mission([
+            'Ключ' => 'config_communications',
+        ]);
 
         try {
 
@@ -393,13 +455,18 @@ class Distribution
                 );
             }
             /*получаем настройки проекта*/
-            $config_project = Conditions::get_mission('config_project');
+            $config_project = Conditions::get_mission([
+                'Ключ' => 'config_project',
+            ]);
 
             /*от кого письмо*/
             $mail->setFrom($config_project['email'], $config_project['name']);
 
             /*устанавливаем ссылку на коммуникацию с почтой*/
-            Conditions::set_mission('link_communication_with_mail',$mail);
+            Conditions::set_mission([
+                'Ключ'     => 'link_communication_with_mail',
+                'Значение' => $mail,
+            ]);
 
             return true;
 
@@ -407,51 +474,50 @@ class Distribution
         catch (\PHPMailer\PHPMailer\Exception $e) {
 
             /*фиксируем ошибку*/
-            Motion::fix_error($mail->ErrorInfo,__FILE__,__LINE__);
+            Motion::fix_error([
+                'Текст ошибки'          => $mail->ErrorInfo,
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => 'error',
+            ]);
         }
 
     }
 
-    /**
-     * Завершаем коммуникацию с почтой
-     *
-     * @return boolean
-     */
-    static function complete_communication_with_mail(){
+    static function complete_communication_with_mail($parameters){
 
         /*получаем ссылку на коммуникацию с почтой*/
-        $link_communication_with_mail = Conditions::get_mission('link_communication_with_mail');
+        $link_communication_with_mail = Conditions::get_mission([
+            'Ключ' => 'link_communication_with_mail',
+        ]);
 
         if($link_communication_with_mail == null){
             return false;
         }
 
         /*Обнуляем ссылку на коммуникацию с почтой*/
-        Conditions::delete_mission('link_communication_with_mail');
+        Conditions::delete_mission([
+            'Ключ' => 'link_communication_with_mail',
+        ]);
 
         return true;
 
     }
 
-    /*---------------------------------------------------------*/
-    /*---------------------ВЗАИМОДЕЙСТВИЕ----------------------*/
-    /*---------------------------------------------------------*/
+    static function write_information_in_file($parameters){
 
-    /*--------ФАЙЛОВОЕ ХРАНИЛИЩЕ------*/
-
-    /**
-     * Записываем информацию в файл
-     *
-     * @param string $dir папка
-     * @param string $name название файла
-     * @param string $type тип файла
-     * @param string $information текст
-     * @return null
-     */
-    static function write_information_in_file($dir, $name, $type, $information){
+        $dir = $parameters['Папка'];
+        $name = $parameters['Название файла'];
+        $type = $parameters['Тип файла'];
+        $information = $parameters['Текст'];
 
         if($type == 'log'){
-            $information = '['.Orientation::position_time().'] ' . $information . "\r\n";
+
+            $position_time = Orientation::position_time([
+                'Формат'  => 'Y-m-d H:i:s',
+            ]);
+
+            $information = '['.$position_time.'] ' . $information . "\r\n";
             /*дозапись*/
             $addition = true;
         }
@@ -471,15 +537,11 @@ class Distribution
         );
     }
 
-    /**
-     * Подключаем информацию из файла
-     *
-     * @param string $dir папка
-     * @param string $name название файла
-     * @param string $type тип файла
-     * @return array|string|boolean
-     */
-    static function include_information_from_file($dir, $name, $type){
+    static function include_information_from_file($parameters){
+
+        $dir = $parameters['Папка'];
+        $name = $parameters['Название файла'];
+        $type = $parameters['Тип файла'];
 
         /*путь к файлу*/
         $patch_file =  $dir . $name . '.'.$type;
@@ -513,15 +575,11 @@ class Distribution
 
     }
 
-    /**
-     * Удаляем файл
-     *
-     * @param string $dir папка
-     * @param string $name название файла
-     * @param string $type тип файла
-     * @return null
-     */
-    static function delete_file($dir,$name,$type){
+    static function delete_file($parameters){
+
+        $dir = $parameters['Папка'];
+        $name = $parameters['Название файла'];
+        $type = $parameters['Тип файла'];
 
         /*путь к файлу*/
         $patch_file =  $dir . $name . '.'.$type;
@@ -536,20 +594,16 @@ class Distribution
 
     }
 
-    /*------БАЗА ДАННЫХ------*/
+    static function interchange_information_with_data_base($parameters){
 
-    /**
-     * Взаимообмен информацией с базой данных
-     *
-     * @param string $direction направление
-     * @param string $what чего
-     * @param array $values значения
-     * @return mixed
-     */
-    static function interchange_information_with_data_base($direction, $what, $values){
+        $direction = $parameters['Направление'];
+        $what = $parameters['Чего'];
+        $values = $parameters['Значение'];
 
         /* Получаем схему взаимодействия с базой данных */
-        $schema_interaction_with_data_base = Conditions::get_mission('schema_interaction_with_data_base');
+        $schema_interaction_with_data_base = Conditions::get_mission([
+            'Ключ' => 'schema_interaction_with_data_base',
+        ]);
 
         if($schema_interaction_with_data_base == null){
             return false;
@@ -557,11 +611,21 @@ class Distribution
 
         if(!isset($schema_interaction_with_data_base[$direction])){
             /* Фиксируем ошибку */
-            Motion::fix_error('Не известно направление "'.$direction.'" во взаимодействии с базой данных', __FILE__, __LINE__);
+            Motion::fix_error([
+                'Текст ошибки'          => 'Не известно направление "'.$direction.'" во взаимодействии с базой данных',
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => 'error',
+            ]);
         }
         elseif(!isset($schema_interaction_with_data_base[$direction][$what])){
             /* Фиксируем ошибку */
-            Motion::fix_error('Не известно чего "'.$what.'" направления "'.$direction.'" во взаимодействии с базой данных', __FILE__, __LINE__);
+            Motion::fix_error([
+                'Текст ошибки'          => 'Не известно чего "'.$what.'" направления "'.$direction.'" во взаимодействии с базой данных',
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => 'error',
+            ]);
         }
 
         /* Информация запроса */
@@ -633,23 +697,29 @@ class Distribution
             }
             else{
                 /* Фиксируем ошибку */
-                Motion::fix_error('Не известно направление "'.$direction.'" во взаимодействии с базой данных', __FILE__, __LINE__);
+                Motion::fix_error([
+                    'Текст ошибки'          => 'Не известно направление "'.$direction.'" во взаимодействии с базой данных',
+                    'Файл'                  => __FILE__,
+                    'Номер строчки в файле' => __LINE__,
+                    'Заглушка страницы'     => 'error',
+                ]);
             }
 
         }catch (\Exception $e) {
             /*фиксируем ошибку*/
-            Motion::fix_error($e->getMessage(),__FILE__,__LINE__);
+            Motion::fix_error([
+                'Текст ошибки'          => $e->getMessage(),
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => 'error',
+            ]);
         }
 
     }
 
-    /**
-     * Реконструируем базу данных
-     *
-     * @param array $changes изменения
-     * @return boolean
-     */
-    static function reconstruction_data_base($changes){
+    static function reconstruction_data_base($parameters){
+
+        $changes = $parameters['Изменения'];
 
         /*подключен ли класс для работы*/
         if(!class_exists('\Framework_life_balance\core_components\their_modules\Data_Base')){
@@ -677,7 +747,7 @@ class Distribution
         ];
 
         /* Реализованный норматив таблиц базы данных */
-        $realized_schema = Distribution::get_information_realized_schema_data_base();
+        $realized_schema = Distribution::get_information_realized_schema_data_base([]);
 
         try{
 
@@ -708,10 +778,15 @@ class Distribution
                             ];
 
                             /*сохраняем схему реализованного*/
-                            self::save_realized_schema_data_base($realized_schema);
+                            self::save_realized_schema_data_base([
+                                'Реализованная схема' => $realized_schema,
+                            ]);
 
                             /* Фиксируем реконструкцию базы данных */
-                            Motion::fix_reassembly_data_base('Создана таблица '.$table);
+                            Motion::fix_reassembly_data_base([
+                                'Информация' => 'Создана таблица '.$table,
+                                'Завершение' => false,
+                            ]);
 
                         }
 
@@ -738,10 +813,15 @@ class Distribution
                                 ];
 
                                 /*сохраняем схему реализованного*/
-                                self::save_realized_schema_data_base($realized_schema);
+                                self::save_realized_schema_data_base([
+                                    'Реализованная схема' => $realized_schema,
+                                ]);
 
                                 /* Фиксируем реконструкцию базы данных */
-                                Motion::fix_reassembly_data_base('Создана колонка '.$column.' в таблице '.$table);
+                                Motion::fix_reassembly_data_base([
+                                    'Информация' => 'Создана колонка '.$column.' в таблице '.$table,
+                                    'Завершение' => false,
+                                ]);
 
                             }
                         }
@@ -767,10 +847,15 @@ class Distribution
                                 ];
 
                                 /*сохраняем схему реализованного*/
-                                self::save_realized_schema_data_base($realized_schema);
+                                self::save_realized_schema_data_base([
+                                    'Реализованная схема' => $realized_schema,
+                                ]);
 
                                 /* Фиксируем реконструкцию базы данных */
-                                Motion::fix_reassembly_data_base('Создана сортировка '.$sorting.' в таблице '.$table);
+                                Motion::fix_reassembly_data_base([
+                                    'Информация' => 'Создана сортировка '.$sorting.' в таблице '.$table,
+                                    'Завершение' => false,
+                                ]);
 
                             }
                         }
@@ -782,7 +867,12 @@ class Distribution
 
                                 /*проверяем соотвествие типов колонок*/
                                 if($realized_schema[$table]['columns'][$column]['type'] != $realized_schema[$reference_change['table']]['columns'][$reference_change['column']]['type']){
-                                    Motion::fix_error('нет возможности создать связь у колонок '.$table.'.'.$column.' ('.$realized_schema[$table]['columns'][$column]['type'].') и '.$reference_change['table'].'.'.$reference_change['column'].' ('.$realized_schema[$reference_change['table']]['columns'][$reference_change['column']]['type'].') по причине разных типов колонок' . $instruction_when_error,__FILE__,__LINE__);
+                                    Motion::fix_error([
+                                        'Текст ошибки'          => 'нет возможности создать связь у колонок '.$table.'.'.$column.' ('.$realized_schema[$table]['columns'][$column]['type'].') и '.$reference_change['table'].'.'.$reference_change['column'].' ('.$realized_schema[$reference_change['table']]['columns'][$reference_change['column']]['type'].') по причине разных типов колонок' . $instruction_when_error,
+                                        'Файл'                  => __FILE__,
+                                        'Номер строчки в файле' => __LINE__,
+                                        'Заглушка страницы'     => 'error',
+                                    ]);
                                 }
 
                                 /*Вызываем создание Структуры связи*/
@@ -805,10 +895,15 @@ class Distribution
                                 ];
 
                                 /*сохраняем схему реализованного*/
-                                self::save_realized_schema_data_base($realized_schema);
+                                self::save_realized_schema_data_base([
+                                    'Реализованная схема' => $realized_schema,
+                                ]);
 
                                 /* Фиксируем реконструкцию базы данных */
-                                Motion::fix_reassembly_data_base('Создана связь колонке '.$column.' в таблице '.$table);
+                                Motion::fix_reassembly_data_base([
+                                    'Информация' => 'Создана связь колонке '.$column.' в таблице '.$table,
+                                    'Завершение' => false,
+                                ]);
 
                             }
                         }
@@ -831,10 +926,15 @@ class Distribution
                                 unset($realized_schema[$table]['references'][$column]);
 
                                 /*сохраняем схему реализованного*/
-                                self::save_realized_schema_data_base($realized_schema);
+                                self::save_realized_schema_data_base([
+                                    'Реализованная схема' => $realized_schema,
+                                ]);
 
                                 /* Фиксируем реконструкцию базы данных */
-                                Motion::fix_reassembly_data_base('Удалена связь колонке '.$column.' в таблице '.$table);
+                                Motion::fix_reassembly_data_base([
+                                    'Информация' => 'Удалена связь колонке '.$column.' в таблице '.$table,
+                                    'Завершение' => false,
+                                ]);
 
                             }
                         }
@@ -856,10 +956,15 @@ class Distribution
                                 unset($realized_schema[$table]['sortings'][$sorting]);
 
                                 /*сохраняем схему реализованного*/
-                                self::save_realized_schema_data_base($realized_schema);
+                                self::save_realized_schema_data_base([
+                                    'Реализованная схема' => $realized_schema,
+                                ]);
 
                                 /* Фиксируем реконструкцию базы данных */
-                                Motion::fix_reassembly_data_base('Удалена сортировка '.$sorting.' в таблице '.$table);
+                                Motion::fix_reassembly_data_base([
+                                    'Информация' => 'Удалена сортировка '.$sorting.' в таблице '.$table,
+                                    'Завершение' => false,
+                                ]);
 
                             }
                         }
@@ -880,10 +985,15 @@ class Distribution
                                 unset($realized_schema[$table]['columns'][$column]);
 
                                 /*сохраняем схему реализованного*/
-                                self::save_realized_schema_data_base($realized_schema);
+                                self::save_realized_schema_data_base([
+                                    'Реализованная схема' => $realized_schema,
+                                ]);
 
                                 /* Фиксируем реконструкцию базы данных */
-                                Motion::fix_reassembly_data_base('Удалена колонка '.$column.' в таблице '.$table);
+                                Motion::fix_reassembly_data_base([
+                                    'Информация' => 'Удалена колонка '.$column.' в таблице '.$table,
+                                    'Завершение' => false,
+                                ]);
 
                             }
                         }
@@ -902,19 +1012,34 @@ class Distribution
                             unset($realized_schema[$table]);
 
                             /*сохраняем схему реализованного*/
-                            self::save_realized_schema_data_base($realized_schema);
+                            self::save_realized_schema_data_base([
+                                'Реализованная схема' => $realized_schema,
+                            ]);
 
                             /* Фиксируем реконструкцию базы данных */
-                            Motion::fix_reassembly_data_base('Удалена таблица '.$table);
+                            Motion::fix_reassembly_data_base([
+                                'Информация' => 'Удалена таблица '.$table,
+                                'Завершение' => false,
+                            ]);
 
                         }
 
                     }
                     elseif($change == 'correct_comment_table'){
-                        Motion::fix_error('correct_comment_table не реализовано' . $instruction_when_error,__FILE__, __LINE__);
+                        Motion::fix_error([
+                            'Текст ошибки'          => 'correct_comment_table не реализовано' . $instruction_when_error,
+                            'Файл'                  => __FILE__,
+                            'Номер строчки в файле' => __LINE__,
+                            'Заглушка страницы'     => 'error',
+                        ]);
                     }
                     elseif($change == 'correct_primary_column_table'){
-                        Motion::fix_error('correct_primary_column_table не реализовано' . $instruction_when_error,__FILE__, __LINE__);
+                        Motion::fix_error([
+                            'Текст ошибки'          => 'correct_primary_column_table не реализовано' . $instruction_when_error,
+                            'Файл'                  => __FILE__,
+                            'Номер строчки в файле' => __LINE__,
+                            'Заглушка страницы'     => 'error',
+                        ]);
                     }
                     elseif($change == 'correct_column'){
 
@@ -938,16 +1063,26 @@ class Distribution
                                 ];
 
                                 /*сохраняем схему реализованного*/
-                                self::save_realized_schema_data_base($realized_schema);
+                                self::save_realized_schema_data_base([
+                                    'Реализованная схема' => $realized_schema,
+                                ]);
 
                                 /* Фиксируем реконструкцию базы данных */
-                                Motion::fix_reassembly_data_base('Изменена колонка '.$column.' в таблице '.$table);
+                                Motion::fix_reassembly_data_base([
+                                    'Информация' => 'Изменена колонка '.$column.' в таблице '.$table,
+                                    'Завершение' => false,
+                                ]);
 
                             }
                         }
                     }
                     else{
-                        Motion::fix_error('no '.$change . $instruction_when_error,__FILE__, __LINE__);
+                        Motion::fix_error([
+                            'Текст ошибки'          => 'no '.$change . $instruction_when_error,
+                            'Файл'                  => __FILE__,
+                            'Номер строчки в файле' => __LINE__,
+                            'Заглушка страницы'     => 'error',
+                        ]);
                     }
                 }
 
@@ -957,7 +1092,12 @@ class Distribution
 
         }catch (\Exception $e) {
             /*фиксируем ошибку*/
-            Motion::fix_error($e->getMessage() . $instruction_when_error,__FILE__,__LINE__);
+            Motion::fix_error([
+                'Текст ошибки'          => $e->getMessage() . $instruction_when_error,
+                'Файл'                  => __FILE__,
+                'Номер строчки в файле' => __LINE__,
+                'Заглушка страницы'     => 'error',
+            ]);
         }
 
     }

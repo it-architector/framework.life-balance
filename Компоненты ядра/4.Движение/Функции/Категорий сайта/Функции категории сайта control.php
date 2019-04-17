@@ -11,11 +11,15 @@ use \Framework_life_balance\core_components\Motion;
 class Category_control
 {
 
-    static function index($parameters = [])
+    static function index($parameters)
     {
 
         /*ошибки в файле лога*/
-        $errors_in_file_log = Distribution::include_information_from_file(DIR_PROTOCOLS_PROCESSES,'Ошибки в ядре','log');
+        $errors_in_file_log = Distribution::include_information_from_file([
+            'Папка'          => DIR_PROTOCOLS_PROCESSES,
+            'Название файла' => 'Ошибки в ядре',
+            'Тип файла'      => 'log',
+        ]);
 
         /*последняя ошибка в файле лога*/
         if($errors_in_file_log!=null){
@@ -31,20 +35,26 @@ class Category_control
 
     }
 
-    static function errors($parameters = [
-        'delete_file_log' => null,
-    ])
+    static function errors($parameters)
     {
 
         if(isset($parameters['delete_file_log'])){
-            Distribution::delete_file(DIR_PROTOCOLS_PROCESSES,'Ошибки в ядре','log');
+            Distribution::delete_file([
+                'Папка'          => DIR_PROTOCOLS_PROCESSES,
+                'Название файла' => 'Ошибки в ядре',
+                'Тип файла'      => 'log',
+            ]);
         }
 
         /*сколько выводить ошибок на страницу*/
         $max_errors_on_page = 10;
 
         /*ошибки в файле лога*/
-        $errors_all_in_file_log = Distribution::include_information_from_file(DIR_PROTOCOLS_PROCESSES,'Ошибки в ядре','log');
+        $errors_all_in_file_log = Distribution::include_information_from_file([
+            'Папка'          => DIR_PROTOCOLS_PROCESSES,
+            'Название файла' => 'Ошибки в ядре',
+            'Тип файла'      => 'log',
+        ]);
 
         $errors_in_file_log = [];
 
@@ -67,74 +77,92 @@ class Category_control
 
     }
 
-    static function reassembly_data_base($parameters = []){
+    static function reassembly_data_base($parameters){
 
         /* Фиксируем реконструкцию базы данных */
-        Motion::fix_reassembly_data_base('Запуск');
+        Motion::fix_reassembly_data_base([
+            'Информация' => 'Запуск',
+            'Завершение' => false,
+        ]);
 
         /*получаем настройки проекта*/
-        $config_project = Conditions::get_mission('config_project');
+        $config_project = Conditions::get_mission([
+            'Ключ' => 'config_project',
+        ]);
 
         /*вызываем наработку отправления на почту*/
-        Motion::call_experience('control', 'send_email', [
-            'email'    => $config_project['email'],
-            'title'    => 'Запущена реконструкция базы данных',
-            'text'     => 'При сбое вручную запустите в консоли команду: php Ядро.php control reassembly_data_base',
-            'template' => 'Норматив блоков mail'.DIRECTORY_SEPARATOR.'message',
+        Motion::call_experience([
+            'Наработка'         => 'control',
+            'Наработанная цель' => 'send_email',
+            'Параметры'         => [
+                'email'    => $config_project['email'],
+                'title'    => 'Запущена реконструкция базы данных',
+                'text'     => 'При сбое вручную запустите в консоли команду: php Ядро.php control reassembly_data_base',
+                'template' => 'Норматив блоков mail'.DIRECTORY_SEPARATOR.'message',
+            ],
         ]);
 
         /* Реализованный норматив таблиц базы данных */
-        $realized_schema_data_base = Distribution::get_information_realized_schema_data_base();
+        $realized_schema_data_base = Distribution::get_information_realized_schema_data_base([]);
 
         /* Текущий норматив таблиц базы данных */
-        $schema_data_base = Conditions::get_mission('schema_data_base');
+        $schema_data_base = Conditions::get_mission([
+            'Ключ' => 'schema_data_base',
+        ]);
 
         /*Сопоставляем нормативы базы данных*/
-        $changes = Orientation::matching_schema_data_base($realized_schema_data_base, $schema_data_base);
+        $changes = Orientation::matching_schema_data_base([
+            'Реализованная схема' => $realized_schema_data_base,
+            'Текущая схема'       => $schema_data_base,
+        ]);
 
         $reconstruction_result = false;
 
         if($changes){
 
             /*Реконструируем базу данных*/
-            $reconstruction_result = Distribution::reconstruction_data_base($changes);
+            $reconstruction_result = Distribution::reconstruction_data_base([
+                'Изменения' => $changes,
+            ]);
 
         }
 
         /*вызываем наработку отправления на почту*/
-        Motion::call_experience('control', 'send_email', [
-            'email'    => $config_project['email'],
-            'title'    => 'Завершена реконструкция базы данных',
-            'text'     => $reconstruction_result ? 'Изменения успешно введены.' : 'Изменений не обнаружено.',
-            'template' => 'Норматив блоков mail'.DIRECTORY_SEPARATOR.'message',
+        Motion::call_experience([
+            'Наработка'         => 'control',
+            'Наработанная цель' => 'send_email',
+            'Параметры'         => [
+                'email'    => $config_project['email'],
+                'title'    => 'Завершена реконструкция базы данных',
+                'text'     => $reconstruction_result ? 'Изменения успешно введены.' : 'Изменений не обнаружено.',
+                'template' => 'Норматив блоков mail'.DIRECTORY_SEPARATOR.'message',
+            ],
         ]);
 
         /* Фиксируем реконструкцию базы данных */
-        Motion::fix_reassembly_data_base('Завершено', true);
+        Motion::fix_reassembly_data_base([
+            'Информация' => 'Завершено',
+            'Завершение' => true,
+        ]);
 
         return $reconstruction_result ? 'true' : 'false';
 
     }
 
-    static function send_email($parameters = [
-        'email'    => null,
-        'title'    => null,
-        'text'     => null,
-        'template' => null,
-    ]){
+    static function send_email($parameters){
 
         if(isset($parameters['email']) and isset($parameters['title']) and isset($parameters['text']) and isset($parameters['template'])){
 
             /*создаем комуникацию с почтой*/
-            Distribution::create_communication_with_mail();
+            Distribution::create_communication_with_mail([]);
 
             /*отправляем письмо*/
-            $sended = Conditions::message_to_mail(
-                $parameters['email'],
-                $parameters['title'],
-                $parameters['text'],
-                $parameters['template']
-            );
+            $sended = Conditions::message_to_mail([
+                'Электронный адрес получателя' => $parameters['email'],
+                'Заголовок'                    => $parameters['title'],
+                'Текст'                        => $parameters['text'],
+                'Шаблон'                       => $parameters['template'],
+            ]);
         }
         else{
             $sended = false;

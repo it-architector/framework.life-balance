@@ -10,11 +10,15 @@ use \Framework_life_balance\core_components\Motion;
 class Category_users
 {
 
-    static function index($parameters=[])
+    static function index($parameters)
     {
 
         /* Получаем всех пользователей */
-        $users = Distribution::interchange_information_with_data_base('Получение', 'Всех пользователей', []);
+        $users = Distribution::interchange_information_with_data_base([
+            'Направление' => 'Получение',
+            'Чего'        => 'Всех пользователей',
+            'Значение'    => [],
+        ]);
 
         /*убираем приватные данные*/
         if($users){
@@ -84,41 +88,66 @@ class Category_users
             else{
 
                 /*форминование пароля пользователя*/
-                $password_formation = Orientation::formation_user_password($password);
+                $password_formation = Orientation::formation_user_password([
+                    'Пароль пользователя' => $password,
+                ]);
 
                 /* Добавляем пользователя */
-                $user_id = Distribution::interchange_information_with_data_base('Добавление', 'Нового пользователя', [
-                    ':nickname'    => $nickname,
-                    ':password'    => $password_formation,
-                    ':name'        => $name,
-                    ':family_name' => $family_name,
-                    ':email'       => $email
+                $user_id = Distribution::interchange_information_with_data_base([
+                    'Направление' => 'Добавление',
+                    'Чего'        => 'Нового пользователя',
+                    'Значение'    => [
+                        ':nickname'    => $nickname,
+                        ':password'    => $password_formation,
+                        ':name'        => $name,
+                        ':family_name' => $family_name,
+                        ':email'       => $email
+                    ],
                 ]);
 
                 /* Получаем количество всех пользователей */
-                $users_count = Distribution::interchange_information_with_data_base('Количество', 'Всех пользователей', []);
+                $users_count = Distribution::interchange_information_with_data_base([
+                    'Направление' => 'Количество',
+                    'Чего'        => 'Всех пользователей',
+                    'Значение'    => [],
+                ]);
 
                 /*присваиваем административные права первому пользователю*/
                 if($users_count == 1){
 
                     /* Ставит/отменяет назначение администратором */
-                    Distribution::interchange_information_with_data_base('Изменение', 'Роли администрирования у пользователя', [
-                        ':id'       => $user_id,
-                        ':is_admin' => 'true',
+                    Distribution::interchange_information_with_data_base([
+                        'Направление' => 'Изменение',
+                        'Чего'        => 'Роли администрирования у пользователя',
+                        'Значение'    => [
+                            ':id'       => $user_id,
+                            ':is_admin' => 'true',
+                        ],
                     ]);
 
                 }
 
                 /*вызываем консоль наработку отправления на почту*/
-                Motion::call_console_experience('control', 'send_email', [
-                    'email'    => $email,
-                    'title'    => 'Ваша регистрация на '.$_SERVER['SERVER_NAME'],
-                    'text'     => 'Вы успешно зарегистрированы!<br>Ваш псевдоним: <b style="color:green;">'.$nickname.'</b><br>Ваш пароль: <b style="color:green;">'.$password.'</b>',
-                    'template' => 'Норматив блоков mail'.DIRECTORY_SEPARATOR.'message',
+                Motion::call_console_experience([
+                    'Наработка'         => 'control',
+                    'Наработанная цель' => 'send_email',
+                    'Параметры'         => [
+                        'email'    => $email,
+                        'title'    => 'Ваша регистрация на '.$_SERVER['SERVER_NAME'],
+                        'text'     => 'Вы успешно зарегистрированы!<br>Ваш псевдоним: <b style="color:green;">'.$nickname.'</b><br>Ваш пароль: <b style="color:green;">'.$password.'</b>',
+                        'template' => 'Норматив блоков mail'.DIRECTORY_SEPARATOR.'message',
+                    ],
                 ]);
 
                 /*Вызываем выполнение подтверждения регистрации*/
-                return Motion::call_experience('users','registration_ok',['nickname' => $nickname, 'password' => $password]);
+                return Motion::call_experience([
+                    'Наработка'         => 'users',
+                    'Наработанная цель' => 'registration_ok',
+                    'Параметры'         => [
+                        'nickname' => $nickname,
+                        'password' => $password
+                    ],
+                ]);
 
             }
 
@@ -180,27 +209,43 @@ class Category_users
             else{
 
                 /*форминование пароля пользователя*/
-                $password_formation = Orientation::formation_user_password($password);
+                $password_formation = Orientation::formation_user_password([
+                    'Пароль пользователя' => $password,
+                ]);
 
                 /* Получаем id пользователя по псевдониму и паролю */
-                $user_id = Distribution::interchange_information_with_data_base('Получение', 'Id пользователя по авторизационым данным', [
-                    ':nickname' => $nickname,
-                    ':password' => $password_formation,
+                $user_id = Distribution::interchange_information_with_data_base([
+                    'Направление' => 'Получение',
+                    'Чего'        => 'Id пользователя по авторизационым данным',
+                    'Значение'    => [
+                        ':nickname' => $nickname,
+                        ':password' => $password_formation,
+                    ],
                 ]);
 
                 /*обновление у пользователя сессии авторизации*/
-                $user_session = Orientation::formation_user_session($user_id);
+                $user_session = Orientation::formation_user_session([
+                    'Идентификатор пользователя' => $user_id,
+                ]);
 
                 /* Обновление пользователю сессии авторизации */
-                Distribution::interchange_information_with_data_base('Изменение', 'Сессии у пользователя', [
-                    ':id'      => $user_id,
-                    ':session' => $user_session,
+                Distribution::interchange_information_with_data_base([
+                    'Направление' => 'Изменение',
+                    'Чего'        => 'Сессии у пользователя',
+                    'Значение'    => [
+                        ':id'      => $user_id,
+                        ':session' => $user_session,
+                    ],
                 ]);
 
                 /*Вызываем выполнение удачной авторизации*/
-                return Motion::call_experience('users','authorized_ok',[
-                    'user_id'      => $user_id,
-                    'user_session' => $user_session
+                return Motion::call_experience([
+                    'Наработка'         => 'users',
+                    'Наработанная цель' => 'authorized_ok',
+                    'Параметры'         => [
+                        'user_id'      => $user_id,
+                        'user_session' => $user_session
+                    ],
                 ]);
 
             }
@@ -228,7 +273,9 @@ class Category_users
     static function authorized_data($parameters)
     {
         return [
-            'user_data' => Motion::data_authorized_user()
+            'user_data' => Motion::data_authorized_user([
+                'Показать определенную часть данных' => null,
+            ])
         ];
 
     }
@@ -236,13 +283,24 @@ class Category_users
     static function unauthorize($parameters)
     {
         /*получаем значение индификационного номера пользователя*/
-        $user_id = Conditions::get_mission('user_id');
+        $user_id = Conditions::get_mission([
+            'Ключ' => 'user_id',
+        ]);
 
         /* Сбрасываем память о пользователе */
-        Motion::work_with_memory_data('session_'.$user_id, false, false, true);
+        Motion::work_with_memory_data([
+            'Обозначение ячейки памяти' => 'session_'.$user_id,
+            'Значение для записи'       => false,
+            'Время хранения в сек.'     => false,
+            'Очистка ячейки'            => true,
+        ]);
 
         /*Вызываем выполнение удачного сброса авторизации*/
-        return Motion::call_experience('users','unauthorized_ok',[]);
+        return Motion::call_experience([
+            'Наработка'         => 'users',
+            'Наработанная цель' => 'unauthorized_ok',
+            'Параметры'         => [],
+        ]);
 
     }
 
@@ -263,7 +321,13 @@ class Category_users
 
             $nickname = htmlspecialchars($parameters['nickname']);
 
-            if(Distribution::interchange_information_with_data_base('Получение', 'Id пользователя по псевдониму', [':nickname' => $nickname])){
+            if(Distribution::interchange_information_with_data_base([
+                'Направление' => 'Получение',
+                'Чего'        => 'Id пользователя по псевдониму',
+                'Значение'    => [
+                    ':nickname' => $nickname,
+                ],
+            ])){
                 $is_nickname_registration='true';
             }
         }
@@ -297,12 +361,18 @@ class Category_users
        if(isset($parameters['nickname']) and isset($parameters['password'])){
 
            /*форминование пароля пользователя*/
-           $password_formation = Orientation::formation_user_password($parameters['password']);
+           $password_formation = Orientation::formation_user_password([
+               'Пароль пользователя' => $parameters['password'],
+           ]);
 
            /* Получаем id пользователя по псевдониму и паролю */
-           $user_id = Distribution::interchange_information_with_data_base('Получение', 'Id пользователя по авторизационым данным', [
-               ':nickname' => $parameters['nickname'],
-               ':password' => $password_formation,
+           $user_id = Distribution::interchange_information_with_data_base([
+               'Направление' => 'Получение',
+               'Чего'        => 'Id пользователя по авторизационым данным',
+               'Значение'    => [
+                   ':nickname' => $parameters['nickname'],
+                   ':password' => $password_formation,
+               ],
            ]);
 
            if($user_id){
@@ -329,7 +399,13 @@ class Category_users
 
             $email = htmlspecialchars($parameters['email']);
 
-            if(!Distribution::interchange_information_with_data_base('Получение', 'Id пользователя по электронному адресу', [':email' => $email])){
+            if(!Distribution::interchange_information_with_data_base([
+                'Направление' => 'Получение',
+                'Чего'        => 'Id пользователя по электронному адресу',
+                'Значение'    => [
+                    ':email' => $email,
+                ],
+            ])){
                 $is_email_no_registration='true';
             }
         }
