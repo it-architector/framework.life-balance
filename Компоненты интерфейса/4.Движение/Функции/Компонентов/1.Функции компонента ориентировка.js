@@ -1,6 +1,6 @@
 class Orientation {
 
-    static initiation() {
+    static initiation($parameters) {
 
         /*метод проверки русских букв*/
         jQuery.validator.addMethod('russian_letters', function (value) {
@@ -75,11 +75,11 @@ class Orientation {
         /*	FOOTER HEIGHT
         /*-----------------------------------------------------------------------------------*/
         jQuery(document).ready(function() {
-            Orientation.height_scroll_bar();
+            Orientation.height_scroll_bar({});
         });
 
         jQuery(window).resize(function(){
-            Orientation.height_scroll_bar();
+            Orientation.height_scroll_bar({});
         });
 
         /* Yandex.Metrika counter */
@@ -151,8 +151,7 @@ class Orientation {
 
     }
 
-    /* Формирует высоту сколлинга */
-    static height_scroll_bar(){
+    static height_scroll_bar($parameters){
         if ($(window).width() > 991){
             var wh = jQuery('footer').height() + 70;
             jQuery('#contacts').css('min-height', wh);
@@ -160,20 +159,20 @@ class Orientation {
 
     }
 
-    /*запоминаем запрос*/
-    static save_called_core_url(url) {
+    static save_called_core_url($parameters) {
+
+        var url = $parameters['url'];
+
         if(url!==''){
             this.called_core_url = url;
         }
     }
 
-    /*получаем последний запрос*/
-    static get_called_core_url() {
+    static get_called_core_url($parameters) {
         return this.called_core_url;
     }
 
-    /* Получаем ссылку открытой страницы */
-    static get_url_by_opened_page(){
+    static get_url_by_opened_page($parameters){
 
         var open_page = '';
 
@@ -197,8 +196,9 @@ class Orientation {
 
     }
 
-    /* Получаем категорию сайта по ответу */
-    static get_category_by_page_link(link) {
+    static get_category_by_page_link($parameters) {
+
+        var link = $parameters['link'];
 
         var link_explode = link.split('#',2);
 
@@ -210,8 +210,9 @@ class Orientation {
 
     }
 
-    /* Получаем выполненную цель по ответу */
-    static get_goal_by_page_link(link) {
+    static get_goal_by_page_link($parameters) {
+
+        var link = $parameters['link'];
 
         var link_explode = link.split('#',2);
 
@@ -223,8 +224,9 @@ class Orientation {
 
     }
 
-    /* формируем ссылки для передачи запроса в ядро */
-    static formation_core_url(link) {
+    static formation_core_url($parameters) {
+
+        var link = $parameters['link'];
 
         var core_url = '';
         var link_explode = link.split('#',2);
@@ -245,8 +247,7 @@ class Orientation {
         return core_url;
     }
 
-    /*переходит на якорь*/
-    static navigation_to_page_anchor() {
+    static navigation_to_page_anchor($parameters) {
         if(window.location.hash!==""){
             if(jQuery(window.location.hash).offset() !== undefined){
                 var scrollTop = jQuery(window.location.hash).offset().top - 80;
@@ -255,8 +256,7 @@ class Orientation {
         }
     }
 
-    /* показываем авторизацию */
-    static show_authorization_panel() {
+    static show_authorization_panel($parameters) {
 
         jQuery.post('/Ядро.php?request=/users/authorized_data','').done(function(values){
 
@@ -292,16 +292,18 @@ class Orientation {
 
     }
 
-    /* показываем анимацию загрузки данных */
-    static show_loader() {
+    static show_loader($parameters) {
 
         jQuery('#content').slideToggle('slow');
         jQuery('#preloader').show();
 
     }
 
-    /* показываем загруженные данные */
-    static show_content(category, goal, response) {
+    static show_content($parameters) {
+
+        var category = $parameters['category'];
+        var goal = $parameters['goal'];
+        var response = $parameters['response'];
 
         /*устанавливаем заголовок*/
         if(typeof(response["title"]) != "undefined"){
@@ -326,9 +328,12 @@ class Orientation {
 
         }
         /*обёртываем в html*/
-        else if(typeof(list_blocks['/' + category + '/' + goal]) != "undefined"){
+        else if(typeof(site_functions[category]) != "undefined" && typeof(site_functions[category][goal]) != "undefined"){
 
-            content_body = this.packaging_core_data(category, goal);
+            content_body = this.packaging_core_data({
+                'category': category,
+                'goal': goal,
+            });
 
         }
 
@@ -343,59 +348,86 @@ class Orientation {
             }
 
             /* переводим ссылки на core режим */
-            Orientation.communication_link_with_core('#content a.to_core');
+            Orientation.communication_link_with_core({
+                'anchor': '#content a.to_core',
+            });
 
             /* переводим формы на core режим */
-            Orientation.communication_form_with_core('content');
+            Orientation.communication_form_with_core({
+                'anchor': 'content',
+            });
 
             /*переходим на якорь*/
             setTimeout(function(){
-                Orientation.navigation_to_page_anchor();
+                Orientation.navigation_to_page_anchor({});
             },800);
 
         }, 800);
 
     }
 
-    /* показываем ошибку работы ajax */
-    static show_error(error) {
+    static show_error($parameters) {
+
+        var error = $parameters['error'];
+
         jQuery('#preloader').hide();
         jQuery('#content').html('<div style="padding: 30px;">' + error + '</div>').slideDown('slow');
     }
 
-    /* Загружаем страницу */
-    static load_page(page_link = '', post_data = '') {
+    static load_page($parameters) {
+
+        var page_link = $parameters['page_link'];
+        var post_data = $parameters['post_data'];
 
         if(page_link == '/undefined'){
             page_link = '/';
         }
 
-        var category = this.get_category_by_page_link(page_link)
-        var goal = this.get_goal_by_page_link(page_link);
+        var category = this.get_category_by_page_link({
+            'link': page_link
+        });
 
-        var core_last_url = this.get_called_core_url();
-        var core_url = this.formation_core_url(page_link);
+        var goal = this.get_goal_by_page_link({
+            'link': page_link
+        });
 
-        this.save_called_core_url(core_url);
+        var core_last_url = this.get_called_core_url({});
+
+        var core_url = this.formation_core_url({
+            'link': page_link
+        });
+
+        this.save_called_core_url({
+            'url': core_url,
+        });
 
         /*отправляем данные в ядро по post*/
         if(core_url !== '' && (core_last_url !== core_url || (core_last_url === core_url && window.location.hash === ""))){
 
             /* показываем анимацию загрузки данных */
-            this.show_loader();
+            this.show_loader({});
 
-            this.load_core_data(category, goal, core_url, post_data);
+            this.load_core_data({
+                'category': category,
+                'goal': goal,
+                'core_url': core_url,
+                'post_data': post_data,
+            });
 
         }
         else{
             /*переходит на якорь*/
-            this.navigation_to_page_anchor();
+            this.navigation_to_page_anchor({});
         }
 
     }
 
-    /* Загружаем данные с ядра */
-    static load_core_data(category, goal, core_url, post_data) {
+    static load_core_data($parameters) {
+
+        var category = $parameters['category'];
+        var goal = $parameters['goal'];
+        var core_url = $parameters['core_url'];
+        var post_data = $parameters['post_data'];
 
         var request = new XMLHttpRequest();
 
@@ -414,30 +446,44 @@ class Orientation {
                 var response = JSON.parse(response_text);
 
                 if(typeof(response["category"]) == "undefined"){
-                    Orientation.show_error(response);
+                    Orientation.show_error({
+                        'error': response,
+                    });
                 }
 
                 category = response["category"];
                 goal = response["goal"];
 
-                Orientation.show_content(category, goal, response);
+                Orientation.show_content({
+                    'category': category,
+                    'goal': goal,
+                    'response': response,
+                });
 
 
             }
             /* Ответ текстом */
             catch (e){
-                Orientation.show_content(category, goal, response_text);
+                Orientation.show_content({
+                    'category': category,
+                    'goal': goal,
+                    'response': response_text,
+                });
             }
 
         }
         else {
-            Orientation.show_error(request.status + ': ' + request.statusText);
+            Orientation.show_error({
+                'error': request.status + ': ' + request.statusText,
+            });
         }
 
     }
 
-    /* Оборачиваем данные с ядра */
-    static packaging_core_data(category, goal){
+    static packaging_core_data($parameters){
+
+        var category = $parameters['category'];
+        var goal = $parameters['goal'];
 
         /*ссылка на шаблон html*/
         var html_file_url = '/Компоненты интерфейса/3.Распределение/Нормативы/Блочные/Норматив блоков ' + category + '/' + goal + '.html';
@@ -460,8 +506,9 @@ class Orientation {
 
     }
 
-    /* переводим ссылки на core режим */
-    static communication_link_with_core(anchor) {
+    static communication_link_with_core($parameters) {
+
+        var anchor = $parameters['anchor'];
 
         jQuery(anchor).click(function(){
 
@@ -469,15 +516,19 @@ class Orientation {
 
             history.pushState(null, null, page_link);
 
-            Orientation.load_page(page_link,'');
+            Orientation.load_page({
+                'page_link': page_link,
+                'post_data': '',
+            });
 
             return false;
 
         });
     }
 
-    /* переводим формы на core режим */
-    static communication_form_with_core(anchor) {
+    static communication_form_with_core($parameters) {
+
+        var anchor = $parameters['anchor'];
 
         jQuery("#" + anchor + " form").validate({
             ignore: ":hidden",
@@ -639,7 +690,10 @@ class Orientation {
                 var request = jQuery(form).attr('action');
                 var postData = jQuery(form).serialize();
 
-                Orientation.load_page(request,postData);
+                Orientation.load_page({
+                    'page_link': request,
+                    'post_data': postData,
+                });
 
                 return false;
             }
