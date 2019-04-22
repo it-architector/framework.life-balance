@@ -115,15 +115,26 @@ class Motion
                 'Ключ' => 'user_ip',
             ]);
 
+            $position_time = Orientation::position_time([
+                'Формат'  => 'Y-m-d H:i:s',
+            ]);
+
+            $error_json = json_encode([
+                'date' => $position_time,
+                'request_experience' => $request_experience,
+                'request_experience_goal' => $request_experience_goal,
+                'user_ip' => $user_ip,
+                'error_message' => $error_message,
+                'file_name' => $file_name,
+                'num_line_on_file_error' => $num_line_on_file_error,
+            ]);
+
             /*записываем ошибку в файл*/
             Distribution::write_information_in_file([
                 'Папка'          => DIR_PROTOCOLS_PROCESSES,
                 'Название файла' => 'Ошибки в ядре',
                 'Тип файла'      => 'log',
-                'Текст'          => 'request ('.$request_experience.'/'.$request_experience_goal.'): '.explode("\n",$error_message)[0]
-                    .' | user ip: ' . $user_ip
-                    .(($file_name!=null)?' | file name: ' . $file_name:'')
-                    .(($num_line_on_file_error!=null)?' | file line: ' . $num_line_on_file_error:''),
+                'Текст'          => $error_json,
             ]);
 
         }

@@ -24,6 +24,7 @@ class Category_control
         /*последняя ошибка в файле лога*/
         if($errors_in_file_log!=null){
             $last_error_in_file_log = $errors_in_file_log[(count($errors_in_file_log)-1)];
+            $last_error_in_file_log = json_decode($last_error_in_file_log, 1);
         }
         else{
             $last_error_in_file_log = false;
@@ -63,7 +64,7 @@ class Category_control
             krsort($errors_all_in_file_log);
 
             foreach($errors_all_in_file_log as $error){
-                $errors_in_file_log[] = $error;
+                $errors_in_file_log[] = json_decode($error, 1);
                 if(count($errors_in_file_log) == $max_errors_on_page){
                     break;
                 }

@@ -513,11 +513,7 @@ class Distribution
 
         if($type == 'log'){
 
-            $position_time = Orientation::position_time([
-                'Формат'  => 'Y-m-d H:i:s',
-            ]);
-
-            $information = '['.$position_time.'] ' . $information . "\r\n";
+            $information = $information . "\r\n";
             /*дозапись*/
             $addition = true;
         }

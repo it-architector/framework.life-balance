@@ -313,7 +313,17 @@ return array(
                 'Описание страницы'    => '',
                 'Ключевики страницы'   => '',
                 'Входящие переменные'  => [],
-                'Выходящие переменные' => array('last_error_in_file_log'),
+                'Выходящие переменные' => [
+                    'last_error_in_file_log' => [
+                        'date',
+                        'request_experience',
+                        'request_experience_goal',
+                        'user_ip',
+                        'error_message',
+                        'file_name',
+                        'num_line_on_file_error',
+                    ],
+                ],
             ],
             /*цель*/
             'errors' => [
@@ -329,7 +339,19 @@ return array(
                 'Входящие переменные'  => [
                     'delete_file_log' => null,
                 ],
-                'Выходящие переменные' => array('errors_in_file_log'),
+                'Выходящие переменные' => [
+                    'errors_in_file_log' => [
+                        0 => [
+                            'date',
+                            'request_experience',
+                            'request_experience_goal',
+                            'user_ip',
+                            'error_message',
+                            'file_name',
+                            'num_line_on_file_error',
+                        ]
+                    ],
+                ],
             ],
             /*цель*/
             'reassembly_data_base' => [

@@ -9,7 +9,7 @@ class Category_control{
             var last_error_in_file_log = 'Нет.';
         }
         else{
-            var last_error_in_file_log = $parameters['last_error_in_file_log'];
+            var last_error_in_file_log = $parameters['last_error_in_file_log']['date'] + ' (' + $parameters['last_error_in_file_log']['request_experience'] + '/' + $parameters['last_error_in_file_log']['request_experience_goal'] + '): ' + $parameters['last_error_in_file_log']['error_message'];
         }
         $('#last_error_in_file_log').html(last_error_in_file_log);
 
@@ -67,7 +67,7 @@ class Category_control{
         else{
             $.each($parameters['errors_in_file_log'], function(error_id, error) {
 
-                out_errors_in_file_log = out_errors_in_file_log + '<p>' + error + '</p>';
+                out_errors_in_file_log = out_errors_in_file_log + '<p>' + error['date'] + ' (' + error['request_experience'] + '/' + error['request_experience_goal'] + '): ' + error['error_message'] + '</p>';
 
             });
 
