@@ -36,13 +36,13 @@ class Distribution
         /* Получаем схему наработок из файла */
         $schema_experiences = Distribution::include_information_from_file([
             'Папка'          => DIR_MEASURES_FUNCTIONS,
-            'Название файла' => 'Норматив функций сайта',
+            'Название файла' => 'Объём функций сайта',
             'Тип файла'      => 'php',
         ]);
 
         if($schema_experiences === null){
             Motion::fix_error([
-                'Текст ошибки'          => 'нет файла норматива функций сайта',
+                'Текст ошибки'          => 'нет файла объёма функций сайта',
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',
@@ -58,13 +58,13 @@ class Distribution
         /* Получаем схему базы данных из файла */
         $schema_data_base = Distribution::include_information_from_file([
             'Папка'          => DIR_MEASURES_DATA_BASE,
-            'Название файла' => 'Норматив таблиц базы данных',
+            'Название файла' => 'Объём таблиц базы данных',
             'Тип файла'      => 'php',
         ]);
 
         if($schema_data_base === null){
             Motion::fix_error([
-                'Текст ошибки'          => 'нет файла норматива таблиц базы данных',
+                'Текст ошибки'          => 'нет файла объёма таблиц базы данных',
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',
@@ -80,13 +80,13 @@ class Distribution
         /* Получаем схему взаимодействия с базой данных */
         $schema_interaction_with_data_base = Distribution::include_information_from_file([
             'Папка'          => DIR_MEASURES_DATA_BASE,
-            'Название файла' => 'Норматив взаимодействия с базой данных',
+            'Название файла' => 'Объём взаимодействия с базой данных',
             'Тип файла'      => 'php',
         ]);
 
         if($schema_interaction_with_data_base === null){
             Motion::fix_error([
-                'Текст ошибки'          => 'нет файла норматива взаимодействия с базой данных',
+                'Текст ошибки'          => 'нет файла объёма взаимодействия с базой данных',
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',
@@ -108,7 +108,7 @@ class Distribution
         $goal = $parameters['Цель'];
         $detail = $parameters['Деталь'];
 
-        /*Проверяем правильное взятие норматива наработок*/
+        /*Проверяем правильное взятие объёма наработок*/
         Orientation::check_correct_taking_schema_experience([
             'Наработка' => $experience,
             'Цель'      => $goal,
@@ -155,7 +155,7 @@ class Distribution
         $column = $parameters['Показать данные определенной колонки'];
         $detail = $parameters['Деталь'];
 
-        /*Проверяем правильное взятие норматива базы данных*/
+        /*Проверяем правильное взятие объёма базы данных*/
         Orientation::check_correct_taking_schema_data_base([
             'Таблица'   => $table,
             'Колонка'   => $column,
@@ -201,7 +201,7 @@ class Distribution
 
         self::write_information_in_file([
             'Папка'          => DIR_MEASURES_DATA_BASE,
-            'Название файла' => 'Реализованный норматив таблиц базы данных',
+            'Название файла' => 'Реализованный объём таблиц базы данных',
             'Тип файла'      => 'php',
             'Текст'          => '<?php'."\n".' return '.var_export($realized_schema, true).'; ?>',
         ]);
@@ -212,7 +212,7 @@ class Distribution
 
         $realized_schema = self::include_information_from_file([
             'Папка'          => DIR_MEASURES_DATA_BASE,
-            'Название файла' => 'Реализованный норматив таблиц базы данных',
+            'Название файла' => 'Реализованный объём таблиц базы данных',
             'Тип файла'      => 'php',
         ]);
 
@@ -742,7 +742,7 @@ class Distribution
             'create_reference',
         ];
 
-        /* Реализованный норматив таблиц базы данных */
+        /* Реализованный объём таблиц базы данных */
         $realized_schema = Distribution::get_information_realized_schema_data_base([]);
 
         try{

@@ -135,7 +135,7 @@ class Category_users
                         'email'    => $email,
                         'title'    => 'Ваша регистрация на '.$_SERVER['SERVER_NAME'],
                         'text'     => 'Вы успешно зарегистрированы!<br>Ваш псевдоним: <b style="color:green;">'.$nickname.'</b><br>Ваш пароль: <b style="color:green;">'.$password.'</b>',
-                        'template' => 'Норматив блоков mail'.DIRECTORY_SEPARATOR.'message',
+                        'template' => 'Объём блоков mail'.DIRECTORY_SEPARATOR.'message',
                     ],
                 ]);
 

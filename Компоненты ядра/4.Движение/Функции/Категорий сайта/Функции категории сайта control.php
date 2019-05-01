@@ -99,19 +99,19 @@ class Category_control
                 'email'    => $config_project['email'],
                 'title'    => 'Запущена реконструкция базы данных',
                 'text'     => 'При сбое вручную запустите в консоли команду: php Ядро.php control reassembly_data_base',
-                'template' => 'Норматив блоков mail'.DIRECTORY_SEPARATOR.'message',
+                'template' => 'Объём блоков mail'.DIRECTORY_SEPARATOR.'message',
             ],
         ]);
 
-        /* Реализованный норматив таблиц базы данных */
+        /* Реализованный объём таблиц базы данных */
         $realized_schema_data_base = Distribution::get_information_realized_schema_data_base([]);
 
-        /* Текущий норматив таблиц базы данных */
+        /* Текущий объём таблиц базы данных */
         $schema_data_base = Conditions::get_mission([
             'Ключ' => 'schema_data_base',
         ]);
 
-        /*Сопоставляем нормативы базы данных*/
+        /*Сопоставляем объёмы базы данных*/
         $changes = Orientation::matching_schema_data_base([
             'Реализованная схема' => $realized_schema_data_base,
             'Текущая схема'       => $schema_data_base,
@@ -136,7 +136,7 @@ class Category_control
                 'email'    => $config_project['email'],
                 'title'    => 'Завершена реконструкция базы данных',
                 'text'     => $reconstruction_result ? 'Изменения успешно введены.' : 'Изменений не обнаружено.',
-                'template' => 'Норматив блоков mail'.DIRECTORY_SEPARATOR.'message',
+                'template' => 'Объём блоков mail'.DIRECTORY_SEPARATOR.'message',
             ],
         ]);
 

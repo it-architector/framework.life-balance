@@ -462,7 +462,7 @@ class Orientation {
         var goal = $parameters['goal'];
 
         /*ссылка на шаблон html*/
-        var html_file_url = '/Компоненты интерфейса/3.Распределение/Нормативы/Блочные/Норматив блоков ' + category + '/' + goal + '.html';
+        var html_file_url = '/Компоненты интерфейса/3.Распределение/Объём/Блочные/Объём блоков ' + category + '/' + goal + '.html';
 
         var request = new XMLHttpRequest();
 

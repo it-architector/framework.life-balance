@@ -40,13 +40,13 @@ define('DIR_MODULE_DATA_BASE', DIR_MODULES . 'Модуль базы данных
 /* Структуры */
 define('DIR_STRUCTURES', DIR_NOTICES . 'Структуры' . DIRECTORY_SEPARATOR);
 
-/* Нормативы */
-define('DIR_MEASURES', DIR_RESOURCES . 'Нормативы' . DIRECTORY_SEPARATOR);
+/* Объём */
+define('DIR_MEASURES', DIR_RESOURCES . 'Объём' . DIRECTORY_SEPARATOR);
 
-/* Нормативы базы данных */
+/* Объём базы данных */
 define('DIR_MEASURES_DATA_BASE', DIR_MEASURES . 'Базы данных' . DIRECTORY_SEPARATOR);
 
-/* Нормативы функций */
+/* Объём функций */
 define('DIR_MEASURES_FUNCTIONS', DIR_MEASURES . 'Функций' . DIRECTORY_SEPARATOR);
 
 /* Функции */
@@ -69,7 +69,7 @@ define('DIR_PROTOCOLS_PROCESSES', DIR_PROTOCOLS . 'Процессов' . DIRECTO
 define('DIR_USERS_IMAGES', DIR_USERS_DATA . 'images' . DIRECTORY_SEPARATOR);
 
 /* Html блоки */
-define('DIR_HTML', DIR_INTERFACE_COMPONENTS . '3.Распределение' . DIRECTORY_SEPARATOR . 'Нормативы' . DIRECTORY_SEPARATOR . 'Блочные' . DIRECTORY_SEPARATOR);
+define('DIR_HTML', DIR_INTERFACE_COMPONENTS . '3.Распределение' . DIRECTORY_SEPARATOR . 'Объём' . DIRECTORY_SEPARATOR . 'Блочные' . DIRECTORY_SEPARATOR);
 
 
 ?>

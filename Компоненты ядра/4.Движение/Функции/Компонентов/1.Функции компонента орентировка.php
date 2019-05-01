@@ -344,7 +344,7 @@ class Orientation
 
         if($schema_data_base == null){
             Motion::fix_error([
-                'Текст ошибки'          => 'нет норматива базы данных',
+                'Текст ошибки'          => 'нет объёма базы данных',
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => $call_index_goal_on_error,

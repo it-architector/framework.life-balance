@@ -174,7 +174,7 @@ class Motion
                     'email'    => $config_project['email'],
                     'title'    => 'Ошибка ядра',
                     'text'     => 'По запросу /'.$request_experience.'/'.$request_experience_goal.':<br><b>'.$error_message.'</b>',
-                    'template' => 'Норматив блоков mail'.DIRECTORY_SEPARATOR.'message',
+                    'template' => 'Объём блоков mail'.DIRECTORY_SEPARATOR.'message',
                 ],
             ]);
 

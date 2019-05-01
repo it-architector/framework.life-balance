@@ -50,7 +50,7 @@
                     <span><br>
                         <h1>Framework life balance</h1> Предназначен для <strong>сопровождения</strong> всех этапов разработки отеческого сайта с любым масштабом на исходном php-коде, html-разметках ( css, image ) и js-скриптах, с применением чёткой последовательностью разработки 10 компонентов сайта.
 						<br><br>
-						Текущая версия ядра: v1.1.8.24 / интерфейса: v1.0.7.34
+						Текущая версия ядра: v1.1.8.26 / интерфейса: v1.0.7.36
 						<hr>
 
                         <table style="margin: auto; text-align: center; "><tr><td>
@@ -158,7 +158,7 @@
 													  </ul></li>
 												  <li class="directory expanded">3.Распределение</li>
 													  <li><ul class="jqueryFileTree">
-														  <li class="directory collapsed">Нормативы</li>
+														  <li class="directory collapsed">Объём</li>
 													  </ul></li>
 												  <li class="directory expanded">4.Движение</li>
 													  <li><ul class="jqueryFileTree">
@@ -179,7 +179,7 @@
     								</table>
 						</td></tr></table>
 
-						В ядре реализованы Стандарты (детализации) ядра, наглядность Структуры (планировка), функции 4-х компонентов (распределенная альтернатива контролёров в mvc), Функции категорий сайта (упрощённая альтернатива моделей в mvc) и Нормативы (упрощённая альтернатива yii2 migrate, установки и настроек). Благодаря такому подходу был реализован норматив таблиц базы данных и функция автоматической реконструкции базы данных, что освободило разработчиков от необходимости конструировать sql-запросы вручную. А так же реализован внутренний самовызов из консоли, оттого на фоновый режим отработки была переведена отправка почтового сообщения и реструктуризация базы данных, что для пользователя значительно уменьшило время ожидания ответа, а у разработчиков отпала необходимость настраивать cron.
+						В ядре реализованы Стандарты (детализации) ядра, наглядность Структуры (планировка), функции 4-х компонентов (распределенная альтернатива контролёров в mvc), Функции категорий сайта (упрощённая альтернатива моделей в mvc) и Объём (упрощённая альтернатива yii2 migrate, установки и настроек). Благодаря такому подходу был реализован объём таблиц базы данных и функция автоматической реконструкции базы данных, что освободило разработчиков от необходимости конструировать sql-запросы вручную. А так же реализован внутренний самовызов из консоли, оттого на фоновый режим отработки была переведена отправка почтового сообщения и реструктуризация базы данных, что для пользователя значительно уменьшило время ожидания ответа, а у разработчиков отпала необходимость настраивать cron.
 
 
 						<hr>
@@ -208,7 +208,7 @@
 													  </ul></li>
 												  <li class="directory expanded">3.Распределение</li>
 													  <li><ul class="jqueryFileTree">
-														  <li class="directory collapsed">Нормативы</li>
+														  <li class="directory collapsed">Объём</li>
 													  </ul></li>
 												  <li class="directory expanded">4.Движение</li>
 													  <li><ul class="jqueryFileTree">
@@ -497,7 +497,7 @@ RewriteRule ^(.*)$ Интерфейс.html [L,QSA]</code></pre>
 												  <li class="directory expanded">3.Распределение</li>
 												  <li><ul class="jqueryFileTree">
 
-												  <li class="directory expanded">Нормативы</li>
+												  <li class="directory expanded">Объём</li>
 												  <li>
 													  <ul class="jqueryFileTree">
 
@@ -505,18 +505,18 @@ RewriteRule ^(.*)$ Интерфейс.html [L,QSA]</code></pre>
 													  <li class="directory expanded">Компонентные</li>
 														  <li>
 													  <ul class="jqueryFileTree">
-														  <li class="file ext_txt">1.Норматив компонента орентировка.md</li>
-														  <li class="file ext_txt">2.Норматив компонента условия.md</li>
-														  <li class="file ext_txt">3.Норматив компонента распределение.md</li>
-														  <li class="file ext_txt">4.Норматив компонента движение.md</li>
-														  <li class="file ext_txt">5.Норматив компонента модули.md</li>
+														  <li class="file ext_txt">1.Объём компонента орентировка.md</li>
+														  <li class="file ext_txt">2.Объём компонента условия.md</li>
+														  <li class="file ext_txt">3.Объём компонента распределение.md</li>
+														  <li class="file ext_txt">4.Объём компонента движение.md</li>
+														  <li class="file ext_txt">5.Объём компонента модули.md</li>
 													  </ul>
 												  </li>
 
 														  <li class="directory expanded">Блочные</li>
 
 													  <li><ul class="jqueryFileTree">
-														  <li class="directory expanded">Норматив блоков index</li>
+														  <li class="directory expanded">Объём блоков index</li>
 												  <li>
 													  <ul class="jqueryFileTree">
 														  <li class="file ext_html">index.html</li>
@@ -525,7 +525,7 @@ RewriteRule ^(.*)$ Интерфейс.html [L,QSA]</code></pre>
 													  </ul>
 												  </li>
 
-												  <li class="directory collapsed">Норматив блоков users</li>
+												  <li class="directory collapsed">Объём блоков users</li>
 												  <li>...</li>
 													  </ul></li>
 
@@ -533,14 +533,14 @@ RewriteRule ^(.*)$ Интерфейс.html [L,QSA]</code></pre>
 												  <li class="directory expanded">Стильные</li>
 												  <li>
 													  <ul class="jqueryFileTree">
-														  <li class="file ext_css">Норматив общего стиля.css</li>
+														  <li class="file ext_css">Объём общего стиля.css</li>
 													  </ul>
 												  </li>
 
 												  <li class="directory expanded">Функций</li>
 												  <li>
 													  <ul class="jqueryFileTree">
-														  <li class="file ext_js">Норматив функций сайта.js</li>
+														  <li class="file ext_js">Объём функций сайта.js</li>
 													  </ul>
 												  </li>
 
@@ -892,13 +892,13 @@ framework_life_balance_showError(error);
 														  <li class="file ext_txt">5.Основополагающий стандарт разработчиков.md</li>
 													  </ul>
 												  </li>
-														  <li class="directory expanded">Нормативные</li>
+														  <li class="directory expanded">Объёмные</li>
 
 												  <li>
 													  <ul class="jqueryFileTree">
-														  <li class="file ext_txt">Стандарт норматива базы данных.md</li>
-														  <li class="file ext_txt">Стандарт норматива взаимодействия с базой данных.md</li>
-														  <li class="file ext_txt">Стандарт норматива наработок.md</li>
+														  <li class="file ext_txt">Стандарт объёма базы данных.md</li>
+														  <li class="file ext_txt">Стандарт объёма взаимодействия с базой данных.md</li>
+														  <li class="file ext_txt">Стандарт объёма наработок.md</li>
 													  </ul>
 												  </li>
 
@@ -942,7 +942,7 @@ framework_life_balance_showError(error);
 <u>Orientation::formation_template()</u> - Формирование шаблона<br>
 <u>Orientation::formation_url_project()</u> - Формирование ссылки проекта<br>
 <u>Orientation::formation_console_command_call_experience()</u> - Формируем консольную консольную команду вызова функции сайта<br>
-<u>Orientation::matching_schema_data_base()</u> - Сопоставляем нормативы базы данных</div></code>
+<u>Orientation::matching_schema_data_base()</u> - Сопоставляем объёмы базы данных</div></code>
 												  </pre>
 
 									 </td>
@@ -1009,9 +1009,9 @@ framework_life_balance_showError(error);
 <u>Conditions::$user_id</u> - индификационный номер пользователя<br>
 <u>Conditions::$user_session</u> - сессия пользователя<br>
 <u>Conditions::$user_data</u> - данные пользователя<br>
-<u>Conditions::$schema_experiences</u> - Норматив функций сайта<br>
-<u>Conditions::$schema_data_base</u> - Норматив таблиц базы данных<br>
-<u>Conditions::$schema_interaction_with_data_base</u> - Норматив взаимодействия с базой данных<br>
+<u>Conditions::$schema_experiences</u> - Объём функций сайта<br>
+<u>Conditions::$schema_data_base</u> - Объём таблиц базы данных<br>
+<u>Conditions::$schema_interaction_with_data_base</u> - Объём взаимодействия с базой данных<br>
 <u>Conditions::$link_communication_with_memory</u> - ссылка на коммуникацию с памятью<br>
 <u>Conditions::$link_communication_with_mail</u> - ссылка на коммуникацию с почтой<br>
 <u>Conditions::$call_experience</u> - вызванная наработка<br>
@@ -1045,34 +1045,34 @@ framework_life_balance_showError(error);
 												  <li><ul class="jqueryFileTree">
 												  <li class="file ext_php">Настройка коммуникаций.php</li>
 
-												  <li class="directory expanded">Нормативы</li>
+												  <li class="directory expanded">Объём</li>
 												  <li>
 													  <ul class="jqueryFileTree">
 
 												  <li class="directory expanded">Компонентов</li>
 														  <li>
 													  <ul class="jqueryFileTree">
-														  <li class="file ext_txt">1.Норматив компонента орентировка.md</li>
-														  <li class="file ext_txt">2.Норматив компонента условия.md</li>
-														  <li class="file ext_txt">3.Норматив компонента распределение.md</li>
-														  <li class="file ext_txt">4.Норматив компонента движение.md</li>
-														  <li class="file ext_txt">5.Норматив компонента модули.md</li>
+														  <li class="file ext_txt">1.Объём компонента орентировка.md</li>
+														  <li class="file ext_txt">2.Объём компонента условия.md</li>
+														  <li class="file ext_txt">3.Объём компонента распределение.md</li>
+														  <li class="file ext_txt">4.Объём компонента движение.md</li>
+														  <li class="file ext_txt">5.Объём компонента модули.md</li>
 													  </ul>
 												  </li>
 
 												  <li class="directory expanded">Базы данных</li>
 												  <li>
 													  <ul class="jqueryFileTree">
-														  <li class="file ext_php">Норматив таблиц базы данных.php</li>
-														  <li class="file ext_php">Норматив взаимодействия с базой данных.php</li>
+														  <li class="file ext_php">Объём таблиц базы данных.php</li>
+														  <li class="file ext_php">Объём взаимодействия с базой данных.php</li>
 													  </ul>
 												  </li>
 
 												  <li class="directory expanded">Функций</li>
 												  <li>
 													  <ul class="jqueryFileTree">
-														  <li class="file ext_php">Норматив таблиц базы данных.php</li>
-														  <li class="file ext_php">Норматив взаимодействия с базой данных.php</li>
+														  <li class="file ext_php">Объём таблиц базы данных.php</li>
+														  <li class="file ext_php">Объём взаимодействия с базой данных.php</li>
 													  </ul>
 												  </li>
 
@@ -1083,10 +1083,10 @@ framework_life_balance_showError(error);
 											  </ul>
 										  </td>
       								      <td class="green" style="width:70%;">
-											  <b>Нормативы:</b><br>
+											  <b>Объём:</b><br>
 											  <pre>
-<code><u>Distribution::schema_experience()</u> - Норматив функций сайта<br>
-<u>Distribution::schema_data_base()</u> - Норматив таблиц базы данных<br>
+<code><u>Distribution::schema_experience()</u> - Объём функций сайта<br>
+<u>Distribution::schema_data_base()</u> - Объём таблиц базы данных<br>
 <u>Distribution::save_realized_schema_data_base()</u> - Сохраняем реализованную схему базы данных</code></pre>
 
 											  <b>Коммуникации:</b><br>
@@ -1386,7 +1386,7 @@ framework_life_balance_showError(error);
          								   <td class="gray" style="width:10px;">8</td>
         								    <td class="green">Поставить папкам права на запись</td>
         								    <td class="gray">Выполнить chmod (644) папкам:
-												<br><strong>/Компоненты ядра/3.Распределение/Нормативы/Базы&nbsp;данных/</strong>
+												<br><strong>/Компоненты ядра/3.Распределение/Объём/Базы&nbsp;данных/</strong>
 												<br><strong>/Компоненты ядра/4.Движение/Протоколы/</strong>
 												<br><strong>/Компоненты ядра/5.Модули/Github.com/</strong>
 												<br><strong>/Пользовательские данные/Аватарки/</strong>
@@ -1432,7 +1432,7 @@ framework_life_balance_showError(error);
       								  </tr>
      								   <tr>
      								       <td class="gray">База данных:</td>
-      								      <td class="green">При изменении норматива базы данных нужно открыть любую страницу сайта, что инициирует консольную (фоновую) функцию автоматической реконструкции базы данных. На время реконструкции базы данных на сайте будет выводиться заглушка технических работ.</td>
+      								      <td class="green">При изменении объёма базы данных нужно открыть любую страницу сайта, что инициирует консольную (фоновую) функцию автоматической реконструкции базы данных. На время реконструкции базы данных на сайте будет выводиться заглушка технических работ.</td>
       								  </tr>
      								   </tbody>
    								 </table>
