@@ -87,12 +87,12 @@ class Orientation {
 
         document.getElementById("input_message_error").onblur = function() {
             if (this.value === ''){
-                this.value = 'Сообщение об ошибке';
+                this.value = 'Ваша претензия';
             }
         };
 
         document.getElementById("input_message_error").onfocus = function() {
-            if (this.value === 'Сообщение об ошибке'){
+            if (this.value === 'Ваша претензия'){
                 this.value = '';
                 jQuery('#contact-form-face input[name=nickname_guest]').show();
                 jQuery('#contact-form-face input[name=email_guest]').show();

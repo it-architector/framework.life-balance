@@ -1,6 +1,6 @@
 # Framework life balance 
 
-![ядро: v1.1.8.26](https://img.shields.io/badge/Ядро-v1.1.8.26-blue.svg) ![интерфейс: v1.0.7.36](https://img.shields.io/badge/Интерфейс-v1.0.7.36-blue.svg)
+![ядро: v1.1.8.28](https://img.shields.io/badge/Ядро-v1.1.8.28-blue.svg) ![интерфейс: v1.0.7.38](https://img.shields.io/badge/Интерфейс-v1.0.7.38-blue.svg)
 
 Framework life balance предназначен для **сопровождения** всех этапов разработки сайта (<a target="_blank" href="/Компоненты ядра/2.Условия/Структуры/Напутствующие/Напутствующая структура разработки.md">структура разработки ядра</a>) с любым масштабом на исходном php-коде, html-разметках ( css, image ) и js-скриптах, с опорой на холакратию и порядок. 
 

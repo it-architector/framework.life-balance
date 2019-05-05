@@ -16,8 +16,8 @@ class Conditions
         ]);
 
         if($config_project == null){
-            Motion::fix_error([
-                'Текст ошибки'          => 'нет файла настройки проекта',
+            Motion::fix_claim([
+                'Претензия'          => 'нет файла настройки проекта',
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',
@@ -64,8 +64,8 @@ class Conditions
         $value = $parameters['Значение'];
 
         if(!isset(self::$$key) and self::$$key!==null){
-            Motion::fix_error([
-                'Текст ошибки'          => 'no cloud $'.$key,
+            Motion::fix_claim([
+                'Претензия'          => 'no cloud $'.$key,
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',
@@ -81,8 +81,8 @@ class Conditions
         $key = $parameters['Ключ'];
 
         if(!property_exists('\Framework_life_balance\core_components\Conditions', $key)){
-            Motion::fix_error([
-                'Текст ошибки'          => 'no cloud $'.$key,
+            Motion::fix_claim([
+                'Претензия'          => 'no cloud $'.$key,
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',
@@ -100,8 +100,8 @@ class Conditions
         $key = $parameters['Ключ'];
 
         if(!property_exists('\Framework_life_balance\core_components\Conditions', $key)){
-            Motion::fix_error([
-                'Текст ошибки'          => 'no cloud $'.$key,
+            Motion::fix_claim([
+                'Претензия'          => 'no cloud $'.$key,
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',
@@ -193,8 +193,8 @@ class Conditions
             ]);
 
             /* Фиксируем ошибку */
-            Motion::fix_error([
-                'Текст ошибки'          => $e->getMessage(),
+            Motion::fix_claim([
+                'Претензия'          => $e->getMessage(),
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',

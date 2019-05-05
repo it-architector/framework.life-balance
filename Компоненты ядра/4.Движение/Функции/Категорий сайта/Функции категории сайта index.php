@@ -79,14 +79,14 @@ class Category_index
     static function send_error($parameters)
     {
 
-        if(isset($parameters['message_error']) and $parameters['message_error']!='' and $parameters['message_error']!='Сообщение об ошибке'){
+        if(isset($parameters['message_error']) and $parameters['message_error']!='' and $parameters['message_error']!='Ваша претензия'){
 
             $message_error = htmlspecialchars($parameters['message_error']);
             $nickname = htmlspecialchars(@$parameters['nickname_guest']);
             $email = htmlspecialchars(@$parameters['email_guest']);
 
-            Motion::fix_error([
-                'Текст ошибки'          => $nickname.' ('.$email.') сообщает, что '.$message_error,
+            Motion::fix_claim([
+                'Претензия'          => $nickname.' ('.$email.') сообщает, что '.$message_error,
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => false,

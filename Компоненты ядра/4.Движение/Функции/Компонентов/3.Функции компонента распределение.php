@@ -19,8 +19,8 @@ class Distribution
         ]);
 
         if($config_communications === null){
-            Motion::fix_error([
-                'Текст ошибки'          => 'нет файла настройки коммуникаций',
+            Motion::fix_claim([
+                'Претензия'          => 'нет файла настройки коммуникаций',
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',
@@ -41,8 +41,8 @@ class Distribution
         ]);
 
         if($schema_experiences === null){
-            Motion::fix_error([
-                'Текст ошибки'          => 'нет файла объёма функций сайта',
+            Motion::fix_claim([
+                'Претензия'          => 'нет файла объёма функций сайта',
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',
@@ -63,8 +63,8 @@ class Distribution
         ]);
 
         if($schema_data_base === null){
-            Motion::fix_error([
-                'Текст ошибки'          => 'нет файла объёма таблиц базы данных',
+            Motion::fix_claim([
+                'Претензия'          => 'нет файла объёма таблиц базы данных',
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',
@@ -85,8 +85,8 @@ class Distribution
         ]);
 
         if($schema_interaction_with_data_base === null){
-            Motion::fix_error([
-                'Текст ошибки'          => 'нет файла объёма взаимодействия с базой данных',
+            Motion::fix_claim([
+                'Претензия'          => 'нет файла объёма взаимодействия с базой данных',
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',
@@ -235,8 +235,8 @@ class Distribution
         /*подключен ли класс для работы*/
         if(!class_exists('\Framework_life_balance\core_components\their_modules\Data_Base')){
             /*фиксируем ошибку*/
-            Motion::fix_error([
-                'Текст ошибки'          => 'no class Data_Base',
+            Motion::fix_claim([
+                'Претензия'          => 'no class Data_Base',
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',
@@ -280,8 +280,8 @@ class Distribution
 
         }catch (\Exception $e) {
             /*фиксируем ошибку*/
-            Motion::fix_error([
-                'Текст ошибки'          => $e->getMessage(),
+            Motion::fix_claim([
+                'Претензия'          => $e->getMessage(),
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',
@@ -304,8 +304,8 @@ class Distribution
             return $result;
         }catch (\Exception $e) {
             /*фиксируем ошибку*/
-            Motion::fix_error([
-                'Текст ошибки'          => $e->getMessage(),
+            Motion::fix_claim([
+                'Претензия'          => $e->getMessage(),
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',
@@ -339,8 +339,8 @@ class Distribution
         /*подключен ли класс для работы*/
         if(!class_exists('Memcache')){
             /*фиксируем ошибку*/
-            Motion::fix_error([
-                'Текст ошибки'          => 'no install/start memcache',
+            Motion::fix_claim([
+                'Претензия'          => 'no install/start memcache',
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',
@@ -362,8 +362,8 @@ class Distribution
 
         }catch ( \Exception $e ) {
             /*фиксируем ошибку*/
-            Motion::fix_error([
-                'Текст ошибки'          => $e->getMessage(),
+            Motion::fix_claim([
+                'Претензия'          => $e->getMessage(),
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',
@@ -409,8 +409,8 @@ class Distribution
         /*подключен ли класс для работы*/
         if(!class_exists('\PHPMailer\PHPMailer\PHPMailer')){
             /*фиксируем ошибку*/
-            Motion::fix_error([
-                'Текст ошибки'          => 'no class PHPMailer',
+            Motion::fix_claim([
+                'Претензия'          => 'no class PHPMailer',
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',
@@ -474,8 +474,8 @@ class Distribution
         catch (\PHPMailer\PHPMailer\Exception $e) {
 
             /*фиксируем ошибку*/
-            Motion::fix_error([
-                'Текст ошибки'          => $mail->ErrorInfo,
+            Motion::fix_claim([
+                'Претензия'          => $mail->ErrorInfo,
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',
@@ -607,8 +607,8 @@ class Distribution
 
         if(!isset($schema_interaction_with_data_base[$direction])){
             /* Фиксируем ошибку */
-            Motion::fix_error([
-                'Текст ошибки'          => 'Не известно направление "'.$direction.'" во взаимодействии с базой данных',
+            Motion::fix_claim([
+                'Претензия'          => 'Не известно направление "'.$direction.'" во взаимодействии с базой данных',
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',
@@ -616,8 +616,8 @@ class Distribution
         }
         elseif(!isset($schema_interaction_with_data_base[$direction][$what])){
             /* Фиксируем ошибку */
-            Motion::fix_error([
-                'Текст ошибки'          => 'Не известно чего "'.$what.'" направления "'.$direction.'" во взаимодействии с базой данных',
+            Motion::fix_claim([
+                'Претензия'          => 'Не известно чего "'.$what.'" направления "'.$direction.'" во взаимодействии с базой данных',
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',
@@ -693,8 +693,8 @@ class Distribution
             }
             else{
                 /* Фиксируем ошибку */
-                Motion::fix_error([
-                    'Текст ошибки'          => 'Не известно направление "'.$direction.'" во взаимодействии с базой данных',
+                Motion::fix_claim([
+                    'Претензия'          => 'Не известно направление "'.$direction.'" во взаимодействии с базой данных',
                     'Файл'                  => __FILE__,
                     'Номер строчки в файле' => __LINE__,
                     'Заглушка страницы'     => 'error',
@@ -703,8 +703,8 @@ class Distribution
 
         }catch (\Exception $e) {
             /*фиксируем ошибку*/
-            Motion::fix_error([
-                'Текст ошибки'          => $e->getMessage(),
+            Motion::fix_claim([
+                'Претензия'          => $e->getMessage(),
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',
@@ -863,8 +863,8 @@ class Distribution
 
                                 /*проверяем соотвествие типов колонок*/
                                 if($realized_schema[$table]['columns'][$column]['type'] != $realized_schema[$reference_change['table']]['columns'][$reference_change['column']]['type']){
-                                    Motion::fix_error([
-                                        'Текст ошибки'          => 'нет возможности создать связь у колонок '.$table.'.'.$column.' ('.$realized_schema[$table]['columns'][$column]['type'].') и '.$reference_change['table'].'.'.$reference_change['column'].' ('.$realized_schema[$reference_change['table']]['columns'][$reference_change['column']]['type'].') по причине разных типов колонок' . $instruction_when_error,
+                                    Motion::fix_claim([
+                                        'Претензия'          => 'нет возможности создать связь у колонок '.$table.'.'.$column.' ('.$realized_schema[$table]['columns'][$column]['type'].') и '.$reference_change['table'].'.'.$reference_change['column'].' ('.$realized_schema[$reference_change['table']]['columns'][$reference_change['column']]['type'].') по причине разных типов колонок' . $instruction_when_error,
                                         'Файл'                  => __FILE__,
                                         'Номер строчки в файле' => __LINE__,
                                         'Заглушка страницы'     => 'error',
@@ -1022,16 +1022,16 @@ class Distribution
 
                     }
                     elseif($change == 'correct_comment_table'){
-                        Motion::fix_error([
-                            'Текст ошибки'          => 'correct_comment_table не реализовано' . $instruction_when_error,
+                        Motion::fix_claim([
+                            'Претензия'          => 'correct_comment_table не реализовано' . $instruction_when_error,
                             'Файл'                  => __FILE__,
                             'Номер строчки в файле' => __LINE__,
                             'Заглушка страницы'     => 'error',
                         ]);
                     }
                     elseif($change == 'correct_primary_column_table'){
-                        Motion::fix_error([
-                            'Текст ошибки'          => 'correct_primary_column_table не реализовано' . $instruction_when_error,
+                        Motion::fix_claim([
+                            'Претензия'          => 'correct_primary_column_table не реализовано' . $instruction_when_error,
                             'Файл'                  => __FILE__,
                             'Номер строчки в файле' => __LINE__,
                             'Заглушка страницы'     => 'error',
@@ -1073,8 +1073,8 @@ class Distribution
                         }
                     }
                     else{
-                        Motion::fix_error([
-                            'Текст ошибки'          => 'no '.$change . $instruction_when_error,
+                        Motion::fix_claim([
+                            'Претензия'          => 'no '.$change . $instruction_when_error,
                             'Файл'                  => __FILE__,
                             'Номер строчки в файле' => __LINE__,
                             'Заглушка страницы'     => 'error',
@@ -1088,8 +1088,8 @@ class Distribution
 
         }catch (\Exception $e) {
             /*фиксируем ошибку*/
-            Motion::fix_error([
-                'Текст ошибки'          => $e->getMessage() . $instruction_when_error,
+            Motion::fix_claim([
+                'Претензия'          => $e->getMessage() . $instruction_when_error,
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',

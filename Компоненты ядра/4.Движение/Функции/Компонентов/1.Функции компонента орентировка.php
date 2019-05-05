@@ -15,8 +15,8 @@ class Orientation
         ]);
 
         if($config_system === null){
-            Motion::fix_error([
-                'Текст ошибки'          => 'нет файла настройки системы',
+            Motion::fix_claim([
+                'Претензия'          => 'нет файла настройки системы',
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',
@@ -90,8 +90,8 @@ class Orientation
         foreach($parameters_request as $key=>$value){
             foreach($destructive_data as $string){
                 if(substr_count(mb_strtolower($value),mb_strtolower($string))){
-                    Motion::fix_error([
-                        'Текст ошибки'          => 'обнаружены губительные данные ('.htmlspecialchars($string).') в '.htmlspecialchars($key).': '.htmlspecialchars($value),
+                    Motion::fix_claim([
+                        'Претензия'          => 'обнаружены губительные данные ('.htmlspecialchars($string).') в '.htmlspecialchars($key).': '.htmlspecialchars($value),
                         'Файл'                  => __FILE__,
                         'Номер строчки в файле' => __LINE__,
                         'Заглушка страницы'     => 'stop',
@@ -165,8 +165,8 @@ class Orientation
             if($user_device != 'console'){
 
                 /*Ставим заглушку сообщающую о технических работах*/
-                Motion::fix_error([
-                    'Текст ошибки'          => 'технические работы с базой данных',
+                Motion::fix_claim([
+                    'Претензия'          => 'технические работы с базой данных',
                     'Файл'                  => __FILE__,
                     'Номер строчки в файле' => __LINE__,
                     'Заглушка страницы'     => 'engineering_works',
@@ -210,8 +210,8 @@ class Orientation
                     return true;
                 }
                 else{
-                    Motion::fix_error([
-                        'Текст ошибки'          => 'only_unauthorized',
+                    Motion::fix_claim([
+                        'Претензия'          => 'only_unauthorized',
                         'Файл'                  => __FILE__,
                         'Номер строчки в файле' => __LINE__,
                         'Заглушка страницы'     => 'stop',
@@ -226,8 +226,8 @@ class Orientation
                     return true;
                 }
                 else{
-                    Motion::fix_error([
-                        'Текст ошибки'          => 'only_authorized',
+                    Motion::fix_claim([
+                        'Претензия'          => 'only_authorized',
                         'Файл'                  => __FILE__,
                         'Номер строчки в файле' => __LINE__,
                         'Заглушка страницы'     => 'stop',
@@ -244,8 +244,8 @@ class Orientation
                     return true;
                 }
                 else{
-                    Motion::fix_error([
-                        'Текст ошибки'          => 'only_authorized_by_admin',
+                    Motion::fix_claim([
+                        'Претензия'          => 'only_authorized_by_admin',
                         'Файл'                  => __FILE__,
                         'Номер строчки в файле' => __LINE__,
                         'Заглушка страницы'     => 'stop',
@@ -261,8 +261,8 @@ class Orientation
                     return true;
                 }
                 else{
-                    Motion::fix_error([
-                        'Текст ошибки'          => 'only_console',
+                    Motion::fix_claim([
+                        'Претензия'          => 'only_console',
                         'Файл'                  => __FILE__,
                         'Номер строчки в файле' => __LINE__,
                         'Заглушка страницы'     => 'stop',
@@ -286,8 +286,8 @@ class Orientation
         ]);
 
         if($schema_experiences == null){
-            Motion::fix_error([
-                'Текст ошибки'          => 'нет номратива наработок',
+            Motion::fix_claim([
+                'Претензия'          => 'нет номратива наработок',
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => $call_index_goal_on_error,
@@ -296,32 +296,32 @@ class Orientation
 
         /*проверка*/
         if($experience!=null and !isset($schema_experiences[$experience])){
-            Motion::fix_error([
-                'Текст ошибки'          => 'нет функции сайта '.$experience,
+            Motion::fix_claim([
+                'Претензия'          => 'нет функции сайта '.$experience,
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => $call_index_goal_on_error,
             ]);
         }
         elseif($goal!=null and !isset($schema_experiences[$experience]['goals'][$goal])){
-            Motion::fix_error([
-                'Текст ошибки'          => 'Цели '.$goal.' нет в функции сайта '.$experience,
+            Motion::fix_claim([
+                'Претензия'          => 'Цели '.$goal.' нет в функции сайта '.$experience,
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => $call_index_goal_on_error,
             ]);
         }
         elseif($experience!=null and $goal==null and $detail!=null and !isset($schema_experiences[$experience][$detail])){
-            Motion::fix_error([
-                'Текст ошибки'          => 'нет детали '.$detail.' у функций сайта '.$experience,
+            Motion::fix_claim([
+                'Претензия'          => 'нет детали '.$detail.' у функций сайта '.$experience,
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => $call_index_goal_on_error,
             ]);
         }
         elseif($goal!=null and $detail!=null and !isset($schema_experiences[$experience]['goals'][$goal][$detail])){
-            Motion::fix_error([
-                'Текст ошибки'          => 'нет детали '.$detail.' у Цели '.$goal.' в наработке '.$experience,
+            Motion::fix_claim([
+                'Претензия'          => 'нет детали '.$detail.' у Цели '.$goal.' в наработке '.$experience,
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => $call_index_goal_on_error,
@@ -343,8 +343,8 @@ class Orientation
         ]);
 
         if($schema_data_base == null){
-            Motion::fix_error([
-                'Текст ошибки'          => 'нет объёма базы данных',
+            Motion::fix_claim([
+                'Претензия'          => 'нет объёма базы данных',
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => $call_index_goal_on_error,
@@ -353,32 +353,32 @@ class Orientation
 
         /*проверка*/
         if($table!=null and !isset($schema_data_base[$table])){
-            Motion::fix_error([
-                'Текст ошибки'          => 'нет таблицы '.$table,
+            Motion::fix_claim([
+                'Претензия'          => 'нет таблицы '.$table,
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => $call_index_goal_on_error,
             ]);
         }
         elseif($column!=null and !isset($schema_data_base[$table]['columns'][$column])){
-            Motion::fix_error([
-                'Текст ошибки'          => 'колонки '.$column.' нет в таблице '.$table,
+            Motion::fix_claim([
+                'Претензия'          => 'колонки '.$column.' нет в таблице '.$table,
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => $call_index_goal_on_error,
             ]);
         }
         elseif($table!=null and $column==null and $detail!=null and !isset($schema_data_base[$table][$detail])){
-            Motion::fix_error([
-                'Текст ошибки'          => 'нет детали '.$detail.' у таблицы '.$table,
+            Motion::fix_claim([
+                'Претензия'          => 'нет детали '.$detail.' у таблицы '.$table,
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => $call_index_goal_on_error,
             ]);
         }
         elseif($column!=null and $detail!=null and !isset($schema_data_base[$table]['columns'][$column][$detail])){
-            Motion::fix_error([
-                'Текст ошибки'          => 'нет детали '.$detail.' у колонки '.$column.' в таблице '.$table,
+            Motion::fix_claim([
+                'Претензия'          => 'нет детали '.$detail.' у колонки '.$column.' в таблице '.$table,
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => $call_index_goal_on_error,
@@ -399,8 +399,8 @@ class Orientation
             return $date;
         }
         catch (\Exception $e){
-            Motion::fix_error([
-                'Текст ошибки'          => $e->getMessage(),
+            Motion::fix_claim([
+                'Претензия'          => $e->getMessage(),
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',
@@ -473,8 +473,8 @@ class Orientation
 
         /*обнаружено превышение времени выполнения*/
         if($lead_time_executed>$lead_time_seconds){
-            Motion::fix_error([
-                'Текст ошибки'          => 'Превышения выполнения цели '.$call_experience_goal.' функции сайта '.$call_experience.' на ' . ($lead_time_executed-$lead_time_seconds) . ' сек.',
+            Motion::fix_claim([
+                'Претензия'          => 'Превышения выполнения цели '.$call_experience_goal.' функции сайта '.$call_experience.' на ' . ($lead_time_executed-$lead_time_seconds) . ' сек.',
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => false,
@@ -497,8 +497,8 @@ class Orientation
             $file_line = isset($e['line']) ? $e['line'] : '';
 
             if ($error_no > 0) {
-                Motion::fix_error([
-                    'Текст ошибки'          => $error_message,
+                Motion::fix_claim([
+                    'Претензия'          => $error_message,
                     'Файл'                  => __FILE__,
                     'Номер строчки в файле' => __LINE__,
                     'Заглушка страницы'     => 'error',
@@ -560,8 +560,8 @@ class Orientation
         }
 
         if(!$path_executable_php){
-            Motion::fix_error([
-                'Текст ошибки'          => 'no path_executable_php',
+            Motion::fix_claim([
+                'Претензия'          => 'no path_executable_php',
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',
@@ -599,16 +599,16 @@ class Orientation
         ]);
 
         if($format_result == 'array' and !is_array($result_executed)){
-            Motion::fix_error([
-                'Текст ошибки'          => 'no_array_in_result_executed',
+            Motion::fix_claim([
+                'Претензия'          => 'no_array_in_result_executed',
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',
             ]);
         }
         elseif($format_result == 'text' and is_array($result_executed)){
-            Motion::fix_error([
-                'Текст ошибки'          => 'no_content_in_result_executed',
+            Motion::fix_claim([
+                'Претензия'          => 'no_content_in_result_executed',
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',
@@ -745,8 +745,8 @@ class Orientation
             $parameters_request = (array)@$_GET + (array)@$_POST;
         }
         else{
-            Motion::fix_error([
-                'Текст ошибки'          => 'unknown user_device: ' . $user_device,
+            Motion::fix_claim([
+                'Претензия'          => 'unknown user_device: ' . $user_device,
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',
@@ -942,8 +942,8 @@ class Orientation
         ]);
 
         if($body === null){
-            Motion::fix_error([
-                'Текст ошибки'          => 'нет файла html шаблона: '.$template,
+            Motion::fix_claim([
+                'Претензия'          => 'нет файла html шаблона: '.$template,
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',
@@ -998,8 +998,8 @@ class Orientation
             $command = $command . " > /dev/null &";
         }
         else{
-            Motion::fix_error([
-                'Текст ошибки'          => 'no operating_system',
+            Motion::fix_claim([
+                'Претензия'          => 'no operating_system',
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',

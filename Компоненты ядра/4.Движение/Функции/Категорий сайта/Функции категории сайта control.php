@@ -17,7 +17,7 @@ class Category_control
         /*ошибки в файле лога*/
         $errors_in_file_log = Distribution::include_information_from_file([
             'Папка'          => DIR_PROTOCOLS_PROCESSES,
-            'Название файла' => 'Ошибки в ядре',
+            'Название файла' => 'Претензии в ядре',
             'Тип файла'      => 'log',
         ]);
 
@@ -42,7 +42,7 @@ class Category_control
         if(isset($parameters['delete_file_log'])){
             Distribution::delete_file([
                 'Папка'          => DIR_PROTOCOLS_PROCESSES,
-                'Название файла' => 'Ошибки в ядре',
+                'Название файла' => 'Претензии в ядре',
                 'Тип файла'      => 'log',
             ]);
         }
@@ -53,7 +53,7 @@ class Category_control
         /*ошибки в файле лога*/
         $errors_all_in_file_log = Distribution::include_information_from_file([
             'Папка'          => DIR_PROTOCOLS_PROCESSES,
-            'Название файла' => 'Ошибки в ядре',
+            'Название файла' => 'Претензии в ядре',
             'Тип файла'      => 'log',
         ]);
 

@@ -16,8 +16,8 @@ class Motion
         ]);
 
         if($config_protocols === null){
-            self::fix_error([
-                'Текст ошибки'          => 'нет файла настройки протоколов',
+            self::fix_claim([
+                'Претензия'          => 'нет файла настройки протоколов',
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',
@@ -49,9 +49,9 @@ class Motion
 
     }
 
-    static function fix_error($parameters){
+    static function fix_claim($parameters){
 
-        $error_message = $parameters['Текст ошибки'];
+        $error_message = $parameters['Претензия'];
         $file_name = $parameters['Файл'];
         $num_line_on_file_error = $parameters['Номер строчки в файле'];
         $stub = $parameters['Заглушка страницы'];
@@ -79,7 +79,7 @@ class Motion
             /*исключаем зацикленность самовызова*/
             if($number_crash==2){
 
-                echo 'Критическая ошибка. Смотрите протокол /Компоненты ядра/4.Дела/Протоколы/Ошибки в ядре.log';
+                echo 'Критическая ошибка. Смотрите протокол /Компоненты ядра/4.Дела/Протоколы/Претензии в ядре.log';
 
                 /*прекращаем работу ядра*/
                 Orientation::stop_core([]);
@@ -98,11 +98,11 @@ class Motion
 
         /*на случай сбоя инициации*/
         if($config_protocols === null){
-            $config_protocols['Ошибки ядра'] = true;
+            $config_protocols['Претензии в ядре'] = true;
         }
 
         /*запись в протокол нужна*/
-        if($config_protocols['Ошибки ядра'] == true){
+        if($config_protocols['Претензии в ядре'] == true){
 
             $request_experience = Conditions::get_mission([
                 'Ключ' => 'request_experience',
@@ -132,7 +132,7 @@ class Motion
             /*записываем ошибку в файл*/
             Distribution::write_information_in_file([
                 'Папка'          => DIR_PROTOCOLS_PROCESSES,
-                'Название файла' => 'Ошибки в ядре',
+                'Название файла' => 'Претензии в ядре',
                 'Тип файла'      => 'log',
                 'Текст'          => $error_json,
             ]);
@@ -280,8 +280,8 @@ class Motion
 
         /*проверяем наличие наработанной Цели*/
         if (!method_exists($experience_class_name, $experience_goal)) {
-            self::fix_error([
-                'Текст ошибки'          => 'no_experience_goal',
+            self::fix_claim([
+                'Претензия'          => 'no_experience_goal',
                 'Файл'                  => __FILE__,
                 'Номер строчки в файле' => __LINE__,
                 'Заглушка страницы'     => 'error',

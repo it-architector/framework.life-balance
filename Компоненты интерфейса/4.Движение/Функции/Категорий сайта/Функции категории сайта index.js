@@ -203,7 +203,7 @@ class Category_index{
         /*скрываем элементы формы обратной связи*/
         $('#contact-form-face input[name="nickname_guest"]').hide();
         $('#contact-form-face input[name="email_guest"]').hide();
-        $('#contact-form-face input[name="message_error"]').val('Сообщение об ошибке');
+        $('#contact-form-face input[name="message_error"]').val('Ваша претензия');
 
     }
 
