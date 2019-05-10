@@ -150,13 +150,6 @@
         <div class="container" id="container_contacts">
             <div class="row" data-appear-top-offset="-200" data-animated="fadeInUp">
 
-                <!-- ПРИНЦИПЫ -->
-                <div class="col-lg-4 col-md-4 col-sm-6 padbot30 foot_about_block">
-                    <h4 style="padding-top:40px;"><b>Принципы</b></h4>
-                    <p><b class="base_info">1. Гармония<br>2. Любовь<br>3. Дружба<br>4. Жизнь</b></p>
-                </div>
-                <!-- /ПРИНЦИПЫ -->
-
                 <!-- КОНТАКТЫ -->
                 <div class="col-lg-4 col-md-4 col-sm-6 padbot30">
                     <h4 style="padding-top:40px;"> <b>Контакты</b></h4>
@@ -168,17 +161,19 @@
                 <!-- /КОНТАКТЫ -->
 
                 <!-- ФОРМА ОБРАТНОЙ СВЯЗИ -->
-                <div class="col-lg-4 col-md-4 padbot30">
+                <div class="padbot30">
                     <h4 style="padding-top:40px;"><b>Претензия</b></h4>
 
                     <div class="span9 contact_form">
                         <div id="note"></div>
                         <div id="fields">
                             <form id="contact-form-face" class="clearfix" action="/index/send_error">
+                                <input class="required mini_width" type="text" id="input_nickname_guest" name="nickname_guest" value="Ваш псевдоним" />
                                 <input class="required full_width" type="text" id="input_message_error" name="message_error" value="Ваша претензия" />
-                                <input class="required mini_width" type="text" id="input_nickname_guest" name="nickname_guest" value="Псевдоним" />
+
+                                <br><br>
                                 <input class="required mini_width" type="text" id="input_email_guest" name="email_guest" value="Ваш email" />
-                                <br>
+
                                 <input class="contact_btn" type="submit" value="Отправить" />
                             </form>
                         </div>

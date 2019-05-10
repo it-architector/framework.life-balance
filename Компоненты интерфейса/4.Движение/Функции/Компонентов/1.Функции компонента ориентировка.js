@@ -94,19 +94,17 @@ class Orientation {
         document.getElementById("input_message_error").onfocus = function() {
             if (this.value === 'Ваша претензия'){
                 this.value = '';
-                jQuery('#contact-form-face input[name=nickname_guest]').show();
-                jQuery('#contact-form-face input[name=email_guest]').show();
             }
         };
 
         document.getElementById("input_nickname_guest").onblur = function() {
             if (this.value === ''){
-                this.value = 'Псевдоним';
+                this.value = 'Ваш псевдоним';
             }
         };
 
         document.getElementById("input_nickname_guest").onfocus = function() {
-            if (this.value === 'Псевдоним'){
+            if (this.value === 'Ваш псевдоним'){
                 this.value = '';
             }
         };
