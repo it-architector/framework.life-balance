@@ -25,6 +25,12 @@ return array(
         'host'     => 'localhost',
         'name'     => 'name',
         'schema'   => 'schema', /*schema=name*/
+
+         /* Авторизация для базы данных */
+         'access' => [
+            'user'     => 'login',
+            'password' => 'password',
+         ],
     ],
 
     /* Настройка коммуникации с memcache */
@@ -37,7 +43,15 @@ return array(
     'mail'    => [
         'host'     => 'mail.site.ru',
         'port'     => 587,
+
+        /* Авторизация для почты */
+        'access' => [
+           'login'    => 'login',
+           'password' => 'password',
+        ],
     ],
+
+
 );
 
 ?>

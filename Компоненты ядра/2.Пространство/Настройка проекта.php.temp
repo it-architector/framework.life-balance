@@ -1,0 +1,22 @@
+<?php
+
+return array(
+
+    /* Языковой стандарт */
+    'locale' => 'ru_RU.UTF-8',
+
+    /* Временная зона проекта */
+    'time_zone' => 'Europe/Moscow',
+
+    /* Название проекта */
+    'name' => 'project name',
+
+    /* Электронный адрес проекта */
+    'email' => 'login@site.ru',
+
+    /* Ссылка проекта без http(s) */
+    'url' => 'site.ru',
+
+);
+
+?>

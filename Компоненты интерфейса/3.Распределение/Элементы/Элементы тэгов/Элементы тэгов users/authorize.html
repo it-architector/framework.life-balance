@@ -1,0 +1,30 @@
+<!-- HOME -->
+<section id="home" class="padbot0">
+
+    <!-- TOP SLIDER -->
+    <div class="flexslider top_slider">
+        <ul class="slides">
+            <li class="slide4">
+                <div class="flex_caption1" style="background-color: rgba(255, 255, 255, 0.7);padding:10px;">
+
+
+
+                    <form action="/users/authorize" method="post">
+                        <input class="required" type="text" id="nickname_authorize" name="nickname_authorize" value="Псевдоним" onFocus="if (this.value == 'Псевдоним') this.value = '';" onBlur="if (this.value == '') this.value = 'Псевдоним';" style="width:300px;" /><br>
+                        <input class="required" type="password" id="password_authorize" name="password_authorize" value="Пароль" onFocus="if (this.value == 'Пароль') this.value = '';" onBlur="if (this.value == '') this.value = 'Пароль';" style="width:300px;" /><br>
+                        <p class="navmenu title5 captionDelay7 FromBottom color_white"><input class="contact_btn" type="submit" value="Войти" />  <label id="authorize_message_error" class="error" style="display: none;"></label></p>
+
+                    </form>
+
+
+                </div>
+                <a class="slide_btn FromRight to_core" href="/users" >Уже с нами</a>
+            </li>
+        </ul>
+    </div>
+    <div id="carousel">
+        <ul class="slides">
+            <li><img src="/Компоненты%20интерфейса/3.Распределение/Элементы/Элементы картинок/slider/slide_auth.jpg" alt="" /></a></li>
+        </ul>
+    </div><!-- //TOP SLIDER -->
+</section><!-- //HOME -->

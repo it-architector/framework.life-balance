@@ -1,0 +1,39 @@
+<!-- HOME -->
+<section id="home" class="padbot0">
+
+    <!-- TOP SLIDER -->
+    <div class="flexslider top_slider">
+        <ul class="slides">
+            <li class="slide4">
+                <div class="flex_caption1" style="background-color: rgba(255, 255, 255, 0.7);padding:10px;">
+
+
+
+                    <p class="navmenu title4 captionDelay3 FromBottom color_white">Регистрация</p>
+
+                    <form action="/users/registration" method="post">
+                        <input class="required full_width" type="text" id="nickname_registration" name="nickname_registration" value="Псевдоним" onFocus="if (this.value == 'Псевдоним') this.value = '';" onBlur="if (this.value == '') this.value = 'Псевдоним';" /><br>
+                        <input class="required full_width" type="text" id="name" name="name" value="Имя" onFocus="if (this.value == 'Имя') this.value = '';" onBlur="if (this.value == '') this.value = 'Имя';" /><br>
+                        <input class="required full_width" type="text" id="family_name" name="family_name" value="Фамилия" onFocus="if (this.value == 'Фамилия') this.value = '';" onBlur="if (this.value == '') this.value = 'Фамилия';" /><br>
+                        <input class="required mini_width" type="text" id="email" name="email" value="Электронная почта" onFocus="if (this.value == 'Электронная почта') this.value = '';" onBlur="if (this.value == '') this.value = 'Электронная почта';" /><br>
+                        <input class="required mini_width" type="text" id="password_registration" name="password_registration" value="Пароль" onFocus="if (this.value == 'Пароль') this.value = '';" onBlur="if (this.value == '') this.value = 'Пароль';" /><br>
+                        <p class="navmenu title5 captionDelay7 FromBottom color_white"><input class="contact_btn" type="submit" value="Зарегистрировать" />  <label id="registration_message_error" class="error" style="display: none;"></label></p>
+
+                        <p class="navmenu title6 captionDelay7 FromBottom color_white">
+                            * Для имени и фамилии допустимы только русские буквы.<br>
+                            * В пароле допустимо не менее 5-ти произвольных символов.<br>
+                        </p>
+                    </form>
+
+
+                </div>
+                <a class="slide_btn FromRight to_core" href="/users" >Уже с нами</a>
+            </li>
+        </ul>
+    </div>
+    <div id="carousel">
+        <ul class="slides">
+            <li><img src="/Компоненты%20интерфейса/3.Распределение/Элементы/Элементы картинок/slider/slide_auth.jpg" alt="" /></a></li>
+        </ul>
+    </div><!-- //TOP SLIDER -->
+</section><!-- //HOME -->
