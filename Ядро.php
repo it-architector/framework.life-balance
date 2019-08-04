@@ -48,7 +48,7 @@ use \Framework_life_balance\core_components\Distribution;
 use \Framework_life_balance\core_components\Realization;
 
 /* Запускаем процесс ядра */
-\Framework_life_balance\core_components\Realization::initiation([]);
+Realization::initiation([]);
 
 
 ?>
