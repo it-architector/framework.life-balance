@@ -1,17 +1,11 @@
 <?php
 
 /*
- * Ядро Framework life balance
+ * Ядро Framework life balance (v1-beta)
  *
  * Исходник: https://github.com/veter-love/framework-life-balance-v1
  *
- * Этапы:
- * 1. Подключение.
- * 2. Инициация.
- * 4. Процесс.
- */
-
-/*
+ *
  * 1 этап:
  * Подключение.
  */
