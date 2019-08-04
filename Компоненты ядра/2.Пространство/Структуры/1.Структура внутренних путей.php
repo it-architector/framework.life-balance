@@ -57,6 +57,9 @@ define('DIR_FUNCTIONS_SITE', DIR_FUNCTIONS . 'Функции категорий 
 /* Функции компонентов компонента реализация */
 define('DIR_FUNCTIONS_ESSENCES', DIR_FUNCTIONS . 'Функции компонентов' . DIRECTORY_SEPARATOR);
 
+/* Результаты компонента реализация */
+define('DIR_RESULTS', DIR_REALIZATION . 'Результаты' . DIRECTORY_SEPARATOR);
+
 
 
 /* Картинки пользователей */

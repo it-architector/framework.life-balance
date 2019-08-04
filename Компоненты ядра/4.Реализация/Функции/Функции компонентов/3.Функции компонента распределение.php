@@ -200,7 +200,7 @@ class Distribution
         $realized_schema = $parameters['Реализованная схема'];
 
         self::write_information_in_file([
-            'Папка'          => DIR_REALIZATION,
+            'Папка'          => DIR_RESULTS,
             'Название файла' => 'Реализованный объём таблиц базы данных',
             'Тип файла'      => 'php',
             'Текст'          => '<?php'."\n".' return '.var_export($realized_schema, true).'; ?>',
@@ -211,7 +211,7 @@ class Distribution
     static function get_information_realized_schema_data_base($parameters){
 
         $realized_schema = self::include_information_from_file([
-            'Папка'          => DIR_REALIZATION,
+            'Папка'          => DIR_RESULTS,
             'Название файла' => 'Реализованный объём таблиц базы данных',
             'Тип файла'      => 'php',
         ]);
