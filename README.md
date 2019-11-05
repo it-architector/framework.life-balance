@@ -134,4 +134,4 @@ Framework состоит из 10-ти компонентов:
 
 ### Примечание
 
-Исходный код сайта https://framework-life-balance.ru подгружается с https://github.com/it-architector/training.framework-life-balance репозитория.
+Исходный код сайта https://framework-life-balance.ru подгружается с https://github.com/it-architector/project-concern.framework-life-balance репозитория.
