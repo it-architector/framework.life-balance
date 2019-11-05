@@ -1,8 +1,8 @@
-# Framework life balance (v1-beta)
+# Framework сопровождающий разработку проекта на php и js
 
 ![ядро: v1.2.4](https://img.shields.io/badge/Ядро-v1.2.4-blue.svg) ![интерфейс: v1.1.4](https://img.shields.io/badge/Интерфейс-v1.1.4-blue.svg)
 
-Framework life balance предназначен для **сопровождения** всех этапов разработки сайта (<a target="_blank" href="/Компоненты ядра/1.Условия/3.Требования/5.Требования к разработке ядра.md">требования к разработке ядра</a>) с любым масштабом на исходном php-коде и js-скриптах с опорой на 4-е компонента CSDR: 1.Conditions, 2.Space, 3.Distribution и 4.Realization. Более подробно о CSDR <a target="_blank" href="https://github.com/veter-love/easy-oop.framework-life-balance">здесь</a>.
+Framework life balance предназначен для **сопровождения** всех этапов разработки проекта "сайт" (<a target="_blank" href="/Компоненты ядра/1.Условия/3.Требования/5.Требования к разработке ядра.md">требования к разработке ядра</a>) с любым масштабом на исходном php-коде и js-скриптах с опорой на 4-е компонента CSDR: 1.Conditions, 2.Space, 3.Distribution и 4.Realization. Более подробно о CSDR <a target="_blank" href="https://github.com/it-architector/easy-oop.framework-life-balance">здесь</a>.
 
 ![hr](/Компоненты%20интерфейса/3.Распределение/Элементы/Элементы%20картинок/illustrators/hr.png)
 
