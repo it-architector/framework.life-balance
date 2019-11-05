@@ -1,14 +1,16 @@
-# Framework сопровождающий разработку проекта на php и js
+# Framework сопровождающий разработку проекта
 
 ![ядро: v1.2.4](https://img.shields.io/badge/Ядро-v1.2.4-blue.svg) ![интерфейс: v1.1.4](https://img.shields.io/badge/Интерфейс-v1.1.4-blue.svg)
 
-Framework life balance предназначен для **сопровождения** всех этапов разработки проекта "сайт" (<a target="_blank" href="/Компоненты ядра/1.Условия/3.Требования/5.Требования к разработке ядра.md">требования к разработке ядра</a>) с любым масштабом на исходном php-коде и js-скриптах с опорой на 4-е компонента CSDR: 1.Conditions, 2.Space, 3.Distribution и 4.Realization. Более подробно о CSDR <a target="_blank" href="https://github.com/it-architector/easy-oop.framework-life-balance">здесь</a>.
+Framework предназначен для **сопровождения** всех этапов разработки проекта "сайт" (<a target="_blank" href="/Компоненты ядра/1.Условия/3.Требования/5.Требования к разработке ядра.md">требования к разработке ядра</a>, <a target="_blank" href="/Компоненты интерфейса/1.Условия/3.Требования/5.Требования к разработке интерфейса.md">интерфейса</a>) с любым масштабом на исходном php-коде и js-скриптах с опорой на 4-е компонента CSDR: 1.Conditions, 2.Space, 3.Distribution и 4.Realization. 
+
+Более подробно о CSDR <a target="_blank" href="https://github.com/it-architector/easy-oop.framework-life-balance">здесь</a>.
 
 ![hr](/Компоненты%20интерфейса/3.Распределение/Элементы/Элементы%20картинок/illustrators/hr.png)
 
 ### Состав
 
-Framework life balance состоит из 10-ти компонентов:
+Framework состоит из 10-ти компонентов:
 
 | № | Компоненты ядра | Компоненты интерфейса
  ------------- |  ------------- | ------------- | 
@@ -23,9 +25,9 @@ Framework life balance состоит из 10-ти компонентов:
 
 ### Среда
 
-У Framework life balance две среды разработки: back-end (ядро) и front-end (интерфейс). 
+У framework'a две среды разработки: back-end (ядро) и front-end (интерфейс). 
 
-![Framework life balance](/Компоненты%20интерфейса/3.Распределение/Элементы/Элементы%20картинок/slider/slide1_bg.jpg)
+![Framework](/Компоненты%20интерфейса/3.Распределение/Элементы/Элементы%20картинок/slider/slide1_bg.jpg)
 
 Здесь нет места для php-кода в интерфейсе, и html-а в ядре. Ядро и интерфейс разделены и изолированы, что позволяет безпрепятственно разрабатывать оба направления одновременно, почтительно дополняя (без возникновения каких либо merge) на git'e.
 
@@ -132,4 +134,4 @@ Framework life balance состоит из 10-ти компонентов:
 
 ### Примечание
 
-Исходный код сайта https://framework-life-balance.ru подгружается с https://github.com/veter-love/framework-life-balance-v1 репозитория.
+Исходный код сайта https://framework-life-balance.ru подгружается с https://github.com/it-architector/training.framework-life-balance репозитория.
