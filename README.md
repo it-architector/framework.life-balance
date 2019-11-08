@@ -121,7 +121,7 @@
 
 ### Примечание
 
-p.s.1. Исходный код сайта https://framework-life-balance.ru подгружается с этого https://github.com/it-architector/project-concern.framework-life-balance репозитория.
+p.s.1. Исходный код сайта https://framework-life-balance.ru подгружается с репозитория <a target="_blank" href="https://github.com/it-architector/project-concern.framework-life-balance">project-concern.framework-life-balance</a>.
 
 p.s.2. Как framework данная среда не подойдёт. Смотрите <a target="_blank" href="https://github.com/it-architector/release.framework-life-balance">release.framework-life-balance</a>
 
