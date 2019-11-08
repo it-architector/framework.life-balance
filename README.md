@@ -123,6 +123,8 @@
 
 ![Холакратия](/Компоненты%20интерфейса/3.Распределение/Элементы/Элементы%20картинок/illustrators/4values.jpg)
 
+![hr](/Компоненты%20интерфейса/3.Распределение/Элементы/Элементы%20картинок/illustrators/hr.png)
+
 ### Примечание
 
 p.s.1. Исходный код сайта https://framework-life-balance.ru подгружается с репозитория <a target="_blank" href="https://github.com/it-architector/project-concern.csdr">project-concern.csdr</a>.
