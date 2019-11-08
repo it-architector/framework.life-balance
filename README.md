@@ -129,4 +129,4 @@ p.s.1. Исходный код сайта https://framework-life-balance.ru по
 
 p.s.2. Как framework данная среда не подойдёт, не хватает правильного выстроенного кода. Ждите <a target="_blank" href="https://github.com/it-architector/release.csdr">release.csdr</a>.
 
-p.s.3. О CSDR (парадигме выстраивания проекта) смотрите здесь <a target="_blank" href="https://github.com/it-architector/easy-oop.csdr">easy-oop.csdr</a>.
+p.s.3. Эта среда возродила CSDR (парадигму выстраивания проекта), подробнее о CSDR смотрите здесь: <a target="_blank" href="https://github.com/it-architector/easy-oop.csdr">easy-oop.csdr</a>.
