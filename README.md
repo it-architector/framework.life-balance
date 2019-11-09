@@ -126,7 +126,7 @@
 
 ### Примечание
 
-p.s.1. Исходный код сайта https://framework-life-balance.ru подгружается с репозитория <a target="_blank" href="https://github.com/it-architector/framework-life-balance">framework-life-balance</a>.
+p.s.1. Исходный код сайта https://framework-life-balance.ru подгружается с репозитория <a target="_blank" href="https://github.com/it-architector/framework.life-balance">framework.life-balance</a>.
 
 p.s.2. Как framework данная среда не подойдёт, т.к. не хватает правильно выстроенного кода. Ждите <a target="_blank" href="https://github.com/it-architector/release.csdr">framework.csdr</a>.
 
