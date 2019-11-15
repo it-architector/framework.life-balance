@@ -134,7 +134,7 @@ p.s.1. Исходный код сайта https://framework-life-balance.ru по
 
 p.s.2. Как framework данная среда не подойдёт, т.к. не хватает правильно выстроенного кода. Ждите <a target="_blank" href="https://github.com/it-architector/framework.csdr">framework.csdr</a>.
 
-p.s.3. Эта среда возродила CSDR (парадигму архитектуры проекта), подробнее смотрите здесь: <a target="_blank" href="https://github.com/it-architector/core.csdr">core.csdr</a>.
+p.s.3. Эта среда возродила CSDR (парадигму архитектуры проекта), подробнее смотрите здесь: <a target="_blank" href="https://github.com/it-architector/architecture.csdr">architecture.csdr</a>.
 
 p.s.4. Есть подобный проект 2012 года <a target="_blank" href="http://ru.coresky.net">core sky</a>.
 
