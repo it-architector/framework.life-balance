@@ -1,9 +1,9 @@
 <?php
 
 /*
- * Ядро Framework life balance (v1-beta)
+ * Ядро Framework life balance
  *
- * Исходник: https://github.com/veter-love/framework-life-balance-v1
+ * Исходник: https://github.com/it-architector/framework.life-balance
  *
  *
  * 1 этап:
