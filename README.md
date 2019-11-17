@@ -138,7 +138,7 @@
 
 p.s.1. Исходный код сайта https://framework-life-balance.ru подгружается с репозитория <a target="_blank" href="https://github.com/it-architector/framework.life-balance">framework.life-balance</a>.
 
-p.s.2. Эта среда возродила CSDR (парадигму архитектуры любого проекта), подробнее смотрите здесь: <a target="_blank" href="https://github.com/it-architector/architecture.csdr">architecture.csdr</a>.
+p.s.2. Эта среда возродила CSDR (парадигму архитектуры любого проекта): <a target="_blank" href="https://github.com/it-architector/architecture.csdr">architecture.csdr</a>.
 
 p.s.3. Конструктор и правильно-выстроенный код ждите здесь: <a target="_blank" href="https://github.com/it-architector/framework.csdr">framework.csdr</a>.
 
