@@ -143,5 +143,3 @@ p.s.2. Среда Life Balance возродила структуру CSDR: <a ta
 p.s.3. Framework CSDR: <a target="_blank" href="https://github.com/it-architector/framework.csdr">framework.csdr</a>.
 
 p.s.4. Есть подобный проект 2012 года <a target="_blank" href="http://ru.coresky.net">core sky</a>.
-
-p.s.5. Видео-дискуссия <a target="_blank" href="https://www.youtube.com/watch?v=AshxbePAbCM">о текущем построении кода на Java</a>.
