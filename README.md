@@ -138,8 +138,4 @@
 
 p.s.1. Исходный код сайта https://framework-life-balance.ru подгружается с репозитория <a target="_blank" href="https://github.com/it-architector/framework.life-balance">framework.life-balance</a>.
 
-p.s.2. Среда Life Balance возродила структуру CSDR: <a target="_blank" href="https://github.com/it-architector/structure.csdr">structure.csdr</a>.
-
-p.s.3. Framework CSDR: <a target="_blank" href="https://github.com/it-architector/framework.csdr">framework.csdr</a>.
-
-p.s.4. Есть подобный проект 2012 года <a target="_blank" href="http://ru.coresky.net">core sky</a>.
+p.s.2. Данный framework (как и другие) всё так же беструктурен, но дал шанс родиться структуре <a target="_blank" href="https://github.com/it-architector/structure.csdr">csdr</a>.
