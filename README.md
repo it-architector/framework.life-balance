@@ -138,4 +138,4 @@
 
 p.s.1. Исходный код сайта https://framework-life-balance.ru подгружается с репозитория <a target="_blank" href="https://github.com/it-architector/framework.life-balance">framework.life-balance</a>.
 
-p.s.2. Данный framework так же не сопровождает программирование, но дал шанс родиться <a target="_blank" href="https://github.com/it-architector/it-architector">конструктивному программированию csdr</a>.
+p.s.2. Данный framework так же не сопровождает программирование, но дал шанс родиться <a target="_blank" href="https://github.com/it-architector/planning.csdr">проектированию csdr</a>.
