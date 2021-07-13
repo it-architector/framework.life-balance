@@ -1,4 +1,4 @@
-# Платформа честь семьи
+# Сайт с отдельным интерфейсом и ядром на php и js
 
 ![ядро: v1.2.4](https://img.shields.io/badge/Ядро-v1.2.4-blue.svg) ![интерфейс: v1.1.4](https://img.shields.io/badge/Интерфейс-v1.1.4-blue.svg)
 
